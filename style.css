@@ -248,3 +248,31 @@ flex-direction:column;
 }
 
 }
+.user-box{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+}
+
+.user-photo{
+
+width:36px;
+height:36px;
+
+border-radius:50%;
+
+}
+
+.logout-btn{
+
+background:#ff4444;
+color:white;
+
+padding:8px 16px;
+border-radius:20px;
+
+cursor:pointer;
+
+}
