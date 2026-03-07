@@ -1,0 +1,151 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  line-height: 1.5;
+  direction: rtl;
+}
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(10,10,10,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #111;
+  z-index: 100;
+  padding: 20px 0;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.nav-links a {
+  color: #aaa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #fff; }
+
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-top: 140px;
+}
+
+.hero h1 {
+  font-size: 4.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.05;
+}
+
+.subtitle {
+  font-size: 1.6rem;
+  color: #aaa;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.primary {
+  background: #0066ff;
+  color: #fff;
+}
+
+.primary:hover { background: #0055cc; }
+
+.secondary {
+  background: transparent;
+  color: #ccc;
+  border: 1px solid #333;
+}
+
+.secondary:hover { background: #111; color: #fff; }
+
+.section { padding: 140px 0; }
+
+h2 {
+  font-size: 3.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+
+.card {
+  background: #111;
+  padding: 40px 32px;
+  border-radius: 12px;
+  border: 1px solid #1a1a1a;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.card:hover {
+  border-color: #333;
+  transform: translateY(-4px);
+}
+
+.card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+
+.brands {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  text-align: center;
+}
+
+.brand-item {
+  font-size: 1.3rem;
+  color: #aaa;
+}
+
+.contact { text-align: center; }
+
+.large { padding: 18px 48px; font-size: 1.3rem; }
+
+.meta { margin-top: 1.5rem; color: #666; font-size: 1rem; }
+
+footer {
+  padding: 60px 0 40px;
+  text-align: center;
+  color: #444;
+  border-top: 1px solid #111;
+}
