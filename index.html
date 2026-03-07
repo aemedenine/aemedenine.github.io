@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Atelier Électronique Médenine – Réparations sécurisées</title>
-  <meta name="description" content="Réparation cartes électroniques, codes radio, appareils – confidentialité garantie"/>
+  <title>Atelier Électronique Médenine – Réparations privées</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700&display=swap" rel="stylesheet">
@@ -12,13 +11,15 @@
 </head>
 <body>
 
-  <!-- Navbar exact comme WhatsApp -->
+  <!-- Navbar exact comme WhatsApp FR Privacy page -->
   <nav class="navbar">
     <div class="container">
       <a href="/" class="logo">Atelier Électronique Médenine</a>
-      
+
       <div class="nav-links">
-        <a href="#">Fonctionnalités</a>
+        <div class="dropdown">
+          <a href="#">Fonctionnalités <span class="arrow">▼</span></a>
+        </div>
         <a href="#">Confidentialité</a>
         <a href="#">Pages d'aide</a>
         <a href="#">Blog</a>
@@ -26,42 +27,40 @@
         <a href="#">Application</a>
       </div>
 
-      <div class="nav-buttons">
+      <div class="nav-actions">
         <a href="#" class="btn login">Se connecter →</a>
-        <a href="https://wa.me/21698192103" class="btn download">WhatsApp ↓</a>
+        <a href="https://wa.me/21698192103" class="btn download">Télécharger ↓</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero section – نفس الposition والtaille والcouleur -->
+  <!-- Hero exact match: gros titre vert/blanc + subtitle + mockup image à droite -->
   <section class="hero">
-    <div class="container hero-container">
-      <div class="hero-text">
+    <div class="container">
+      <div class="hero-content">
         <h1>Réparations</h1>
-        <h1 class="highlight">sécurisées</h1>
+        <h1 class="green-highlight">privées</h1>
+
         <p class="subtitle">
-          La protection de votre confidentialité est notre priorité. Grâce à nos protocoles de réparation sécurisés, vos cartes électroniques, codes radio, photos d’appareils, numéros de série et toutes informations sensibles restent strictement entre vous et nous. Même l’atelier ne conserve rien sans votre accord explicite.
+          La protection de votre confidentialité est notre priorité. Grâce à nos protocoles stricts de réparation et de confidentialité, vos cartes électroniques, codes radio, photos d’appareils, numéros de série et toutes informations sensibles restent strictement entre vous et nous. Même l’atelier ne conserve rien sans votre accord explicite.
         </p>
       </div>
 
-      <div class="hero-image">
-        <!-- غير هالصورة بصورة حقيقية عندك (جهاز مصلح، كارت إلكترونية، screenshot chat...) -->
-        <div class="phone-mockup">
-          <img src="https://via.placeholder.com/420x780/111111/25D366?text=Réparation+Privée" alt="Réparation sécurisée" />
-          <div class="overlay-text">sécurisé</div>
+      <div class="hero-mockup">
+        <!-- غير الصورة هذي بصورة حقيقية عندك (جهاز، كارت، screenshot chat) -->
+        <div class="mockup-frame">
+          <img src="https://via.placeholder.com/420x780/0a0a0a/25D366?text=Chat+Réparation+Privée" alt="Réparation privée" />
+          <div class="overlay-green">privées</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA bas -->
-  <section class="cta-section">
-    <div class="container">
-      <a href="https://wa.me/21698192103?text=Salut,%20j'ai%20une%20carte%20électronique%20ou%20radio%20à%20réparer..." 
-         class="btn big-cta">
-        Contactez-nous sur WhatsApp ↓
-      </a>
-    </div>
+  <!-- CTA simple en bas -->
+  <section class="cta">
+    <a href="https://wa.me/21698192103?text=Salut,%20j'ai%20une%20carte%20ou%20radio%20à%20réparer..." class="btn main-cta">
+      Contactez-nous sur WhatsApp ↓
+    </a>
   </section>
 
   <footer>
