@@ -1,32 +1,32 @@
 :root {
   --bg: #000000;
-  --text: #e0e0e0;
-  --text-light: #aaaaaa;
+  --text: #ffffff;
+  --text-light: #d1d5db;
   --green: #25D366;
   --green-dark: #128C7E;
-  --border: #222222;
-  --radius: 999px; /* rond pour buttons */
+  --green-darker: #075E54;
+  --border: #1e293b;
+  --radius-round: 9999px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-light);
   line-height: 1.6;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  background: rgba(0,0,0,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  background: var(--green-darker);
   z-index: 1000;
   padding: 16px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .navbar .container {
@@ -35,129 +35,141 @@ body {
   align-items: center;
 }
 
-.logo { font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; }
+.logo { color: white; font-size: 1.6rem; font-weight: bold; text-decoration: none; }
 
-.nav-menu ul {
+.nav-links {
   display: flex;
-  list-style: none;
   gap: 32px;
 }
 
-.nav-menu a {
-  color: var(--text-light);
+.nav-links a {
+  color: white;
   text-decoration: none;
   font-weight: 500;
 }
 
-.nav-menu a:hover { color: white; }
-
-.nav-actions { display: flex; gap: 16px; }
+.nav-buttons { display: flex; gap: 16px; }
 
 .btn {
   padding: 10px 24px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-round);
   font-weight: 600;
   text-decoration: none;
   transition: 0.2s;
 }
 
-.login { background: transparent; border: 1px solid var(--green); color: var(--green); }
-.login:hover { background: var(--green); color: black; }
+.login { background: transparent; border: 1px solid white; color: white; }
+.login:hover { background: white; color: black; }
 
 .download { background: var(--green); color: black; }
-.download:hover { background: var(--green-dark); }
+.download:hover { background: #20b358; }
 
 .hero {
   min-height: 80vh;
   display: flex;
   align-items: center;
   text-align: center;
-  padding: 140px 0 80px;
+  padding: 160px 0 100px;
 }
 
-.hero h1 { font-size: 4.5rem; font-weight: 700; margin-bottom: 1rem; }
+.hero h1 {
+  font-size: 4.2rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-.subtitle { font-size: 1.6rem; color: var(--text-light); max-width: 800px; margin: 0 auto 2rem; }
+.subtitle {
+  font-size: 1.6rem;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
 
 .hero-features {
   display: flex;
   justify-content: center;
-  gap: 32px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
 .feature {
-  background: #111;
-  padding: 12px 24px;
-  border-radius: 999px;
-  font-size: 1.1rem;
+  background: rgba(37, 211, 102, 0.1);
   color: var(--green);
+  padding: 12px 28px;
+  border-radius: var(--radius-round);
+  font-weight: 500;
 }
 
-.privacy-blocks { padding: 80px 0; }
+.blocks-section { padding: 80px 0; }
 
-.block-grid {
+.blocks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 32px;
 }
 
 .block {
   background: #0f0f0f;
-  padding: 40px;
+  padding: 48px 32px;
   border-radius: 16px;
-  border: 1px solid var(--border);
   text-align: center;
+  border: 1px solid var(--border);
 }
 
-.block h3 { font-size: 1.8rem; margin-bottom: 1rem; color: white; }
+.block h3 { font-size: 1.8rem; color: white; margin-bottom: 1rem; }
 
-.help-section { padding: 80px 0; background: #050505; text-align: center; }
+.help { padding: 100px 0; text-align: center; background: #050505; }
 
-.help-section h2 { font-size: 3rem; margin-bottom: 3rem; }
+.help h2 { font-size: 3.5rem; color: white; margin-bottom: 4rem; }
 
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 24px;
 }
 
-.faq-item {
+.faq-card {
   background: #111;
-  padding: 24px;
+  padding: 28px;
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  color: white;
 }
 
-.see-all { color: var(--green); font-weight: 600; margin-top: 2rem; display: inline-block; }
+.faq-card span { color: var(--green); font-size: 1.5rem; }
 
-.contact { padding: 100px 0; text-align: center; }
+.see-all { color: var(--green); font-weight: bold; font-size: 1.3rem; margin-top: 3rem; display: inline-block; }
 
-.contact h2 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+.contact { padding: 120px 0; text-align: center; }
+
+.contact h2 { font-size: 4rem; color: white; margin-bottom: 2rem; }
 
 .contact-btn {
   background: var(--green);
   color: black;
-  padding: 18px 48px;
-  font-size: 1.4rem;
-  border-radius: var(--radius);
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  border-radius: var(--radius-round);
 }
 
-.meta { margin-top: 1.5rem; color: var(--text-light); }
+.meta { margin-top: 2rem; color: var(--text-light); }
 
-footer { padding: 80px 0 40px; background: #000; border-top: 1px solid #111; }
+footer { padding: 100px 0 60px; background: #000; border-top: 1px solid #111; }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 40px;
-  margin-bottom: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 48px;
+  margin-bottom: 80px;
 }
 
-.footer-grid h4 { font-size: 1.2rem; margin-bottom: 1rem; color: white; }
+.footer-grid h4 { color: white; margin-bottom: 1.2rem; font-size: 1.2rem; }
 
 .footer-grid ul { list-style: none; }
 
@@ -169,8 +181,8 @@ footer { padding: 80px 0 40px; background: #000; border-top: 1px solid #111; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #111;
   padding-top: 40px;
+  border-top: 1px solid #111;
 }
 
-.download-footer { background: var(--green); color: black; border-radius: var(--radius); }
+.download-footer { background: var(--green); color: black; border-radius: var(--radius-round); padding: 12px 32px; }
