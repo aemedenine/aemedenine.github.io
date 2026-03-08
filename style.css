@@ -292,28 +292,26 @@ transition:0.3s;
 transform:scale(1.05);
 }
 /* =====================================================================
-   SECTION FAQ - style identique à "Entreprise solutions"
+   SECTION FAQ - identique à "Entreprise solutions" mais titre plus léger
    ===================================================================== */
 
-/* On réutilise la classe .hero déjà existante pour cohérence */
 #faq {
   min-height: 100vh;
-  padding: 120px 30px 80px;
+  padding: 120px 30px 100px;
   background: #0b141a;
 }
 
-/* Container principal (comme toutes les autres sections) */
 #faq .hero-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 80px;
+  gap: 70px;
   flex-wrap: wrap;
 }
 
-/* Image à gauche (comme dans #entreprise) */
+/* Image à gauche */
 #faq .hero-image {
-  max-width: 420px;
+  max-width: 400px;                /* un peu plus petite que les 420px d'origine */
 }
 
 #faq .phone {
@@ -333,7 +331,7 @@ transform:scale(1.05);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 42px;
+  font-size: 38px;                 /* un peu plus petit que 42px */
   color: #25D366;
   font-weight: bold;
   opacity: 0.8;
@@ -341,44 +339,46 @@ transform:scale(1.05);
 
 /* Texte + FAQ à droite */
 #faq .hero-text {
-  max-width: 580px;
+  max-width: 560px;
 }
 
 #faq .hero-text h1 {
-  font-size: 6rem;
+  font-size: 5.2rem;               /* ← réduit comme demandé (au lieu de 6rem) */
   line-height: 1;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 8px 0;
 }
 
 #faq .hero-text h1.green {
   color: #25D366;
+  margin-top: -12px;               /* rapproche les deux lignes pour plus d'impact */
 }
 
-/* Liste FAQ intégrée dans hero-text */
+/* Liste FAQ */
 #faq .faq-list {
-  margin-top: 50px;
+  margin-top: 45px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 #faq .faq-item {
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(37, 211, 102, 0.25);
+  border: 1px solid rgba(37, 211, 102, 0.28);
   border-radius: 16px;
-  padding: 24px 28px;
+  padding: 22px 26px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
 }
 
 #faq .faq-item:hover {
   border-color: #25D366;
-  background: rgba(37, 211, 102, 0.08);
+  background: rgba(37, 211, 102, 0.09);
+  transform: translateY(-2px);
 }
 
 #faq .faq-question {
-  font-size: 20px;
+  font-size: 19px;                 /* légèrement plus petit pour équilibrer avec titre réduit */
   font-weight: 600;
   color: white;
   display: flex;
@@ -387,20 +387,20 @@ transform:scale(1.05);
 }
 
 #faq .faq-icon {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: bold;
-  transition: transform 0.35s ease;
   color: #25D366;
+  transition: all 0.4s ease;
 }
 
 #faq .faq-item.active .faq-icon {
-  transform: rotate(135deg);   /* + → ×   (plus moderne que la flèche) */
-  color: black;
+  transform: rotate(135deg);       /* + → × */
+  color: #0f172a;
 }
 
 #faq .faq-answer {
-  margin-top: 16px;
-  font-size: 16px;
+  margin-top: 14px;
+  font-size: 15.5px;
   line-height: 1.6;
   color: #e2e8f0;
   display: none;
@@ -409,68 +409,75 @@ transform:scale(1.05);
 #faq .faq-item.active {
   background: #25D366;
   border-color: #25D366;
+  box-shadow: 0 15px 35px rgba(37, 211, 102, 0.3);
 }
 
 #faq .faq-item.active .faq-question,
 #faq .faq-item.active .faq-answer {
-  color: black;
+  color: #0f172a;                 /* noir foncé très lisible sur vert */
 }
 
 #faq .faq-item.active .faq-answer {
   display: block;
 }
 
-/* Responsive ──────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────── Responsive */
+
+@media (max-width: 1024px) {
+  #faq .hero-text h1 {
+    font-size: 4.5rem;
+  }
+  #faq .hero-container {
+    gap: 50px;
+  }
+}
+
 @media (max-width: 900px) {
   #faq .hero-container {
     flex-direction: column;
     text-align: center;
     gap: 60px;
   }
-
   #faq .hero-text {
     max-width: 100%;
   }
-
-  #faq .hero-text h1 {
-    font-size: 4.2rem;
-  }
-
   #faq .hero-image {
-    max-width: 380px;
+    max-width: 360px;
     margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
   #faq {
-    padding: 100px 20px 60px;
+    padding: 100px 20px 80px;
   }
-
   #faq .hero-text h1 {
-    font-size: 3.2rem;
+    font-size: 3.4rem;             /* réduit pour mobile */
   }
-
+  #faq .hero-text h1.green {
+    font-size: 3.6rem;
+  }
   #faq .faq-question {
-    font-size: 18px;
+    font-size: 17.5px;
   }
-
   #faq .faq-answer {
-    font-size: 15px;
+    font-size: 14.5px;
   }
-
   #faq .faq-item {
-    padding: 20px 24px;
+    padding: 18px 22px;
   }
 }
 
 @media (max-width: 480px) {
   #faq .hero-text h1 {
-    font-size: 2.6rem;
+    font-size: 2.8rem;
   }
-
   #faq .overlay {
-    font-size: 32px;
+    font-size: 28px;
+  }
+  #faq .faq-list {
+    margin-top: 35px;
+    gap: 16px;
   }
 }
 /* ================= MOBILE FIX ================= */
