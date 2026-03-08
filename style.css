@@ -291,6 +291,61 @@ transition:0.3s;
 .cta:hover{
 transform:scale(1.05);
 }
+/* FAQ SECTION */
+
+.faq-section{
+padding:120px 30px;
+background:#0b141a;
+}
+
+.faq-title{
+text-align:right;
+margin-bottom:60px;
+}
+
+.faq-title h1{
+font-size:48px;
+font-weight:600;
+}
+
+.faq-list{
+max-width:900px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.faq-item{
+background:#111b21;
+border-radius:15px;
+padding:25px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.faq-question{
+font-size:20px;
+font-weight:600;
+}
+
+.faq-answer{
+margin-top:15px;
+color:#aebac1;
+display:none;
+}
+
+/* active like WhatsApp */
+
+.faq-item.active{
+background:#25D366;
+color:black;
+}
+
+.faq-item.active .faq-answer{
+display:block;
+color:black;
+}
 /* ================= MOBILE FIX ================= */
 
 @media (max-width:768px){
