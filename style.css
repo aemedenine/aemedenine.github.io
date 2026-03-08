@@ -291,21 +291,22 @@ transition:0.3s;
 .cta:hover{
 transform:scale(1.05);
 }
+/* FAQ Section */
 .faq-section{
   padding:120px 30px;
   background:#0b141a;
   font-family:Segoe UI, Arial, sans-serif;
 }
 
-.faq-title.right{
-  text-align:right; /* Title sur la droite */
+.faq-title.left{
+  text-align:left; /* titre à gauche */
   margin-bottom:60px;
 }
 
-.faq-title.right h1{
-  font-size:48px; /* grand comme Entreprise / Solutions */
+.faq-title.left h1{
+  font-size:48px; /* grand comme Section Entreprise / Solutions */
   font-weight:700;
-  color:#25D366; /* vert بارز كيما Solutions */
+  color:#25D366; /* vert بارز */
   line-height:1.2;
 }
 
@@ -367,7 +368,7 @@ transform:scale(1.05);
 
 /* Mobile */
 @media(max-width:768px){
-  .faq-title.right h1{
+  .faq-title.left h1{
     font-size:36px;
     text-align:center;
   }
