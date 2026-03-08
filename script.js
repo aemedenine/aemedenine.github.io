@@ -129,3 +129,32 @@ item.classList.toggle("active");
 });
 
 });
+// Carousel pour photos/vidéos
+const track = document.getElementById('carouselTrack');
+const cards = document.querySelectorAll('.gallery-card');
+const prevBtn = document.querySelector('.carousel-btn.prev');
+const nextBtn = document.querySelector('.carousel-btn.next');
+
+let currentIndex = 0;
+
+function updateCarousel() {
+  const cardWidth = cards[0].offsetWidth + 30; // + gap
+  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+}
+
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < cards.length - 2) { // -2 car 2 visibles
+    currentIndex++;
+    updateCarousel();
+  }
+});
+
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateCarousel();
+  }
+});
+
+// Recalculer au resize
+window.addEventListener('resize', updateCarousel);
