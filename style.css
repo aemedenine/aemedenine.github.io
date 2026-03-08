@@ -299,12 +299,12 @@ transform:scale(1.05);
 }
 
 .faq-title.right{
-  text-align:right;
+  text-align:right; /* Title à droite */
   margin-bottom:60px;
 }
 
-.faq-title.right h1{
-  font-size:42px; /* نفس Section Entreprise */
+.faq-title.right h2{
+  font-size:42px; /* نفس حجم Section Entreprise */
   font-weight:700;
   color:white;
   line-height:1.2;
@@ -319,8 +319,8 @@ transform:scale(1.05);
 }
 
 .faq-item{
-  background:transparent; /* نفس لون الصفحة */
-  border:2px solid #25D36644; /* أخضر خفيف */
+  background:transparent; /* لون الصفحة */
+  border:2px solid #25D36633; /* أخضر خفيف */
   border-radius:15px;
   padding:25px 30px;
   cursor:pointer;
@@ -334,7 +334,7 @@ transform:scale(1.05);
   display:flex;
   justify-content:space-between;
   align-items:center;
-  color:white;
+  color:white; /* texte blanc comme Entreprise */
 }
 
 .faq-icon{
@@ -354,7 +354,7 @@ transform:scale(1.05);
 /* Active */
 .faq-item.active{
   background:#25D366;  /* rectangle vert complet */
-  border-color:#25D366; /* border vert */
+  border-color:#25D366; /* border vert aussi */
 }
 
 .faq-item.active .faq-answer{
@@ -369,7 +369,7 @@ transform:scale(1.05);
 
 /* Mobile */
 @media(max-width:768px){
-  .faq-title.right h1{
+  .faq-title.right h2{
     font-size:36px;
     text-align:center;
   }
