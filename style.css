@@ -291,60 +291,89 @@ transition:0.3s;
 .cta:hover{
 transform:scale(1.05);
 }
-/* FAQ SECTION */
-
+/* FAQ Section */
 .faq-section{
-padding:120px 30px;
-background:#0b141a;
+  padding:120px 30px;
+  background:#0b141a;
 }
 
 .faq-title{
-text-align:right;
-margin-bottom:60px;
+  text-align:right;
+  margin-bottom:60px;
+  max-width:900px;
 }
 
-.faq-title h1{
-font-size:48px;
-font-weight:600;
+.faq-title h2{
+  font-size:52px;
+  font-weight:700;
+  color:white;
+  line-height:1.2;
 }
 
 .faq-list{
-max-width:900px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:20px;
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
 
 .faq-item{
-background:#111b21;
-border-radius:15px;
-padding:25px;
-cursor:pointer;
-transition:0.3s;
+  background:#111b21;
+  border-radius:15px;
+  padding:25px;
+  cursor:pointer;
+  transition:0.3s;
+  position:relative;
 }
 
 .faq-question{
-font-size:20px;
-font-weight:600;
+  font-size:20px;
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:white;
+}
+
+.faq-icon{
+  font-size:24px;
+  font-weight:bold;
+  transition:0.3s;
 }
 
 .faq-answer{
-margin-top:15px;
-color:#aebac1;
-display:none;
+  margin-top:15px;
+  color:#aebac1;
+  display:none;
+  font-size:16px;
+  line-height:1.5;
 }
 
-/* active like WhatsApp */
-
+/* Active */
 .faq-item.active{
-background:#25D366;
-color:black;
+  background:#25D366;
 }
 
 .faq-item.active .faq-answer{
-display:block;
-color:black;
+  display:block;
+  color:black;
+}
+
+.faq-item.active .faq-icon{
+  transform: rotate(45deg);
+  color:black;
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .faq-title h2{
+    font-size:36px;
+    text-align:center;
+  }
+  .faq-question{
+    font-size:18px;
+  }
 }
 /* ================= MOBILE FIX ================= */
 
