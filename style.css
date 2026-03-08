@@ -302,12 +302,11 @@ transform:scale(1.05);
   text-align:left; /* titre à gauche */
   margin-bottom:60px;
 }
-
 .faq-title.left h1{
-  font-size:48px; /* grand comme Section Entreprise / Solutions */
+  font-size:80px; /* كبير جدًا */
   font-weight:700;
-  color:#25D366; /* vert بارز */
-  line-height:1.2;
+  color:#25D366; /* أخضر بارز مثل Section Entreprise / Solutions */
+  line-height:1.1;
 }
 
 .faq-list{
