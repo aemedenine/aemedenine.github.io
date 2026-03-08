@@ -298,16 +298,15 @@ transform:scale(1.05);
   font-family:Segoe UI, Arial, sans-serif;
 }
 
-/* Titre à droite comme Entreprise / Solutions */
 .faq-title.right{
-  text-align:right; /* titre à droite */
+  text-align:right;
   margin-bottom:60px;
 }
 
 .faq-title.right h1{
   font-size:60px; /* كبير مثل Section Entreprise / Solutions */
   font-weight:700;
-  color:#25D366; /* أخضر بارز */
+  color:#25D366;
   line-height:1.1;
 }
 
@@ -320,8 +319,8 @@ transform:scale(1.05);
 }
 
 .faq-item{
-  background:#0b141a; /* نفس لون الصفحة */
-  border:2px solid #25D36633; /* أخضر خفيف */
+  background:#0b141a;
+  border:2px solid #25D36633;
   border-radius:15px;
   padding:30px;
   cursor:pointer;
@@ -353,8 +352,8 @@ transform:scale(1.05);
 }
 
 .faq-item.active{
-  background:#25D366;  /* rectangle vert complet */
-  border-color:#25D366; 
+  background:#25D366; /* rectangle vert complet */
+  border-color:#25D366;
 }
 
 .faq-item.active .faq-answer{
