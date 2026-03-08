@@ -291,88 +291,186 @@ transition:0.3s;
 .cta:hover{
 transform:scale(1.05);
 }
-/* FAQ Section */
-.faq-section{
-  padding:120px 30px;
-  background:#0b141a;
-  font-family:Segoe UI, Arial, sans-serif;
+/* =====================================================================
+   SECTION FAQ - style identique à "Entreprise solutions"
+   ===================================================================== */
+
+/* On réutilise la classe .hero déjà existante pour cohérence */
+#faq {
+  min-height: 100vh;
+  padding: 120px 30px 80px;
+  background: #0b141a;
 }
 
-#faq-title {
-  text-align:right;
-  margin-bottom:60px;
+/* Container principal (comme toutes les autres sections) */
+#faq .hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  flex-wrap: wrap;
 }
 
-#faq-title h1{
-  font-size:60px; /* نفس حجم Section Entreprise / Solutions */
-  font-weight:700;
-  color:#25D366;
-  line-height:1.1;
-}
-.faq-list{
-  max-width:900px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:25px;
+/* Image à gauche (comme dans #entreprise) */
+#faq .hero-image {
+  max-width: 420px;
 }
 
-.faq-item{
-  background:#0b141a;
-  border:2px solid #25D36633;
-  border-radius:15px;
-  padding:30px;
-  cursor:pointer;
-  transition:0.3s;
-  position:relative;
+#faq .phone {
+  position: relative;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
 }
 
-.faq-question{
-  font-size:20px;
-  font-weight:600;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  color:white;
+#faq .phone img {
+  width: 100%;
+  display: block;
 }
 
-.faq-icon{
-  font-size:24px;
-  font-weight:bold;
-  transition:0.3s;
+#faq .overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  color: #25D366;
+  font-weight: bold;
+  opacity: 0.8;
 }
 
-.faq-answer{
-  margin-top:20px;
-  color:white;
-  display:none;
-  font-size:16px;
-  line-height:1.5;
+/* Texte + FAQ à droite */
+#faq .hero-text {
+  max-width: 580px;
 }
 
-.faq-item.active{
-  background:#25D366; /* rectangle vert complet */
-  border-color:#25D366;
+#faq .hero-text h1 {
+  font-size: 6rem;
+  line-height: 1;
+  font-weight: 600;
+  margin: 0;
 }
 
-.faq-item.active .faq-answer{
-  display:block;
-  color:black;
+#faq .hero-text h1.green {
+  color: #25D366;
 }
 
-.faq-item.active .faq-icon{
-  transform: rotate(180deg); /* + devient ▼ */
-  color:black;
+/* Liste FAQ intégrée dans hero-text */
+#faq .faq-list {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Mobile */
-@media(max-width:768px){
-  .faq-title.right h1{
-    font-size:36px;
-    text-align:center;
+#faq .faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  border-radius: 16px;
+  padding: 24px 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#faq .faq-item:hover {
+  border-color: #25D366;
+  background: rgba(37, 211, 102, 0.08);
+}
+
+#faq .faq-question {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#faq .faq-icon {
+  font-size: 28px;
+  font-weight: bold;
+  transition: transform 0.35s ease;
+  color: #25D366;
+}
+
+#faq .faq-item.active .faq-icon {
+  transform: rotate(135deg);   /* + → ×   (plus moderne que la flèche) */
+  color: black;
+}
+
+#faq .faq-answer {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  display: none;
+}
+
+#faq .faq-item.active {
+  background: #25D366;
+  border-color: #25D366;
+}
+
+#faq .faq-item.active .faq-question,
+#faq .faq-item.active .faq-answer {
+  color: black;
+}
+
+#faq .faq-item.active .faq-answer {
+  display: block;
+}
+
+/* Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  #faq .hero-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 60px;
   }
-  .faq-question{
-    font-size:18px;
+
+  #faq .hero-text {
+    max-width: 100%;
+  }
+
+  #faq .hero-text h1 {
+    font-size: 4.2rem;
+  }
+
+  #faq .hero-image {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  #faq {
+    padding: 100px 20px 60px;
+  }
+
+  #faq .hero-text h1 {
+    font-size: 3.2rem;
+  }
+
+  #faq .faq-question {
+    font-size: 18px;
+  }
+
+  #faq .faq-answer {
+    font-size: 15px;
+  }
+
+  #faq .faq-item {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  #faq .hero-text h1 {
+    font-size: 2.6rem;
+  }
+
+  #faq .overlay {
+    font-size: 32px;
   }
 }
 /* ================= MOBILE FIX ================= */
