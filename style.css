@@ -316,7 +316,7 @@ transform:scale(1.05);
 }
 
 .faq-title h1 {
-  font-size: 4.8rem;             /* réduit comme tu veux (était 5.8rem) */
+  font-size: 4rem;             /* réduit comme tu veux (était 5.8rem) */
   line-height: 1.05;
   font-weight: 500;
   margin: 0 0 10px 0;
