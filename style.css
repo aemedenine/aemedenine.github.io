@@ -276,3 +276,83 @@ border-radius:20px;
 cursor:pointer;
 
 }
+/* ================= MOBILE FIX ================= */
+
+@media (max-width:768px){
+
+/* navbar */
+.nav-wrapper{
+flex-direction:column;
+gap:15px;
+height:auto;
+padding:15px 0;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.nav-buttons{
+justify-content:center;
+flex-wrap:wrap;
+}
+
+/* hero */
+.hero{
+padding-top:160px;
+}
+
+.hero-container{
+flex-direction:column;
+text-align:center;
+gap:40px;
+}
+
+/* title */
+.hero-text h1{
+font-size:2.8rem;
+}
+
+/* paragraph */
+.hero-text p{
+font-size:16px;
+}
+
+/* button */
+.cta{
+padding:14px 30px;
+font-size:15px;
+}
+
+/* image */
+.hero-image{
+max-width:300px;
+margin:auto;
+}
+
+/* sections */
+section{
+padding:80px 30px !important;
+height:auto !important;
+}
+
+h2{
+font-size:28px;
+}
+
+}
+
+/* very small phones */
+@media (max-width:400px){
+
+.hero-text h1{
+font-size:2.2rem;
+}
+
+.logo{
+font-size:18px;
+}
+
+}
