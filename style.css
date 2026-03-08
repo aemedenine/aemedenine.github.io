@@ -298,14 +298,16 @@ transform:scale(1.05);
   font-family:Segoe UI, Arial, sans-serif;
 }
 
-.faq-title.left{
-  text-align:left; /* titre à gauche */
+/* Titre à droite comme Entreprise / Solutions */
+.faq-title.right{
+  text-align:right; /* titre à droite */
   margin-bottom:60px;
 }
-.faq-title.left h1{
-  font-size:80px; /* كبير جدًا */
+
+.faq-title.right h1{
+  font-size:60px; /* كبير مثل Section Entreprise / Solutions */
   font-weight:700;
-  color:#25D366; /* أخضر بارز مثل Section Entreprise / Solutions */
+  color:#25D366; /* أخضر بارز */
   line-height:1.1;
 }
 
@@ -367,7 +369,7 @@ transform:scale(1.05);
 
 /* Mobile */
 @media(max-width:768px){
-  .faq-title.left h1{
+  .faq-title.right h1{
     font-size:36px;
     text-align:center;
   }
