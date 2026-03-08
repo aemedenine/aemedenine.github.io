@@ -295,7 +295,7 @@ transform:scale(1.05);
 .faq-section{
   padding:120px 30px;
   background:#0b141a;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:Segoe UI, Arial, sans-serif;
 }
 
 .faq-title.right{
@@ -304,7 +304,7 @@ transform:scale(1.05);
 }
 
 .faq-title.right h1{
-  font-size:42px; /* نفس حجم Section Entreprise */
+  font-size:42px; /* نفس Section Entreprise */
   font-weight:700;
   color:white;
   line-height:1.2;
@@ -315,14 +315,14 @@ transform:scale(1.05);
   margin:auto;
   display:flex;
   flex-direction:column;
-  gap:25px;
+  gap:20px;
 }
 
 .faq-item{
-  background:#ffffff; /* rectangle blanc */
-  border:2px solid #25D36633; /* أخضر خفيف */
+  background:transparent; /* نفس لون الصفحة */
+  border:2px solid #25D36644; /* أخضر خفيف */
   border-radius:15px;
-  padding:30px;
+  padding:25px 30px;
   cursor:pointer;
   transition:0.3s;
   position:relative;
@@ -334,7 +334,7 @@ transform:scale(1.05);
   display:flex;
   justify-content:space-between;
   align-items:center;
-  color:#111b21; /* texte foncé */
+  color:white;
 }
 
 .faq-icon{
@@ -344,8 +344,8 @@ transform:scale(1.05);
 }
 
 .faq-answer{
-  margin-top:20px;
-  color:#111b21;
+  margin-top:15px;
+  color:white;
   display:none;
   font-size:16px;
   line-height:1.5;
@@ -354,8 +354,7 @@ transform:scale(1.05);
 /* Active */
 .faq-item.active{
   background:#25D366;  /* rectangle vert complet */
-  border-color:#25D366; /* border vert aussi */
-  color:black;
+  border-color:#25D366; /* border vert */
 }
 
 .faq-item.active .faq-answer{
@@ -364,7 +363,7 @@ transform:scale(1.05);
 }
 
 .faq-item.active .faq-icon{
-  transform: rotate(180deg); /* + devient flèche ▼ */
+  transform: rotate(180deg); /* + devient ▼ */
   color:black;
 }
 
