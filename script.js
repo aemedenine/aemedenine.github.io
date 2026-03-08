@@ -132,9 +132,14 @@ behavior:"smooth"
 });
 
 });
-// FAQ toggle
+// FAQ toggle interactive
 document.querySelectorAll(".faq-item").forEach(item => {
   item.addEventListener("click", () => {
+    // Fermer les autres si tu veux toggle exclusif
+    document.querySelectorAll(".faq-item").forEach(i => {
+      if(i !== item) i.classList.remove("active");
+    });
+    // Toggle l'item cliqué
     item.classList.toggle("active");
   });
 });
