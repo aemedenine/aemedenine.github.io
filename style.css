@@ -298,18 +298,17 @@ transform:scale(1.05);
   font-family:Segoe UI, Arial, sans-serif;
 }
 
-.faq-title.right{
+#faq-title {
   text-align:right;
   margin-bottom:60px;
 }
 
-.faq-title.right h1{
-  font-size:60px; /* كبير مثل Section Entreprise / Solutions */
+#faq-title h1{
+  font-size:60px; /* نفس حجم Section Entreprise / Solutions */
   font-weight:700;
   color:#25D366;
   line-height:1.1;
 }
-
 .faq-list{
   max-width:900px;
   margin:auto;
