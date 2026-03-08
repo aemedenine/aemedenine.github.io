@@ -1,4 +1,6 @@
+// =======================
 // Firebase config
+// =======================
 const firebaseConfig = {
 apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
 authDomain: "atelier-electronique-mednine.firebaseapp.com",
@@ -9,42 +11,43 @@ appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
 databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
-// Init
+// Init Firebase
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
-
-// session persist
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-// Google provider
 const provider = new firebase.auth.GoogleAuthProvider();
 
 
-// login
-document.getElementById("googleLogin").addEventListener("click", () => {
+// =======================
+// LOGIN
+// =======================
+document.addEventListener("click", function(e){
+
+if(e.target && e.target.id === "googleLogin"){
 
 auth.signInWithPopup(provider)
-
-.then((result)=>{
-
+.then(()=>{
 console.log("login success");
-
 })
-
 .catch((error)=>{
-
 console.log(error);
+});
+
+}
 
 });
 
-});
 
-
-// detect user
+// =======================
+// USER DETECTION
+// =======================
 auth.onAuthStateChanged((user)=>{
 
 const authArea = document.getElementById("authArea");
+
+if(!authArea) return;
 
 if(user){
 
@@ -63,9 +66,7 @@ authArea.innerHTML = `
 `;
 
 document.getElementById("logoutBtn").onclick = () => {
-
 auth.signOut();
-
 };
 
 }else{
@@ -80,18 +81,14 @@ WhatsApp
 
 `;
 
-document.getElementById("googleLogin").onclick = () => {
-
-auth.signInWithPopup(provider);
-
-};
-
 }
 
 });
 
 
-// smooth scroll
+// =======================
+// SMOOTH SCROLL
+// =======================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 anchor.addEventListener("click", function(e){
@@ -99,47 +96,36 @@ anchor.addEventListener("click", function(e){
 const target = document.querySelector(this.getAttribute("href"));
 
 if(target){
-
 e.preventDefault();
-
 target.scrollIntoView({
 behavior:"smooth"
 });
-
 }
 
 });
 
 });
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-anchor.addEventListener("click", function(e){
 
-const target = document.querySelector(this.getAttribute("href"));
+// =======================
+// FAQ TOGGLE
+// =======================
+document.addEventListener("DOMContentLoaded", function () {
 
-if(target){
-
-e.preventDefault();
-
-target.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-}
-
-});
-
-});
-// FAQ toggle interactive
 document.querySelectorAll(".faq-item").forEach(item => {
-  item.addEventListener("click", () => {
-    // Fermer les autres si tu veux toggle exclusif
-    document.querySelectorAll(".faq-item").forEach(i => {
-      if(i !== item) i.classList.remove("active");
-    });
-    // Toggle l'item cliqué
-    item.classList.toggle("active");
-  });
+
+item.addEventListener("click", () => {
+
+document.querySelectorAll(".faq-item").forEach(i=>{
+if(i !== item){
+i.classList.remove("active");
+}
+});
+
+item.classList.toggle("active");
+
+});
+
+});
+
 });
