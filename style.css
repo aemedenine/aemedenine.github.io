@@ -292,93 +292,84 @@ transition:0.3s;
 transform:scale(1.05);
 }
 /* =====================================================================
-   SECTION FAQ - identique à "Entreprise solutions" mais titre plus léger
+   SECTION FAQ - STYLE EXACT COMME WHATSAPP PRIVACY (centré, dark, grand titre)
    ===================================================================== */
 
-#faq {
+.faq-hero {
   min-height: 100vh;
-  padding: 120px 30px 100px;
-  background: #0b141a;
-}
-
-#faq .hero-container {
+  padding: 140px 30px 100px;
+  background: #0b141a;           /* dark comme WhatsApp */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 70px;
-  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
 }
 
-/* Image à gauche */
-#faq .hero-image {
-  max-width: 400px;                /* un peu plus petite que les 420px d'origine */
+.faq-container {
+  max-width: 900px;               /* pas trop large, centré */
 }
 
-#faq .phone {
-  position: relative;
-  border-radius: 40px;
-  overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+.faq-title {
+  margin-bottom: 60px;
 }
 
-#faq .phone img {
-  width: 100%;
-  display: block;
+.faq-title h1 {
+  font-size: 5.8rem;              /* grand comme sur la capture */
+  line-height: 1.05;
+  font-weight: 700;
+  margin: 0;
+  color: white;
 }
 
-#faq .overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 38px;                 /* un peu plus petit que 42px */
+.faq-title h1.green {
+  color: #25D366;                 /* vert WhatsApp exact */
+  margin-top: -20px;              /* rapproche les lignes */
+}
+
+.faq-subtitle {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  color: #aebac1;
+}
+
+.faq-link {
   color: #25D366;
-  font-weight: bold;
-  opacity: 0.8;
-}
-
-/* Texte + FAQ à droite */
-#faq .hero-text {
-  max-width: 560px;
-}
-
-#faq .hero-text h1 {
-  font-size: 5.2rem;               /* ← réduit comme demandé (au lieu de 6rem) */
-  line-height: 1;
+  text-decoration: none;
   font-weight: 600;
-  margin: 0 0 8px 0;
+  border-bottom: 2px solid #25D366;
+  padding-bottom: 4px;
+  transition: all 0.3s;
 }
 
-#faq .hero-text h1.green {
-  color: #25D366;
-  margin-top: -12px;               /* rapproche les deux lignes pour plus d'impact */
+.faq-link:hover {
+  opacity: 0.9;
+  border-bottom-color: transparent;
 }
 
-/* Liste FAQ */
-#faq .faq-list {
-  margin-top: 45px;
+/* FAQ list - cards sombres avec bordure verte légère */
+.faq-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
 }
 
-#faq .faq-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(37, 211, 102, 0.28);
-  border-radius: 16px;
-  padding: 22px 26px;
+.faq-item {
+  background: #11171d;            /* gris foncé WhatsApp-like */
+  border: 1px solid #25D36622;    /* bordure verte très subtile */
+  border-radius: 12px;
+  padding: 24px;
   cursor: pointer;
-  transition: all 0.35s ease;
+  transition: all 0.3s ease;
+  text-align: left;               /* texte à gauche dans cards */
 }
 
-#faq .faq-item:hover {
+.faq-item:hover {
   border-color: #25D366;
-  background: rgba(37, 211, 102, 0.09);
-  transform: translateY(-2px);
+  background: #1a242b;
 }
 
-#faq .faq-question {
-  font-size: 19px;                 /* légèrement plus petit pour équilibrer avec titre réduit */
+.faq-question {
+  font-size: 1.25rem;
   font-weight: 600;
   color: white;
   display: flex;
@@ -386,98 +377,56 @@ transform:scale(1.05);
   align-items: center;
 }
 
-#faq .faq-icon {
-  font-size: 26px;
-  font-weight: bold;
+.faq-icon {
+  font-size: 1.8rem;
   color: #25D366;
-  transition: all 0.4s ease;
+  transition: transform 0.4s;
 }
 
-#faq .faq-item.active .faq-icon {
-  transform: rotate(135deg);       /* + → × */
-  color: #0f172a;
+.faq-item.active .faq-icon {
+  transform: rotate(135deg);      /* + → × moderne */
 }
 
-#faq .faq-answer {
-  margin-top: 14px;
-  font-size: 15.5px;
+.faq-answer {
+  margin-top: 16px;
+  font-size: 1rem;
   line-height: 1.6;
-  color: #e2e8f0;
+  color: #cbd5e1;
   display: none;
 }
 
-#faq .faq-item.active {
+.faq-item.active {
   background: #25D366;
   border-color: #25D366;
-  box-shadow: 0 15px 35px rgba(37, 211, 102, 0.3);
 }
 
-#faq .faq-item.active .faq-question,
-#faq .faq-item.active .faq-answer {
-  color: #0f172a;                 /* noir foncé très lisible sur vert */
+.faq-item.active .faq-question,
+.faq-item.active .faq-answer {
+  color: #0b141a;                 /* noir sur vert */
 }
 
-#faq .faq-item.active .faq-answer {
-  display: block;
-}
-
-/* ──────────────────────────────────────────────── Responsive */
-
-@media (max-width: 1024px) {
-  #faq .hero-text h1 {
-    font-size: 4.5rem;
-  }
-  #faq .hero-container {
-    gap: 50px;
-  }
-}
-
-@media (max-width: 900px) {
-  #faq .hero-container {
-    flex-direction: column;
-    text-align: center;
-    gap: 60px;
-  }
-  #faq .hero-text {
-    max-width: 100%;
-  }
-  #faq .hero-image {
-    max-width: 360px;
-    margin: 0 auto;
-  }
-}
-
+/* Responsive - mobile first comme WhatsApp */
 @media (max-width: 768px) {
-  #faq {
+  .faq-hero {
     padding: 100px 20px 80px;
   }
-  #faq .hero-text h1 {
-    font-size: 3.4rem;             /* réduit pour mobile */
+  .faq-title h1 {
+    font-size: 3.8rem;
   }
-  #faq .hero-text h1.green {
-    font-size: 3.6rem;
+  .faq-title h1.green {
+    font-size: 4rem;
   }
-  #faq .faq-question {
-    font-size: 17.5px;
+  .faq-item {
+    padding: 20px;
   }
-  #faq .faq-answer {
-    font-size: 14.5px;
-  }
-  #faq .faq-item {
-    padding: 18px 22px;
+  .faq-question {
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
-  #faq .hero-text h1 {
-    font-size: 2.8rem;
-  }
-  #faq .overlay {
-    font-size: 28px;
-  }
-  #faq .faq-list {
-    margin-top: 35px;
-    gap: 16px;
+  .faq-title h1 {
+    font-size: 3rem;
   }
 }
 /* ================= MOBILE FIX ================= */
