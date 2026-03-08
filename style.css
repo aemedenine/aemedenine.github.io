@@ -292,43 +292,45 @@ transition:0.3s;
 transform:scale(1.05);
 }
 /* =====================================================================
-   SECTION FAQ - STYLE EXACT COMME WHATSAPP PRIVACY (centré, dark, grand titre)
+   SECTION FAQ - un seul titre, plus petit, légèrement décalé à gauche
    ===================================================================== */
 
 .faq-hero {
   min-height: 100vh;
   padding: 140px 30px 100px;
-  background: #0b141a;           /* dark comme WhatsApp */
+  background: #0b141a;
   display: flex;
-  align-items: center;
+  align-items: flex-start;       /* commence du haut */
   justify-content: center;
-  text-align: center;
 }
 
 .faq-container {
-  max-width: 900px;               /* pas trop large, centré */
+  max-width: 960px;
+  width: 100%;
+  text-align: left;              /* tout à gauche maintenant */
+  padding-left: 40px;            /* léger décalage à droite pour pas coller l'extrémité gauche */
 }
 
 .faq-title {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .faq-title h1 {
-  font-size: 5.8rem;              /* grand comme sur la capture */
+  font-size: 4.8rem;             /* réduit comme tu veux (était 5.8rem) */
   line-height: 1.05;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 10px 0;
   color: white;
 }
 
 .faq-title h1.green {
-  color: #25D366;                 /* vert WhatsApp exact */
-  margin-top: -20px;              /* rapproche les lignes */
+  color: #25D366;
+  margin-top: -15px;
 }
 
 .faq-subtitle {
-  margin-top: 30px;
-  font-size: 1.3rem;
+  margin-top: 20px;
+  font-size: 1.25rem;
   color: #aebac1;
 }
 
@@ -337,39 +339,39 @@ transform:scale(1.05);
   text-decoration: none;
   font-weight: 600;
   border-bottom: 2px solid #25D366;
-  padding-bottom: 4px;
+  padding-bottom: 3px;
   transition: all 0.3s;
 }
 
 .faq-link:hover {
-  opacity: 0.9;
+  opacity: 0.85;
   border-bottom-color: transparent;
 }
 
-/* FAQ list - cards sombres avec bordure verte légère */
+/* FAQ list */
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .faq-item {
-  background: #11171d;            /* gris foncé WhatsApp-like */
-  border: 1px solid #25D36622;    /* bordure verte très subtile */
+  background: #11171d;
+  border: 1px solid #25D36622;
   border-radius: 12px;
-  padding: 24px;
+  padding: 22px 26px;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-align: left;               /* texte à gauche dans cards */
 }
 
 .faq-item:hover {
   border-color: #25D366;
   background: #1a242b;
+  transform: translateX(4px);   /* petit décalage à droite au hover pour dynamisme */
 }
 
 .faq-question {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: white;
   display: flex;
@@ -378,17 +380,17 @@ transform:scale(1.05);
 }
 
 .faq-icon {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   color: #25D366;
   transition: transform 0.4s;
 }
 
 .faq-item.active .faq-icon {
-  transform: rotate(135deg);      /* + → × moderne */
+  transform: rotate(135deg);
 }
 
 .faq-answer {
-  margin-top: 16px;
+  margin-top: 14px;
   font-size: 1rem;
   line-height: 1.6;
   color: #cbd5e1;
@@ -402,31 +404,41 @@ transform:scale(1.05);
 
 .faq-item.active .faq-question,
 .faq-item.active .faq-answer {
-  color: #0b141a;                 /* noir sur vert */
+  color: #0b141a;
 }
 
-/* Responsive - mobile first comme WhatsApp */
+/* Responsive */
+@media (max-width: 1024px) {
+  .faq-container {
+    padding-left: 20px;
+  }
+  .faq-title h1 {
+    font-size: 4.2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .faq-hero {
     padding: 100px 20px 80px;
   }
   .faq-title h1 {
-    font-size: 3.8rem;
+    font-size: 3.4rem;
   }
   .faq-title h1.green {
-    font-size: 4rem;
-  }
-  .faq-item {
-    padding: 20px;
+    font-size: 3.6rem;
   }
   .faq-question {
     font-size: 1.1rem;
+  }
+  .faq-container {
+    padding-left: 0;
+    text-align: center;       /* sur mobile on recentre */
   }
 }
 
 @media (max-width: 480px) {
   .faq-title h1 {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 }
 /* ================= MOBILE FIX ================= */
