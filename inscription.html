@@ -68,7 +68,63 @@ Inscription avec Google
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-<script src="register.js"></script>
+<script>
+
+const firebaseConfig = {
+apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+authDomain: "atelier-electronique-mednine.firebaseapp.com",
+projectId: "atelier-electronique-mednine",
+storageBucket: "atelier-electronique-mednine.firebasestorage.app",
+messagingSenderId: "547430908384",
+appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
+databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+
+// inscription email
+document.getElementById("registerForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+auth.createUserWithEmailAndPassword(email,password)
+
+.then(()=>{
+alert("Compte créé avec succès");
+window.location.href="index.html";
+})
+
+.catch((error)=>{
+alert(error.message);
+});
+
+});
+
+
+// inscription google
+document.getElementById("googleRegister").onclick=function(){
+
+const provider=new firebase.auth.GoogleAuthProvider();
+
+auth.signInWithPopup(provider)
+
+.then(()=>{
+window.location.href="index.html";
+})
+
+.catch((error)=>{
+alert(error.message);
+});
+
+};
+
+</script>
 
 </body>
 </html>
