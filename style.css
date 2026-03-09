@@ -46,7 +46,25 @@ font-size:20px;
 font-weight:600;
 
 }
+.animate-logo{
+animation: logoColor 3s infinite;
+}
 
+@keyframes logoColor{
+
+0%{
+color:white;
+}
+
+50%{
+color:#25D366;
+}
+
+100%{
+color:white;
+}
+
+}
 .nav-links{
 
 display:flex;
