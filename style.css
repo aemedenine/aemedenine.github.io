@@ -40,51 +40,58 @@ height:80px;
 
 }
 
-/* ================= LOGO + TITLE ================= */
+/* ================= LOGO ================= */
 
 .logo{
 display:flex;
 align-items:center;
-gap:12px;
+gap:14px;
 }
 
 /* logo image */
 .logo-img{
-width:42px;
-height:42px;
+width:60px;
+height:60px;
 object-fit:cover;
-border-radius:50%; /* يخليه دائري موش carré */
-box-shadow:0 0 10px rgba(37,211,102,0.5); /* glow خفيف */
+border-radius:50%;
+box-shadow:0 0 20px rgba(37,211,102,0.4);
 transition:0.3s;
 }
 
-/* hover effect */
+/* hover */
 .logo-img:hover{
 transform:scale(1.08);
-box-shadow:0 0 20px rgba(37,211,102,0.9);
+box-shadow:0 0 35px rgba(37,211,102,0.9);
 }
 
-/* text title */
+/* title */
 .logo-text{
-font-size:24px; /* كبرت التايتل */
+font-size:30px;
 font-weight:700;
 letter-spacing:0.5px;
 }
 
-/* animation blanc / vert */
+/* animation vert blanc */
 .animate-logo .logo-text{
-animation: logoColor 3s infinite;
+animation:logoColor 3s infinite;
 }
 
 @keyframes logoColor{
 
-0%{color:white;}
+0%{
+color:white;
+}
 
-50%{color:#25D366;}
+50%{
+color:#25D366;
+}
 
-100%{color:white;}
+100%{
+color:white;
+}
 
 }
+
 /* LINK STYLE */
 .nav-links a{
 
