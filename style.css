@@ -35,7 +35,7 @@ body {
   height: 80px;
 }
 
-/* LOGO */
+/* LOGO NAVBAR (cercle parfait) */
 .logo {
   display: flex;
   align-items: center;
@@ -45,8 +45,9 @@ body {
 .logo-img {
   width: 60px;
   height: 60px;
-  object-fit: contain;
-  border-radius: 50%;
+  object-fit: cover;           /* Remplit le cercle */
+  border-radius: 50%;          /* Cercle 100% */
+  overflow: hidden;            /* Coupe les bords */
   box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
   transition: all 0.3s ease;
 }
@@ -114,7 +115,7 @@ body {
 }
 
 .btn {
-  padding: 10px 19px;
+  padding: 10px 24px;
   border-radius: 40px;
   text-decoration: none;
   font-weight: 600;
@@ -141,6 +142,40 @@ body {
   transform: translateY(-2px);
 }
 
+/* ================= USER PHOTO (après login Google) ================= */
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-photo {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;           /* Remplit le cercle */
+  border-radius: 50%;          /* Cercle parfait */
+  overflow: hidden;            /* Coupe les bords */
+  border: 2px solid #25D366;
+  box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+}
+
+.user-photo:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.6);
+  border-color: #22c55e;
+}
+
+.logout-btn {
+  background: #ff4444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
 /* ================= HERO SECTION ================= */
 .hero {
   min-height: 100vh;
@@ -163,9 +198,9 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 4rem;
+  font-size: 4.5rem;
   line-height: 1.05;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.15em;
 }
 
@@ -475,9 +510,9 @@ body {
 .footer-logo {
   width: 48px;
   height: 48px;
-  object-fit: cover;           /* Remplit parfaitement le cercle */
-  border-radius: 50%;          /* Cercle 100% */
-  overflow: hidden;            /* Coupe tout ce qui dépasse */
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
   box-shadow: 0 0 12px rgba(37, 211, 102, 0.3);
   transition: all 0.3s ease;
 }
@@ -565,18 +600,7 @@ body {
   cursor: pointer;
 }
 
-/* Mobile fix pour footer */
-@media (max-width: 768px) {
-  .footer-logo-area {
-    flex-direction: column;
-    text-align: center;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-/* ================= FORMS (Inscription) ================= */
+/* ================= FORMS ================= */
 form input {
   width: 100%;
   padding: 14px 16px;
@@ -614,53 +638,43 @@ form input:focus {
     height: auto;
     padding: 15px 0;
   }
-
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
   }
-
   .nav-buttons {
     justify-content: center;
     flex-wrap: wrap;
   }
-
   .hero {
     padding-top: 160px;
     padding-bottom: 60px;
   }
-
   .hero-text h1 {
     font-size: 3rem;
   }
-
   .hero-text p {
     font-size: 1rem;
     margin-bottom: 40px;
   }
-
   .cta {
     width: 100%;
     padding: 16px;
     font-size: 1.05rem;
   }
-
   .hero-image {
     max-width: 320px;
     margin: 0 auto;
   }
-
   .faq-container {
     padding-left: 0;
     text-align: center;
   }
-
   .footer-logo-area {
     flex-direction: column;
     text-align: center;
   }
-
   .footer-bottom {
     flex-direction: column;
     text-align: center;
@@ -671,24 +685,19 @@ form input:focus {
   .hero-text h1 {
     font-size: 2.6rem;
   }
-
   .hero-text p {
     font-size: 0.95rem;
   }
-
   .gallery-header h1 {
     font-size: 2.8rem;
   }
-
   .faq-title h1 {
     font-size: 2.8rem;
   }
-
   .logo-img {
     width: 50px;
     height: 50px;
   }
-
   .logo-text {
     font-size: 22px;
   }
