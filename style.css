@@ -715,7 +715,34 @@ transform:scale(1.05);
     text-align: center;
   }
 }
+/* ================= inscription ================= */
+form input{
 
+width:100%;
+padding:14px;
+
+border-radius:10px;
+border:none;
+
+background:#11171d;
+color:white;
+
+font-size:16px;
+
+}
+
+form input:focus{
+
+outline:2px solid #25D366;
+
+}
+
+form button{
+
+border:none;
+cursor:pointer;
+
+}
 /* ================= MOBILE FIX ================= */
 
 @media (max-width:768px){
