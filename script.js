@@ -43,49 +43,35 @@ console.log(error);
 // =======================
 // USER DETECTION
 // =======================
-auth.onAuthStateChanged((user)=>{
+auth.onAuthStateChanged((user) => {
 
-const authArea = document.getElementById("authArea");
+  const authArea = document.getElementById("authArea");
 
-if(!authArea) return;
+  if (!authArea) return;
 
-if(user){
+  if (user) {
 
-authArea.innerHTML = `
+    authArea.innerHTML = `
+      <div class="user-box">
+        <img class="user-photo" src="${user.photoURL}" title="Cliquez pour se déconnecter" id="logoutBtn">
+      </div>
+    `;
 
-<div class="user-box">
+    // Logout عند الضغط على الصورة
+    document.getElementById("logoutBtn").onclick = () => {
+      auth.signOut();
+    };
 
-<img class="user-photo" src="${user.photoURL}">
+  } else {
 
-<span>${user.displayName}</span>
+    authArea.innerHTML = `
+      <a class="btn login" id="googleLogin">Se connecter</a>
+      <a href="https://wa.me/21698192103" class="btn download">WhatsApp</a>
+    `;
 
-<button class="logout-btn" id="logoutBtn">Logout</button>
-
-</div>
-
-`;
-
-document.getElementById("logoutBtn").onclick = () => {
-auth.signOut();
-};
-
-}else{
-
-authArea.innerHTML = `
-
-<a class="btn login" id="googleLogin">Se connecter</a>
-
-<a href="https://wa.me/21698192103" class="btn download">
-WhatsApp
-</a>
-
-`;
-
-}
+  }
 
 });
-
-
 // =======================
 // SMOOTH SCROLL
 // =======================
