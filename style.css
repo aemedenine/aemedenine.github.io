@@ -40,16 +40,29 @@ height:80px;
 
 }
 
-.logo{
+/* ================= NAVBAR LOGO ================= */
 
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
 font-size:20px;
 font-weight:600;
-
 }
-.animate-logo{
+
+/* image logo */
+.logo img{
+width:34px;
+height:34px;
+object-fit:contain;
+}
+
+/* text animation */
+.animate-logo span{
 animation: logoColor 3s infinite;
 }
 
+/* animation blanc / vert */
 @keyframes logoColor{
 
 0%{
@@ -65,13 +78,6 @@ color:white;
 }
 
 }
-.nav-links{
-
-display:flex;
-gap:30px;
-
-}
-
 /* LINK STYLE */
 .nav-links a{
 
