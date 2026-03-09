@@ -475,7 +475,14 @@ body {
 .footer-logo {
   width: 48px;
   height: 48px;
-  object-fit: contain;
+  object-fit: cover;        /* Changed to cover to fill the circle without distortion */
+  border-radius: 50%;       /* Makes it perfectly circular */
+  box-shadow: 0 0 12px rgba(37, 211, 102, 0.3);  /* Optional: subtle glow like WhatsApp logo */
+  transition: all 0.3s ease;
+}
+.footer-logo:hover {
+  transform: rotate(360deg);  /* Fun spin on hover */
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
 }
 
 .footer-brand {
