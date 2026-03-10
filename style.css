@@ -280,6 +280,14 @@ body {
     padding: 16px;
   }
 }
+/* Sticky hero kif WhatsApp (optionnel mais très proche) */
+.hero-privacy {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  height: 100vh;
+  min-height: unset; /* Pour qu'il reste full viewport */
+}
 /* ================= FAQ SECTION ================= */
 .faq-hero {
   min-height: 100vh;
