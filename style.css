@@ -45,9 +45,9 @@ body {
 .logo-img {
   width: 60px;
   height: 60px;
-  object-fit: cover;
-  border-radius: 50%;
-  overflow: hidden;
+  object-fit: cover;           /* Remplit le cercle */
+  border-radius: 50%;          /* Cercle 100% */
+  overflow: hidden;            /* Coupe les bords */
   box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
   transition: all 0.3s ease;
 }
@@ -115,7 +115,7 @@ body {
 }
 
 .btn {
-  padding: 10px 24px;
+  padding: 10px 20px;
   border-radius: 40px;
   text-decoration: none;
   font-weight: 600;
@@ -142,7 +142,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* ================= USER PHOTO (Google login) ================= */
+/* ================= USER PHOTO (après login Google) ================= */
 .user-box {
   display: flex;
   align-items: center;
@@ -152,9 +152,9 @@ body {
 .user-photo {
   width: 36px;
   height: 36px;
-  object-fit: cover;
-  border-radius: 50%;
-  overflow: hidden;
+  object-fit: cover;           /* Remplit le cercle */
+  border-radius: 50%;          /* Cercle parfait */
+  overflow: hidden;            /* Coupe les bords */
   border: 2px solid #25D366;
   box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
   transition: all 0.3s ease;
@@ -176,83 +176,234 @@ body {
   font-weight: 600;
 }
 
-/* ================= WHATSAPP PRIVACY STYLE (pour toutes les sections) ================= */
-.privacy-style {
+/* ================= HERO SECTION ================= */
+.hero {
   min-height: 100vh;
-  background: #0b141a;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 30px;
-  position: relative;
+  padding-top: 140px;
+  padding-bottom: 80px;
 }
 
-.privacy-content {
-  max-width: 900px;
-  z-index: 2;
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  flex-wrap: wrap;
 }
 
-.privacy-style h1 {
-  font-size: 5.5rem;
-  line-height: 1;
-  font-weight: 800;
-  margin: 0;
-  color: white;
+.hero-text {
+  max-width: 560px;
 }
 
-.privacy-style h1.green {
+.hero-text h1 {
+  font-size: 4rem;
+  line-height: 1.05;
+  font-weight: 700;
+  margin-bottom: 0.15em;
+}
+
+.hero-text h1.green {
   color: #25D366;
-  margin-top: -25px;
 }
 
-.privacy-style p {
-  margin: 40px 0 60px;
-  font-size: 1.35rem;
-  line-height: 1.7;
+.hero-text p {
+  margin-top: 32px;
+  margin-bottom: 48px;
+  font-size: 1.15rem;
+  line-height: 1.8;
   color: #c7d2fe;
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.privacy-cta {
+.cta {
   display: inline-block;
   background: #25D366;
   color: black;
-  padding: 18px 60px;
+  padding: 12px 40px;
   border-radius: 50px;
-  font-size: 1.3rem;
-  font-weight: bold;
   text-decoration: none;
-  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-  transition: all 0.4s ease;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
 }
 
-.privacy-cta:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(37, 211, 102, 0.6);
+.cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(37, 211, 102, 0.5);
   background: #22c55e;
 }
 
-/* FAQ list dans privacy-style */
-.privacy-style .faq-list {
-  margin-top: 40px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
+.hero-image {
+  max-width: 420px;
 }
 
-/* Gallery carousel dans privacy-style */
-.privacy-style .gallery-carousel {
-  margin-top: 60px;
-  max-width: 1100px;
+.phone {
+  position: relative;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+}
+
+.phone img {
+  width: 100%;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  color: #25D366;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+/* ================= FAQ SECTION ================= */
+.faq-hero {
+  min-height: 100vh;
+  padding: 140px 30px 100px;
+  background: #0b141a;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.faq-container {
+  max-width: 960px;
+  width: 100%;
+  text-align: left;
+  padding-left: 40px;
+}
+
+.faq-title {
+  margin-bottom: 50px;
+}
+
+.faq-title h1 {
+  font-size: 4rem;
+  line-height: 1.05;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.faq-title h1.green {
+  color: #25D366;
+  margin-top: -15px;
+}
+
+.faq-subtitle {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  color: #aebac1;
+}
+
+.faq-link {
+  color: #25D366;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid #25D366;
+  padding-bottom: 3px;
+  transition: all 0.3s;
+}
+
+.faq-link:hover {
+  opacity: 0.85;
+  border-bottom-color: transparent;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.faq-item {
+  background: #11171d;
+  border: 1px solid #25D36622;
+  border-radius: 12px;
+  padding: 22px 26px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: #25D366;
+  background: #1a242b;
+  transform: translateX(4px);
+}
+
+.faq-question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-icon {
+  font-size: 1.7rem;
+  color: #25D366;
+  transition: transform 0.4s;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(135deg);
+}
+
+.faq-answer {
+  margin-top: 14px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  display: none;
+}
+
+.faq-item.active {
+  background: #25D366;
+  border-color: #25D366;
+}
+
+.faq-item.active .faq-question,
+.faq-item.active .faq-answer {
+  color: #0b141a;
 }
 
 /* ================= GALLERY ================= */
+.gallery-section {
+  padding: 120px 30px;
+  background: #0b141a;
+  color: white;
+  text-align: center;
+}
+
+.gallery-header h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0;
+}
+
+.gallery-header h1.green {
+  color: #25D366;
+  margin-top: -15px;
+}
+
+.subtitle {
+  margin-top: 25px;
+  font-size: 1.3rem;
+  color: #aebac1;
+  line-height: 1.6;
+}
+
 .gallery-carousel {
   position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .carousel-track {
@@ -260,6 +411,7 @@ body {
   overflow: hidden;
   scroll-behavior: smooth;
   gap: 30px;
+  padding: 20px 0;
 }
 
 .gallery-card {
@@ -467,19 +619,15 @@ form input:focus {
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
-  .privacy-style h1 {
-    font-size: 4.2rem;
+  .hero-text h1 {
+    font-size: 3.6rem;
   }
-  .privacy-style p {
-    font-size: 1.2rem;
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
   }
-  .privacy-cta {
-    padding: 16px 50px;
-    font-size: 1.2rem;
-  }
-  .logo-img {
-    width: 50px;
-    height: 50px;
+  .gallery-card {
+    flex: 0 0 80%;
   }
 }
 
@@ -499,16 +647,25 @@ form input:focus {
     justify-content: center;
     flex-wrap: wrap;
   }
-  .privacy-style {
-    padding: 0 20px;
+  .hero {
+    padding-top: 160px;
+    padding-bottom: 60px;
   }
-  .privacy-style h1 {
-    font-size: 3.4rem;
+  .hero-text h1 {
+    font-size: 3rem;
   }
-  .privacy-cta {
+  .hero-text p {
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+  .cta {
     width: 100%;
     padding: 16px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+  }
+  .hero-image {
+    max-width: 320px;
+    margin: 0 auto;
   }
   .faq-container {
     padding-left: 0;
@@ -525,15 +682,21 @@ form input:focus {
 }
 
 @media (max-width: 480px) {
-  .privacy-style h1 {
+  .hero-text h1 {
+    font-size: 2.6rem;
+  }
+  .hero-text p {
+    font-size: 0.95rem;
+  }
+  .gallery-header h1 {
     font-size: 2.8rem;
   }
-  .privacy-style p {
-    font-size: 1rem;
+  .faq-title h1 {
+    font-size: 2.8rem;
   }
   .logo-img {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
   }
   .logo-text {
     font-size: 22px;
