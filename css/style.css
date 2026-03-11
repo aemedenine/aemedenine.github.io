@@ -35,21 +35,35 @@ z-index:1000;
 
 }
 
+/* ================= LOGO 2026 ================= */
 .logo{
-display:flex;
-align-items:center;
-gap:10px;
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
-.logo img{
-width:40px;
+.logo-img{
+  width:60px;               /* كبرنا الصورة شوية */
+  height:60px;
+  border-radius:50%;         /* باش تولي circle */
+  border: 3px solid #38bdf8; /* حد أزرق حديث */
+  padding:5px;
+  background:rgba(255,255,255,0.05); /* glass effect */
+  box-shadow:0 4px 15px rgba(0,0,0,0.3); /* Depth effect */
+  transition:0.3s;
+}
+
+.logo-img:hover{
+  transform:scale(1.1);
+  box-shadow:0 8px 25px rgba(0,0,0,0.5);
 }
 
 .logo h1{
-font-size:20px;
-font-weight:600;
+  font-size:24px;            /* كبرنا شوية */
+  font-weight:700;
+  color:#ffffff;
+  letter-spacing:1px;
 }
-
 /* ===============================
    NAVBAR
 =================================*/
