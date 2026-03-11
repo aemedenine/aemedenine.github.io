@@ -1,283 +1,100 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Atelier Électronique Médenine - Réparation cartes électroniques, codes radio auto, diagnostics et maintenance confidentielle à Médenine, Tunisie.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <title>Atelier Électronique Médenine</title>
-  <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Electronique Medenine</title>
+
+<link rel="icon" href="images/favicon.png">
+
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
+
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="container nav-wrapper">
-      <div class="logo animate-logo">
-        <img src="photos/logo.png" alt="Atelier Électronique Médenine" class="logo-img">
-        <span class="logo-text">Atelier Électronique Médenine</span>
-      </div>
-      <div class="nav-links">
-        <a href="#hero">Accueil</a>
-        <a href="#fonctionnalites">Fonctionnalités</a>
-        <a href="#confidentialite">Confidentialité</a>
-        <a href="#blog">Blog</a>
-        <a href="#entreprise">Entreprise</a>
-      </div>
-      <div class="nav-buttons" id="authArea">
-        <a class="btn login" id="googleLogin">Se connecter</a>
-        <a href="https://wa.me/21698192103" class="cta">WhatsApp</a>
-      </div>
-    </div>
-  </nav>
+<!-- ================= HEADER ================= -->
 
-  <!-- Hero / Accueil -->
-  <section id="hero" class="hero">
-    <div class="container hero-container">
-      <div class="hero-text">
-        <h1>Réparations <span class="green">postes</span></h1>
-        <p>
-          La confidentialité de vos appareils est notre priorité.<br>
-          Cartes électroniques, radios, codes et numéros de série restent protégés pendant toute la réparation.
-        </p>
-        <a href="inscription.html" class="cta">Inscription</a>
-      </div>
-      <div class="hero-image">
-        <div class="phone">
-          <img src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7" alt="Appareil sécurisé">
-          <div class="overlay">sécurisé</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<header class="header">
 
-  <!-- Fonctionnalités -->
-  <section id="fonctionnalites" class="section">
-    <div class="container hero-container reverse">
-      <div class="hero-image">
-        <div class="phone">
-          <img src="https://images.unsplash.com/photo-1581092921461-7d6f2b4d2f31" alt="Atelier électronique">
-          <div class="overlay">atelier</div>
-        </div>
-      </div>
-      <div class="hero-text">
-        <h1>Fonctionnalités <span class="green">atelier</span></h1>
-        <p>Réparation cartes électroniques, radio codes automobiles, diagnostics et maintenance des équipements électroniques.</p>
-        <a href="https://maps.google.com/?q=Atelier+Electronique+Medenine" class="cta" target="_blank">Maps</a>
-      </div>
-    </div>
-  </section>
+<div class="logo">
+<img src="images/logo.png">
+<h1>Electronique Medenine</h1>
+</div>
 
-  <!-- Confidentialité -->
-  <section id="confidentialite" class="section">
-    <div class="container hero-container">
-      <div class="hero-text">
-        <h1>Confidentialité <span class="green">sécurité</span></h1>
-        <p>
-          Vos informations, numéros de série et appareils restent totalement confidentiels.<br>
-          Protection des données garantie dans notre atelier électronique.
-        </p>
-        <a href="atelier-electronique.apk" class="cta" download>Électronique Médenine APK</a>
-      </div>
-      <div class="hero-image">
-        <div class="phone">
-          <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c" alt="Sécurité des données">
-          <div class="overlay">sécurisé</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<nav class="nav">
 
-  <!-- Blog -->
-  <section id="blog" class="section">
-    <div class="container hero-container reverse">
-      <div class="hero-image">
-        <div class="phone">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Blog électronique">
-          <div class="overlay">blog</div>
-        </div>
-      </div>
-      <div class="hero-text">
-        <h1>Blog <span class="green">électronique</span></h1>
-        <p>Conseils, astuces et articles sur la réparation électronique, les radios automobiles et les diagnostics techniques.</p>
-        <a href="boutique.html" class="cta">Boutique</a>
-      </div>
-    </div>
-  </section>
+<a href="#">Home</a>
+<a href="#">Services</a>
+<a href="#">Contact</a>
 
-  <!-- Entreprise -->
-  <section id="entreprise" class="section">
-    <div class="container hero-container">
-      <div class="hero-image">
-        <div class="phone">
-          <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc" alt="Solutions professionnelles">
-          <div class="overlay">pro</div>
-        </div>
-      </div>
-      <div class="hero-text">
-        <h1>Entreprise <span class="green">solutions</span></h1>
-        <p>Solutions électroniques pour professionnels, garages et ateliers techniques. Support, diagnostics et réparations avancées.</p>
-        <a href="contact.html" class="cta">Contactez nous</a>
-      </div>
-    </div>
-  </section>
+<button class="login-btn">Login</button>
 
-  <!-- FAQ -->
-  <section id="faq" class="faq-hero section">
-    <div class="container faq-container">
-      <div class="faq-title">
-        <h1>Vous avez encore <span class="green">besoin d’aide ?</span></h1>
-        <p class="faq-subtitle">
-          <a href="#" class="faq-link">Consulter toutes les questions/réponses →</a>
-        </p>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">Quels sont vos services ? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Nous réparons les cartes électroniques, codes radio auto, diagnostics et maintenance des appareils.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">Où êtes-vous exactement ? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Atelier situé à Médenine, Tunisie.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">Puis-je appeler avant de venir ? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Oui, contactez-nous par WhatsApp ou téléphone pour toute info avant de vous déplacer.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">Combien de temps faut-il pour une réparation ? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Ça dépend de la panne, mais la plupart sont faites rapidement (souvent le jour même).</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">Quelle est la garantie sur les réparations ? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Garantie adaptée au type de réparation (1 à 6 mois en général).</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">Les prix sont-ils raisonnables ? <span class="faq-icon">+</span></div>
-          <div class="faq-answer">Oui, tarifs accessibles avec un travail professionnel et soigné.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+</nav>
 
-  <!-- Galerie -->
-  <section id="gallery" class="gallery-section section">
-    <div class="container">
-      <div class="gallery-header">
-        <h1>Découvrez d'autres <span class="green">photos et vidéos</span></h1>
-        <p class="subtitle">
-          Découvrez les photos et vidéos de l'Atelier Électronique Médenine.<br>
-          Soudure, diagnostic, réparations cartes électroniques et plus...
-        </p>
-      </div>
-      <div class="gallery-carousel">
-        <button class="carousel-btn prev">&lt;</button>
-        <div class="carousel-track" id="carouselTrack">
-          <!-- Card 1 -->
-          <div class="gallery-card">
-            <div class="card-image">
-              <img src="https://images.unsplash.com/photo-1581092160560-2f6a0e2e8d9e?auto=format&fit=crop&q=80" alt="Soudure carte électronique">
-            </div>
-            <div class="card-content">
-              <h3>Atelier de Soudure</h3>
-              <p>Travail précis sur cartes mères et composants électroniques</p>
-              <a href="#" class="btn-more">En savoir plus →</a>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="gallery-card">
-            <div class="card-image">
-              <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80" alt="Diagnostic atelier">
-            </div>
-            <div class="card-content">
-              <h3>Diagnostic & Test</h3>
-              <p>Oscilloscope, multimètre et outils professionnels en action</p>
-              <a href="#" class="btn-more">En savoir plus →</a>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="gallery-card">
-            <div class="card-image">
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80" alt="Composants électroniques">
-            </div>
-            <div class="card-content">
-              <h3>Composants & Stock</h3>
-              <p>Large choix de pièces pour réparations rapides</p>
-              <a href="#" class="btn-more">En savoir plus →</a>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-btn next">&gt;</button>
-      </div>
-    </div>
-  </section>
+</header>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-logo-area">
-        <img src="photos/logo.png" alt="Atelier Électronique Médenine" class="footer-logo">
-        <span class="footer-brand">Atelier Électronique Médenine</span>
-      </div>
-      <div class="footer-links-grid">
-        <div class="footer-column">
-          <h4>Atelier Électronique</h4>
-          <ul>
-            <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-            <li><a href="#">À propos de nous</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#confidentialite">Sécurité & Confidentialité</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="#">Réparation cartes électroniques</a></li>
-            <li><a href="#">Codes radio auto</a></li>
-            <li><a href="#">Diagnostic & Maintenance</a></li>
-            <li><a href="#entreprise">Solutions entreprises</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Support</h4>
-          <ul>
-            <li><a href="#">Centre d'aide</a></li>
-            <li><a href="contact.html">Nous contacter</a></li>
-            <li><a href="boutique.html">Boutique</a></li>
-            <li><a href="#faq">Besoin d'aide ?</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Légal</h4>
-          <ul>
-            <li><a href="#">Conditions d'utilisation</a></li>
-            <li><a href="#">Politique de confidentialité</a></li>
-            <li><a href="#">Mentions légales</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="social-icons">
-          <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
-          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://wa.me/21698192103" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <div class="copyright">© 2026 Atelier Électronique Médenine</div>
-        <div class="language-selector">
-          <select>
-            <option value="fr">Français</option>
-            <option value="ar">العربية</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-  <script src="script.js"></script>
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<h2>Bienvenue chez Electronique Medenine</h2>
+
+<p>
+Réparation électronique • Codes Radio • Solutions techniques
+</p>
+
+<a href="#" class="btn">Découvrir</a>
+
+</section>
+
+
+
+<!-- ================= SERVICES ================= -->
+
+<section class="services">
+
+<h2>Nos Services</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Radio Codes</h3>
+<p>Déblocage rapide des radios voiture.</p>
+</div>
+
+<div class="card">
+<h3>Réparation</h3>
+<p>Réparation électronique professionnelle.</p>
+</div>
+
+<div class="card">
+<h3>Support</h3>
+<p>Assistance technique et conseils.</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<p>© 2026 Electronique Medenine</p>
+
+</footer>
+
+
+
+<script src="js/script.js"></script>
+
 </body>
 </html>
