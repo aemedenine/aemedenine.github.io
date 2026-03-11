@@ -63,7 +63,37 @@ behavior: "smooth"
 
 });
 
+/* ================= LOGIN POPUP ================= */
 
+const loginButton = document.querySelector(".login-btn");
+const loginPopup = document.getElementById("login-popup");
+const closeLogin = document.getElementById("close-login");
+
+loginButton.onclick = () => {
+
+loginPopup.style.display = "flex";
+
+}
+
+closeLogin.onclick = () => {
+
+loginPopup.style.display = "none";
+
+}
+
+
+/* ================= FAKE LOGIN ================= */
+
+const loginSubmit = document.querySelector(".login-submit");
+const userBox = document.getElementById("userBox");
+
+loginSubmit.onclick = () => {
+
+loginPopup.style.display = "none";
+
+userBox.style.display = "flex";
+
+}
 /* ==========================================
    HERO TEXT ANIMATION
 ========================================== */
