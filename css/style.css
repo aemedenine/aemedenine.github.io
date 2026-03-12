@@ -349,6 +349,56 @@ border-radius:50%;
   top:10px; right:15px;
   cursor:pointer;
 }
+/* ONLINE USERS */
+.online-users{
+  position:fixed;
+  top:80px;
+  right:20px;
+  background:#020617;
+  padding:10px;
+  border-radius:15px;
+  max-width:180px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.online-users img{
+  width:25px;
+  border-radius:50%;
+  margin-right:5px;
+}
+/* COMMENTS */
+.comments{
+  padding:20px 8%;
+  background:rgba(255,255,255,0.05);
+  border-radius:15px;
+  margin-top:40px;
+}
+
+.comments textarea{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  margin:10px 0;
+  border:none;
+}
+
+.comments button{
+  padding:8px 15px;
+  border:none;
+  border-radius:15px;
+  background:#38bdf8;
+  color:#000;
+  cursor:pointer;
+}
+
+.comment-item{
+  background:rgba(0,0,0,0.3);
+  padding:8px;
+  margin-bottom:5px;
+  border-radius:10px;
+}
 /* ===============================
    MOBILE
 =================================*/
