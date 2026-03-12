@@ -296,7 +296,18 @@ gap:10px;
 width:30px;
 border-radius:50%;
 }
-
+/* USER BOX EXTENDED */
+.user-info{
+  display:flex;
+  flex-direction:column;
+  font-size:13px;
+}
+.user-rank{
+  color:#facc15;
+}
+.user-visits{
+  color:#94a3b8;
+}
 /* ===============================
    MOBILE
 =================================*/
