@@ -25,6 +25,7 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
+
 const userBox = document.getElementById("userBox");
 const logoutBtn = document.getElementById("logoutBtn");
 const profileModal = document.getElementById("profileModal");
@@ -42,29 +43,10 @@ document.querySelector(".login-submit").onclick = () => {
   auth.signInWithPopup(provider)
     .then(result => {
       const user = result.user;
-      document.getElementById("username").innerText = user.displayName;
-      document.getElementById("userAvatar").src = user.photoURL;
+      showUserBox(user);
       loginPopup.style.display = "none";
-      userBox.style.display = "flex";
-
-      const userRef = firebase.database().ref("users/" + user.uid);
-      userRef.once('value').then(snapshot => {
-        let data = snapshot.val();
-        let visits = data ? data.visits + 1 : 1;
-        let rank = data ? data.rank : "Member";
-        // Rank logic
-        if(visits >= 15) rank = "Admin";
-        else if(visits >= 5) rank = "Pro";
-        else rank = "Member";
-
-        userRef.set({visits, rank});
-        document.getElementById("visitCount").innerText = visits;
-        document.querySelector(".user-rank").innerText = "⭐".repeat(rank === "Member"?1:rank==="Pro"?2:3)+" "+rank;
-      });
-
-      // Online users
-      onlineRef.child(user.uid).set({name:user.displayName, avatar:user.photoURL});
-      onlineRef.child(user.uid).onDisconnect().remove();
+      updateUserVisits(user);
+      updateOnlineUsers(user);
     })
     .catch(error => console.error(error));
 };
@@ -72,23 +54,40 @@ document.querySelector(".login-submit").onclick = () => {
 // ================= KEEP LOGIN
 auth.onAuthStateChanged(user=>{
   if(user){
-    userBox.style.display="flex";
-    document.getElementById("username").innerText = user.displayName;
-    document.getElementById("userAvatar").src = user.photoURL;
-
-    const userRef = firebase.database().ref("users/" + user.uid);
-    userRef.once('value').then(snapshot=>{
-      let data = snapshot.val();
-      let visits = data ? data.visits : 1;
-      let rank = data ? data.rank : "Member";
-      document.getElementById("visitCount").innerText = visits;
-      document.querySelector(".user-rank").innerText = "⭐".repeat(rank === "Member"?1:rank==="Pro"?2:3)+" "+rank;
-    });
-
-    onlineRef.child(user.uid).set({name:user.displayName, avatar:user.photoURL});
-    onlineRef.child(user.uid).onDisconnect().remove();
+    showUserBox(user);
+    updateUserVisits(user);
+    updateOnlineUsers(user);
   }
 });
+
+// ================= FUNCTIONS
+function showUserBox(user){
+  userBox.style.display = "flex";
+  document.getElementById("username").innerText = user.displayName;
+  document.getElementById("userAvatar").src = user.photoURL;
+}
+
+function updateUserVisits(user){
+  const userRef = firebase.database().ref("users/" + user.uid);
+  userRef.once('value').then(snapshot=>{
+    let data = snapshot.val();
+    let visits = data ? data.visits + 1 : 1;
+    let rank = "Member";
+
+    // Rank logic
+    if(visits >= 15) rank = "Admin";
+    else if(visits >= 5) rank = "Pro";
+
+    userRef.set({visits, rank});
+    document.getElementById("visitCount").innerText = visits;
+    document.querySelector(".user-rank").innerText = "⭐".repeat(rank==="Member"?1:rank==="Pro"?2:3)+" "+rank;
+  });
+}
+
+function updateOnlineUsers(user){
+  onlineRef.child(user.uid).set({name:user.displayName, avatar:user.photoURL});
+  onlineRef.child(user.uid).onDisconnect().remove();
+}
 
 // ================= LOGOUT
 logoutBtn.onclick = e=>{
@@ -113,19 +112,15 @@ closeProfile.onclick = ()=>profileModal.style.display = "none";
 commentSubmit.onclick = () => {
   const text = commentInput.value.trim();
   if(!text) return;
-
   const user = auth.currentUser;
   if(!user) return alert("Login first!");
 
-  const newCommentRef = commentsRef.push();
-  newCommentRef.set({
+  commentsRef.push({
     user: user.displayName,
     avatar: user.photoURL,
     text: text,
     timestamp: Date.now()
-  }, () => {
-    commentInput.value = ""; // تفريغ النص بعد تسجيل التعليق
-  });
+  }, ()=> commentInput.value = "");
 }
 
 // Display comments
@@ -135,7 +130,7 @@ commentsRef.on("value", snapshot=>{
     const data = child.val();
     const div = document.createElement("div");
     div.classList.add("comment-item");
-    div.innerHTML=`<img src="${data.avatar}" style="width:25px;border-radius:50%;margin-right:5px;"> <b>${data.user}:</b> ${data.text}`;
+    div.innerHTML = `<img src="${data.avatar}" style="width:25px;border-radius:50%;margin-right:5px;"> <b>${data.user}:</b> ${data.text}`;
     commentsList.appendChild(div);
   });
 });
@@ -147,7 +142,9 @@ onlineRef.on("value", snapshot=>{
   snapshot.forEach(child=>{
     const data = child.val();
     const div = document.createElement("div");
-    div.innerHTML=`<img src="${data.avatar}"><span>${data.name}</span>`;
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.innerHTML=`<img src="${data.avatar}" style="width:25px;border-radius:50%;margin-right:5px;"><span>${data.name}</span>`;
     container.appendChild(div);
   });
 });
@@ -155,7 +152,6 @@ onlineRef.on("value", snapshot=>{
 // ================= SCROLL ANIMATION
 const heroTitle = document.querySelector(".hero h2");
 const cards = document.querySelectorAll(".card");
-
 function revealElements(){
   const triggerBottom = window.innerHeight*0.85;
   if(heroTitle.getBoundingClientRect().top<triggerBottom) heroTitle.classList.add("show");
