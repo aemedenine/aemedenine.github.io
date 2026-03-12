@@ -110,20 +110,23 @@ userBox.onclick = ()=>{
 closeProfile.onclick = ()=>profileModal.style.display = "none";
 
 // ================= COMMENTS
-commentSubmit.onclick = ()=>{
+commentSubmit.onclick = () => {
   const text = commentInput.value.trim();
-  const user = auth.currentUser;
-  if(!user) return alert("Login first!");
   if(!text) return;
 
-  commentsRef.push({
+  const user = auth.currentUser;
+  if(!user) return alert("Login first!");
+
+  const newCommentRef = commentsRef.push();
+  newCommentRef.set({
     user: user.displayName,
     avatar: user.photoURL,
-    text,
+    text: text,
     timestamp: Date.now()
+  }, () => {
+    commentInput.value = ""; // تفريغ النص بعد تسجيل التعليق
   });
-  commentInput.value = "";
-};
+}
 
 // Display comments
 commentsRef.on("value", snapshot=>{
