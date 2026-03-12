@@ -155,6 +155,20 @@ userBox.onclick = () => {
 closeProfile.onclick = () => {
   profileModal.style.display = "none";
 }
+// ONLINE USERS
+const onlineRef = firebase.database().ref("onlineUsers");
+
+auth.onAuthStateChanged((user)=>{
+  if(user){
+    // Add to online users
+    onlineRef.child(user.uid).set({
+      name: user.displayName,
+      avatar: user.photoURL
+    });
+    // Remove when disconnect
+    onlineRef.child(user.uid).onDisconnect().remove();
+  }
+});
 // ==========================================
 // SCROLL ANIMATION (Hero + Cards)
 // ==========================================
