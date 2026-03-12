@@ -1,4 +1,6 @@
-/* =============================== RESET =============================== */
+/* ===============================
+   RESET
+=================================*/
 *{
   margin:0;
   padding:0;
@@ -12,7 +14,9 @@ body{
   line-height:1.6;
 }
 
-/* =============================== HEADER =============================== */
+/* ===============================
+   HEADER
+=================================*/
 .header{
   display:flex;
   justify-content:space-between;
@@ -25,12 +29,13 @@ body{
   z-index:1000;
 }
 
-/* LOGO */
+/* ================= LOGO 2026 ================= */
 .logo{
   display:flex;
   align-items:center;
   gap:15px;
 }
+
 .logo-img{
   width:60px;
   height:60px;
@@ -41,10 +46,12 @@ body{
   box-shadow:0 4px 15px rgba(0,0,0,0.3);
   transition:0.3s;
 }
+
 .logo-img:hover{
   transform:scale(1.1);
   box-shadow:0 8px 25px rgba(0,0,0,0.5);
 }
+
 .logo h1{
   font-size:24px;
   font-weight:700;
@@ -52,23 +59,29 @@ body{
   letter-spacing:1px;
 }
 
-/* NAVBAR */
+/* ===============================
+   NAVBAR
+=================================*/
 .nav{
   display:flex;
   align-items:center;
   gap:25px;
 }
+
 .nav a{
   text-decoration:none;
   color:white;
   font-weight:500;
   transition:0.3s;
 }
+
 .nav a:hover{
   color:#38bdf8;
 }
 
-/* LOGIN BUTTON */
+/* ===============================
+   LOGIN BUTTON
+=================================*/
 .login-btn{
   padding:8px 18px;
   border:none;
@@ -79,23 +92,35 @@ body{
   cursor:pointer;
   transition:0.3s;
 }
+
 .login-btn:hover{
   transform:scale(1.05);
 }
 
-/* HERO */
+/* ===============================
+   HERO SECTION
+=================================*/
 .hero{
   text-align:center;
   padding:120px 20px;
 }
+
 .hero h2{
   font-size:40px;
   margin-bottom:15px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.6s;
 }
+
 .hero p{
   color:#cbd5f5;
   margin-bottom:25px;
 }
+
+/* ===============================
+   BUTTON
+=================================*/
 .btn{
   display:inline-block;
   padding:12px 28px;
@@ -106,27 +131,34 @@ body{
   font-weight:600;
   transition:0.3s;
 }
+
 .btn:hover{
   transform:translateY(-3px);
   box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* SERVICES */
+/* ===============================
+   SERVICES
+=================================*/
 .services{
   padding:80px 8%;
   text-align:center;
 }
+
 .services h2{
   font-size:32px;
   margin-bottom:40px;
 }
 
-/* CARDS */
+/* ===============================
+   CARDS
+=================================*/
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:25px;
 }
+
 .card{
   background:rgba(255,255,255,0.05);
   padding:30px;
@@ -135,19 +167,54 @@ body{
   opacity:0;
   transform:translateY(40px);
 }
+
 .card:hover{
   transform:translateY(-8px);
   background:rgba(255,255,255,0.08);
 }
+
 .card h3{
   margin-bottom:10px;
   font-size:20px;
 }
+
 .card p{
   color:#cbd5f5;
 }
 
-/* FOOTER */
+/* ===============================
+   COMMENTS
+=================================*/
+.comments{
+  padding:40px 8%;
+}
+
+.comments h2{
+  margin-bottom:15px;
+}
+
+.comments textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:8px;
+  border-radius:8px;
+  border:none;
+  resize:none;
+}
+
+.comments button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:30px;
+  background:#38bdf8;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* ===============================
+   FOOTER
+=================================*/
 footer{
   text-align:center;
   padding:25px;
@@ -157,17 +224,22 @@ footer{
   color:#94a3b8;
 }
 
-/* LOGIN POPUP */
+/* ===============================
+   LOGIN POPUP
+=================================*/
 #login-popup{
   display:none;
   position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   background:rgba(0,0,0,0.8);
   justify-content:center;
   align-items:center;
   z-index:2000;
 }
+
 .login-box{
   background:#020617;
   padding:40px;
@@ -176,9 +248,11 @@ footer{
   text-align:center;
   position:relative;
 }
+
 .login-box h2{
   margin-bottom:20px;
 }
+
 .login-box input{
   width:100%;
   padding:10px;
@@ -186,6 +260,7 @@ footer{
   border:none;
   border-radius:8px;
 }
+
 .login-submit{
   margin-top:10px;
   width:100%;
@@ -196,13 +271,17 @@ footer{
   font-weight:600;
   cursor:pointer;
 }
+
 #close-login{
   position:absolute;
-  right:15px; top:10px;
+  right:15px;
+  top:10px;
   cursor:pointer;
 }
 
-/* USER BOX */
+/* ===============================
+   USER BOX
+=================================*/
 .user-box{
   position:fixed;
   bottom:20px;
@@ -215,183 +294,110 @@ footer{
   gap:10px;
   cursor:pointer;
 }
+
 .user-box img{
-  width:30px;
+  width:40px;
   border-radius:50%;
 }
-.user-info{
+
+.user-box .user-info{
   display:flex;
   flex-direction:column;
-  font-size:13px;
-}
-.user-rank{ color:#facc15; }
-.user-visits{ color:#94a3b8; }
-#logoutBtn{
-  margin-top:5px;
-  padding:4px 10px;
-  border:none;
-  border-radius:20px;
-  background:#ef4444;
-  color:white;
-  font-size:12px;
-  cursor:pointer;
-  transition:0.3s;
-}
-#logoutBtn:hover{
-  background:#f87171;
-  transform:scale(1.05);
 }
 
-/* PROFILE MODAL */
+.user-box .user-info span{
+  font-size:12px;
+}
+
+/* Logout Button */
+#logoutBtn{
+  background:#ef4444;
+  color:white;
+  border:none;
+  border-radius:20px;
+  padding:5px 10px;
+  cursor:pointer;
+  margin-left:10px;
+  font-size:12px;
+}
+
+/* ===============================
+   PROFILE MODAL
+=================================*/
 .profile-modal{
   display:none;
   position:fixed;
   top:0; left:0;
   width:100%; height:100%;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.85);
   justify-content:center;
   align-items:center;
   z-index:3000;
 }
+
 .profile-content{
-  background:#0f172a;
+  background:#020617;
   padding:30px;
   border-radius:15px;
+  width:350px;
   text-align:center;
-  width:280px;
-  position:relative;
 }
+
 .profile-content img{
   width:80px;
   border-radius:50%;
-  margin-bottom:15px;
-}
-.profile-content h2{
-  margin-bottom:5px;
-}
-.profile-content p{
-  margin-bottom:5px;
-  color:#94a3b8;
-}
-#closeProfile{
-  position:absolute;
-  top:10px; right:15px;
-  cursor:pointer;
+  margin-bottom:10px;
 }
 
 /* ONLINE USERS */
 .online-users{
-  position:fixed;
-  top:80px;
-  right:20px;
-  background:#020617;
-  padding:10px;
-  border-radius:15px;
-  max-width:180px;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+  margin-top:20px;
+  max-height:200px;
+  overflow-y:auto;
 }
+
+.online-users div{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  margin-bottom:5px;
+}
+
 .online-users img{
   width:25px;
   border-radius:50%;
-  margin-right:5px;
 }
 
-/* COMMENTS */
-.comments{
-  padding:20px 8%;
-  background:rgba(255,255,255,0.05);
-  border-radius:15px;
-  margin-top:40px;
-}
-.comments textarea{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  margin:10px 0;
-  border:none;
-}
-.comments button{
-  padding:8px 15px;
-  border:none;
-  border-radius:15px;
-  background:#38bdf8;
-  color:#000;
-  cursor:pointer;
-}
-.comment-item{
-  background:rgba(0,0,0,0.3);
-  padding:8px;
-  margin-bottom:5px;
-  border-radius:10px;
+/* ===============================
+   SHOW ANIMATION
+=================================*/
+.show{
+  opacity:1 !important;
+  transform:translateY(0) !important;
+  transition:0.6s;
 }
 
-/* =============================== MOBILE =============================== */
+/* ===============================
+   MOBILE
+=================================*/
 @media(max-width:768px){
-
-  .hero{
-    padding:80px 15px;
-  }
   .hero h2{
     font-size:28px;
   }
-  .hero p{
-    font-size:14px;
+  .header{
+    padding:15px 5%;
   }
-  .btn{
-    padding:10px 20px;
-    font-size:14px;
-  }
-
-  .cards{
-    grid-template-columns:1fr;
+  .nav{
     gap:15px;
   }
-  .card{
-    padding:20px;
-  }
-
-  .user-box{
-    bottom:15px;
-    right:10px;
-    padding:8px 10px;
-    gap:5px;
-  }
-  .user-box img{
-    width:25px;
-  }
-  .user-info{
-    font-size:11px;
-  }
-  #logoutBtn{
-    font-size:10px;
-    padding:3px 8px;
-  }
-
   .profile-content{
     width:90%;
-    padding:20px;
+    padding:15px;
   }
-  .profile-content img{
-    width:60px;
+  .online-users{
+    max-width:90%;
   }
-  .profile-content h2{
-    font-size:18px;
+  .comments textarea, .comments button{
+    font-size:14px;
   }
-  .profile-content p{
-    font-size:12px;
-  }
-
-  .comments textarea{
-    font-size:13px;
-  }
-  .comments button{
-    font-size:13px;
-    padding:6px 12px;
-  }
-  .comment-item{
-    font-size:12px;
-  }
-
 }
