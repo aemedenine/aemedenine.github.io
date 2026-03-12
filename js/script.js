@@ -100,6 +100,37 @@ auth.onAuthStateChanged((user) => {
     });
   }
 });
+/* ==========================================
+   AUTO UPDATE RANK BASED ON VISITS
+========================================== */
+
+userRef.once('value').then(snapshot => {
+  let data = snapshot.val();
+  let visits, rank;
+
+  if(!data){
+    visits = 1;
+    rank = "Member";
+    userRef.set({ visits, rank });
+  } else {
+    visits = data.visits + 1;
+
+    // تحديد الرتبة
+    if(visits >= 15){
+      rank = "Admin";
+    } else if(visits >= 5){
+      rank = "Pro";
+    } else {
+      rank = "Member";
+    }
+
+    userRef.update({ visits, rank });
+  }
+
+  // تحديث العرض في User Box
+  document.getElementById("visitCount").innerText = visits;
+  document.querySelector(".user-rank").innerText = "⭐".repeat(rank === "Member" ? 1 : rank === "Pro" ? 2 : 3) + " " + rank;
+});
 // ==========================================
 // SCROLL ANIMATION (Hero + Cards)
 // ==========================================
