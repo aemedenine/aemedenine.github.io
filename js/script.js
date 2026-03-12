@@ -70,7 +70,36 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 .then(() => console.log("🔒 Session persistente activée"))
 .catch(error => console.error("Erreur persistence:", error));
 
+/* ==========================================
+   USER VISITS & RANK
+========================================== */
 
+auth.onAuthStateChanged((user) => {
+  if(user){
+    userBox.style.display="flex";
+    document.getElementById("username").innerText = user.displayName;
+    document.getElementById("userAvatar").src = user.photoURL;
+
+    const userRef = firebase.database().ref('users/' + user.uid);
+
+    // Update visits
+    userRef.once('value').then(snapshot => {
+      let data = snapshot.val();
+      if(!data){
+        // جديد
+        userRef.set({ visits: 1, rank: "Member" });
+        document.getElementById("visitCount").innerText = 1;
+        document.querySelector(".user-rank").innerText = "⭐ Member";
+      } else {
+        // زيد الزيارة
+        const newVisits = data.visits + 1;
+        userRef.update({ visits: newVisits });
+        document.getElementById("visitCount").innerText = newVisits;
+        document.querySelector(".user-rank").innerText = "⭐ " + data.rank;
+      }
+    });
+  }
+});
 // ==========================================
 // SCROLL ANIMATION (Hero + Cards)
 // ==========================================
