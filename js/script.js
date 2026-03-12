@@ -139,6 +139,22 @@ userRef.once('value').then(snapshot => {
   document.getElementById("visitCount").innerText = visits;
   document.querySelector(".user-rank").innerText = "⭐".repeat(rank === "Member" ? 1 : rank === "Pro" ? 2 : 3) + " " + rank;
 });
+// PROFILE MODAL
+const profileModal = document.getElementById("profileModal");
+const closeProfile = document.getElementById("closeProfile");
+
+userBox.onclick = () => {
+  profileModal.style.display = "flex";
+  // Fill profile info
+  profileModal.querySelector("#profileName").innerText = document.getElementById("username").innerText;
+  profileModal.querySelector("#profileAvatar").src = document.getElementById("userAvatar").src;
+  profileModal.querySelector("#profileRank").innerText = document.querySelector(".user-rank").innerText;
+  profileModal.querySelector("#profileVisits").innerText = document.getElementById("visitCount").innerText;
+}
+
+closeProfile.onclick = () => {
+  profileModal.style.display = "none";
+}
 // ==========================================
 // SCROLL ANIMATION (Hero + Cards)
 // ==========================================
