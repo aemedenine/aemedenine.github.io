@@ -132,6 +132,22 @@ color:#cbd5f5;
 margin-bottom:25px;
 font-size:18px;
 }
+/* HERO MOBILE */
+@media(max-width:768px){
+  .hero{
+    padding:80px 15px;
+  }
+  .hero h2{
+    font-size:28px;
+  }
+  .hero p{
+    font-size:14px;
+  }
+  .btn{
+    padding:10px 20px;
+    font-size:14px;
+  }
+}
 
 /* ===============================
    BUTTON
@@ -206,7 +222,16 @@ font-size:20px;
 .card p{
 color:#cbd5f5;
 }
-
+/* CARDS MOBILE */
+@media(max-width:768px){
+  .cards{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+  .card{
+    padding:20px;
+  }
+}
 /* ===============================
    FOOTER
 =================================*/
@@ -308,6 +333,25 @@ border-radius:50%;
 .user-visits{
   color:#94a3b8;
 }
+/* USER BOX MOBILE */
+@media(max-width:768px){
+  .user-box{
+    bottom:15px;
+    right:10px;
+    padding:8px 10px;
+    gap:5px;
+  }
+  .user-box img{
+    width:25px;
+  }
+  .user-info{
+    font-size:11px;
+  }
+  #logoutBtn{
+    font-size:10px;
+    padding:3px 8px;
+  }
+}
 /* PROFILE MODAL */
 .profile-modal{
   display:none;
@@ -348,6 +392,22 @@ border-radius:50%;
   position:absolute;
   top:10px; right:15px;
   cursor:pointer;
+}
+/* PROFILE MODAL MOBILE */
+@media(max-width:768px){
+  .profile-content{
+    width:90%;
+    padding:20px;
+  }
+  .profile-content img{
+    width:60px;
+  }
+  .profile-content h2{
+    font-size:18px;
+  }
+  .profile-content p{
+    font-size:12px;
+  }
 }
 /* ONLINE USERS */
 .online-users{
@@ -398,6 +458,19 @@ border-radius:50%;
   padding:8px;
   margin-bottom:5px;
   border-radius:10px;
+}
+/* COMMENTS MOBILE */
+@media(max-width:768px){
+  .comments textarea{
+    font-size:13px;
+  }
+  .comments button{
+    font-size:13px;
+    padding:6px 12px;
+  }
+  .comment-item{
+    font-size:12px;
+  }
 }
 /* ===============================
    MOBILE
