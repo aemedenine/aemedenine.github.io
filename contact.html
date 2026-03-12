@@ -3,64 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact - Electronique Medenine</title>
+<title>Contact | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 <style>
-/* ====== Contact Page 2026 ====== */
-.contact-page{
-  padding:50px 20px;
-  text-align:center;
-  min-height:80vh;
-  background:#0f172a;
+/* ================= CONTACT PAGE STYLES ================= */
+.contact-container{
+  padding:80px 8%;
+  max-width:1000px;
+  margin:auto;
   color:white;
 }
-.contact-page img{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:3px solid #38bdf8;
-  margin-bottom:15px;
-}
-.contact-page h2{
+.contact-container h2{
   font-size:32px;
-  margin-bottom:20px;
-  color:#38bdf8;
+  margin-bottom:30px;
+  text-align:center;
 }
-.contact-page h3{
-  font-size:24px;
-  margin-bottom:10px;
+.contact-info{
+  display:flex;
+  flex-wrap:wrap;
+  gap:40px;
+  justify-content:space-around;
 }
-.contact-page p{
-  font-size:18px;
-  margin:5px 0;
-}
-.btn-back{
-  margin-top:25px;
-  display:inline-block;
-  padding:10px 25px;
-  border-radius:40px;
-  background:#38bdf8;
-  color:#000;
-  font-weight:600;
-  text-decoration:none;
+.contact-info div{
+  flex:1 1 250px;
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
   transition:0.3s;
 }
-.btn-back:hover{
-  transform:translateY(-3px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+.contact-info div:hover{
+  background:rgba(255,255,255,0.08);
+  transform:translateY(-5px);
 }
-/* Mobile */
+.contact-info h3{
+  margin-bottom:15px;
+  font-size:20px;
+  color:#38bdf8;
+}
+.contact-info p, .contact-info a{
+  color:#cbd5f5;
+  text-decoration:none;
+}
+.contact-info a:hover{
+  color:#38bdf8;
+}
+.map-container{
+  margin-top:40px;
+  border-radius:15px;
+  overflow:hidden;
+  height:400px;
+}
+.contact-img{
+  width:100%;
+  border-radius:15px;
+  margin-top:20px;
+}
 @media(max-width:768px){
-  .contact-page h2{ font-size:28px; }
-  .contact-page h3{ font-size:20px; }
-  .contact-page p{ font-size:16px; }
-  .contact-page img{ width:100px; height:100px; }
+  .contact-info{
+    flex-direction:column;
+    gap:20px;
+  }
 }
 </style>
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="header">
 <div class="logo">
   <img src="images/logo.png" alt="Logo" class="logo-img">
@@ -68,60 +77,66 @@
 </div>
 <nav class="nav">
   <a href="index.html">Home</a>
-  <a href="services.html">Services</a>
+  <a href="index.html#services">Services</a>
   <a href="contact.html">Contact</a>
   <button class="login-btn">Login</button>
 </nav>
 </header>
 
-<section class="contact-page">
-  <h2>📇 My Profile Info</h2>
-  <img id="contactAvatar" src="">
-  <h3 id="contactName">User</h3>
-  <p>Email: <span id="contactEmail">user@example.com</span></p>
-  <p>⭐ Rank: <span id="contactRank">Member</span></p>
-  <p>👁 Visits: <span id="contactVisits">0</span></p>
-  <a href="index.html" class="btn-back">⬅ Back to Home</a>
+<!-- ================= CONTACT ================= -->
+<section class="contact-container">
+<h2>Contactez-nous</h2>
+<div class="contact-info">
+
+  <div>
+    <h3>📞 Téléphone</h3>
+    <p>+216 98 192 103</p>
+  </div>
+
+  <div>
+    <h3>✉ Email</h3>
+    <p>contact@electroniquemedenine.com</p>
+  </div>
+
+  <div>
+    <h3>💬 WhatsApp</h3>
+    <p><a href="https://wa.me/21698192103" target="_blank">+216 98 192 103</a></p>
+  </div>
+
+  <div>
+    <h3>🌐 Réseaux Sociaux</h3>
+    <p><a href="https://www.facebook.com/AEMednine" target="_blank">Facebook</a></p>
+    <p><a href="https://www.instagram.com/aemedenine/" target="_blank">Instagram</a></p>
+    <p><a href="https://twitter.com/aemedenine" target="_blank">X / Twitter</a></p>
+  </div>
+
+  <div>
+    <h3>🏢 Adresse</h3>
+    <p>123 Nahj libya, Médenine, Tunisie</p>
+  </div>
+
+  <div>
+    <h3>👷 Ingénieur Responsable</h3>
+    <p>M. RAHMANI Soufien</p>
+  </div>
+
+</div>
+
+<div class="map-container">
+<iframe 
+src="https://www.google.com/maps/place/Atelier+Electronique+M%C3%A9denine/@33.3453589,10.4973249,17z/data=!3m1!4b1!4m6!3m5!1s0x1254d628fbf58d33:0xd2c28a3dfbd97797!8m2!3d33.3453589!4d10.4973249!16s%2Fg%2F11c7201hzb?entry=ttu&g_ep=EgoyMDI2MDMxMC4wIKXMDSoASAFQAw%3D%3D" 
+width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+<img src="images/atelier.jpg" alt="Atelier Electronique" class="contact-img">
+
 </section>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- ================= FOOTER ================= -->
+<footer>
+<p>© 2026 Electronique Medenine</p>
+</footer>
 
-<script>
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-  authDomain: "atelier-electronique-mednine.firebaseapp.com",
-  projectId: "atelier-electronique-mednine",
-  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-  messagingSenderId: "547430908384",
-  appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
-  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// Display user info
-auth.onAuthStateChanged(user=>{
-  if(user){
-    document.getElementById("contactAvatar").src = user.photoURL;
-    document.getElementById("contactName").innerText = user.displayName;
-    document.getElementById("contactEmail").innerText = user.email;
-
-    const userRef = firebase.database().ref("users/"+user.uid);
-    userRef.once("value").then(snapshot=>{
-      const data = snapshot.val();
-      document.getElementById("contactRank").innerText = data ? data.rank : "Member";
-      document.getElementById("contactVisits").innerText = data ? data.visits : 0;
-    });
-  } else {
-    alert("Please login first!");
-    window.location.href = "index.html";
-  }
-});
-</script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
