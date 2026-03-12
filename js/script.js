@@ -100,6 +100,14 @@ auth.onAuthStateChanged((user) => {
     });
   }
 });
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.onclick = () => {
+  auth.signOut().then(() => {
+    userBox.style.display = "none";
+    alert("🔓 Logged out!");
+  });
+}
 /* ==========================================
    AUTO UPDATE RANK BASED ON VISITS
 ========================================== */
@@ -174,3 +182,4 @@ document.querySelectorAll("a[href^='#']").forEach(anchor => {
     });
   });
 });
+
