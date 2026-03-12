@@ -169,6 +169,54 @@ auth.onAuthStateChanged((user)=>{
     onlineRef.child(user.uid).onDisconnect().remove();
   }
 });
+// Display online users
+onlineRef.on("value", snapshot=>{
+  const container = document.getElementById("onlineUsers");
+  container.innerHTML = "";
+  snapshot.forEach(child=>{
+    const data = child.val();
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.innerHTML = `<img src="${data.avatar}"><span>${data.name}</span>`;
+    container.appendChild(div);
+  });
+});
+// COMMENTS SYSTEM
+const commentsRef = firebase.database().ref("comments");
+
+const commentInput = document.getElementById("commentInput");
+const commentSubmit = document.getElementById("commentSubmit");
+const commentsList = document.getElementById("commentsList");
+
+commentSubmit.onclick = () => {
+  const text = commentInput.value.trim();
+  if(!text) return;
+
+  const user = auth.currentUser;
+  if(!user) return alert("Login first!");
+
+  commentsRef.push({
+    user: user.displayName,
+    avatar: user.photoURL,
+    text: text,
+    timestamp: Date.now()
+  });
+
+  commentInput.value = "";
+}
+
+// Display comments
+commentsRef.on("value", snapshot=>{
+  commentsList.innerHTML = "";
+  snapshot.forEach(child=>{
+    const data = child.val();
+    const div = document.createElement("div");
+    div.classList.add("comment-item");
+    div.innerHTML = `<img src="${data.avatar}" style="width:25px;border-radius:50%;margin-right:5px;"> <b>${data.user}:</b> ${data.text}`;
+    commentsList.appendChild(div);
+  });
+});
 // ==========================================
 // SCROLL ANIMATION (Hero + Cards)
 // ==========================================
