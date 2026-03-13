@@ -1,48 +1,157 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Code Radio | Atelier Électronique Médenine</title>
+<title>Déverrouillage Code Radio | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
-
+<link rel="stylesheet" href="css/style.css">
 <style>
-/* ================= GLOBAL ================= */
-body{
-background:#0f172a;color:white;font-family:Arial, Helvetica, sans-serif;margin:0;padding:0;
+/* ================= RADIO CODE PAGE ================= */
+.radio-container{
+  padding:140px 8% 100px;
+  max-width:800px;
+  margin:auto;
 }
-/* ================= HEADER ================= */
-.header{
-position:sticky;top:0;background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.15);
-display:flex;justify-content:space-between;align-items:center;padding:1rem 8%;z-index:1000;
+.radio-container h2{
+  text-align:center;
+  font-size:36px;
+  margin-bottom:40px;
 }
-.logo{display:flex;align-items:center;gap:1rem;}
-.logo-img{width:55px;height:55px;border-radius:50%;}
-.nav a{color:#94a3b8;text-decoration:none;margin-left:1.5rem;}
-.nav a:hover{color:white;}
-.login-btn{padding:0.6rem 1.5rem;background:#38bdf8;border:none;border-radius:50px;color:#000;cursor:pointer;}
-.login-btn:hover{transform:scale(1.05);}
-
-/* ================= CODE RADIO FORM ================= */
-.radio-container{padding:120px 8%;max-width:800px;margin:auto;}
-.radio-container h2{text-align:center;font-size:2.8rem;margin-bottom:2rem;color:#38bdf8;}
-.radio-form{background:rgba(30,41,59,0.65);padding:2rem;border-radius:20px;display:flex;flex-direction:column;gap:1.2rem;}
-.field-wrapper{position:relative;}
-.field-wrapper span{position:absolute;left:1rem;top:50%;transform:translateY(-50%);}
-input{width:100%;padding:1rem 1rem 1rem 3rem;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:white;}
-button{padding:1rem;background:#38bdf8;border:none;border-radius:50px;color:#000;font-weight:600;cursor:pointer;}
-button:hover{transform:scale(1.02);}
+.radio-form{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:30px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.field-wrapper{
+  position:relative;
+}
+.field-wrapper span{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  color:#94a3b8;
+}
+input{
+  width:100%;
+  padding:12px 12px 12px 45px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  color:white;
+  font-size:16px;
+}
+input:focus{
+  outline:none;
+  border:1px solid #38bdf8;
+  box-shadow:0 0 15px rgba(56,189,248,0.3);
+}
+button.calc-btn{
+  padding:12px;
+  border:none;
+  border-radius:50px;
+  background:#38bdf8;
+  color:#000;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+button.calc-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px rgba(56,189,248,0.5);
+}
 
 /* ================= MODAL ================= */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:2000;}
-.modal.active{display:flex;}
-.modal-content{background:rgba(30,41,59,0.65);padding:2rem;border-radius:20px;text-align:center;}
-.modal-content h2{color:#38bdf8;margin-bottom:1rem;}
-.modal-actions{margin-top:1.5rem;display:flex;gap:0.8rem;justify-content:center;}
-.modal-btn{padding:0.6rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;}
-.copy-btn{background:#38bdf8;color:#000;}
-.close-btn{background:#4b5563;color:white;}
-.copy-btn:hover{background:#0ea5e9;}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(8px);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+.modal.active{
+  display:flex;
+}
+.modal-content{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:30px;
+  max-width:500px;
+  width:90%;
+  text-align:center;
+}
+.modal-content h2{
+  color:#38bdf8;
+  margin-bottom:15px;
+}
+.modal-content p{
+  margin:10px 0;
+  font-size:16px;
+}
+.modal-content strong{
+  font-size:22px;
+  letter-spacing:2px;
+}
+.modal-actions{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+.modal-btn{
+  padding:10px 20px;
+  border-radius:50px;
+  font-weight:600;
+  cursor:pointer;
+}
+.close-btn{
+  background:#4b5563;
+  color:white;
+}
+.copy-btn{
+  background:#38bdf8;
+  color:#000;
+}
+.disclaimer{
+  margin-top:20px;
+  font-size:14px;
+  color:#94a3b8;
+  line-height:1.4;
+}
+
+/* ================= WHATSAPP FLOAT ================= */
+.whatsapp-btn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  width:60px;
+  height:60px;
+  background:#25D366;
+  color:white;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  text-decoration:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  transition:0.3s;
+  z-index:1000;
+}
+.whatsapp-btn:hover{
+  transform:scale(1.1);
+}
 </style>
 </head>
 
@@ -50,71 +159,107 @@ button:hover{transform:scale(1.02);}
 
 <!-- ================= HEADER ================= -->
 <header class="header">
-<div class="logo">
-<img src="images/logo.png" alt="Logo" class="logo-img">
-<h1>Atelier Électronique Médenine</h1>
-</div>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="index.html#services">Services</a>
-<a href="radio-code.html">Code Radio</a>
-<a href="contact.html">Contact</a>
-<button class="login-btn">Login</button>
-</nav>
+  <div class="logo">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <button class="login-btn">Login</button>
+  </nav>
 </header>
 
-<!-- ================= CODE RADIO ================= -->
+<!-- ================= RADIO FORM ================= -->
 <section class="radio-container">
-<h2>Déverrouillage Code Radio</h2>
-<div class="radio-form">
-<div class="field-wrapper">
-<span>🚗</span>
-<input type="text" id="car-brand" value="Renault" readonly>
-</div>
-<div class="field-wrapper">
-<span>🔢</span>
-<input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4">
-</div>
-<button onclick="generateCode()">Calculer le Code</button>
-</div>
+  <h2>Déverrouillage Code Radio</h2>
+  <div class="radio-form">
+    <div class="field-wrapper">
+      <span>🚗</span>
+      <input type="text" id="car-brand" placeholder="Marque voiture (Renault)" />
+    </div>
+    <div class="field-wrapper">
+      <span>🔢</span>
+      <input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4" />
+    </div>
+    <button class="calc-btn" onclick="generateCode()">Calculer le Code</button>
+  </div>
 </section>
 
 <!-- ================= MODAL ================= -->
 <div class="modal" id="result-modal">
-<div class="modal-content">
-<h2>Votre Code Radio</h2>
-<p>Marque : <strong>Renault</strong></p>
-<p>Précode : <strong id="modal-precode">—</strong></p>
-<p>Code : <strong id="modal-code">—</strong></p>
-<div class="modal-actions">
-<button class="modal-btn copy-btn" id="copy-btn">Copier Code</button>
-<a href="https://wa.me/21698192103" target="_blank"><button class="modal-btn copy-btn">WhatsApp</button></a>
-<button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
-</div>
-</div>
+  <div class="modal-content">
+    <h2>Votre Code Radio</h2>
+    <p>Marque: <strong id="modal-brand">—</strong></p>
+    <p>Précode: <strong id="modal-precode">—</strong></p>
+    <p>Code: <strong id="modal-code">—</strong></p>
+
+    <div class="modal-actions">
+      <button class="modal-btn copy-btn" id="copy-btn">Copier Code</button>
+      <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
+    </div>
+
+    <div class="disclaimer">
+      Calcul local via algorithme Renault (Philips/VDO).<br>
+      Testé sur listes publiques. Pour modèles spéciaux, contactez WhatsApp +216 98 192 103.
+    </div>
+  </div>
 </div>
 
-<!-- ================= FOOTER ================= -->
-<footer style="text-align:center;padding:30px;color:#94a3b8;">
-© 2026 Atelier Électronique Médenine — Service Professionnel Code Radio
+<!-- ================= WHATSAPP FLOAT ================= -->
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">
+💬
+</a>
+
+<footer>
+  <p>© 2026 Atelier Électronique Médenine — Service Professionnel Code Radio</p>
 </footer>
 
 <script>
-function generateCode(){
-const precode=document.getElementById('precode').value.trim().toUpperCase();
-if(!precode || !/^[A-Z]\d{3}$/.test(precode)){alert("Précode invalide ! Exemple : A123");return;}
-let x=precode.charCodeAt(1)+precode.charCodeAt(0)*10-698;
-let y=precode.charCodeAt(3)+precode.charCodeAt(2)*10+x-528;
-let z=(y*7)%100;if(z<0) z+=100;
-let codeNum=Math.floor(z/10)+(z%10)*10+((259%Math.abs(x))%100)*100;
-const codeStr=codeNum.toString().padStart(4,'0');
-document.getElementById('modal-precode').textContent=precode;
-document.getElementById('modal-code').textContent=codeStr;
-document.getElementById('result-modal').classList.add('active');
-const copyBtn=document.getElementById('copy-btn');
-copyBtn.onclick=()=>{navigator.clipboard.writeText(codeStr);copyBtn.textContent="Copié !";setTimeout(()=>copyBtn.textContent="Copier Code",2000);};
-}
-function closeModal(){document.getElementById('result-modal').classList.remove('active');}
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('.header').classList.toggle('scrolled', window.scrollY>50);
+  });
+
+  function generateCode(){
+    const brand=document.getElementById('car-brand').value.trim();
+    const precode=document.getElementById('precode').value.trim().toUpperCase();
+
+    if(!brand.toLowerCase().includes('renault')){
+      alert("Algorithme optimisé pour Renault seulement. Contact WhatsApp pour autres marques.");
+      return;
+    }
+
+    if(!precode || precode.length!==4 || !/^[A-Z]\d{3}$/.test(precode) || precode.startsWith('A0')){
+      alert("Précode invalide ! Exemple: A123. Pas A0xx.");
+      return;
+    }
+
+    // Algorithm Renault
+    let x = precode.charCodeAt(1) + precode.charCodeAt(0)*10 - 698;
+    let y = precode.charCodeAt(3) + precode.charCodeAt(2)*10 + x - 528;
+    let z = (y*7)%100; if(z<0) z+=100;
+    let codeNum = Math.floor(z/10) + (z%10)*10 + ((259 % Math.abs(x))%100)*100;
+    const codeStr = codeNum.toString().padStart(4,'0');
+
+    // Fill modal
+    document.getElementById('modal-brand').textContent = brand;
+    document.getElementById('modal-precode').textContent = precode;
+    document.getElementById('modal-code').textContent = codeStr;
+
+    // Copy button
+    const copyBtn=document.getElementById('copy-btn');
+    copyBtn.onclick=()=>{navigator.clipboard.writeText(codeStr).then(()=>{copyBtn.textContent='Copié !'; setTimeout(()=>copyBtn.textContent='Copier Code',2000);}).catch(()=>alert('Erreur copie.'));};
+
+    document.getElementById('result-modal').classList.add('active');
+  }
+
+  function closeModal(){
+    document.getElementById('result-modal').classList.remove('active');
+  }
 </script>
 
 </body>
