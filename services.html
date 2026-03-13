@@ -178,7 +178,7 @@
     document.querySelector('.header').classList.toggle('scrolled', window.scrollY>50);
   });
 
-  // Open service detail
+  // Open service detail on click
   const cards = document.querySelectorAll('.card');
   cards.forEach(card=>{
     card.addEventListener('click',()=>{
@@ -188,22 +188,24 @@
     });
   });
 
+  // Close service detail
   function closeDetail(){
     document.querySelectorAll('.service-detail').forEach(detail=>{
       detail.classList.remove('active');
     });
   }
-  // افتح القسم تلقائياً لو فيه hash في الرابط
-window.addEventListener('DOMContentLoaded', () => {
-  const hash = window.location.hash.substring(1); // يشيل #
-  if(hash){
-    const section = document.getElementById(hash);
-    if(section){
-      section.classList.add('active');
-      window.scrollTo({top: section.offsetTop - 80, behavior: 'smooth'});
+
+  // Open service automatically if hash exists
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.substring(1);
+    if(hash){
+      const section = document.getElementById(hash);
+      if(section){
+        section.classList.add('active');
+        window.scrollTo({top: section.offsetTop - 80, behavior:'smooth'});
+      }
     }
-  }
-});
+  });
 </script>
 
 </body>
