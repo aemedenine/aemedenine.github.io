@@ -3,150 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Code Radio | Atelier Électronique Médenine</title>
+<title>Radio Code | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
 
 <style>
-/* ================= BODY ================= */
+/* ================= BASE ================= */
 body{
   background:#0f172a;
   color:white;
   font-family:Arial, Helvetica, sans-serif;
   margin:0;
+  padding:0;
 }
 
-/* ================= HEADER exactement comme contact.html ================= */
+/* ================= HEADER ================= */
 .header{
-  position:fixed;
-  top:0; left:0; right:0;
-  padding:1.4rem 8%;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:15px 8%;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
   z-index:1000;
-  background:rgba(15,23,42,0.95);
-  backdrop-filter:blur(15px);
 }
+
 .logo{
   display:flex;
   align-items:center;
-  gap:1rem;
+  gap:15px;
 }
-.logo-img{height:45px;width:auto;}
+
+.logo-img{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  border: 3px solid #38bdf8;
+  padding:5px;
+  background:rgba(255,255,255,0.05);
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+
+.logo-img:hover{
+  transform:scale(1.1);
+  box-shadow:0 8px 25px rgba(0,0,0,0.5);
+}
+
 .logo h1{
-  font-size:1.6rem;
+  font-size:24px;
+  font-weight:700;
   color:white;
-  font-weight:600;
+  letter-spacing:1px;
 }
-.nav{display:flex;gap:2rem;align-items:center;}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
 .nav a{
-  color:white;
   text-decoration:none;
+  color:white;
   font-weight:500;
+  transition:0.3s;
 }
-.nav a:hover{color:#38bdf8;}
+
+.nav a:hover{
+  color:#38bdf8;
+}
+
 .login-btn{
-  padding:0.6rem 1.5rem;
-  background:#38bdf8;
+  padding:8px 18px;
   border:none;
   border-radius:30px;
-  color:white;
+  background:#38bdf8;
+  color:#000;
   font-weight:600;
   cursor:pointer;
+  transition:0.3s;
 }
-.login-btn:hover{background:#0ea5e9;}
 
-/* ================= PAGE CONTENT ================= */
-.page-container{
-  padding:160px 8% 100px;
-  max-width:900px;
+.login-btn:hover{
+  transform:scale(1.05);
+}
+
+/* ================= RADIO FORM ================= */
+.radio-container{
+  padding:120px 8%;
+  max-width:700px;
   margin:auto;
 }
-.page-container h2{
-  font-size:40px;
+
+.radio-container h2{
   text-align:center;
-  margin-bottom:40px;
+  font-size:36px;
+  margin-bottom:20px;
 }
 
-/* ================= FORM ================= */
-.form-card{
+.radio-form{
   background:rgba(255,255,255,0.05);
   padding:30px;
   border-radius:18px;
-  max-width:600px;
-  margin:auto;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
 }
-.form-card input{
-  width:100%;
-  padding:12px 15px;
-  margin:12px 0;
-  border:none;
-  border-radius:12px;
-  background:rgba(255,255,255,0.07);
-  color:white;
-}
-.form-card button{
+
+.radio-form input{
   width:100%;
   padding:12px;
+  margin:10px 0;
+  border-radius:12px;
+  border:none;
+  background:rgba(255,255,255,0.05);
+  color:white;
+  font-size:16px;
+}
+
+.radio-form input:focus{
+  outline:none;
+  box-shadow:0 0 10px #38bdf8;
+}
+
+.radio-form button{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
   border:none;
   border-radius:30px;
   background:#38bdf8;
-  color:white;
   font-weight:600;
   cursor:pointer;
-  margin-top:12px;
+  transition:0.3s;
 }
-.form-card button:hover{background:#0ea5e9;}
+
+.radio-form button:hover{
+  transform:scale(1.05);
+  box-shadow:0 5px 15px #38bdf8;
+}
 
 /* ================= MODAL ================= */
 .modal{
+  display:none;
   position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.8);
-  display:flex;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
   justify-content:center;
   align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:0.3s;
   z-index:2000;
 }
-.modal.active{opacity:1;pointer-events:auto;}
-.modal-content{
-  background:rgba(20,28,55,0.8);
-  padding:2rem;
-  border-radius:18px;
-  max-width:450px;
-  text-align:center;
-  color:white;
+
+.modal.active{
+  display:flex;
 }
+
+.modal-content{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:18px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.modal-content h2{
+  color:#38bdf8;
+  margin-bottom:15px;
+}
+
+.modal-content p{
+  margin:8px 0;
+}
+
+.modal-content strong{
+  font-size:1.5rem;
+  letter-spacing:3px;
+}
+
 .modal-content button{
-  margin-top:20px;
+  margin-top:15px;
   padding:10px 25px;
-  background:#38bdf8;
   border:none;
-  border-radius:30px;
-  color:white;
+  border-radius:25px;
+  background:#38bdf8;
+  color:black;
   font-weight:600;
   cursor:pointer;
 }
-.modal-content button:hover{background:#0ea5e9;}
+
+.modal-content button:hover{
+  background:#0ea5e9;
+}
 
 /* ================= FOOTER ================= */
 footer{
   text-align:center;
-  margin-top:60px;
-  padding:30px;
+  padding:25px;
+  margin-top:40px;
   color:#94a3b8;
+  font-size:14px;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .radio-container{padding:80px 5%;}
 }
 </style>
 </head>
 <body>
 
-<!-- ================= HEADER EXACTEMENT COMME CONTACT ================= -->
 <header class="header">
   <div class="logo">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <img src="images/logo.png" class="logo-img" alt="Logo">
     <h1>Atelier Électronique Médenine</h1>
   </div>
   <nav class="nav">
@@ -157,47 +229,53 @@ footer{
   </nav>
 </header>
 
-<!-- ================= PAGE CONTENT ================= -->
-<section class="page-container">
-  <h2>Code Radio Voiture</h2>
-  <div class="form-card">
-    <input type="text" id="car-brand" placeholder="Marque de voiture">
-    <input type="text" id="serial-number" placeholder="Numéro de série / Précode">
+<section class="radio-container">
+  <h2>Déverrouillage Code Radio</h2>
+  <div class="radio-form">
+    <input type="text" id="car-brand" placeholder="Marque de la voiture (ex: Renault)">
+    <input type="text" id="serial-number" placeholder="Numéro de série / Précode (ex: 1234567890)">
     <button onclick="generateCode()">Calculer le Code</button>
   </div>
 </section>
 
-<!-- ================= MODAL ================= -->
+<!-- Modal -->
 <div class="modal" id="result-modal">
   <div class="modal-content">
     <h2>Votre Code Radio</h2>
     <p>Marque: <strong id="modal-brand">—</strong></p>
     <p>Numéro de série: <strong id="modal-serial">—</strong></p>
-    <p>Code: <strong id="modal-code" style="letter-spacing:4px;font-size:1.5rem;">—</strong></p>
+    <p>Code déverrouillage: <strong id="modal-code">—</strong></p>
     <button onclick="closeModal()">Fermer</button>
   </div>
 </div>
 
-<!-- ================= FOOTER ================= -->
 <footer>
   <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
 <script>
-// Fill modal with demo code
 function generateCode(){
   const brand = document.getElementById('car-brand').value.trim();
   const serial = document.getElementById('serial-number').value.trim();
-  if(!brand || !serial){alert("Remplissez tous les champs !"); return;}
+  if(!brand || !serial){
+    alert("Remplissez la marque et le numéro de série !");
+    return;
+  }
+  // simple hash demo
   let hash = 0;
-  for(let i=0;i<serial.length;i++){hash=(hash*31+serial.charCodeAt(i))%100000;}
+  for(let i=0;i<serial.length;i++){
+    hash=(hash*31+serial.charCodeAt(i))%100000;
+  }
   const code = String(hash).padStart(5,'0').slice(-5);
   document.getElementById('modal-brand').textContent = brand;
   document.getElementById('modal-serial').textContent = serial;
   document.getElementById('modal-code').textContent = code;
   document.getElementById('result-modal').classList.add('active');
 }
-function closeModal(){document.getElementById('result-modal').classList.remove('active');}
+
+function closeModal(){
+  document.getElementById('result-modal').classList.remove('active');
+}
 </script>
 
 </body>
