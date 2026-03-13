@@ -193,6 +193,17 @@
       detail.classList.remove('active');
     });
   }
+  // افتح القسم تلقائياً لو فيه hash في الرابط
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.substring(1); // يشيل #
+  if(hash){
+    const section = document.getElementById(hash);
+    if(section){
+      section.classList.add('active');
+      window.scrollTo({top: section.offsetTop - 80, behavior: 'smooth'});
+    }
+  }
+});
 </script>
 
 </body>
