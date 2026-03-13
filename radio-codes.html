@@ -9,13 +9,14 @@
 
 <style>
 body{
+  margin:0;
+  font-family:Arial;
   background:#0f172a;
   color:white;
-  font-family:Arial;
-  margin:0;
+  overflow-x:hidden;
 }
 
-/* HEADER */
+/* Header */
 .header{
   display:flex;
   justify-content:space-between;
@@ -48,14 +49,36 @@ body{
   cursor:pointer;
 }
 
-/* PAGE */
+/* Page */
 .radio-container{
   max-width:1200px;
   margin:auto;
   padding:80px 8%;
+  position:relative;
+  z-index:1;
 }
 
-/* TITLE */
+/* Background Animation */
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: linear-gradient(45deg, #0f172a, #1e293b, #0f172a);
+  background-size:400% 400%;
+  animation: gradientAnim 15s ease infinite;
+  z-index:-1;
+}
+
+@keyframes gradientAnim{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Title */
 .radio-title{
   text-align:center;
   margin-bottom:50px;
@@ -69,7 +92,7 @@ body{
   color:#94a3b8;
 }
 
-/* BRANDS GRID */
+/* Brand Grid */
 .brand-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -84,6 +107,12 @@ body{
   text-align:center;
   cursor:pointer;
   transition:0.3s;
+  position:relative;
+}
+
+.brand-card img{
+  width:40px;
+  margin-bottom:10px;
 }
 
 .brand-card:hover{
@@ -98,7 +127,7 @@ body{
   color:#38bdf8;
 }
 
-/* FORM */
+/* Form */
 .radio-form{
   margin-top:60px;
   background:rgba(255,255,255,0.05);
@@ -106,8 +135,7 @@ body{
   border-radius:15px;
 }
 
-.radio-form input,
-.radio-form select{
+.radio-form input{
   width:100%;
   padding:12px;
   margin-top:10px;
@@ -130,10 +158,42 @@ body{
   background:#0ea5e9;
 }
 
-footer{
-  text-align:center;
+/* Modal */
+.modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.modal.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-content{
+  background:#1e293b;
   padding:30px;
-  color:#94a3b8;
+  border-radius:15px;
+  max-width:500px;
+  text-align:center;
+}
+
+.modal-content h2{
+  margin-bottom:15px;
+  color:#38bdf8;
+}
+
+.modal-content button{
+  margin-top:15px;
 }
 </style>
 </head>
@@ -142,15 +202,15 @@ footer{
 
 <header class="header">
 <div class="logo">
-  <img src="images/logo.png" class="logo-img">
-  <h2>Electronique Medenine</h2>
+<img src="images/logo.png" class="logo-img">
+<h2>Electronique Medenine</h2>
 </div>
 
 <nav class="nav">
-  <a href="index.html">Home</a>
-  <a href="index.html#services">Services</a>
-  <a href="contact.html">Contact</a>
-  <button class="login-btn">Login</button>
+<a href="index.html">Home</a>
+<a href="index.html#services">Services</a>
+<a href="contact.html">Contact</a>
+<button class="login-btn">Login</button>
 </nav>
 </header>
 
@@ -162,31 +222,16 @@ footer{
 </div>
 
 <div class="brand-grid">
-  <div class="brand-card"><h3>Renault</h3></div>
-  <div class="brand-card"><h3>Ford</h3></div>
-  <div class="brand-card"><h3>Volkswagen</h3></div>
-  <div class="brand-card"><h3>Audi</h3></div>
-  <div class="brand-card"><h3>Seat</h3></div>
-  <div class="brand-card"><h3>Skoda</h3></div>
-  <div class="brand-card"><h3>Fiat</h3></div>
-  <div class="brand-card"><h3>Alfa Romeo</h3></div>
-  <div class="brand-card"><h3>Peugeot</h3></div>
-  <div class="brand-card"><h3>Citroen</h3></div>
-  <div class="brand-card"><h3>Opel</h3></div>
-  <div class="brand-card"><h3>Nissan</h3></div>
-  <div class="brand-card"><h3>Dacia</h3></div>
-  <div class="brand-card"><h3>BMW</h3></div>
-  <div class="brand-card"><h3>Mercedes</h3></div>
-  <div class="brand-card"><h3>Hyundai</h3></div>
-  <div class="brand-card"><h3>Kia</h3></div>
-  <div class="brand-card"><h3>Toyota</h3></div>
-  <div class="brand-card"><h3>Honda</h3></div>
-  <div class="brand-card"><h3>Mazda</h3></div>
+  <!-- Example card with icon -->
+  <div class="brand-card" data-brand="Renault"><img src="images/renault.png"><h3>Renault</h3></div>
+  <div class="brand-card" data-brand="Ford"><img src="images/ford.png"><h3>Ford</h3></div>
+  <div class="brand-card" data-brand="Volkswagen"><img src="images/vw.png"><h3>Volkswagen</h3></div>
+  <div class="brand-card" data-brand="Audi"><img src="images/audi.png"><h3>Audi</h3></div>
+  <div class="brand-card" data-brand="BMW"><img src="images/bmw.png"><h3>BMW</h3></div>
 </div>
 
 <div class="radio-form">
 <h3>Demander votre code radio</h3>
-
 <input type="text" id="car-brand" placeholder="Marque de voiture">
 <input type="text" placeholder="Numéro de série de la radio" id="serial-number">
 <input type="email" placeholder="Votre email">
@@ -195,24 +240,40 @@ footer{
 
 </section>
 
+<!-- Modal -->
+<div class="modal" id="brand-modal">
+  <div class="modal-content">
+    <h2 id="modal-brand">Brand</h2>
+    <p>Numéro de série: <span id="modal-serial"></span></p>
+    <p>Code radio (demo): <span id="modal-code"></span></p>
+    <button onclick="closeModal()">Fermer</button>
+  </div>
+</div>
+
 <footer>
 © 2026 Atelier Electronique Medenine
 </footer>
 
 <script>
-// ربط اختيار الماركة بال input
+// Brand click -> fill input + open modal demo
 const brandCards = document.querySelectorAll('.brand-card');
 const brandInput = document.getElementById('car-brand');
 
-brandCards.forEach(card => {
-  card.addEventListener('click', () => {
-    brandInput.value = card.textContent;
+const modal = document.getElementById('brand-modal');
+const modalBrand = document.getElementById('modal-brand');
+const modalSerial = document.getElementById('modal-serial');
+const modalCode = document.getElementById('modal-code');
+
+brandCards.forEach(card=>{
+  card.addEventListener('click',()=>{
+    const brand = card.dataset.brand;
+    brandInput.value = brand;
     brandInput.focus();
   });
 });
 
-// محاكاة حساب الكود (demo)
-function generateCode() {
+// Generate code demo
+function generateCode(){
   const brand = brandInput.value;
   const serial = document.getElementById('serial-number').value;
   
@@ -221,9 +282,19 @@ function generateCode() {
     return;
   }
 
-  // Demo code calculation
-  const code = serial.split('').reduce((a,b)=> a+b.charCodeAt(0),0) % 10000;
-  alert(`Le code radio pour ${brand} est: ${code}`);
+  const code = serial.split('').reduce((a,b)=> a+b.charCodeAt(0),0)%10000;
+
+  // Fill modal
+  modalBrand.textContent = brand;
+  modalSerial.textContent = serial;
+  modalCode.textContent = code;
+
+  modal.classList.add('active');
+}
+
+// Close modal
+function closeModal(){
+  modal.classList.remove('active');
 }
 </script>
 
