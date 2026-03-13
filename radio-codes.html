@@ -12,31 +12,27 @@
   <style>
     :root {
       --bg: #0f172a;
-      --card: rgba(30, 41, 59, 0.6);
+      --card: rgba(30, 41, 59, 0.65);
       --glass: rgba(255,255,255,0.08);
       --border: rgba(255,255,255,0.12);
       --accent: #38bdf8;
-      --accent-glow: rgba(56,189,248,0.4);
+      --glow: rgba(56,189,248,0.4);
       --text: #e2e8f0;
       --muted: #94a3b8;
       --radius: 20px;
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      background-image: radial-gradient(circle at 20% 30%, rgba(56,189,248,0.08), transparent 40%);
     }
-
     .header {
       position: sticky;
       top: 0;
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(15,23,42,0.8);
+      background: rgba(15,23,42,0.85);
       border-bottom: 1px solid var(--border);
       padding: 1rem 8%;
       display: flex;
@@ -45,209 +41,40 @@
       z-index: 1000;
       transition: padding 0.3s;
     }
-
     .header.scrolled { padding: 0.8rem 8%; }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo-img {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      padding: 4px;
-      background: rgba(255,255,255,0.05);
-      transition: transform 0.3s;
-    }
-
+    .logo { display: flex; align-items: center; gap: 1rem; }
+    .logo-img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--accent); padding: 4px; background: rgba(255,255,255,0.05); transition: transform 0.3s; }
     .logo-img:hover { transform: scale(1.08); }
-
-    .logo h1 {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.5rem;
-      background: linear-gradient(90deg, var(--accent), #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
+    .logo h1 { font-family: 'Orbitron', monospace; font-size: 1.5rem; background: linear-gradient(90deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav { display: flex; gap: 2rem; align-items: center; }
+    .nav a { color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
     .nav a:hover { color: white; }
-
-    .login-btn {
-      padding: 0.6rem 1.5rem;
-      background: var(--accent);
-      border: none;
-      border-radius: 50px;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .login-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-
-    .radio-container {
-      padding: 140px 8% 100px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h2 {
-      text-align: center;
-      font-family: 'Orbitron', monospace;
-      font-size: 3rem;
-      margin-bottom: 3rem;
-      background: linear-gradient(90deg, var(--accent), #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .radio-form {
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .field-wrapper {
-      position: relative;
-    }
-
-    .field-wrapper span {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.4rem;
-      color: var(--muted);
-    }
-
-    input {
-      width: 100%;
-      padding: 1rem 1rem 1rem 3rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: white;
-      font-size: 1.1rem;
-      transition: all 0.3s;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 15px rgba(56,189,248,0.3);
-    }
-
-    button {
-      padding: 1rem;
-      background: linear-gradient(135deg, var(--accent), #60a5fa);
-      border: none;
-      border-radius: 50px;
-      color: #000;
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.4s;
-    }
-
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(56,189,248,0.5);
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
+    .login-btn { padding: 0.6rem 1.5rem; background: var(--accent); border: none; border-radius: 50px; color: #000; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .login-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--glow); }
+    .radio-container { padding: 140px 8% 100px; max-width: 800px; margin: auto; }
+    h2 { text-align: center; font-family: 'Orbitron', monospace; font-size: 3rem; margin-bottom: 3rem; background: linear-gradient(90deg, var(--accent), #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .radio-form { background: var(--card); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .field-wrapper { position: relative; }
+    .field-wrapper span { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--muted); }
+    input { width: 100%; padding: 1rem 1rem 1rem 3rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 1.1rem; transition: all 0.3s; }
+    input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(56,189,248,0.3); }
+    button { padding: 1rem; background: linear-gradient(135deg, var(--accent), #60a5fa); border: none; border-radius: 50px; color: #000; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.4s; }
+    button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(56,189,248,0.5); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2000; }
     .modal.active { display: flex; }
-
-    .modal-content {
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    }
-
+    .modal-content { background: var(--card); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; max-width: 500px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
     .modal-content h2 { color: var(--accent); margin-bottom: 1.5rem; }
-
     .modal-content p { margin: 1rem 0; font-size: 1.2rem; }
-
-    .modal-content strong { font-size: 2rem; letter-spacing: 4px; color: white; }
-
-    .modal-actions {
-      margin-top: 2rem;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .modal-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
+    .modal-content strong { font-size: 2.2rem; letter-spacing: 5px; color: white; }
+    .modal-actions { margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; }
+    .modal-btn { padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; }
     .close-btn { background: #4b5563; color: white; }
     .copy-btn { background: var(--accent); color: #000; }
-
     .copy-btn:hover { background: #0ea5e9; }
     .close-btn:hover { background: #6b7280; }
-
-    .disclaimer {
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 0;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
-
-    @media (max-width: 768px) {
-      .radio-container { padding: 120px 6% 80px; }
-      h2 { font-size: 2.5rem; }
-    }
+    .disclaimer { margin-top: 2rem; font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+    footer { text-align: center; padding: 3rem 0; color: var(--muted); border-top: 1px solid var(--border); }
+    @media (max-width: 768px) { .radio-container { padding: 120px 6% 80px; } h2 { font-size: 2.5rem; } }
   </style>
 </head>
 <body>
@@ -274,7 +101,7 @@
     </div>
     <div class="field-wrapper">
       <span>🔢</span>
-      <input type="text" id="precode" placeholder="Précode radio (ex: A123 ou R543)" maxlength="4" />
+      <input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4" />
     </div>
     <button onclick="generateCode()">Calculer le Code</button>
   </div>
@@ -293,19 +120,18 @@
     </div>
 
     <div class="disclaimer">
-      Code calculé localement via algorithme Renault open-source (Philips/VDO).<br>
-      Pour précision 100% ou modèles spéciaux, contactez-nous via WhatsApp +216 98 192 103.<br><br>
-      <strong>Saisie :</strong> Appuyez X fois sur 1/2/3/4 pour chaque chiffre, maintenez 6 (ou 5) pour valider.
+      Calcul local instantané via algorithme open-source Renault (de radcoderen/lucasg).<br>
+      Fonctionne pour la plupart des modèles Philips/VDO. Pour précodes spéciaux ou vérification, envoyez-nous le précod via WhatsApp +216 98 192 103.<br><br>
+      <strong>Saisie du code :</strong> Appuyez X fois sur touche 1 (1er chiffre), 2 (2e), 3 (3e), 4 (4e). Maintenez 6 (ou 5) pour valider.
     </div>
   </div>
 </div>
 
 <footer>
-  © 2026 Atelier Électronique Médenine — Service Pro Code Radio
+  © 2026 Atelier Électronique Médenine — Service Professionnel Code Radio
 </footer>
 
 <script>
-  // Header shrink
   window.addEventListener('scroll', () => {
     document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
   });
@@ -316,39 +142,32 @@
     const precode = precodeInput.value.trim().toUpperCase();
 
     if (!brand.toLowerCase().includes('renault') && !brand.toLowerCase().includes('dacia')) {
-      alert("Algo optimisé pour Renault / Dacia. Autres marques → contact WhatsApp.");
+      alert("Algo pour Renault / Dacia seulement. Contact WhatsApp pour autres.");
       return;
     }
 
-    if (!precode || precode.length !== 4 || !/^[A-Y]\d{3}$/.test(precode)) {
-      alert("Précode invalide ! Format: Lettre A-Y + 3 chiffres (ex: A123).");
+    if (!precode || precode.length !== 4 || !/^[A-Z]\d{3}$/.test(precode) || precode.startsWith('A0')) {
+      alert("Précode invalide ! Lettre A-Z + 3 chiffres (ex: A123). Pas A0xx.");
       return;
     }
 
-    // Algo exact radcoderen / lucasg (match A100=0070)
-    const letter = precode.charAt(0);
-    const n1 = parseInt(precode.charAt(1));
-    const n2 = parseInt(precode.charAt(2));
-    const n3 = parseInt(precode.charAt(3));
-
-    let x = (letter.charCodeAt(0) * 10) + n1 - 698;
-    let y = (n3 + (n2 * 10)) + x - 528;
-    let codeNum = (y * 9) % 10000;
-    if (codeNum < 0) codeNum += 10000;
+    // Algo EXACT radcoderen (main.js)
+    let x = precode.charCodeAt(1) + precode.charCodeAt(0) * 10 - 698;
+    let y = precode.charCodeAt(3) + precode.charCodeAt(2) * 10 + x - 528;
+    let z = (y * 7) % 100;
+    let codeNum = Math.floor(z / 10) + (z % 10) * 10 + ((259 % x) % 100) * 100;
     const codeStr = codeNum.toString().padStart(4, '0');
 
-    // Fill modal
     document.getElementById('modal-brand').textContent = brand || 'Renault/Dacia';
     document.getElementById('modal-precode').textContent = precode;
     document.getElementById('modal-code').textContent = codeStr;
 
-    // Copy button event
     const copyBtn = document.getElementById('copy-btn');
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(codeStr).then(() => {
         copyBtn.textContent = 'Copié !';
         setTimeout(() => copyBtn.textContent = 'Copier Code', 2000);
-      });
+      }).catch(() => alert('Erreur copie, sélectionnez manuellement.'));
     };
 
     document.getElementById('result-modal').classList.add('active');
