@@ -99,19 +99,32 @@ body{
   border:1px solid rgba(255,255,255,0.1);
   display:flex;
   flex-direction:column;
-  gap:15px;
+  gap:20px;
+  position:relative;
+}
+.field-wrapper{
+  position:relative;
+}
+.field-wrapper i{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#38bdf8;
+  font-size:18px;
 }
 .radio-form select, .radio-form input{
   width:100%;
-  padding:12px;
+  padding:12px 12px 12px 40px;
   border-radius:12px;
   border:none;
   background:rgba(255,255,255,0.05);
   color:white;
   font-size:16px;
+  transition:0.3s;
 }
+.radio-form select:hover, .radio-form input:hover,
 .radio-form select:focus, .radio-form input:focus{
-  outline:none;
   box-shadow:0 0 10px #38bdf8;
 }
 .radio-form button{
@@ -193,6 +206,8 @@ footer{
 /* ================= MOBILE ================= */
 @media(max-width:768px){
   .radio-container{padding:80px 5%;}
+  .field-wrapper i{left:8px;}
+  .radio-form select, .radio-form input{padding-left:36px;}
 }
 </style>
 </head>
@@ -214,19 +229,24 @@ footer{
 <section class="radio-container">
   <h2>Déverrouillage Code Radio</h2>
   <div class="radio-form">
-    <select id="car-brand">
-      <option value="">Sélectionnez la marque</option>
-      <option value="Renault">Renault</option>
-      <option value="Peugeot">Peugeot</option>
-      <option value="Citroen">Citroën</option>
-      <option value="BMW">BMW</option>
-    </select>
-    <input type="text" id="serial-number" placeholder="Numéro de série / Précode (ex: A123)">
+    <div class="field-wrapper">
+      <i>🚗</i>
+      <select id="car-brand">
+        <option value="">Sélectionnez la marque</option>
+        <option value="Renault">Renault</option>
+        <option value="Peugeot">Peugeot</option>
+        <option value="Citroen">Citroën</option>
+        <option value="BMW">BMW</option>
+      </select>
+    </div>
+    <div class="field-wrapper">
+      <i>🔢</i>
+      <input type="text" id="serial-number" placeholder="Numéro de série / Précode (ex: A123)">
+    </div>
     <button onclick="generateCode()">Calculer le Code</button>
   </div>
 </section>
 
-<!-- Modal -->
 <div class="modal" id="result-modal">
   <div class="modal-content">
     <h2>Votre Code Radio</h2>
@@ -242,19 +262,14 @@ footer{
 </footer>
 
 <script>
-// ================= ALGO PROPRIÉTAIRE =================
 function calculateRadioCode(precode){
   if(!precode || precode.length !==4) return "0000";
-
   const letter = precode[0].toUpperCase();
   const n1 = parseInt(precode[1]);
   const n2 = parseInt(precode[2]);
   const n3 = parseInt(precode[3]);
-
   const letterValue = letter.charCodeAt(0)-64;
-
   let code = (letterValue*1000 + n1*100 + n2*10 + n3)*7 % 10000;
-
   return code.toString().padStart(4,'0');
 }
 
@@ -265,15 +280,12 @@ function generateCode(){
     alert("Remplissez la marque et le précode !");
     return;
   }
-
   const code = calculateRadioCode(serial);
-
   document.getElementById('modal-brand').textContent = brand;
   document.getElementById('modal-serial').textContent = serial;
   document.getElementById('modal-code').textContent = code;
   document.getElementById('result-modal').classList.add('active');
 }
-
 function closeModal(){
   document.getElementById('result-modal').classList.remove('active');
 }
