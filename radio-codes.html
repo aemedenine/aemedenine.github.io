@@ -1,537 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Radio Code | Atelier Électronique Médenine</title>
-
 <link rel="icon" href="images/favicon.png">
 
 <style>
-
-/* ================= BASE ================= */
-
 body{
-
-background:#0f172a;
-
-color:white;
-
-font-family:Arial, Helvetica, sans-serif;
-
-margin:0;
-
-padding:0;
-
+  background:#0f172a;
+  color:white;
+  font-family:Arial, Helvetica, sans-serif;
+  margin:0;
+  padding:0;
 }
-
 
 /* ================= HEADER ================= */
-
 .header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:15px 8%;
-
-background:rgba(255,255,255,0.05);
-
-backdrop-filter:blur(10px);
-
-position:sticky;
-
-top:0;
-
-z-index:1000;
-
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 8%;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
-
-
-/* ================= LOGO ================= */
-
 .logo{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
-
 .logo-img{
-
-width:44px;
-
-height:44px;
-
-border-radius:50%;
-
-border:3px solid #38bdf8;
-
-padding:5px;
-
-background:rgba(255,255,255,0.05);
-
-box-shadow:0 4px 15px rgba(0,0,0,0.3);
-
-transition:0.3s;
-
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  border:3px solid #38bdf8;
+  padding:5px;
+  background:rgba(255,255,255,0.05);
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  transition:0.3s;
 }
-
 .logo-img:hover{
-
-transform:scale(1.1);
-
+  transform:scale(1.1);
+  box-shadow:0 8px 25px rgba(0,0,0,0.5);
 }
-
 .logo h1{
-
-font-size:24px;
-
-font-weight:700;
-
+  font-size:24px;
+  font-weight:700;
+  color:#ffffff;
+  letter-spacing:1px;
 }
-
-
-/* ================= NAV ================= */
-
 .nav{
-
-display:flex;
-
-align-items:center;
-
-gap:25px;
-
+  display:flex;
+  align-items:center;
+  gap:25px;
 }
-
 .nav a{
-
-text-decoration:none;
-
-color:white;
-
-transition:0.3s;
-
+  text-decoration:none;
+  color:white;
+  font-weight:500;
+  transition:0.3s;
 }
-
 .nav a:hover{
-
-color:#38bdf8;
-
+  color:#38bdf8;
 }
-
 .login-btn{
-
-padding:8px 18px;
-
-border:none;
-
-border-radius:30px;
-
-background:#38bdf8;
-
-color:black;
-
-font-weight:600;
-
-cursor:pointer;
-
+  padding:8px 18px;
+  border:none;
+  border-radius:30px;
+  background:#38bdf8;
+  color:#000;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
 }
-
+.login-btn:hover{
+  transform:scale(1.05);
+}
 
 /* ================= RADIO FORM ================= */
-
 .radio-container{
-
-padding:120px 8%;
-
-max-width:700px;
-
-margin:auto;
-
+  padding:120px 8%;
+  max-width:700px;
+  margin:auto;
 }
-
 .radio-container h2{
-
-text-align:center;
-
-font-size:36px;
-
-margin-bottom:20px;
-
+  text-align:center;
+  font-size:36px;
+  margin-bottom:20px;
 }
-
 .radio-form{
-
-background:rgba(255,255,255,0.05);
-
-padding:30px;
-
-border-radius:18px;
-
-border:1px solid rgba(255,255,255,0.1);
-
+  background:rgba(255,255,255,0.05);
+  padding:30px;
+  border-radius:18px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;
+  flex-direction:column;
+  gap:15px;
 }
-
-.radio-form input{
-
-width:100%;
-
-padding:12px;
-
-margin:10px 0;
-
-border-radius:12px;
-
-border:none;
-
-background:rgba(255,255,255,0.05);
-
-color:white;
-
-font-size:16px;
-
+.radio-form select, .radio-form input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  background:rgba(255,255,255,0.05);
+  color:white;
+  font-size:16px;
 }
-
-.radio-form input:focus{
-
-outline:none;
-
-box-shadow:0 0 10px #38bdf8;
-
+.radio-form select:focus, .radio-form input:focus{
+  outline:none;
+  box-shadow:0 0 10px #38bdf8;
 }
-
 .radio-form button{
-
-width:100%;
-
-padding:12px;
-
-margin-top:15px;
-
-border:none;
-
-border-radius:30px;
-
-background:#38bdf8;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:0.3s;
-
+  padding:12px;
+  border:none;
+  border-radius:30px;
+  background:#38bdf8;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
 }
-
 .radio-form button:hover{
-
-transform:scale(1.05);
-
-box-shadow:0 5px 15px #38bdf8;
-
+  transform:scale(1.05);
+  box-shadow:0 5px 15px #38bdf8;
 }
-
 
 /* ================= MODAL ================= */
-
 .modal{
-
-display:none;
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-height:100%;
-
-background:rgba(0,0,0,0.85);
-
-justify-content:center;
-
-align-items:center;
-
-z-index:2000;
-
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+  transition:0.3s;
 }
-
 .modal.active{
-
-display:flex;
-
+  display:flex;
 }
-
 .modal-content{
-
-background:#111827;
-
-padding:30px;
-
-border-radius:18px;
-
-text-align:center;
-
-border:1px solid rgba(255,255,255,0.1);
-
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:18px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.1);
+  animation:fadeIn 0.5s ease;
 }
-
 .modal-content h2{
-
-color:#38bdf8;
-
-margin-bottom:15px;
-
+  color:#38bdf8;
+  margin-bottom:15px;
 }
-
 .modal-content p{
-
-margin:8px 0;
-
+  margin:8px 0;
 }
-
 .modal-content strong{
-
-font-size:28px;
-
-letter-spacing:3px;
-
+  font-size:1.5rem;
+  letter-spacing:3px;
 }
-
 .modal-content button{
-
-margin-top:15px;
-
-padding:10px 25px;
-
-border:none;
-
-border-radius:25px;
-
-background:#38bdf8;
-
-color:black;
-
-font-weight:600;
-
-cursor:pointer;
-
+  margin-top:15px;
+  padding:10px 25px;
+  border:none;
+  border-radius:25px;
+  background:#38bdf8;
+  color:black;
+  font-weight:600;
+  cursor:pointer;
 }
-
 .modal-content button:hover{
-
-background:#0ea5e9;
-
+  background:#0ea5e9;
 }
 
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-20px);}
+  to{opacity:1; transform:translateY(0);}
+}
 
 /* ================= FOOTER ================= */
-
 footer{
-
-text-align:center;
-
-padding:25px;
-
-margin-top:40px;
-
-color:#94a3b8;
-
-font-size:14px;
-
+  text-align:center;
+  padding:25px;
+  margin-top:40px;
+  color:#94a3b8;
+  font-size:14px;
 }
-
 
 /* ================= MOBILE ================= */
-
 @media(max-width:768px){
-
-.radio-container{
-
-padding:80px 5%;
-
+  .radio-container{padding:80px 5%;}
 }
-
-}
-
 </style>
-
 </head>
-
 <body>
 
-
 <header class="header">
-
-<div class="logo">
-
-<img src="images/logo.png" class="logo-img">
-
-<h1>Atelier Électronique Médenine</h1>
-
-</div>
-
-<nav class="nav">
-
-<a href="index.html">Home</a>
-
-<a href="index.html#services">Services</a>
-
-<a href="contact.html">Contact</a>
-
-<button class="login-btn">Login</button>
-
-</nav>
-
+  <div class="logo">
+    <img src="images/logo.png" class="logo-img" alt="Logo">
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="contact.html">Contact</a>
+    <button class="login-btn">Login</button>
+  </nav>
 </header>
 
-
 <section class="radio-container">
-
-<h2>Déverrouillage Code Radio</h2>
-
-<div class="radio-form">
-
-<input type="text" id="car-brand" placeholder="Marque voiture (ex: Renault)">
-
-<input type="text" id="serial-number" placeholder="Précode radio (ex: A123)">
-
-<button onclick="generateCode()">Calculer le Code</button>
-
-</div>
-
+  <h2>Déverrouillage Code Radio</h2>
+  <div class="radio-form">
+    <select id="car-brand">
+      <option value="">Sélectionnez la marque</option>
+      <option value="Renault">Renault</option>
+      <option value="Peugeot">Peugeot</option>
+      <option value="Citroen">Citroën</option>
+      <option value="BMW">BMW</option>
+    </select>
+    <input type="text" id="serial-number" placeholder="Numéro de série / Précode (ex: A123)">
+    <button onclick="generateCode()">Calculer le Code</button>
+  </div>
 </section>
 
-
-<!-- MODAL -->
-
+<!-- Modal -->
 <div class="modal" id="result-modal">
-
-<div class="modal-content">
-
-<h2>Votre Code Radio</h2>
-
-<p>Marque: <strong id="modal-brand">—</strong></p>
-
-<p>Précode: <strong id="modal-serial">—</strong></p>
-
-<p>Code déverrouillage: <strong id="modal-code">Calcul...</strong></p>
-
-<button onclick="closeModal()">Fermer</button>
-
+  <div class="modal-content">
+    <h2>Votre Code Radio</h2>
+    <p>Marque: <strong id="modal-brand">—</strong></p>
+    <p>Précode: <strong id="modal-serial">—</strong></p>
+    <p>Code déverrouillage: <strong id="modal-code">—</strong></p>
+    <button onclick="closeModal()">Fermer</button>
+  </div>
 </div>
-
-</div>
-
 
 <footer>
-
-<p>© 2026 Atelier Électronique Médenine</p>
-
+  <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
-
 <script>
+// ================= ALGO PROPRIÉTAIRE =================
+function calculateRadioCode(precode){
+  if(!precode || precode.length !==4) return "0000";
 
-/* ================= RENAULT ALGORITHM ================= */
+  const letter = precode[0].toUpperCase();
+  const n1 = parseInt(precode[1]);
+  const n2 = parseInt(precode[2]);
+  const n3 = parseInt(precode[3]);
 
-function calculateRenaultCode(precode){
+  const letterValue = letter.charCodeAt(0)-64;
 
-precode = precode.toUpperCase().trim();
+  let code = (letterValue*1000 + n1*100 + n2*10 + n3)*7 % 10000;
 
-if (!/^[A-Z]\d{3}$/.test(precode) || precode.startsWith('A0')){
-
-return "0000";
-
+  return code.toString().padStart(4,'0');
 }
-
-const letter = precode.charAt(0);
-
-const n1 = parseInt(precode.charAt(1));
-
-const n2 = parseInt(precode.charAt(2));
-
-const n3 = parseInt(precode.charAt(3));
-
-let x = (letter.charCodeAt(0) * 10) + n1 - 698;
-
-let y = (n3 + (n2 * 10)) + x - 528;
-
-let code = (y * 9) % 10000;
-
-return code.toString().padStart(4,'0');
-
-}
-
-
-/* ================= GENERATE ================= */
 
 function generateCode(){
+  const brand = document.getElementById('car-brand').value.trim();
+  const serial = document.getElementById('serial-number').value.trim();
+  if(!brand || !serial){
+    alert("Remplissez la marque et le précode !");
+    return;
+  }
 
-const brand = document.getElementById("car-brand").value;
+  const code = calculateRadioCode(serial);
 
-const serial = document.getElementById("serial-number").value;
-
-if(!brand || !serial){
-
-alert("Entrez la marque et le précode !");
-
-return;
-
+  document.getElementById('modal-brand').textContent = brand;
+  document.getElementById('modal-serial').textContent = serial;
+  document.getElementById('modal-code').textContent = code;
+  document.getElementById('result-modal').classList.add('active');
 }
-
-document.getElementById("modal-brand").textContent = brand;
-
-document.getElementById("modal-serial").textContent = serial;
-
-document.getElementById("modal-code").textContent = "Calcul...";
-
-document.getElementById("result-modal").classList.add("active");
-
-
-setTimeout(function(){
-
-let code="";
-
-if(brand.toLowerCase()=="renault"){
-
-code=calculateRenaultCode(serial);
-
-}else{
-
-code="----";
-
-}
-
-document.getElementById("modal-code").textContent=code;
-
-},2000);
-
-}
-
-
-/* ================= CLOSE MODAL ================= */
 
 function closeModal(){
-
-document.getElementById("result-modal").classList.remove("active");
-
+  document.getElementById('result-modal').classList.remove('active');
 }
-
 </script>
 
 </body>
-
 </html>
