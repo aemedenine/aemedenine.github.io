@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Radio Code 2026 | Electronique Medenine</title>
+<title>Code Radio | Electronique Medenine</title>
 <link rel="icon" href="images/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,69 +12,66 @@
 <style>
 :root {
   --bg: #0a0f1a;
-  --card: rgba(20, 28, 55, 0.6);
+  --card: rgba(20,28,55,0.6);
   --glass: rgba(255,255,255,0.07);
   --border: rgba(255,255,255,0.1);
   --accent: #40c4ff;
   --accent-glow: rgba(64,196,255,0.3);
-  --gradient: linear-gradient(135deg, #40c4ff, #7e57c2, #ab47bc);
+  --gradient: linear-gradient(135deg,#40c4ff,#7e57c2,#ab47bc);
   --text: #e0f2f1;
   --text-muted: #b0bec5;
   --radius: 22px;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-  background-image: radial-gradient(circle at 10% 20%, rgba(64,196,255,0.09) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(126,87,194,0.07) 0%, transparent 50%);
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  background-image:
+    radial-gradient(circle at 10% 20%,rgba(64,196,255,0.09)0%,transparent 40%),
+    radial-gradient(circle at 90% 80%,rgba(126,87,194,0.07)0%,transparent 50%);
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(45deg, #0a0f1a, #1a2538, #0a0f1a);
-  background-size: 300% 300%;
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background: linear-gradient(45deg,#0a0f1a,#1a2538,#0a0f1a);
+  background-size:300% 300%;
   animation: gradientFlow 18s ease infinite;
-  z-index: -2;
+  z-index:-2;
 }
+@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
-@keyframes gradientFlow {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-
-.header{position:fixed;top:0;left:0;right:0;padding:1.4rem 8%;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(10,15,26,0.75);border-bottom:1px solid var(--border);transition:all 0.4s ease;}
+.header{
+  position:fixed;top:0;left:0;right:0;padding:1.4rem 8%;
+  display:flex;justify-content:space-between;align-items:center;z-index:1000;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  background:rgba(10,15,26,0.75);border-bottom:1px solid var(--border);transition:all 0.4s ease;
+}
 .header.scrolled{padding:1rem 8%;background:rgba(10,15,26,0.9);}
 .logo{display:flex;align-items:center;gap:1rem;}
 .logo-img{height:45px;width:auto;}
-.logo h1{font-family:'Orbitron', monospace;font-size:1.7rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
+.logo h1{font-family:'Orbitron',monospace;font-size:1.7rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
 .nav{display:flex;gap:2.4rem;align-items:center;}
 .nav a{color:var(--text-muted);text-decoration:none;font-weight:500;transition:all 0.3s ease;}
 .nav a:hover{color:white;text-shadow:0 0 12px var(--accent-glow);}
 .login-btn{padding:0.7rem 1.8rem;background:var(--gradient);border:none;border-radius:50px;color:white;font-weight:600;cursor:pointer;transition:all 0.4s ease;box-shadow:0 5px 20px rgba(64,196,255,0.25);}
 .login-btn:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(64,196,255,0.4);}
 
-.radio-container{padding:140px 8% 100px;max-width:1280px;margin:auto;position:relative;z-index:1;}
-.radio-title{text-align:center;margin-bottom:5rem;}
-.radio-title h2{font-family:'Orbitron', monospace;font-size:clamp(3rem,7vw,5rem);background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;}
-.radio-title p{font-size:1.3rem;color:var(--text-muted);max-width:700px;margin:auto;}
+.page-container{padding:140px 8% 100px;max-width:1280px;margin:auto;position:relative;z-index:1;}
 
-.brand-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.8rem;margin:3rem 0;}
-.brand-card{background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;text-align:center;cursor:pointer;transition:all 0.45s cubic-bezier(0.23,1,0.32,1);position:relative;overflow:hidden;}
-.brand-card::before{content:'';position:absolute;inset:0;background:var(--gradient);opacity:0.08;filter:blur(30px);transition:opacity 0.6s ease;}
-.brand-card:hover{transform:translateY(-14px);box-shadow:0 30px 60px rgba(0,0,0,0.5),0 0 40px var(--accent-glow);}
-.brand-card:hover::before{opacity:0.15;}
-.brand-card svg{width:60px;height:60px;margin-bottom:1rem;fill:var(--accent);}
-.brand-card h3{font-size:1.3rem;color:var(--accent);font-weight:600;}
+.page-title{text-align:center;margin-bottom:5rem;}
+.page-title h2{font-family:'Orbitron',monospace;font-size:clamp(3rem,7vw,5rem);background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;}
+.page-title p{font-size:1.3rem;color:var(--text-muted);max-width:700px;margin:auto;text-align:center;}
 
-.radio-form{background:var(--card);backdrop-filter:blur(22px);border:1px solid var(--border);border-radius:var(--radius);padding:3rem 2.5rem;max-width:700px;margin:4rem auto 0;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
-.radio-form h3{text-align:center;font-size:1.8rem;margin-bottom:2rem;color:var(--accent);}
-.radio-form input{width:100%;padding:1rem 1.2rem;margin:1rem 0;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;color:white;font-size:1.1rem;transition:all 0.3s ease;}
-.radio-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(64,196,255,0.4);}
-.radio-form button{width:100%;padding:1.2rem;background:var(--gradient);border:none;border-radius:50px;color:white;font-size:1.2rem;font-weight:600;cursor:pointer;transition:all 0.4s ease;margin-top:1.5rem;box-shadow:0 8px 30px rgba(64,196,255,0.35);}
-.radio-form button:hover{transform:translateY(-4px);box-shadow:0 15px 45px rgba(64,196,255,0.5);}
+.form-card{background:var(--card);backdrop-filter:blur(22px);border:1px solid var(--border);border-radius:var(--radius);padding:3rem 2.5rem;max-width:700px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+.form-card h3{text-align:center;font-size:1.8rem;margin-bottom:2rem;color:var(--accent);}
+.form-card input{width:100%;padding:1rem 1.2rem;margin:1rem 0;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;color:white;font-size:1.1rem;transition:all 0.3s ease;}
+.form-card input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(64,196,255,0.4);}
+.form-card button{width:100%;padding:1.2rem;background:var(--gradient);border:none;border-radius:50px;color:white;font-size:1.2rem;font-weight:600;cursor:pointer;transition:all 0.4s ease;margin-top:1.5rem;box-shadow:0 8px 30px rgba(64,196,255,0.35);}
+.form-card button:hover{transform:translateY(-4px);box-shadow:0 15px 45px rgba(64,196,255,0.5);}
 
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:opacity 0.4s ease;z-index:2000;}
 .modal.active{opacity:1;pointer-events:auto;}
@@ -84,56 +81,28 @@ body::before {
 .modal-content strong{color:white;}
 .modal-content button{margin-top:2rem;padding:0.9rem 2.5rem;background:var(--accent);border:none;border-radius:50px;color:white;font-weight:600;cursor:pointer;transition:all 0.3s ease;}
 .modal-content button:hover{background:#00b0ff;}
+
 footer{text-align:center;padding:4rem 0 2rem;color:var(--text-muted);font-size:1rem;border-top:1px solid var(--border);}
-@media(max-width:768px){.radio-container{padding:120px 6% 80px;}.brand-grid{gap:1.4rem;}.radio-form{padding:2.5rem 1.8rem;}}
+@media(max-width:768px){.page-container{padding:120px 6% 80px;}.form-card{padding:2.5rem 1.8rem;}}
 </style>
 </head>
-
 <body>
 
 <header class="header" id="header">
-<div class="logo">
-<img src="images/logo.png" alt="Logo" class="logo-img">
-<h1>Electronique Medenine</h1>
-</div>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="index.html#services">Services</a>
-<a href="contact.html">Contact</a>
-<button class="login-btn">Login</button>
-</nav>
+<div class="logo"><img src="images/logo.png" class="logo-img"><h1>Electronique Medenine</h1></div>
+<nav class="nav"><a href="index.html">Home</a><a href="index.html#services">Services</a><a href="contact.html">Contact</a><button class="login-btn">Login</button></nav>
 </header>
 
-<section class="radio-container">
-<div class="radio-title">
-<h2>Déverrouillage Code Radio Voiture 2026</h2>
-<p>Obtenez instantanément le code de déverrouillage de votre autoradio avec design futuriste 2026.</p>
+<section class="page-container">
+<div class="page-title">
+<h2>Code Radio Voiture</h2>
+<p>Demandez votre code radio instantanément avec notre interface 2026.</p>
 </div>
 
-<div class="brand-grid">
-<!-- SVG Icons 2026 -->
-<div class="brand-card" data-brand="Renault">
-<svg viewBox="0 0 64 64"><path d="M32 0 L60 32 L32 64 L4 32 Z"/></svg>
-<h3>Renault</h3>
-</div>
-<div class="brand-card" data-brand="Ford">
-<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg>
-<h3>Ford</h3>
-</div>
-<div class="brand-card" data-brand="Volkswagen">
-<svg viewBox="0 0 64 64"><path d="M0,0 L64,0 L64,64 L0,64 Z"/></svg>
-<h3>Volkswagen</h3>
-</div>
-<div class="brand-card" data-brand="Audi">
-<svg viewBox="0 0 64 64"><circle cx="16" cy="32" r="12"/><circle cx="32" cy="32" r="12"/><circle cx="48" cy="32" r="12"/></svg>
-<h3>Audi</h3>
-</div>
-</div>
-
-<div class="radio-form">
+<div class="form-card">
 <h3>Obtenez votre code maintenant</h3>
-<input type="text" id="car-brand" placeholder="Marque de la voiture (ex: Renault)">
-<input type="text" id="serial-number" placeholder="Numéro de série / Précode de la radio">
+<input type="text" id="car-brand" placeholder="Marque de voiture">
+<input type="text" id="serial-number" placeholder="Numéro de série / Précode">
 <button onclick="generateCode()">Calculer le Code</button>
 </div>
 </section>
@@ -143,8 +112,8 @@ footer{text-align:center;padding:4rem 0 2rem;color:var(--text-muted);font-size:1
 <h2>Votre Code Radio</h2>
 <p>Marque: <strong id="modal-brand">—</strong></p>
 <p>Numéro de série: <strong id="modal-serial">—</strong></p>
-<p>Code déverrouillage: <strong id="modal-code" style="font-size:1.8rem; letter-spacing:4px;">—</strong></p>
-<p style="margin-top:1.5rem; font-size:1rem; color:var(--text-muted);">Note: Ceci est une démo. Contactez-nous pour code réel & vérifié.</p>
+<p>Code: <strong id="modal-code" style="font-size:1.8rem;letter-spacing:4px;">—</strong></p>
+<p style="margin-top:1.5rem;font-size:1rem;color:var(--text-muted);">Ceci est une démo. Contactez-nous pour le code réel.</p>
 <button onclick="closeModal()">Fermer</button>
 </div>
 </div>
@@ -155,16 +124,11 @@ footer{text-align:center;padding:4rem 0 2rem;color:var(--text-muted);font-size:1
 
 <script>
 window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>60);});
-const brandCards=document.querySelectorAll('.brand-card');
-const brandInput=document.getElementById('car-brand');
-brandCards.forEach(card=>{card.addEventListener('click',()=>{brandInput.value=card.dataset.brand;brandInput.focus();card.style.transform='scale(1.08)';setTimeout(()=>card.style.transform='',200);});});
-
 function generateCode(){
-const brand=brandInput.value.trim();
+const brand=document.getElementById('car-brand').value.trim();
 const serial=document.getElementById('serial-number').value.trim();
-if(!brand||!serial){alert("Remplissez la marque et le numéro de série SVP !");return;}
-let hash=0;
-for(let i=0;i<serial.length;i++){hash=(hash*31+serial.charCodeAt(i))%100000;}
+if(!brand||!serial){alert("Remplissez tous les champs !");return;}
+let hash=0;for(let i=0;i<serial.length;i++){hash=(hash*31+serial.charCodeAt(i))%100000;}
 const code=String(hash).padStart(5,'0').slice(-5);
 document.getElementById('modal-brand').textContent=brand;
 document.getElementById('modal-serial').textContent=serial;
@@ -173,5 +137,6 @@ document.getElementById('result-modal').classList.add('active');
 }
 function closeModal(){document.getElementById('result-modal').classList.remove('active');}
 </script>
+
 </body>
 </html>
