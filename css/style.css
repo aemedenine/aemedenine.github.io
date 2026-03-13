@@ -413,7 +413,12 @@ footer{
   transform:translateY(0) !important;
   transition:0.6s;
 }
-
+/* ===== clickable service card ===== */
+.service-card{
+text-decoration:none;
+color:inherit;
+display:block;
+}
 /* ===============================
    MOBILE
 =================================*/
