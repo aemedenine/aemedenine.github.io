@@ -29,10 +29,7 @@ body{
   z-index:1000;
 }
 
-
-
 /* ================= LOGO 2026 ================= */
-
 .logo{
   display:flex;
   align-items:center;
@@ -40,8 +37,8 @@ body{
 }
 
 .logo-img{
-  width:44px;
-  height:44px;
+  width:60px;
+  height:60px;
   border-radius:50%;
   border: 3px solid #38bdf8;
   padding:5px;
@@ -61,6 +58,8 @@ body{
   color:#ffffff;
   letter-spacing:1px;
 }
+
+/* ================= NAVBAR ================= */
 .nav{
   display:flex;
   align-items:center;
@@ -236,7 +235,7 @@ footer{
   <h2>Déverrouillage Code Radio</h2>
   <div class="radio-form">
     <input type="text" id="car-brand" placeholder="Marque de la voiture (ex: Renault)">
-    <input type="text" id="serial-number" placeholder="Numéro de série / Précode (ex: 1234567890)">
+    <input type="text" id="serial-number" placeholder="Numéro de série / Précode (ex: A123)">
     <button onclick="generateCode()">Calculer le Code</button>
   </div>
 </section>
@@ -246,7 +245,7 @@ footer{
   <div class="modal-content">
     <h2>Votre Code Radio</h2>
     <p>Marque: <strong id="modal-brand">—</strong></p>
-    <p>Numéro de série: <strong id="modal-serial">—</strong></p>
+    <p>Précode: <strong id="modal-serial">—</strong></p>
     <p>Code déverrouillage: <strong id="modal-code">—</strong></p>
     <button onclick="closeModal()">Fermer</button>
   </div>
@@ -257,19 +256,34 @@ footer{
 </footer>
 
 <script>
+// ================= ALGO PROPRIÉTAIRE SIMPLE =================
+function calculateRadioCode(precode){
+  if(!precode || precode.length !== 4) return "0000";
+
+  const letter = precode[0].toUpperCase();
+  const num1 = parseInt(precode[1]);
+  const num2 = parseInt(precode[2]);
+  const num3 = parseInt(precode[3]);
+
+  const letterValue = letter.charCodeAt(0)-64; // A=1, B=2, ...
+
+  // formule maison simplifiée
+  let code = (letterValue*1000 + num1*100 + num2*10 + num3)*7 % 10000;
+
+  return code.toString().padStart(4,'0');
+}
+
+// ================= GENERATE CODE =================
 function generateCode(){
   const brand = document.getElementById('car-brand').value.trim();
   const serial = document.getElementById('serial-number').value.trim();
   if(!brand || !serial){
-    alert("Remplissez la marque et le numéro de série !");
+    alert("Remplissez la marque et le précode !");
     return;
   }
-  // simple hash demo
-  let hash = 0;
-  for(let i=0;i<serial.length;i++){
-    hash=(hash*31+serial.charCodeAt(i))%100000;
-  }
-  const code = String(hash).padStart(5,'0').slice(-5);
+
+  const code = calculateRadioCode(serial);
+
   document.getElementById('modal-brand').textContent = brand;
   document.getElementById('modal-serial').textContent = serial;
   document.getElementById('modal-code').textContent = code;
