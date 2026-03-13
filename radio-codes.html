@@ -3,23 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Déverrouillage Code Radio | Atelier Électronique Médenine</title>
+<title>Code Radio | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
+
 <style>
-body{background:#0f172a;color:white;font-family:Arial,sans-serif;margin:0;padding:0;}
+/* ================= GLOBAL ================= */
+body{
+background:#0f172a;color:white;font-family:Arial, Helvetica, sans-serif;margin:0;padding:0;
+}
 /* ================= HEADER ================= */
 .header{
 position:sticky;top:0;background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.15);
 display:flex;justify-content:space-between;align-items:center;padding:1rem 8%;z-index:1000;
 }
 .logo{display:flex;align-items:center;gap:1rem;}
-.logo img{width:55px;height:55px;border-radius:50%;}
+.logo-img{width:55px;height:55px;border-radius:50%;}
 .nav a{color:#94a3b8;text-decoration:none;margin-left:1.5rem;}
 .nav a:hover{color:white;}
 .login-btn{padding:0.6rem 1.5rem;background:#38bdf8;border:none;border-radius:50px;color:#000;cursor:pointer;}
 .login-btn:hover{transform:scale(1.05);}
 
-/* ================= FORM ================= */
+/* ================= CODE RADIO FORM ================= */
 .radio-container{padding:120px 8%;max-width:800px;margin:auto;}
 .radio-container h2{text-align:center;font-size:2.8rem;margin-bottom:2rem;color:#38bdf8;}
 .radio-form{background:rgba(30,41,59,0.65);padding:2rem;border-radius:20px;display:flex;flex-direction:column;gap:1.2rem;}
@@ -41,11 +45,13 @@ button:hover{transform:scale(1.02);}
 .copy-btn:hover{background:#0ea5e9;}
 </style>
 </head>
+
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="header">
 <div class="logo">
-<img src="images/logo.png" alt="Logo">
+<img src="images/logo.png" alt="Logo" class="logo-img">
 <h1>Atelier Électronique Médenine</h1>
 </div>
 <nav class="nav">
@@ -57,8 +63,9 @@ button:hover{transform:scale(1.02);}
 </nav>
 </header>
 
+<!-- ================= CODE RADIO ================= -->
 <section class="radio-container">
-<h2>Déverrouillage Code Radio Renault</h2>
+<h2>Déverrouillage Code Radio</h2>
 <div class="radio-form">
 <div class="field-wrapper">
 <span>🚗</span>
@@ -72,6 +79,7 @@ button:hover{transform:scale(1.02);}
 </div>
 </section>
 
+<!-- ================= MODAL ================= -->
 <div class="modal" id="result-modal">
 <div class="modal-content">
 <h2>Votre Code Radio</h2>
@@ -86,6 +94,7 @@ button:hover{transform:scale(1.02);}
 </div>
 </div>
 
+<!-- ================= FOOTER ================= -->
 <footer style="text-align:center;padding:30px;color:#94a3b8;">
 © 2026 Atelier Électronique Médenine — Service Professionnel Code Radio
 </footer>
