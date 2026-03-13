@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Atelier Électronique Médenine</title>
+<link rel="icon" href="images/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ================= SERVICES PAGE ================= */
+.services-container{
+  padding:140px 8% 100px;
+  max-width:1000px;
+  margin:auto;
+  text-align:center;
+}
+.services-container h2{
+  font-size:36px;
+  margin-bottom:40px;
+}
+
+/* Service Cards */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,0.08);
+}
+.card h3{
+  margin-bottom:10px;
+  font-size:20px;
+}
+.card p{
+  color:#cbd5f5;
+}
+
+/* Service Details */
+.service-detail{
+  display:none;
+  margin-top:40px;
+  text-align:left;
+}
+.service-detail.active{
+  display:block;
+}
+.service-detail h3{
+  font-size:28px;
+  margin-bottom:15px;
+}
+.service-detail p{
+  margin-bottom:15px;
+}
+.service-detail img{
+  width:100%;
+  max-width:500px;
+  margin-bottom:15px;
+  border-radius:12px;
+}
+.service-detail video{
+  width:100%;
+  max-width:500px;
+  margin-bottom:15px;
+  border-radius:12px;
+}
+.close-detail{
+  display:inline-block;
+  margin-bottom:20px;
+  padding:8px 20px;
+  background:#38bdf8;
+  color:#000;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.close-detail:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px rgba(56,189,248,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="logo">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <button class="login-btn">Login</button>
+  </nav>
+</header>
+
+<!-- ================= SERVICES CARDS ================= -->
+<section class="services-container">
+  <h2>Nos Services</h2>
+
+  <div class="cards">
+    <div class="card" data-service="repair">
+      <h3>Réparation</h3>
+      <p>Réparation électronique professionnelle.</p>
+    </div>
+
+    <div class="card" data-service="radio">
+      <h3>Radio Codes</h3>
+      <p>Déblocage rapide des radios voiture.</p>
+    </div>
+
+    <div class="card" data-service="support">
+      <h3>Support</h3>
+      <p>Assistance technique et conseils.</p>
+    </div>
+  </div>
+
+  <!-- ================= SERVICE DETAILS ================= -->
+  <div id="repair" class="service-detail">
+    <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
+    <h3>Réparation Électronique</h3>
+    <p>Voici quelques exemples de nos réparations :</p>
+    <img src="images/repair1.jpg" alt="Réparation 1">
+    <img src="images/repair2.jpg" alt="Réparation 2">
+    <video controls>
+      <source src="videos/repair-demo.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+  </div>
+
+  <div id="radio" class="service-detail">
+    <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
+    <h3>Déblocage Radio</h3>
+    <p>Voici quelques exemples de codes radio débloqués :</p>
+    <img src="images/radio1.jpg" alt="Radio 1">
+    <img src="images/radio2.jpg" alt="Radio 2">
+    <video controls>
+      <source src="videos/radio-demo.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+  </div>
+
+  <div id="support" class="service-detail">
+    <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
+    <h3>Support Technique</h3>
+    <p>Nos interventions et conseils :</p>
+    <img src="images/support1.jpg" alt="Support 1">
+    <img src="images/support2.jpg" alt="Support 2">
+    <video controls>
+      <source src="videos/support-demo.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 Atelier Électronique Médenine</p>
+</footer>
+
+<script>
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('.header').classList.toggle('scrolled', window.scrollY>50);
+  });
+
+  // Open service detail
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card=>{
+    card.addEventListener('click',()=>{
+      const serviceId = card.getAttribute('data-service');
+      document.getElementById(serviceId).classList.add('active');
+      window.scrollTo({top:document.getElementById(serviceId).offsetTop - 80, behavior:'smooth'});
+    });
+  });
+
+  function closeDetail(){
+    document.querySelectorAll('.service-detail').forEach(detail=>{
+      detail.classList.remove('active');
+    });
+  }
+</script>
+
+</body>
+</html>
