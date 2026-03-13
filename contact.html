@@ -1,294 +1,215 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact | Atelier Électronique Médenine</title>
-  <link rel="icon" href="images/favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #0b0f1a;
-      --card: rgba(20, 28, 50, 0.55);
-      --glass: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.09);
-      --accent: #5ab9ff;
-      --accent-dark: #3b82f6;
-      --gradient: linear-gradient(135deg, #5ab9ff, #a78bfa 60%, #f472b6);
-      --text: #e5e7eb;
-      --text-muted: #9ca3af;
-      --radius: 24px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-      background-image: 
-        radial-gradient(circle at 20% 30%, rgba(90,185,255,0.08) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(167,139,250,0.05) 0%, transparent 50%);
-    }
+<title>Contact | Atelier Électronique Médenine</title>
 
-    .header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      padding: 1.4rem 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: rgba(11,15,26,0.7);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.4s ease;
-    }
+<link rel="icon" href="images/favicon.png">
+<link rel="stylesheet" href="css/style.css">
 
-    .header.scrolled {
-      padding: 1rem 8%;
-      background: rgba(11,15,26,0.85);
-    }
+<style>
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+/* ================= CONTACT PAGE ================= */
 
-    .logo-img { height: 48px; width: auto; }
+.contact-container{
+padding:120px 8%;
+max-width:900px;
+margin:auto;
+color:white;
+}
 
-    .logo h1 {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.6rem;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1.5px;
-    }
+.contact-container h2{
+font-size:42px;
+margin-bottom:50px;
+text-align:center;
+letter-spacing:1px;
+font-weight:700;
+}
 
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-    }
+/* INFO LINES */
 
-    .nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.35s ease;
-    }
+.contact-info{
+display:flex;
+flex-direction:column;
+gap:25px;
+}
 
-    .nav a:hover {
-      color: white;
-      text-shadow: 0 0 15px rgba(90,185,255,0.5);
-    }
+.contact-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 22px;
+border-bottom:1px solid rgba(255,255,255,0.15);
+transition:0.35s;
+}
 
-    .login-btn {
-      padding: 0.65rem 1.8rem;
-      background: var(--gradient);
-      border: none;
-      border-radius: 50px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 6px 25px rgba(90,185,255,0.3);
-    }
+.contact-item:hover{
+transform:translateX(10px);
+border-color:#38bdf8;
+}
 
-    .login-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 40px rgba(90,185,255,0.45);
-    }
+.contact-item h3{
+font-size:18px;
+color:#38bdf8;
+font-weight:600;
+}
 
-    .contact-container {
-      padding: 160px 8% 100px;
-      max-width: 1240px;
-      margin: auto;
-    }
+.contact-item p,
+.contact-item a{
+color:#cbd5f5;
+font-size:16px;
+text-decoration:none;
+transition:0.3s;
+}
 
-    .contact-container h2 {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      text-align: center;
-      margin-bottom: 5rem;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -2px;
-      line-height: 0.95;
-    }
+.contact-item a:hover{
+color:white;
+}
 
-    .contact-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
+/* MAP */
 
-    .contact-card {
-      background: var(--card);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2.2rem 1.8rem;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-      overflow: hidden;
-    }
+.map-container{
+margin-top:60px;
+border-radius:18px;
+overflow:hidden;
+height:420px;
+box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
 
-    .contact-card::after {
-      content: '';
-      position: absolute;
-      inset: -50%;
-      background: var(--gradient);
-      opacity: 0.07;
-      filter: blur(40px);
-      transition: opacity 0.6s ease;
-      pointer-events: none;
-    }
+/* IMAGE */
 
-    .contact-card:hover {
-      transform: translateY(-16px);
-      box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 40px rgba(90,185,255,0.25);
-    }
+.contact-img{
+width:100%;
+margin-top:40px;
+border-radius:18px;
+transition:0.4s;
+}
 
-    .contact-card:hover::after { opacity: 0.12; }
+.contact-img:hover{
+transform:scale(1.02);
+}
 
-    .contact-card h3 {
-      font-size: 1.45rem;
-      margin-bottom: 1.1rem;
-      color: var(--accent);
-      font-weight: 600;
-    }
+/* MOBILE */
 
-    .contact-card p, .contact-card a {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
+@media(max-width:768px){
 
-    .contact-card a:hover {
-      color: var(--accent);
-      text-shadow: 0 0 12px rgba(90,185,255,0.6);
-    }
+.contact-item{
+flex-direction:column;
+align-items:flex-start;
+gap:8px;
+}
 
-    .map-container {
-      margin: 6rem auto 4rem;
-      max-width: 1100px;
-      height: 520px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
-      backdrop-filter: blur(12px);
-    }
+.contact-container h2{
+font-size:34px;
+}
 
-    .contact-img {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto 4rem;
-      display: block;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.4);
-      transition: all 0.6s ease;
-    }
+}
 
-    .contact-img:hover {
-      transform: scale(1.025);
-      box-shadow: 0 35px 90px rgba(90,185,255,0.2);
-    }
+</style>
 
-    footer {
-      text-align: center;
-      padding: 4rem 0 2.5rem;
-      color: var(--text-muted);
-      font-size: 1rem;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (max-width: 768px) {
-      .contact-container { padding: 130px 6% 80px; }
-      .map-container { height: 380px; }
-      .nav { gap: 1.5rem; }
-    }
-  </style>
 </head>
+
 <body>
 
-<header class="header" id="header">
-  <div class="logo">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1>Electronique Medenine</h1>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="index.html#services">Services</a>
-    <a href="contact.html">Contact</a>
-    <button class="login-btn">Login</button>
-  </nav>
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<div class="logo">
+<img src="images/logo.png" alt="Logo" class="logo-img">
+<h1>Electronique Medenine</h1>
+</div>
+
+<nav class="nav">
+<a href="index.html">Home</a>
+<a href="index.html#services">Services</a>
+<a href="contact.html">Contact</a>
+<button class="login-btn">Login</button>
+</nav>
+
 </header>
 
+<!-- ================= CONTACT ================= -->
+
 <section class="contact-container">
-  <h2>Contactez-nous</h2>
 
-  <div class="contact-info">
-    <div class="contact-card">
-      <h3>📞 Téléphone</h3>
-      <p>+216 98 192 103</p>
-    </div>
-    <div class="contact-card">
-      <h3>✉ Email</h3>
-      <p>contact@electroniquemedenine.com</p>
-    </div>
-    <div class="contact-card">
-      <h3>💬 WhatsApp</h3>
-      <p><a href="https://wa.me/21698192103" target="_blank">+216 98 192 103</a></p>
-    </div>
-    <div class="contact-card">
-      <h3>🌐 Réseaux Sociaux</h3>
-      <p><a href="https://www.facebook.com/AEMednine" target="_blank">Facebook</a></p>
-      <p><a href="https://www.instagram.com/aemedenine/" target="_blank">Instagram</a></p>
-      <p><a href="https://twitter.com/aemedenine" target="_blank">X / Twitter</a></p>
-    </div>
-    <div class="contact-card">
-      <h3>🏢 Adresse</h3>
-      <p>123 Nahj Libya, Médenine, Tunisie</p>
-    </div>
-    <div class="contact-card">
-      <h3>👷 Ingénieur Responsable</h3>
-      <p>M. RAHMANI Soufien</p>
-    </div>
-  </div>
+<h2>Contactez-nous</h2>
 
-  <div class="map-container">
-    <iframe src="https://maps.app.goo.gl/nxBU8h2oFDEkiBFE9" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
+<div class="contact-info">
 
-  <img src="images/atelier.jpeg" alt="Atelier Electronique Médenine" class="contact-img">
+<div class="contact-item">
+<h3>📞 Téléphone</h3>
+<p><a href="tel:+21698192103">+216 98 192 103</a></p>
+</div>
+
+<div class="contact-item">
+<h3>✉ Email</h3>
+<p><a href="mailto:contact@electroniquemedenine.com">contact@electroniquemedenine.com</a></p>
+</div>
+
+<div class="contact-item">
+<h3>💬 WhatsApp</h3>
+<p><a href="https://wa.me/21698192103" target="_blank">+216 98 192 103</a></p>
+</div>
+
+<div class="contact-item">
+<h3>🌐 Facebook</h3>
+<p><a href="https://www.facebook.com/AEMednine" target="_blank">facebook.com/AEMednine</a></p>
+</div>
+
+<div class="contact-item">
+<h3>📷 Instagram</h3>
+<p><a href="https://www.instagram.com/aemedenine/" target="_blank">instagram.com/aemedenine</a></p>
+</div>
+
+<div class="contact-item">
+<h3>𝕏 Twitter</h3>
+<p><a href="https://twitter.com/aemedenine" target="_blank">twitter.com/aemedenine</a></p>
+</div>
+
+<div class="contact-item">
+<h3>🏢 Adresse</h3>
+<p>123 Nahj Libya, Médenine, Tunisie</p>
+</div>
+
+<div class="contact-item">
+<h3>👷 Ingénieur Responsable</h3>
+<p>M. RAHMANI Soufien</p>
+</div>
+
+</div>
+
+<!-- MAP -->
+
+<div class="map-container">
+
+<iframe
+src="https://www.google.com/maps?q=Atelier+Electronique+M%C3%A9denine&output=embed"
+width="100%"
+height="100%"
+style="border:0;"
+allowfullscreen=""
+loading="lazy">
+</iframe>
+
+</div>
+
+<!-- ATELIER PHOTO -->
+
+<img src="images/atelier.jpeg" alt="Atelier Electronique Médenine" class="contact-img">
+
 </section>
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
-  <p>© 2026 Atelier Électronique Médenine — Tous droits réservés.</p>
+<p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
-<script>
-  // Simple scroll shrink header
-  window.addEventListener('scroll', () => {
-    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
-  });
-</script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
