@@ -5,14 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Radio Code | Atelier Électronique Médenine</title>
+<title>Contact | Atelier Électronique Médenine</title>
 
 <link rel="icon" href="images/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 
 <style>
 
-/* ================= RADIO PAGE ================= */
+/* ================= CONTACT PAGE ================= */
 
 body{
 background:#0f172a;
@@ -22,128 +22,133 @@ font-family:Arial, Helvetica, sans-serif;
 
 /* CONTAINER */
 
-.radio-container{
+.contact-container{
 padding:120px 8%;
-max-width:700px;
+max-width:900px;
 margin:auto;
 }
 
-.radio-container h2{
+.contact-container h2{
 font-size:40px;
 text-align:center;
 margin-bottom:50px;
 }
 
-/* FORM */
+/* INFO LIST */
 
-.radio-form{
+.contact-info{
 display:flex;
 flex-direction:column;
-gap:20px;
-background:rgba(255,255,255,0.05);
-padding:35px;
-border-radius:18px;
-border:1px solid rgba(255,255,255,0.1);
+gap:25px;
 }
 
-.field-wrapper{
-position:relative;
+.contact-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 22px;
+border-bottom:1px solid rgba(255,255,255,0.15);
+transition:0.35s;
 }
 
-.field-wrapper span{
-position:absolute;
-left:14px;
-top:50%;
-transform:translateY(-50%);
-font-size:18px;
-color:#94a3b8;
-}
-
-.radio-form input{
-width:100%;
-padding:14px 14px 14px 40px;
-border-radius:10px;
-border:1px solid rgba(255,255,255,0.15);
-background:rgba(255,255,255,0.05);
-color:white;
-font-size:16px;
-}
-
-.radio-form input:focus{
-outline:none;
+.contact-item:hover{
+transform:translateX(10px);
 border-color:#38bdf8;
 }
 
-.radio-form button{
-padding:14px;
-border:none;
-border-radius:30px;
+.contact-item h3{
+color:#38bdf8;
+font-size:18px;
+}
+
+.contact-item p,
+.contact-item a{
+color:#cbd5f5;
+text-decoration:none;
+font-size:16px;
+}
+
+.contact-item a:hover{
+color:white;
+}
+
+/* MAP */
+
+.map-container{
+margin-top:60px;
+border-radius:18px;
+overflow:hidden;
+height:420px;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* IMAGE */
+
+.contact-img{
+width:100%;
+margin-top:40px;
+border-radius:18px;
+transition:0.4s;
+}
+
+.contact-img:hover{
+transform:scale(1.02);
+}
+
+/* GPS BUTTON */
+
+.gps-btn{
+display:inline-block;
+margin-top:20px;
 background:#38bdf8;
 color:white;
+padding:12px 26px;
+border-radius:30px;
+text-decoration:none;
 font-weight:600;
-font-size:17px;
-cursor:pointer;
 transition:0.3s;
 }
 
-.radio-form button:hover{
+.gps-btn:hover{
 background:#0ea5e9;
-transform:translateY(-2px);
 }
 
-/* MODAL */
+/* WHATSAPP BUTTON */
 
-.modal{
-display:none;
+.whatsapp-btn{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-justify-content:center;
-align-items:center;
-z-index:2000;
-}
-
-.modal.active{
-display:flex;
-}
-
-.modal-content{
-background:#111827;
-padding:35px;
-border-radius:18px;
-text-align:center;
-max-width:400px;
-width:90%;
-}
-
-.modal-content h2{
-color:#38bdf8;
-margin-bottom:20px;
-}
-
-.modal-content strong{
-font-size:30px;
-letter-spacing:4px;
-}
-
-.modal-content button{
-margin-top:20px;
-padding:10px 25px;
-border:none;
-border-radius:30px;
-background:#38bdf8;
+bottom:25px;
+right:25px;
+width:60px;
+height:60px;
+background:#25D366;
 color:white;
-cursor:pointer;
+font-size:28px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+text-decoration:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+transition:0.3s;
+z-index:1000;
+}
+
+.whatsapp-btn:hover{
+transform:scale(1.1);
 }
 
 /* MOBILE */
 
 @media(max-width:768px){
 
-.radio-container h2{
+.contact-item{
+flex-direction:column;
+align-items:flex-start;
+gap:8px;
+}
+
+.contact-container h2{
 font-size:32px;
 }
 
@@ -155,7 +160,7 @@ font-size:32px;
 
 <body>
 
-<!-- ================= HEADER (SAME AS CONTACT) ================= -->
+<!-- ================= HEADER ================= -->
 
 <header class="header">
 
@@ -173,47 +178,86 @@ font-size:32px;
 
 </header>
 
-<!-- ================= RADIO ================= -->
+<!-- ================= CONTACT ================= -->
 
-<section class="radio-container">
+<section class="contact-container">
 
-<h2>Déverrouillage Code Radio</h2>
+<h2>Contactez-nous</h2>
 
-<div class="radio-form">
+<div class="contact-info">
 
-<div class="field-wrapper">
-<span>🚗</span>
-<input type="text" id="car-brand" placeholder="Marque voiture (Renault / Dacia)">
+<div class="contact-item">
+<h3>📞 Téléphone</h3>
+<p><a href="tel:+21698192103">+216 98 192 103</a></p>
 </div>
 
-<div class="field-wrapper">
-<span>🔢</span>
-<input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4">
+<div class="contact-item">
+<h3>✉ Email</h3>
+<p><a href="mailto:contact@electroniquemedenine.com">contact@electroniquemedenine.com</a></p>
 </div>
 
-<button onclick="generateCode()">Calculer le Code</button>
+<div class="contact-item">
+<h3>💬 WhatsApp</h3>
+<p><a href="https://wa.me/21698192103" target="_blank">Chat WhatsApp</a></p>
+</div>
+
+<div class="contact-item">
+<h3>🌐 Facebook</h3>
+<p><a href="https://www.facebook.com/AEMednine" target="_blank">facebook.com/AEMednine</a></p>
+</div>
+
+<div class="contact-item">
+<h3>📷 Instagram</h3>
+<p><a href="https://www.instagram.com/aemedenine/" target="_blank">instagram.com/aemedenine</a></p>
+</div>
+
+<div class="contact-item">
+<h3>𝕏 Twitter</h3>
+<p><a href="https://twitter.com/aemedenine" target="_blank">twitter.com/aemedenine</a></p>
+</div>
+
+<div class="contact-item">
+<h3>🏢 Adresse</h3>
+<p>123 Nahj Libya, Médenine, Tunisie</p>
+</div>
+
+<div class="contact-item">
+<h3>👷 Ingénieur Responsable</h3>
+<p>M. RAHMANI Soufien</p>
+</div>
 
 </div>
+
+<!-- MAP -->
+
+<div class="map-container">
+
+<iframe
+src="https://www.google.com/maps?q=Atelier+Electronique+M%C3%A9denine&output=embed"
+width="100%"
+height="100%"
+style="border:0;"
+allowfullscreen=""
+loading="lazy">
+</iframe>
+
+</div>
+
+<!-- GPS BUTTON -->
+
+<div style="text-align:center;">
+<a href="https://www.google.com/maps/dir/?api=1&destination=Atelier+Electronique+M%C3%A9denine"
+target="_blank"
+class="gps-btn">
+📍 Itinéraire vers l'atelier
+</a>
+</div>
+
+<!-- ATELIER IMAGE -->
+
+<img src="images/atelier.jpeg" alt="Atelier Electronique Médenine" class="contact-img">
 
 </section>
-
-<!-- ================= RESULT MODAL ================= -->
-
-<div class="modal" id="result-modal">
-
-<div class="modal-content">
-
-<h2>Votre Code Radio</h2>
-
-<p>Précode: <strong id="modal-precode"></strong></p>
-
-<p>Code: <strong id="modal-code"></strong></p>
-
-<button onclick="closeModal()">Fermer</button>
-
-</div>
-
-</div>
 
 <!-- ================= FOOTER ================= -->
 
@@ -221,47 +265,13 @@ font-size:32px;
 <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
-<!-- ================= JS ================= -->
+<!-- WHATSAPP FLOAT -->
 
-<script>
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">
+💬
+</a>
 
-function generateCode(){
-
-const brand=document.getElementById('car-brand').value.trim();
-const precode=document.getElementById('precode').value.trim().toUpperCase();
-
-if(!brand.toLowerCase().includes('renault') && !brand.toLowerCase().includes('dacia')){
-alert("Algo pour Renault / Dacia seulement.");
-return;
-}
-
-if(!precode || precode.length!==4 || !/^[A-Z]\d{3}$/.test(precode)){
-alert("Précode invalide ! Exemple A123.");
-return;
-}
-
-/* ALGORITHM */
-
-let x = precode.charCodeAt(1) + precode.charCodeAt(0) * 10 - 698;
-let y = precode.charCodeAt(3) + precode.charCodeAt(2) * 10 + x - 528;
-let z = (y * 7) % 100;
-let codeNum = Math.floor(z / 10) + (z % 10) * 10 + ((259 % x) % 100) * 100;
-
-const codeStr = codeNum.toString().padStart(4,'0');
-
-document.getElementById('modal-precode').textContent=precode;
-document.getElementById('modal-code').textContent=codeStr;
-
-document.getElementById('result-modal').classList.add('active');
-
-}
-
-function closeModal(){
-document.getElementById('result-modal').classList.remove('active');
-}
-
-</script>
+<script src="js/script.js"></script>
 
 </body>
-</html>
-```
+</html></div>
