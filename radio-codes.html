@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Code Radio | Atelier Électronique Médenine</title>
-
 <link rel="icon" href="images/favicon.png">
 
 <style>
@@ -17,7 +15,7 @@ body{
   margin:0;
 }
 
-/* ================= HEADER (comme contact.html) ================= */
+/* ================= HEADER exactement comme contact.html ================= */
 .header{
   position:fixed;
   top:0; left:0; right:0;
@@ -138,48 +136,47 @@ footer{
   color:#94a3b8;
 }
 </style>
-
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ================= HEADER EXACTEMENT COMME CONTACT ================= -->
 <header class="header">
-<div class="logo">
-<img src="images/logo.png" alt="Logo" class="logo-img">
-<h1>Atelier Électronique Médenine</h1>
-</div>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="index.html#services">Services</a>
-<a href="contact.html">Contact</a>
-<button class="login-btn">Login</button>
-</nav>
+  <div class="logo">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="contact.html">Contact</a>
+    <button class="login-btn">Login</button>
+  </nav>
 </header>
 
 <!-- ================= PAGE CONTENT ================= -->
 <section class="page-container">
-<h2>Code Radio Voiture</h2>
-<div class="form-card">
-<input type="text" id="car-brand" placeholder="Marque de voiture">
-<input type="text" id="serial-number" placeholder="Numéro de série / Précode">
-<button onclick="generateCode()">Calculer le Code</button>
-</div>
+  <h2>Code Radio Voiture</h2>
+  <div class="form-card">
+    <input type="text" id="car-brand" placeholder="Marque de voiture">
+    <input type="text" id="serial-number" placeholder="Numéro de série / Précode">
+    <button onclick="generateCode()">Calculer le Code</button>
+  </div>
 </section>
 
 <!-- ================= MODAL ================= -->
 <div class="modal" id="result-modal">
-<div class="modal-content">
-<h2>Votre Code Radio</h2>
-<p>Marque: <strong id="modal-brand">—</strong></p>
-<p>Numéro de série: <strong id="modal-serial">—</strong></p>
-<p>Code: <strong id="modal-code" style="letter-spacing:4px;font-size:1.5rem;">—</strong></p>
-<button onclick="closeModal()">Fermer</button>
-</div>
+  <div class="modal-content">
+    <h2>Votre Code Radio</h2>
+    <p>Marque: <strong id="modal-brand">—</strong></p>
+    <p>Numéro de série: <strong id="modal-serial">—</strong></p>
+    <p>Code: <strong id="modal-code" style="letter-spacing:4px;font-size:1.5rem;">—</strong></p>
+    <button onclick="closeModal()">Fermer</button>
+  </div>
 </div>
 
 <!-- ================= FOOTER ================= -->
 <footer>
-<p>© 2026 Atelier Électronique Médenine</p>
+  <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
 <script>
