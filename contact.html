@@ -7,226 +7,227 @@
   <link rel="icon" href="images/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0a0e17;
-      --card-bg: rgba(20, 25, 45, 0.45);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.25);
-      --text: #e2e8f0;
-      --text-light: #94a3b8;
-      --radius: 20px;
+      --bg: #0b0f1a;
+      --card: rgba(20, 28, 50, 0.55);
+      --glass: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.09);
+      --accent: #5ab9ff;
+      --accent-dark: #3b82f6;
+      --gradient: linear-gradient(135deg, #5ab9ff, #a78bfa 60%, #f472b6);
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --radius: 24px;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', sans-serif;
       line-height: 1.6;
       min-height: 100vh;
       background-image: 
-        radial-gradient(circle at 15% 50%, rgba(56,189,248,0.08) 0%, transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(139,92,246,0.06) 0%, transparent 35%);
+        radial-gradient(circle at 20% 30%, rgba(90,185,255,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(167,139,250,0.05) 0%, transparent 50%);
     }
 
     .header {
       position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1.5rem 8%;
+      top: 0; left: 0; right: 0;
+      padding: 1.4rem 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(10, 14, 23, 0.65);
-      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(11,15,26,0.7);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .header.scrolled {
+      padding: 1rem 8%;
+      background: rgba(11,15,26,0.85);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 1rem;
     }
 
-    .logo-img {
-      height: 42px;
-      width: auto;
-    }
+    .logo-img { height: 48px; width: auto; }
 
     .logo h1 {
       font-family: 'Orbitron', monospace;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      background: var(--gradient);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 2.2rem;
+      gap: 2.5rem;
     }
 
     .nav a {
-      color: var(--text-light);
+      color: var(--text-muted);
       text-decoration: none;
       font-weight: 500;
-      transition: all 0.3s ease;
+      transition: all 0.35s ease;
     }
 
     .nav a:hover {
       color: white;
-      text-shadow: 0 0 12px var(--accent-glow);
+      text-shadow: 0 0 15px rgba(90,185,255,0.5);
     }
 
     .login-btn {
-      padding: 10px 22px;
-      background: linear-gradient(135deg, #38bdf8, #7c3aed);
+      padding: 0.65rem 1.8rem;
+      background: var(--gradient);
       border: none;
       border-radius: 50px;
       color: white;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.4s ease;
-      box-shadow: 0 4px 20px rgba(56,189,248,0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 6px 25px rgba(90,185,255,0.3);
     }
 
     .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(56,189,248,0.45);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 40px rgba(90,185,255,0.45);
     }
 
-    /* ================= CONTACT ================= */
     .contact-container {
-      padding: 140px 8% 100px;
-      max-width: 1200px;
+      padding: 160px 8% 100px;
+      max-width: 1240px;
       margin: auto;
     }
 
     .contact-container h2 {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-size: clamp(3rem, 8vw, 5.5rem);
       text-align: center;
-      margin-bottom: 4rem;
-      background: linear-gradient(90deg, #60a5fa, #c084fc, #f472b6);
+      margin-bottom: 5rem;
+      background: var(--gradient);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
+      line-height: 0.95;
     }
 
     .contact-info {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
 
     .contact-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
+      background: var(--card);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 2rem 1.8rem;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      padding: 2.2rem 1.8rem;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
     }
 
-    .contact-card::before {
+    .contact-card::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(56,189,248,0.07), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
+      inset: -50%;
+      background: var(--gradient);
+      opacity: 0.07;
+      filter: blur(40px);
+      transition: opacity 0.6s ease;
       pointer-events: none;
     }
 
     .contact-card:hover {
-      transform: translateY(-12px) scale(1.03);
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6), 0 0 30px rgba(56,189,248,0.18);
+      transform: translateY(-16px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 40px rgba(90,185,255,0.25);
     }
 
-    .contact-card:hover::before {
-      opacity: 1;
-    }
+    .contact-card:hover::after { opacity: 0.12; }
 
     .contact-card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
+      font-size: 1.45rem;
+      margin-bottom: 1.1rem;
       color: var(--accent);
       font-weight: 600;
     }
 
     .contact-card p, .contact-card a {
-      color: var(--text-light);
-      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-size: 1.1rem;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .contact-card a:hover {
       color: var(--accent);
-      text-shadow: 0 0 10px var(--accent-glow);
+      text-shadow: 0 0 12px rgba(90,185,255,0.6);
     }
 
     .map-container {
-      margin: 5rem auto 4rem;
+      margin: 6rem auto 4rem;
+      max-width: 1100px;
+      height: 520px;
       border-radius: var(--radius);
       overflow: hidden;
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      height: 480px;
-      max-width: 1000px;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px);
     }
 
     .contact-img {
       width: 100%;
-      max-width: 900px;
-      margin: 3rem auto 0;
+      max-width: 1000px;
+      margin: 0 auto 4rem;
       display: block;
       border-radius: var(--radius);
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      transition: transform 0.6s ease;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+      transition: all 0.6s ease;
     }
 
     .contact-img:hover {
-      transform: scale(1.02);
+      transform: scale(1.025);
+      box-shadow: 0 35px 90px rgba(90,185,255,0.2);
     }
 
     footer {
       text-align: center;
-      padding: 3rem 0 2rem;
-      color: var(--text-light);
-      font-size: 0.95rem;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 6rem;
+      padding: 4rem 0 2.5rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+      border-top: 1px solid var(--border);
     }
 
     @media (max-width: 768px) {
-      .contact-container { padding: 120px 5% 80px; }
-      .map-container { height: 360px; }
+      .contact-container { padding: 130px 6% 80px; }
+      .map-container { height: 380px; }
+      .nav { gap: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-<header class="header">
+<header class="header" id="header">
   <div class="logo">
     <img src="images/logo.png" alt="Logo" class="logo-img">
     <h1>Electronique Medenine</h1>
@@ -271,16 +272,9 @@
     </div>
   </div>
 
-<div class="map-container">
-  <iframe
-    src="https://www.google.com/maps?q=Atelier+Electronique+M%C3%A9denine&output=embed"
-    width="100%" 
-    height="100%" 
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy">
-  </iframe>
-</div>
+  <div class="map-container">
+    <iframe src="https://maps.app.goo.gl/nxBU8h2oFDEkiBFE9" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
 
   <img src="images/atelier.jpeg" alt="Atelier Electronique Médenine" class="contact-img">
 </section>
@@ -288,6 +282,13 @@
 <footer>
   <p>© 2026 Atelier Électronique Médenine — Tous droits réservés.</p>
 </footer>
+
+<script>
+  // Simple scroll shrink header
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
 
 </body>
 </html>
