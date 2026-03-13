@@ -14,22 +14,27 @@
 
 /* ================= CONTACT PAGE ================= */
 
+body{
+background:#0f172a;
+color:white;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* CONTAINER */
+
 .contact-container{
 padding:120px 8%;
 max-width:900px;
 margin:auto;
-color:white;
 }
 
 .contact-container h2{
-font-size:42px;
-margin-bottom:50px;
+font-size:40px;
 text-align:center;
-letter-spacing:1px;
-font-weight:700;
+margin-bottom:50px;
 }
 
-/* INFO LINES */
+/* INFO LIST */
 
 .contact-info{
 display:flex;
@@ -52,17 +57,15 @@ border-color:#38bdf8;
 }
 
 .contact-item h3{
-font-size:18px;
 color:#38bdf8;
-font-weight:600;
+font-size:18px;
 }
 
 .contact-item p,
 .contact-item a{
 color:#cbd5f5;
-font-size:16px;
 text-decoration:none;
-transition:0.3s;
+font-size:16px;
 }
 
 .contact-item a:hover{
@@ -76,7 +79,7 @@ margin-top:60px;
 border-radius:18px;
 overflow:hidden;
 height:420px;
-box-shadow:0 15px 40px rgba(0,0,0,0.4);
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
 }
 
 /* IMAGE */
@@ -92,6 +95,49 @@ transition:0.4s;
 transform:scale(1.02);
 }
 
+/* GPS BUTTON */
+
+.gps-btn{
+display:inline-block;
+margin-top:20px;
+background:#38bdf8;
+color:white;
+padding:12px 26px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+.gps-btn:hover{
+background:#0ea5e9;
+}
+
+/* WHATSAPP BUTTON */
+
+.whatsapp-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+width:60px;
+height:60px;
+background:#25D366;
+color:white;
+font-size:28px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+text-decoration:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+transition:0.3s;
+z-index:1000;
+}
+
+.whatsapp-btn:hover{
+transform:scale(1.1);
+}
+
 /* MOBILE */
 
 @media(max-width:768px){
@@ -103,7 +149,7 @@ gap:8px;
 }
 
 .contact-container h2{
-font-size:34px;
+font-size:32px;
 }
 
 }
@@ -120,7 +166,7 @@ font-size:34px;
 
 <div class="logo">
 <img src="images/logo.png" alt="Logo" class="logo-img">
-<h1>Atelier Électronique Médenine</h1>
+<h1>Electronique Medenine</h1>
 </div>
 
 <nav class="nav">
@@ -152,7 +198,7 @@ font-size:34px;
 
 <div class="contact-item">
 <h3>💬 WhatsApp</h3>
-<p><a href="https://wa.me/21698192103" target="_blank">+216 98 192 103</a></p>
+<p><a href="https://wa.me/21698192103" target="_blank">Chat WhatsApp</a></p>
 </div>
 
 <div class="contact-item">
@@ -197,7 +243,17 @@ loading="lazy">
 
 </div>
 
-<!-- ATELIER PHOTO -->
+<!-- GPS BUTTON -->
+
+<div style="text-align:center;">
+<a href="https://www.google.com/maps/dir/?api=1&destination=Atelier+Electronique+M%C3%A9denine"
+target="_blank"
+class="gps-btn">
+📍 Itinéraire vers l'atelier
+</a>
+</div>
+
+<!-- ATELIER IMAGE -->
 
 <img src="images/atelier.jpeg" alt="Atelier Electronique Médenine" class="contact-img">
 
@@ -205,9 +261,15 @@ loading="lazy">
 
 <!-- ================= FOOTER ================= -->
 
-<footer>
+<footer style="text-align:center;margin-top:60px;padding:30px;color:#94a3b8;">
 <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
+
+<!-- WHATSAPP FLOAT -->
+
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">
+💬
+</a>
 
 <script src="js/script.js"></script>
 
