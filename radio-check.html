@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Code trouvé | Atelier Électronique Médenine</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.check-container{
+max-width:600px;
+margin:auto;
+padding:140px 20px;
+text-align:center;
+}
+
+.result-box{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+margin-bottom:30px;
+}
+
+.result-box p{
+margin:15px 0;
+font-size:18px;
+}
+
+input{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+}
+
+button{
+margin-top:20px;
+padding:12px 30px;
+border:none;
+border-radius:40px;
+background:#38bdf8;
+font-weight:600;
+cursor:pointer;
+}
+
+.secure{
+margin-top:30px;
+color:#94a3b8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="check-container">
+
+<h2>Votre code a été trouvé</h2>
+
+<div class="result-box">
+
+<p><strong>Numéro de série</strong><br>
+<span id="serial"></span></p>
+
+<p><strong>Véhicule</strong><br>
+Renault</p>
+
+<p><strong>Type de code</strong><br>
+4 chiffres</p>
+
+</div>
+
+<form id="email-form">
+
+<label>Adresse e-mail</label>
+
+<input type="email" id="email" placeholder="you@example.com" required>
+
+<p>Votre code sera livré ici</p>
+
+<button type="submit">Continuer</button>
+
+</form>
+
+<p class="secure">
+🔒 Sécurisé et chiffré  
+<br>
+⭐ Plus de 100 000 clients
+</p>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search)
+
+const precode = params.get("precode")
+
+document.getElementById("serial").textContent = precode
+
+document.getElementById("email-form").addEventListener("submit",function(e){
+
+e.preventDefault()
+
+let email = document.getElementById("email").value
+
+let message = `Demande Code Radio
+
+Précode: ${precode}
+Email: ${email}
+
+Prix: 10DT`
+
+let url = `https://wa.me/21698192103?text=${encodeURIComponent(message)}`
+
+window.location.href = url
+
+})
+
+</script>
+
+</body>
+
+</html>
