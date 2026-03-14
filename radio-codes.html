@@ -5,53 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Déverrouillage Code Radio | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
-<link rel="stylesheet" href="css/style.css">
 <style>
-/* ================= RADIO CODE PAGE ================= */
+/* ================= GLOBAL ================= */
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:rgba(0,0,0,0.4);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.1);}
+header h1{font-size:20px;margin:0;}
+.nav a{margin:0 10px;text-decoration:none;color:white;font-weight:500;}
 .radio-container{
-  padding:140px 8% 100px;
-  max-width:800px;
+  padding:100px 5%;
+  max-width:700px;
   margin:auto;
+  text-align:center;
+  animation:fadeIn 1s ease forwards;
 }
 .radio-container h2{
-  text-align:center;
-  font-size:36px;
+  font-size:32px;
   margin-bottom:40px;
+  color:#38bdf8;
 }
+
+/* ================= FORM ================= */
 .radio-form{
   background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
   border-radius:20px;
   padding:30px;
   display:flex;
   flex-direction:column;
   gap:20px;
+  box-shadow:0 0 25px rgba(0,0,0,0.3);
+  transition:transform 0.3s;
 }
-.field-wrapper{
-  position:relative;
-}
+.radio-form:hover{transform:translateY(-3px);}
+.field-wrapper{position:relative;}
 .field-wrapper span{
-  position:absolute;
-  left:15px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:20px;
-  color:#94a3b8;
+  position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  font-size:20px;color:#94a3b8;
 }
 input{
   width:100%;
   padding:12px 12px 12px 45px;
   border:none;
   border-radius:12px;
-  background:rgba(255,255,255,0.05);
+  background:rgba(255,255,255,0.1);
   color:white;
   font-size:16px;
 }
-input:focus{
-  outline:none;
-  border:1px solid #38bdf8;
-  box-shadow:0 0 15px rgba(56,189,248,0.3);
-}
+input:focus{outline:none;border:1px solid #38bdf8;box-shadow:0 0 15px rgba(56,189,248,0.3);}
 button.calc-btn{
   padding:12px;
   border:none;
@@ -63,85 +68,76 @@ button.calc-btn{
   transition:0.3s;
 }
 button.calc-btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 25px rgba(56,189,248,0.5);
+  transform:scale(1.05);
+  box-shadow:0 8px 25px rgba(56,189,248,0.7);
 }
+
+/* ================= MODAL ================= */
 .modal{
   display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(10px);
   justify-content:center;
   align-items:center;
   z-index:2000;
 }
-.modal.active{
-  display:flex;
-}
+.modal.active{display:flex;}
 .modal-content{
   background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
   border-radius:20px;
   padding:30px;
-  max-width:500px;
+  max-width:450px;
   width:90%;
   text-align:center;
+  animation:modalPop 0.4s ease forwards;
 }
-.modal-content h2{
-  color:#38bdf8;
-  margin-bottom:15px;
-}
-.modal-actions{
-  margin-top:20px;
-  display:flex;
-  gap:10px;
-  justify-content:center;
-}
+.modal-content h2{color:#38bdf8;margin-bottom:15px;}
+.modal-actions{margin-top:20px;display:flex;gap:10px;justify-content:center;}
 .modal-btn{
   padding:10px 20px;
   border-radius:50px;
   font-weight:600;
   cursor:pointer;
 }
-.close-btn{
-  background:#4b5563;
-  color:white;
-}
-.copy-btn{
-  background:#38bdf8;
-  color:#000;
-}
+.copy-btn{background:#38bdf8;color:#000;transition:0.3s;}
+.copy-btn:hover{transform:scale(1.05);}
+.close-btn{background:#4b5563;color:white;}
+
+/* ================= WHATSAPP ================= */
 .whatsapp-btn{
   position:fixed;
   bottom:25px;
   right:25px;
-  width:60px;
-  height:60px;
-  background:#25D366;
-  color:white;
+  width:60px;height:60px;
+  background:#25D366;color:white;
   font-size:28px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:50%;
-  text-decoration:none;
   box-shadow:0 10px 25px rgba(0,0,0,0.3);
   transition:0.3s;
-  z-index:1000;
 }
-.whatsapp-btn:hover{
-  transform:scale(1.1);
+.whatsapp-btn:hover{transform:scale(1.1);}
+
+/* ================= ANIMATIONS ================= */
+@keyframes modalPop{
+  0%{transform:scale(0.7);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
+@keyframes fadeIn{
+  0%{opacity:0;transform:translateY(20px);}
+  100%{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="logo">
-    <img src="images/logo.png" class="logo-img">
-    <h1>Atelier Électronique Médenine</h1>
-  </div>
+<header>
+  <h1>Atelier Électronique Médenine</h1>
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="index.html#services">Services</a>
@@ -165,18 +161,16 @@ button.calc-btn:hover{
   </div>
 </section>
 
-<!-- RESULT MODAL -->
+<!-- MODAL -->
 <div class="modal" id="result-modal">
   <div class="modal-content">
     <h2>Votre Code Radio</h2>
     <p>Marque: <strong id="modal-brand">—</strong></p>
     <p>Précode: <strong id="modal-precode">—</strong></p>
     <p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
-    <div id="pay-section">
-      <p>Paiement requis : <strong>10 DT</strong></p>
-      <button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10DT</button>
-    </div>
+    <p>Paiement requis: <strong>10 DT</strong></p>
     <div class="modal-actions">
+      <button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10DT</button>
       <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
     </div>
   </div>
@@ -196,7 +190,7 @@ button.calc-btn:hover{
 
 <a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
-<footer>
+<footer style="text-align:center;padding:20px 0;">
   <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
@@ -204,50 +198,36 @@ button.calc-btn:hover{
 let savedBrand="", savedPrecode="";
 
 function generateCode(){
-  let brand = document.getElementById("car-brand").value.trim();
-  let precode = document.getElementById("precode").value.trim().toUpperCase();
-
-  if(!brand || !precode){
-    alert("Remplir toutes les informations");
-    return;
-  }
-  if(!brand.toLowerCase().includes("renault")){
-    alert("Algorithme optimisé pour Renault seulement.");
-    return;
-  }
-  if(!/^[A-Z]\d{3}$/.test(precode)){
-    alert("Précode invalide ! Exemple: A123.");
-    return;
-  }
-
-  savedBrand = brand;
-  savedPrecode = precode;
-
+  let brand=document.getElementById("car-brand").value.trim();
+  let precode=document.getElementById("precode").value.trim().toUpperCase();
+  if(!brand || !precode){alert("Remplir toutes les informations"); return;}
+  if(!brand.toLowerCase().includes("renault")){alert("Algorithme optimisé pour Renault seulement."); return;}
+  if(!/^[A-Z]\d{3}$/.test(precode)){alert("Précode invalide ! Exemple: A123."); return;}
+  savedBrand = brand; savedPrecode = precode;
   document.getElementById("modal-brand").textContent = brand;
   document.getElementById("modal-precode").textContent = precode;
   document.getElementById("result-modal").classList.add("active");
 }
 
-function closeModal(){document.getElementById("result-modal").classList.remove("active")}
-function openClientForm(){document.getElementById("client-form").classList.add("active")}
-function closeForm(){document.getElementById("client-form").classList.remove("active")}
+function closeModal(){document.getElementById("result-modal").classList.remove("active");}
+function openClientForm(){document.getElementById("client-form").classList.add("active");}
+function closeForm(){document.getElementById("client-form").classList.remove("active");}
 
 function sendWhatsApp(){
-  let name = document.getElementById("client-name").value.trim();
-  let phone = document.getElementById("client-phone").value.trim();
+  let name=document.getElementById("client-name").value.trim();
+  let phone=document.getElementById("client-phone").value.trim();
   if(!name || !phone){alert("Remplir toutes les informations"); return;}
 
-  // ===== CALCUL CODE =====
-  let p = savedPrecode;
-  let x = p.charCodeAt(1) + p.charCodeAt(0)*10 - 698;
-  let y = p.charCodeAt(3) + p.charCodeAt(2)*10 + x - 528;
-  let z = (y*7) % 100;
-  if(z<0) z += 100;
-  let codeNum = Math.floor(z/10) + (z%10)*10 + ((259%Math.abs(x))%100)*100;
-  let code = codeNum.toString().padStart(4,'0');
+  // CALCUL CODE
+  let p=savedPrecode;
+  let x=p.charCodeAt(1)+p.charCodeAt(0)*10-698;
+  let y=p.charCodeAt(3)+p.charCodeAt(2)*10+x-528;
+  let z=(y*7)%100;
+  if(z<0) z+=100;
+  let codeNum=Math.floor(z/10)+(z%10)*10+((259%Math.abs(x))%100)*100;
+  let code=codeNum.toString().padStart(4,'0');
 
-  // ===== MESSAGE WHATSAPP =====
-  let message = `Demande Code Radio
+  let message=`Demande Code Radio
 
 Nom: ${name}
 Téléphone: ${phone}
@@ -261,6 +241,5 @@ Prix: 10DT
   window.open(`https://wa.me/21698192103?text=${encodeURIComponent(message)}`,"_blank");
 }
 </script>
-
 </body>
 </html>
