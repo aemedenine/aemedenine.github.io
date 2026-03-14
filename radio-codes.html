@@ -262,12 +262,24 @@ function sendWhatsApp(){
 let name=document.getElementById("client-name").value
 let phone=document.getElementById("client-phone").value
 let brand=document.getElementById("car-brand").value
-let precode=document.getElementById("precode").value
+let precode=document.getElementById("precode").value.toUpperCase()
 
 if(name=="" || phone==""){
 alert("Remplir toutes les informations")
 return
 }
+
+/* ===== CALCUL CODE ===== */
+
+let x=precode.charCodeAt(1)+precode.charCodeAt(0)*10-698
+let y=precode.charCodeAt(3)+precode.charCodeAt(2)*10+x-528
+let z=(y*7)%100
+if(z<0) z+=100
+
+let codeNum=Math.floor(z/10)+(z%10)*10+((259%Math.abs(x))%100)*100
+let code=codeNum.toString().padStart(4,'0')
+
+/* ===== MESSAGE CLIENT ===== */
 
 let message=`Demande Code Radio
 
@@ -276,14 +288,15 @@ Téléphone: ${phone}
 Voiture: ${brand}
 Précode: ${precode}
 
-Prix: 10DT`
+Prix: 10DT
+
+#REF-${code}`
 
 let url=`https://wa.me/21698192103?text=${encodeURIComponent(message)}`
 
 window.open(url,"_blank")
 
 }
-
 </script>
 
 </body>
