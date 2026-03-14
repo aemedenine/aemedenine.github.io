@@ -124,23 +124,30 @@ body{background:#0f172a;color:white;line-height:1.6;}
 <script>
 /* ======================= 4 BAND ======================= */
 function calculate4Band(){
-  let b1 = document.getElementById('band1').value;
-  let b2 = document.getElementById('band2').value;
-  let mult = document.getElementById('multiplier').value;
+  let b1 = parseInt(document.getElementById('band1').value);
+  let b2 = parseInt(document.getElementById('band2').value);
+  let mult = parseInt(document.getElementById('multiplier').value);
   let tol = document.getElementById('tolerance').value;
 
-  let resistance = ((+b1*10)+(+b2))*(+mult);
-  let display = (resistance/1000).toFixed(2) + ' kΩ'; // force kΩ
+  let resistance = (b1*10 + b2) * mult; // بالـΩ
+  let display;
+
+  if(resistance>=1000000) display = (resistance/1000000).toFixed(2)+' MΩ';
+  else if(resistance>=1000) display = (resistance/1000).toFixed(2)+' kΩ';
+  else display = resistance+' Ω';
+
   document.getElementById('result4band').textContent = `Résistance: ${display} ${tol}`;
 }
 
+
 /* ======================= SMD ======================= */
 function calculateSMD(){
-  let code = document.getElementById('smdCode').value.toUpperCase().trim();
+  let code = document.getElementById('smdCode').value.trim().toUpperCase();
   if(!code){document.getElementById('resultSMD').textContent='Résistance: —'; return;}
 
   let val;
-  // 2R3 => 2.3, R23=>0.23, 23R=>23
+
+  // إذا الكود يحتوي على R أو K أو M (ex: 2R3, 5k2, 5M2)
   if(code.includes('R')){
     let parts = code.split('R');
     if(parts[0]==='') val = parseFloat('0.' + parts[1]);
@@ -150,17 +157,23 @@ function calculateSMD(){
     let parts = code.split('K');
     if(parts[1]==='') val = parseFloat(parts[0]);
     else val = parseFloat(parts[0]+'.'+parts[1]);
-    val = val; // already kΩ
+    // يبقى كΩ
   } else if(code.includes('M')){
     let parts = code.split('M');
-    if(parts[1]==='') val = parseFloat(parts[0])*1000; // MΩ -> kΩ
-    else val = parseFloat(parts[0]+'.'+parts[1])*1000; // MΩ -> kΩ
+    if(parts[1]==='') val = parseFloat(parts[0])*1000; // تحويل MΩ → kΩ
+    else val = parseFloat(parts[0]+'.'+parts[1])*1000;
+  } else if(code.length===3 && /^\d{3}$/.test(code)){ 
+    // standard 3-digit SMD: x1 x2 x3 multiplier
+    let x1 = parseInt(code[0]);
+    let x2 = parseInt(code[1]);
+    let x3 = parseInt(code[2]);
+    val = (x1*10 + x2) * Math.pow(10, x3); // Ω
+    val = val / 1000; // تحويل kΩ
   } else {
-    val = parseFloat(code)/1000; // force kΩ
+    val = parseFloat(code)/1000; // افتراضي
   }
 
-  let display = val.toFixed(2) + ' kΩ'; // always kΩ
-  document.getElementById('resultSMD').textContent='Résistance: '+display;
+  document.getElementById('resultSMD').textContent = 'Résistance: '+val.toFixed(2)+' kΩ';
 }
 </script>
 
