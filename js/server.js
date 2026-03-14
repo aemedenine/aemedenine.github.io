@@ -1,57 +1,34 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-
+const express = require('express')
+const bodyParser = require('body-parser')
+const path = require('path')
 const app = express()
 
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(express.static("../"))
+app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname,'..'))) // Serve site
 
-function calcCode(precode){
+app.post('/send', (req,res)=>{
+  const { name, phone, brand, precode, code } = req.body
+  if(!name || !phone || !brand || !precode || !code){
+    return res.status(400).send('Informations manquantes!')
+  }
 
-precode = precode.toUpperCase()
+  const message = `Demande Code Radio\n\nNom: ${name}\nTéléphone: ${phone}\nVoiture: ${brand}\nPrécode: ${precode}\nCode: ${code}\nPrix: 10DT`
+  const whatsappUrl = `https://wa.me/21698192103?text=${encodeURIComponent(message)}`
 
-let x = precode.charCodeAt(1) + precode.charCodeAt(0)*10 - 698
-let y = precode.charCodeAt(3) + precode.charCodeAt(2)*10 + x - 528
-let z = (y*7)%100
+  console.log('Client:', name, phone, brand, precode, code)
+  console.log('WhatsApp URL:', whatsappUrl)
 
-if(z<0) z+=100
-
-let codeNum =
-Math.floor(z/10) +
-(z%10)*10 +
-((259 % Math.abs(x))%100)*100
-
-return codeNum.toString().padStart(4,'0')
-
-}
-
-app.post("/send",(req,res)=>{
-
-const name=req.body.name
-const phone=req.body.phone
-const brand=req.body.brand
-const precode=req.body.precode
-
-const code=calcCode(precode)
-
-const message=
-`Demande Code Radio
-
-Nom: ${name}
-Téléphone: ${phone}
-Voiture: ${brand}
-Précode: ${precode}
-Code: ${code}
-
-Prix: 10DT`
-
-const url=
-`https://wa.me/21698192103?text=${encodeURIComponent(message)}`
-
-res.redirect(url)
-
+  res.send(`
+    <html>
+      <head>
+        <meta http-equiv="refresh" content="0;url=${whatsappUrl}" />
+      </head>
+      <body>
+        <p>Redirection vers WhatsApp...</p>
+        <a href="${whatsappUrl}">Clique ici si ça ne marche pas</a>
+      </body>
+    </html>
+  `)
 })
 
-app.listen(3000,()=>{
-console.log("Server running on port 3000")
-})
+app.listen(3000, ()=>console.log('Server running on http://localhost:3000'))
