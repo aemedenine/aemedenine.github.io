@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -9,8 +10,6 @@
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-
-/* ================= RADIO CODE PAGE ================= */
 
 .radio-container{
 padding:140px 8% 100px;
@@ -55,6 +54,7 @@ border-radius:12px;
 background:rgba(255,255,255,0.05);
 color:white;
 font-size:16px;
+margin-top:10px;
 }
 
 input:focus{
@@ -78,8 +78,6 @@ button.calc-btn:hover{
 transform:translateY(-3px);
 box-shadow:0 8px 25px rgba(56,189,248,0.5);
 }
-
-/* ================= MODAL ================= */
 
 .modal{
 display:none;
@@ -111,16 +109,6 @@ color:#38bdf8;
 margin-bottom:15px;
 }
 
-.modal-content p{
-margin:10px 0;
-font-size:16px;
-}
-
-.modal-content strong{
-font-size:22px;
-letter-spacing:2px;
-}
-
 .modal-actions{
 margin-top:20px;
 display:flex;
@@ -143,13 +131,6 @@ color:white;
 .copy-btn{
 background:#38bdf8;
 color:#000;
-}
-
-.disclaimer{
-margin-top:20px;
-font-size:14px;
-color:#94a3b8;
-line-height:1.4;
 }
 
 .whatsapp-btn{
@@ -176,12 +157,12 @@ transform:scale(1.1);
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header class="header">
-
 <div class="logo">
 <img src="images/logo.png" class="logo-img">
 <h1>Atelier Électronique Médenine</h1>
@@ -194,7 +175,6 @@ transform:scale(1.1);
 <a href="contact.html">Contact</a>
 <button class="login-btn">Login</button>
 </nav>
-
 </header>
 
 <section class="radio-container">
@@ -216,7 +196,6 @@ transform:scale(1.1);
 <button class="calc-btn" onclick="generateCode()">Calculer le Code</button>
 
 </div>
-
 </section>
 
 <div class="modal" id="result-modal">
@@ -226,28 +205,41 @@ transform:scale(1.1);
 <h2>Votre Code Radio</h2>
 
 <p>Marque: <strong id="modal-brand">—</strong></p>
-
 <p>Précode: <strong id="modal-precode">—</strong></p>
-
 <p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
 
 <div id="pay-section">
 
 <p>Paiement requis : <strong>10 DT</strong></p>
 
-<a href="https://paymee.tn" target="_blank">
-<button class="modal-btn copy-btn">Payer 10DT</button>
-</a>
-
-<button class="modal-btn close-btn" onclick="unlockCode()">J'ai payé</button>
+<button class="modal-btn copy-btn" onclick="openForm()">Payer 10DT</button>
 
 </div>
 
 <div class="modal-actions">
-
-<button class="modal-btn copy-btn" id="copy-btn">Copier Code</button>
-
 <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
+</div>
+
+</div>
+</div>
+
+<!-- CLIENT FORM -->
+
+<div class="modal" id="client-form">
+
+<div class="modal-content">
+
+<h2>Demande Code Radio</h2>
+
+<input type="text" id="client-name" placeholder="Nom complet">
+
+<input type="text" id="client-phone" placeholder="Numéro téléphone">
+
+<div class="modal-actions">
+
+<button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
+
+<button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
 
 </div>
 
@@ -255,19 +247,13 @@ transform:scale(1.1);
 
 </div>
 
-<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">
-💬
-</a>
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
 <footer>
-<p>© 2026 Atelier Électronique Médenine — Service Professionnel Code Radio</p>
+<p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
 <script>
-
-window.addEventListener('scroll',()=>{
-document.querySelector('.header').classList.toggle('scrolled',window.scrollY>50)
-})
 
 let savedCode=""
 
@@ -302,24 +288,42 @@ document.getElementById('result-modal').classList.add('active')
 
 }
 
-function unlockCode(){
-
-document.getElementById("modal-code").textContent=savedCode
-document.getElementById("pay-section").style.display="none"
-
-const copyBtn=document.getElementById("copy-btn")
-
-copyBtn.onclick=()=>{
-navigator.clipboard.writeText(savedCode)
-copyBtn.textContent="Copié !"
-setTimeout(()=>copyBtn.textContent="Copier Code",2000)
+function openForm(){
+document.getElementById("client-form").classList.add("active")
 }
 
+function closeForm(){
+document.getElementById("client-form").classList.remove("active")
 }
 
 function closeModal(){
+document.getElementById("result-modal").classList.remove("active")
+}
 
-document.getElementById('result-modal').classList.remove('active')
+function sendWhatsApp(){
+
+let name=document.getElementById("client-name").value
+let phone=document.getElementById("client-phone").value
+let brand=document.getElementById("car-brand").value
+let precode=document.getElementById("precode").value
+
+if(name=="" || phone==""){
+alert("Remplir toutes les informations")
+return
+}
+
+let message=`Demande Code Radio
+
+Nom: ${name}
+Téléphone: ${phone}
+Voiture: ${brand}
+Précode: ${precode}
+
+Prix: 10DT`
+
+let url=`https://wa.me/21698192103?text=${encodeURIComponent(message)}`
+
+window.open(url,"_blank")
 
 }
 
