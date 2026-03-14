@@ -306,6 +306,7 @@ let name=document.getElementById("client-name").value
 let phone=document.getElementById("client-phone").value
 let brand=document.getElementById("car-brand").value
 let precode=document.getElementById("precode").value
+let code=savedCode
 
 if(name=="" || phone==""){
 alert("Remplir toutes les informations")
@@ -318,6 +319,7 @@ Nom: ${name}
 Téléphone: ${phone}
 Voiture: ${brand}
 Précode: ${precode}
+Code: ${code}
 
 Prix: 10DT`
 
@@ -326,7 +328,6 @@ let url=`https://wa.me/21698192103?text=${encodeURIComponent(message)}`
 window.open(url,"_blank")
 
 }
-
 </script>
 
 </body>
