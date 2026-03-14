@@ -15,14 +15,14 @@
   overflow:hidden;
 }
 
-/* subtle futuristic background */
+/* subtle futuristic animated background */
 .radio-container::before{
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(120deg, rgba(56,189,248,0.05), rgba(56,189,248,0.1), rgba(255,255,255,0.03));
   z-index:-1;
-  animation:moveBg 15s linear infinite;
+  animation:moveBg 20s linear infinite;
 }
 
 @keyframes moveBg{
@@ -36,7 +36,7 @@
   font-size:36px;
   margin-bottom:40px;
   color:#38bdf8;
-  text-shadow:0 0 10px rgba(56,189,248,0.5);
+  text-shadow:0 0 12px rgba(56,189,248,0.5);
   animation:fadeInText 1.5s ease forwards;
 }
 
@@ -275,5 +275,6 @@ Prix: 10DT
   window.open(`https://wa.me/21698192103?text=${encodeURIComponent(message)}`,"_blank");
 }
 </script>
+
 </body>
 </html>
