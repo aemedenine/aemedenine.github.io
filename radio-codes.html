@@ -17,6 +17,8 @@
   font-size:36px;
   margin-bottom:40px;
   color:#38bdf8;
+  text-shadow:0 0 8px rgba(56,189,248,0.6);
+  animation:fadeInText 1.2s ease forwards;
 }
 .radio-form{
   background:rgba(255,255,255,0.05);
@@ -26,6 +28,11 @@
   display:flex;
   flex-direction:column;
   gap:20px;
+  transition:0.4s;
+}
+.radio-form:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(56,189,248,0.5);
 }
 .field-wrapper{position:relative;}
 .field-wrapper span{
@@ -33,23 +40,24 @@
   left:15px;
   top:50%;
   transform:translateY(-50%);
-  font-size:20px;
+  font-size:22px;
   color:#38bdf8;
   animation:iconBounce 1s infinite alternate;
 }
 input{
   width:100%;
-  padding:12px 12px 12px 45px;
+  padding:12px 12px 12px 50px;
   border:none;
   border-radius:12px;
-  background:rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.08);
   color:white;
   font-size:16px;
+  transition:0.3s;
 }
 input:focus{
   outline:none;
   border:1px solid #38bdf8;
-  box-shadow:0 0 15px rgba(56,189,248,0.3);
+  box-shadow:0 0 18px rgba(56,189,248,0.5);
 }
 button.calc-btn{
   padding:12px;
@@ -59,18 +67,19 @@ button.calc-btn{
   color:#000;
   font-weight:600;
   cursor:pointer;
-  transition:0.3s;
+  transition:0.4s;
 }
 button.calc-btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 8px 25px rgba(56,189,248,0.7);
+  transform:scale(1.08) translateY(-2px);
+  box-shadow:0 12px 30px rgba(56,189,248,0.6);
 }
+/* ================= MODAL ================= */
 .modal{
   display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
   justify-content:center;
   align-items:center;
   z-index:2000;
@@ -79,18 +88,19 @@ button.calc-btn:hover{
 .modal-content{
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(12px);
-  border-radius:20px;
+  border-radius:25px;
   padding:30px;
-  max-width:450px;
+  max-width:500px;
   width:90%;
   text-align:center;
-  animation:modalPop 0.4s ease forwards;
+  animation:modalPop 0.5s ease forwards;
+  box-shadow:0 0 20px rgba(56,189,248,0.4);
 }
-.modal-content h2{color:#38bdf8;margin-bottom:15px;}
+.modal-content h2{color:#38bdf8;margin-bottom:15px;text-shadow:0 0 8px rgba(56,189,248,0.4);}
 .modal-actions{margin-top:20px;display:flex;gap:10px;justify-content:center;}
-.modal-btn{padding:10px 20px;border-radius:50px;font-weight:600;cursor:pointer;}
-.copy-btn{background:#38bdf8;color:#000;transition:0.3s;}
-.copy-btn:hover{transform:scale(1.05);}
+.modal-btn{padding:10px 20px;border-radius:50px;font-weight:600;cursor:pointer;transition:0.3s;}
+.copy-btn{background:#38bdf8;color:#000;}
+.copy-btn:hover{transform:scale(1.1);}
 .close-btn{background:#4b5563;color:white;}
 .whatsapp-btn{
   position:fixed;bottom:25px;right:25px;width:60px;height:60px;
@@ -99,98 +109,102 @@ button.calc-btn:hover{
   box-shadow:0 10px 25px rgba(0,0,0,0.3);transition:0.3s;
   z-index:1000;
 }
-.whatsapp-btn:hover{transform:scale(1.1);}
-@keyframes modalPop{0%{transform:scale(0.7);opacity:0;}100%{transform:scale(1);opacity:1;}}
-@keyframes iconBounce{0%{transform:translateY(-50%) translateY(0px);}100%{transform:translateY(-50%) translateY(-6px);}}
+.whatsapp-btn:hover{transform:scale(1.2);}
+/* ================= ANIMATIONS ================= */
+@keyframes iconBounce{0%{transform:translateY(-50%) translateY(0px);}100%{transform:translateY(-50%) translateY(-8px);}}
+@keyframes modalPop{0%{transform:scale(0.6);opacity:0;}100%{transform:scale(1);opacity:1;}}
+@keyframes fadeInText{0%{opacity:0; transform:translateY(-10px);}100%{opacity:1; transform:translateY(0);}}
 </style>
 </head>
 <body>
 
 <!-- ================= HEADER القديم ================= -->
 <header class="header">
-<div class="logo">
-<img src="images/logo.png" class="logo-img">
-<h1>Atelier Électronique Médenine</h1>
-</div>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="index.html#services">Services</a>
-<a href="radio-codes.html">Code Radio</a>
-<a href="contact.html">Contact</a>
-<button class="login-btn">Login</button>
-</nav>
+  <div class="logo">
+    <img src="images/logo.png" class="logo-img">
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 </header>
 
 <!-- ================= RADIO FORM ================= -->
 <section class="radio-container">
-<h2>Déverrouillage Code Radio</h2>
-<div class="radio-form">
-<div class="field-wrapper"><span>🚗</span><input type="text" id="car-brand" placeholder="Marque voiture (Renault)"></div>
-<div class="field-wrapper"><span>🔢</span><input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4"></div>
-<button class="calc-btn" onclick="generateCode()">Calculer le Code</button>
-</div>
+  <h2>Déverrouillage Code Radio</h2>
+  <div class="radio-form">
+    <div class="field-wrapper"><span>🚗</span><input type="text" id="car-brand" placeholder="Marque voiture (Renault)"></div>
+    <div class="field-wrapper"><span>🔢</span><input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4"></div>
+    <button class="calc-btn" onclick="generateCode()">Calculer le Code</button>
+  </div>
 </section>
 
 <!-- ================= RESULT MODAL ================= -->
 <div class="modal" id="result-modal">
-<div class="modal-content">
-<h2>Votre Code Radio</h2>
-<p>Marque: <strong id="modal-brand">—</strong></p>
-<p>Précode: <strong id="modal-precode">—</strong></p>
-<p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
-<p>Paiement requis: <strong>10 DT</strong></p>
-<div class="modal-actions">
-<button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10DT</button>
-<button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
-</div>
-</div>
+  <div class="modal-content">
+    <h2>Votre Code Radio</h2>
+    <p>Marque: <strong id="modal-brand">—</strong></p>
+    <p>Précode: <strong id="modal-precode">—</strong></p>
+    <p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
+    <div id="pay-section">
+      <p>Paiement requis : <strong>10 DT</strong></p>
+      <button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10DT</button>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
+    </div>
+  </div>
 </div>
 
 <!-- ================= CLIENT FORM ================= -->
 <div class="modal" id="client-form">
-<div class="modal-content">
-<h2>Demande Code Radio</h2>
-<input type="text" id="client-name" placeholder="Nom complet">
-<input type="text" id="client-phone" placeholder="Numéro téléphone">
-<br><br>
-<button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
-<button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
-</div>
+  <div class="modal-content">
+    <h2>Demande Code Radio</h2>
+    <input type="text" id="client-name" placeholder="Nom complet">
+    <input type="text" id="client-phone" placeholder="Numéro téléphone">
+    <br><br>
+    <button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
+    <button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
+  </div>
 </div>
 
 <a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
 <footer style="text-align:center;padding:20px 0;">
-<p>© 2026 Atelier Électronique Médenine</p>
+  <p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
 <script>
 let savedBrand="", savedPrecode="";
 function generateCode(){
-  let brand=document.getElementById("car-brand").value.trim();
-  let precode=document.getElementById("precode").value.trim().toUpperCase();
-  if(!brand || !precode){alert("Remplir toutes les informations");return;}
-  if(!brand.toLowerCase().includes("renault")){alert("Algorithme optimisé pour Renault seulement.");return;}
-  if(!/^[A-Z]\d{3}$/.test(precode)){alert("Précode invalide ! Exemple: A123.");return;}
-  savedBrand=brand;savedPrecode=precode;
-  document.getElementById("modal-brand").textContent=brand;
-  document.getElementById("modal-precode").textContent=precode;
+  let brand = document.getElementById("car-brand").value.trim();
+  let precode = document.getElementById("precode").value.trim().toUpperCase();
+  if(!brand || !precode){alert("Remplir toutes les informations"); return;}
+  if(!brand.toLowerCase().includes("renault")){alert("Algorithme optimisé pour Renault seulement."); return;}
+  if(!/^[A-Z]\d{3}$/.test(precode)){alert("Précode invalide ! Exemple: A123."); return;}
+  savedBrand = brand;
+  savedPrecode = precode;
+  document.getElementById("modal-brand").textContent = brand;
+  document.getElementById("modal-precode").textContent = precode;
   document.getElementById("result-modal").classList.add("active");
 }
 function closeModal(){document.getElementById("result-modal").classList.remove("active");}
 function openClientForm(){document.getElementById("client-form").classList.add("active");}
 function closeForm(){document.getElementById("client-form").classList.remove("active");}
 function sendWhatsApp(){
-  let name=document.getElementById("client-name").value.trim();
-  let phone=document.getElementById("client-phone").value.trim();
-  if(!name || !phone){alert("Remplir toutes les informations");return;}
-  let p=savedPrecode;
-  let x=p.charCodeAt(1)+p.charCodeAt(0)*10-698;
-  let y=p.charCodeAt(3)+p.charCodeAt(2)*10+x-528;
-  let z=(y*7)%100;if(z<0) z+=100;
-  let codeNum=Math.floor(z/10)+(z%10)*10+((259%Math.abs(x))%100)*100;
-  let code=codeNum.toString().padStart(4,'0');
-  let message=`Demande Code Radio
+  let name = document.getElementById("client-name").value.trim();
+  let phone = document.getElementById("client-phone").value.trim();
+  if(!name || !phone){alert("Remplir toutes les informations"); return;}
+  let p = savedPrecode;
+  let x = p.charCodeAt(1) + p.charCodeAt(0)*10 - 698;
+  let y = p.charCodeAt(3) + p.charCodeAt(2)*10 + x - 528;
+  let z = (y*7) % 100; if(z<0) z+=100;
+  let codeNum = Math.floor(z/10) + (z%10)*10 + ((259%Math.abs(x))%100)*100;
+  let code = codeNum.toString().padStart(4,'0');
+  let message = `Demande Code Radio
 
 Nom: ${name}
 Téléphone: ${phone}
