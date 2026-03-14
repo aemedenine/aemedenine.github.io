@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -57,12 +56,6 @@ font-size:16px;
 margin-top:10px;
 }
 
-input:focus{
-outline:none;
-border:1px solid #38bdf8;
-box-shadow:0 0 15px rgba(56,189,248,0.3);
-}
-
 button.calc-btn{
 padding:12px;
 border:none;
@@ -71,12 +64,6 @@ background:#38bdf8;
 color:#000;
 font-weight:600;
 cursor:pointer;
-transition:0.3s;
-}
-
-button.calc-btn:hover{
-transform:translateY(-3px);
-box-shadow:0 8px 25px rgba(56,189,248,0.5);
 }
 
 .modal{
@@ -84,7 +71,6 @@ display:none;
 position:fixed;
 inset:0;
 background:rgba(0,0,0,0.85);
-backdrop-filter:blur(8px);
 justify-content:center;
 align-items:center;
 z-index:2000;
@@ -96,17 +82,11 @@ display:flex;
 
 .modal-content{
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
 border-radius:20px;
 padding:30px;
 max-width:500px;
 width:90%;
 text-align:center;
-}
-
-.modal-content h2{
-color:#38bdf8;
-margin-bottom:15px;
 }
 
 .modal-actions{
@@ -123,41 +103,17 @@ font-weight:600;
 cursor:pointer;
 }
 
-.close-btn{
-background:#4b5563;
-color:white;
-}
-
 .copy-btn{
 background:#38bdf8;
 color:#000;
 }
 
-.whatsapp-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-width:60px;
-height:60px;
-background:#25D366;
+.close-btn{
+background:#4b5563;
 color:white;
-font-size:28px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-text-decoration:none;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-transition:0.3s;
-z-index:1000;
-}
-
-.whatsapp-btn:hover{
-transform:scale(1.1);
 }
 
 </style>
-
 </head>
 
 <body>
@@ -173,7 +129,6 @@ transform:scale(1.1);
 <a href="index.html#services">Services</a>
 <a href="radio-codes.html">Code Radio</a>
 <a href="contact.html">Contact</a>
-<button class="login-btn">Login</button>
 </nav>
 </header>
 
@@ -198,6 +153,8 @@ transform:scale(1.1);
 </div>
 </section>
 
+<!-- RESULT MODAL -->
+
 <div class="modal" id="result-modal">
 
 <div class="modal-content">
@@ -206,18 +163,15 @@ transform:scale(1.1);
 
 <p>Marque: <strong id="modal-brand">—</strong></p>
 <p>Précode: <strong id="modal-precode">—</strong></p>
-<p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
 
-<div id="pay-section">
+<p>Code: <strong>🔒 Paiement requis</strong></p>
 
-<p>Paiement requis : <strong>10 DT</strong></p>
+<div class="modal-actions">
 
 <button class="modal-btn copy-btn" onclick="openForm()">Payer 10DT</button>
 
-</div>
-
-<div class="modal-actions">
 <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
+
 </div>
 
 </div>
@@ -231,23 +185,27 @@ transform:scale(1.1);
 
 <h2>Demande Code Radio</h2>
 
-<input type="text" id="client-name" placeholder="Nom complet">
+<form action="http://localhost:3000/send" method="POST">
 
-<input type="text" id="client-phone" placeholder="Numéro téléphone">
+<input type="text" name="name" placeholder="Nom complet" required>
+
+<input type="text" name="phone" placeholder="Numéro téléphone" required>
+
+<input type="hidden" name="brand" id="brandField">
+<input type="hidden" name="precode" id="precodeField">
 
 <div class="modal-actions">
 
-<button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
+<button class="modal-btn copy-btn">Envoyer</button>
 
-<button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
-
-</div>
+<button type="button" class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
 
 </div>
 
-</div>
+</form>
 
-<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
+</div>
+</div>
 
 <footer>
 <p>© 2026 Atelier Électronique Médenine</p>
@@ -255,79 +213,50 @@ transform:scale(1.1);
 
 <script>
 
-let savedCode=""
-
 function generateCode(){
 
-const brand=document.getElementById('car-brand').value.trim()
-const precode=document.getElementById('precode').value.trim().toUpperCase()
+const brand=document.getElementById('car-brand').value
+const precode=document.getElementById('precode').value
 
-if(!brand.toLowerCase().includes('renault')){
-alert("Algorithme optimisé pour Renault seulement.")
+if(!brand || !precode){
+
+alert("Entrer marque et précode")
+
 return
+
 }
-
-if(!precode || precode.length!==4 || !/^[A-Z]\d{3}$/.test(precode)){
-alert("Précode invalide ! Exemple: A123.")
-return
-}
-
-let x=precode.charCodeAt(1)+precode.charCodeAt(0)*10-698
-let y=precode.charCodeAt(3)+precode.charCodeAt(2)*10+x-528
-let z=(y*7)%100
-if(z<0) z+=100
-
-let codeNum=Math.floor(z/10)+(z%10)*10+((259%Math.abs(x))%100)*100
-
-savedCode=codeNum.toString().padStart(4,'0')
 
 document.getElementById('modal-brand').textContent=brand
 document.getElementById('modal-precode').textContent=precode
 
-document.getElementById('result-modal').classList.add('active')
+document.getElementById('result-modal').classList.add("active")
 
 }
 
 function openForm(){
+
+document.getElementById("brandField").value =
+document.getElementById("car-brand").value
+
+document.getElementById("precodeField").value =
+document.getElementById("precode").value
+
 document.getElementById("client-form").classList.add("active")
+
 }
 
 function closeForm(){
+
 document.getElementById("client-form").classList.remove("active")
+
 }
 
 function closeModal(){
+
 document.getElementById("result-modal").classList.remove("active")
-}
-
-function sendWhatsApp(){
-
-let name=document.getElementById("client-name").value
-let phone=document.getElementById("client-phone").value
-let brand=document.getElementById("car-brand").value
-let precode=document.getElementById("precode").value
-let code=savedCode
-
-if(name=="" || phone==""){
-alert("Remplir toutes les informations")
-return
-}
-
-let message=`Demande Code Radio
-
-Nom: ${name}
-Téléphone: ${phone}
-Voiture: ${brand}
-Précode: ${precode}
-Code: ${code}
-
-Prix: 10DT`
-
-let url=`https://wa.me/21698192103?text=${encodeURIComponent(message)}`
-
-window.open(url,"_blank")
 
 }
+
 </script>
 
 </body>
