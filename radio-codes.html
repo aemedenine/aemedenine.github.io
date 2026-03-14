@@ -6,30 +6,15 @@
 <title>Déverrouillage Code Radio | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
 <style>
-/* ================= GLOBAL ================= */
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#0f2027);
-  background-size:400% 400%;
-  animation:gradientBG 15s ease infinite;
-  color:white;
-}
-
-/* ================= HEADER ================= */
-header{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:rgba(0,0,0,0.4);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.1);}
-header h1{font-size:20px;margin:0;}
-.nav a{margin:0 10px;text-decoration:none;color:white;font-weight:500;}
-
-/* ================= RADIO FORM ================= */
+/* ================= RADIO CODE PAGE ================= */
 .radio-container{
-  padding:100px 5%;
-  max-width:700px;
+  padding:140px 8% 100px;
+  max-width:800px;
   margin:auto;
-  text-align:center;
 }
 .radio-container h2{
-  font-size:32px;
+  text-align:center;
+  font-size:36px;
   margin-bottom:40px;
   color:#38bdf8;
 }
@@ -41,13 +26,15 @@ header h1{font-size:20px;margin:0;}
   display:flex;
   flex-direction:column;
   gap:20px;
-  box-shadow:0 0 25px rgba(0,0,0,0.3);
 }
-.radio-form:hover{transform:translateY(-3px);transition:0.3s;}
 .field-wrapper{position:relative;}
 .field-wrapper span{
-  position:absolute;left:15px;top:50%;transform:translateY(-50%);
-  font-size:20px;color:#38bdf8;
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  color:#38bdf8;
   animation:iconBounce 1s infinite alternate;
 }
 input{
@@ -59,7 +46,11 @@ input{
   color:white;
   font-size:16px;
 }
-input:focus{outline:none;border:1px solid #38bdf8;box-shadow:0 0 15px rgba(56,189,248,0.3);}
+input:focus{
+  outline:none;
+  border:1px solid #38bdf8;
+  box-shadow:0 0 15px rgba(56,189,248,0.3);
+}
 button.calc-btn{
   padding:12px;
   border:none;
@@ -70,81 +61,107 @@ button.calc-btn{
   cursor:pointer;
   transition:0.3s;
 }
-button.calc-btn:hover{transform:scale(1.05);box-shadow:0 8px 25px rgba(56,189,248,0.7);}
-
-/* ================= MODAL ================= */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);justify-content:center;align-items:center;z-index:2000;}
+button.calc-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 8px 25px rgba(56,189,248,0.7);
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(10px);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
 .modal.active{display:flex;}
-.modal-content{background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);border-radius:20px;padding:30px;max-width:450px;width:90%;text-align:center;animation:modalPop 0.4s ease forwards;}
+.modal-content{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:30px;
+  max-width:450px;
+  width:90%;
+  text-align:center;
+  animation:modalPop 0.4s ease forwards;
+}
 .modal-content h2{color:#38bdf8;margin-bottom:15px;}
 .modal-actions{margin-top:20px;display:flex;gap:10px;justify-content:center;}
 .modal-btn{padding:10px 20px;border-radius:50px;font-weight:600;cursor:pointer;}
 .copy-btn{background:#38bdf8;color:#000;transition:0.3s;}
 .copy-btn:hover{transform:scale(1.05);}
 .close-btn{background:#4b5563;color:white;}
-
-/* ================= WHATSAPP ================= */
-.whatsapp-btn{position:fixed;bottom:25px;right:25px;width:60px;height:60px;background:#25D366;color:white;font-size:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-shadow:0 10px 25px rgba(0,0,0,0.3);transition:0.3s;}
+.whatsapp-btn{
+  position:fixed;bottom:25px;right:25px;width:60px;height:60px;
+  background:#25D366;color:white;font-size:28px;display:flex;
+  align-items:center;justify-content:center;border-radius:50%;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);transition:0.3s;
+  z-index:1000;
+}
 .whatsapp-btn:hover{transform:scale(1.1);}
-
-/* ================= ANIMATIONS ================= */
 @keyframes modalPop{0%{transform:scale(0.7);opacity:0;}100%{transform:scale(1);opacity:1;}}
-@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes iconBounce{0%{transform:translateY(-50%) translateY(0px);}100%{transform:translateY(-50%) translateY(-6px);}}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Atelier Électronique Médenine</h1>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="index.html#services">Services</a>
-    <a href="radio-codes.html">Code Radio</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+<!-- ================= HEADER القديم ================= -->
+<header class="header">
+<div class="logo">
+<img src="images/logo.png" class="logo-img">
+<h1>Atelier Électronique Médenine</h1>
+</div>
+<nav class="nav">
+<a href="index.html">Home</a>
+<a href="index.html#services">Services</a>
+<a href="radio-codes.html">Code Radio</a>
+<a href="contact.html">Contact</a>
+<button class="login-btn">Login</button>
+</nav>
 </header>
 
+<!-- ================= RADIO FORM ================= -->
 <section class="radio-container">
-  <h2>Déverrouillage Code Radio</h2>
-  <div class="radio-form">
-    <div class="field-wrapper"><span>🚗</span><input type="text" id="car-brand" placeholder="Marque voiture (Renault)"></div>
-    <div class="field-wrapper"><span>🔢</span><input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4"></div>
-    <button class="calc-btn" onclick="generateCode()">Calculer le Code</button>
-  </div>
+<h2>Déverrouillage Code Radio</h2>
+<div class="radio-form">
+<div class="field-wrapper"><span>🚗</span><input type="text" id="car-brand" placeholder="Marque voiture (Renault)"></div>
+<div class="field-wrapper"><span>🔢</span><input type="text" id="precode" placeholder="Précode radio (ex: A123)" maxlength="4"></div>
+<button class="calc-btn" onclick="generateCode()">Calculer le Code</button>
+</div>
 </section>
 
-<!-- MODAL -->
+<!-- ================= RESULT MODAL ================= -->
 <div class="modal" id="result-modal">
-  <div class="modal-content">
-    <h2>Votre Code Radio</h2>
-    <p>Marque: <strong id="modal-brand">—</strong></p>
-    <p>Précode: <strong id="modal-precode">—</strong></p>
-    <p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
-    <p>Paiement requis: <strong>10 DT</strong></p>
-    <div class="modal-actions">
-      <button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10DT</button>
-      <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
-    </div>
-  </div>
+<div class="modal-content">
+<h2>Votre Code Radio</h2>
+<p>Marque: <strong id="modal-brand">—</strong></p>
+<p>Précode: <strong id="modal-precode">—</strong></p>
+<p>Code: <strong id="modal-code">🔒 Paiement requis</strong></p>
+<p>Paiement requis: <strong>10 DT</strong></p>
+<div class="modal-actions">
+<button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10DT</button>
+<button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
+</div>
+</div>
 </div>
 
-<!-- CLIENT FORM -->
+<!-- ================= CLIENT FORM ================= -->
 <div class="modal" id="client-form">
-  <div class="modal-content">
-    <h2>Demande Code Radio</h2>
-    <input type="text" id="client-name" placeholder="Nom complet">
-    <input type="text" id="client-phone" placeholder="Numéro téléphone">
-    <br><br>
-    <button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
-    <button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
-  </div>
+<div class="modal-content">
+<h2>Demande Code Radio</h2>
+<input type="text" id="client-name" placeholder="Nom complet">
+<input type="text" id="client-phone" placeholder="Numéro téléphone">
+<br><br>
+<button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
+<button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
+</div>
 </div>
 
 <a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
 <footer style="text-align:center;padding:20px 0;">
-  <p>© 2026 Atelier Électronique Médenine</p>
+<p>© 2026 Atelier Électronique Médenine</p>
 </footer>
 
 <script>
@@ -186,5 +203,6 @@ Prix: 10DT
   window.open(`https://wa.me/21698192103?text=${encodeURIComponent(message)}`,"_blank");
 }
 </script>
+
 </body>
 </html>
