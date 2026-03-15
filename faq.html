@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ | Atelier Électronique Médenine</title>
 
-<link rel="icon" href="images/favicon.png">
+<title>FAQ | Atelier Electronique Medenine</title>
+
+<link rel="icon" href="favicon.jpg">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* ================= RESET ================= */
+/* ================= GLOBAL ================= */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+font-family:Segoe UI;
 }
 
 body{
@@ -32,29 +38,22 @@ align-items:center;
 padding:15px 8%;
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(10px);
-position:sticky;
-top:0;
-z-index:1000;
 }
 
 .logo{
 display:flex;
 align-items:center;
-gap:15px;
+gap:12px;
 }
 
-.logo-img{
-width:60px;
-height:60px;
+.logo img{
+width:55px;
 border-radius:50%;
-border:3px solid #38bdf8;
-padding:5px;
-background:rgba(255,255,255,0.05);
+border:2px solid #38bdf8;
 }
 
 .logo h1{
-font-size:24px;
-color:white;
+font-size:22px;
 }
 
 .nav{
@@ -65,7 +64,6 @@ gap:25px;
 .nav a{
 color:white;
 text-decoration:none;
-transition:0.3s;
 }
 
 .nav a:hover{
@@ -76,217 +74,322 @@ color:#38bdf8;
 
 .faq{
 padding:80px 8%;
-display:flex;
-justify-content:center;
+max-width:900px;
+margin:auto;
 }
 
-.faq-container{
-max-width:800px;
-width:100%;
-}
-
-.faq-header{
-font-size:36px;
-color:#38bdf8;
+.faq h2{
 text-align:center;
-margin-bottom:30px;
+font-size:36px;
+margin-bottom:40px;
+color:#38bdf8;
 }
-
-.faq-close-all-btn{
-margin-bottom:30px;
-padding:10px 20px;
-border:none;
-border-radius:40px;
-background:#38bdf8;
-color:black;
-font-weight:600;
-cursor:pointer;
-display:block;
-margin-left:auto;
-margin-right:auto;
-}
-
-/* ================= FAQ ITEM ================= */
 
 .faq-item{
 background:rgba(255,255,255,0.05);
 border-radius:15px;
 margin-bottom:15px;
 overflow:hidden;
+transition:0.3s;
 }
 
 .faq-question{
 padding:18px;
 cursor:pointer;
-font-weight:600;
-color:#38bdf8;
 display:flex;
 align-items:center;
 gap:10px;
+font-weight:600;
+color:#38bdf8;
 }
 
 .faq-answer{
-padding:18px;
-display:none;
+max-height:0;
+overflow:hidden;
+padding:0 18px;
 color:#cbd5e1;
-line-height:1.5;
-border-top:1px solid rgba(255,255,255,0.1);
+transition:0.4s;
 }
 
 .faq-item.active .faq-answer{
-display:block;
+max-height:400px;
+padding:18px;
 }
 
-/* ================= HOVER ================= */
+/* hover */
 
 .faq-item:hover{
-box-shadow:0 10px 25px rgba(56,189,248,0.5);
-transform:translateY(-2px);
-transition:0.3s;
+box-shadow:0 10px 30px rgba(56,189,248,0.5);
+}
+
+/* language buttons */
+
+.lang{
+text-align:center;
+margin-bottom:30px;
+}
+
+.lang button{
+margin:5px;
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:#38bdf8;
+cursor:pointer;
+font-weight:600;
 }
 
 </style>
 </head>
 
+
 <body>
+
+
+<!-- HEADER -->
 
 <header class="header">
 
 <div class="logo">
-<img src="images/logo.png" class="logo-img">
-<h1>Atelier Électronique Médenine</h1>
+<img src="images/logo.png">
+<h1>Atelier Electronique Medenine</h1>
 </div>
 
 <nav class="nav">
 <a href="index.html">Accueil</a>
-<a href="services.html">Services</a>
 <a href="contact.html">Contact</a>
+<a href="faq.html">FAQ</a>
 </nav>
 
 </header>
 
 
-<!-- ================= FAQ ================= -->
+<!-- FAQ -->
 
 <section class="faq">
 
-<div class="faq-container">
-
-<h2 class="faq-header">FAQ – الأسئلة الشائعة</h2>
-
-<button id="faq-close-all" class="faq-close-all-btn">
-إخفاء الإجابات
-</button>
+<h2 data-i18n="faq_title">الأسئلة الشائعة</h2>
 
 
-<div class="faq-item">
-<div class="faq-question">
-🔧 شنوّا الخدمات اللي عندكم يا خويا؟
-</div>
+<div class="lang">
 
-<div class="faq-answer">
-متخصصين في تصليح الكروت الإلكترونية بكل أنواعها:<br><br>
+<button onclick="setLang('ar')">AR</button>
+<button onclick="setLang('fr')">FR</button>
+<button onclick="setLang('en')">EN</button>
 
-• ماكينات لحام (postes de soudure)<br>
-• كروت الغسالات (lave-linge)<br>
-• كروت الكليما (climatiseurs)<br>
-• كروت المصانع<br>
-• كروت الموازين الإلكترونية<br><br>
-
-<strong>ما نخدموش في:</strong> الراديو، التلفزيونات، التلفونات.
-</div>
 </div>
 
 
 <div class="faq-item">
-<div class="faq-question">
-📍 وينكم بالضبط؟
+
+<div class="faq-question" data-i18n="faq_q_services">
+<i class="fas fa-tools"></i>
+شنوّا الخدمات اللي عندكم؟
 </div>
 
-<div class="faq-answer">
-مدنين – نهج ليبيا، بعد كوشة شامخ، في أول طلعة على يمينك.
-</div>
-</div>
-
-
-<div class="faq-item">
-<div class="faq-question">
-📞 نقدر نتصل قبل ما نجي؟
+<div class="faq-answer" data-i18n="faq_a_services">
+متخصصين في تصليح الكروت الإلكترونية...
 </div>
 
-<div class="faq-answer">
-أكيد! تنجم تتصل أو تبعث واتساب على  
-<strong>98 192 103</strong>  
-و تبعث صورة الكارت باش نقولولك إذا تتصلح ولا لا.
 </div>
-</div>
+
 
 
 <div class="faq-item">
-<div class="faq-question">
-⏱ كم ياخذ الوقت باش نصلح الكارت؟
+
+<div class="faq-question" data-i18n="faq_q_location">
+<i class="fas fa-map-marker-alt"></i>
+وينكم بالضبط؟
 </div>
 
-<div class="faq-answer">
-تشخيص غالبًا مجاني.  
-تصليح بسيط: 1-3 أيام  
-تصليح معقد: 5-7 أيام.
-</div>
+<div class="faq-answer" data-i18n="faq_a_location">
+مدنين – نهج ليبيا بعد كوشة شامخ
 </div>
 
-
-<div class="faq-item">
-<div class="faq-question">
-🛡 الضمان كيفاه؟
 </div>
 
-<div class="faq-answer">
-كل تصليح عندنا ضمان من شهر حتى 3 أشهر حسب القطعة.
-</div>
-</div>
 
 
 <div class="faq-item">
-<div class="faq-question">
-💰 الأسعار معقولة؟
+
+<div class="faq-question" data-i18n="faq_q_call">
+<i class="fas fa-phone"></i>
+نقدر نتصل قبل ما نجي؟
 </div>
 
-<div class="faq-answer">
-نحاولو نكونو من الأرخص في الجهة، والسعر نقولوك عليه قبل ما نبداو التصليح.
+<div class="faq-answer" data-i18n="faq_a_call">
+أكيد تنجم تتصل أو تبعث واتساب على 98192103
 </div>
+
 </div>
 
 
+
+<div class="faq-item">
+
+<div class="faq-question" data-i18n="faq_q_time">
+<i class="fas fa-clock"></i>
+قداش ياخذ الوقت للتصليح؟
 </div>
+
+<div class="faq-answer" data-i18n="faq_a_time">
+تصليح بسيط 1-3 أيام، أعطال كبيرة 5-7 أيام
+</div>
+
+</div>
+
+
 </section>
 
 
 
 <script>
 
-/* FAQ OPEN CLOSE */
+/* ================= FAQ OPEN ================= */
 
-document.querySelectorAll(".faq-question").forEach(q => {
+document.querySelectorAll(".faq-question").forEach(q=>{
 
-q.addEventListener("click", () => {
+q.onclick=()=>{
 
 q.parentElement.classList.toggle("active")
 
-})
+}
 
 })
 
 
-/* CLOSE ALL */
 
-document.getElementById("faq-close-all").onclick=function(){
+/* ================= TRANSLATION ================= */
 
-document.querySelectorAll(".faq-item").forEach(item=>{
-item.classList.remove("active")
+const translations={
+
+
+ar:{
+
+faq_title:"الأسئلة الشائعة",
+
+faq_q_services:"شنوّا الخدمات اللي عندكم؟",
+
+faq_a_services:`متخصصين في تصليح الكروت الإلكترونية
+• ماكينات لحام
+• كروت الغسالات
+• كروت الكليما
+• كروت المصانع
+• كروت الموازين
+
+ما نخدموش في الراديو والتلفزة والتلفونات`,
+
+faq_q_location:"وينكم بالضبط؟",
+
+faq_a_location:"مدنين – نهج ليبيا بعد كوشة شامخ",
+
+faq_q_call:"نقدر نتصل قبل ما نجي؟",
+
+faq_a_call:"أكيد تنجم تتصل أو تبعث واتساب",
+
+faq_q_time:"قداش ياخذ الوقت للتصليح؟",
+
+faq_a_time:"تصليح بسيط 1-3 أيام، أعطال كبيرة 5-7 أيام"
+
+},
+
+
+
+fr:{
+
+faq_title:"Questions fréquentes",
+
+faq_q_services:"Quels services proposez-vous ?",
+
+faq_a_services:`Nous réparons les cartes électroniques :
+machines à souder, machines à laver,
+climatiseurs et cartes industrielles.`,
+
+faq_q_location:"Où êtes-vous situés ?",
+
+faq_a_location:"Médenine – Rue Libye",
+
+faq_q_call:"Puis-je appeler avant de venir ?",
+
+faq_a_call:"Oui, vous pouvez appeler ou envoyer WhatsApp.",
+
+faq_q_time:"Combien de temps prend la réparation ?",
+
+faq_a_time:"Réparation simple 1-3 jours, panne complexe 5-7 jours."
+
+},
+
+
+
+en:{
+
+faq_title:"Frequently Asked Questions",
+
+faq_q_services:"What services do you offer?",
+
+faq_a_services:`We repair electronic boards such as
+welding machines, washing machines,
+air conditioners and industrial boards.`,
+
+faq_q_location:"Where are you located?",
+
+faq_a_location:"Medenine – Libya Street",
+
+faq_q_call:"Can I call before coming?",
+
+faq_a_call:"Yes you can call or send WhatsApp.",
+
+faq_q_time:"How long does repair take?",
+
+faq_a_time:"Simple repair 1-3 days, complex issues 5-7 days."
+
+}
+
+}
+
+
+
+function setLang(lang){
+
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+
+const key=el.getAttribute("data-i18n")
+
+el.innerHTML=translations[lang][key]
+
 })
 
 }
 
+</script>
+
+
+
+<!-- FAQ STRUCTURED DATA -->
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "Quels services proposez-vous ?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Réparation des cartes électroniques."
+}
+},
+{
+"@type": "Question",
+"name": "Où êtes-vous situés ?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Médenine Tunisie."
+}
+}
+]
+}
 </script>
 
 
