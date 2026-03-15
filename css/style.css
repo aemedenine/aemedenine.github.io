@@ -275,34 +275,33 @@ body{
 /* ===============================
    FOOTER
 =================================*/
-footer{
-  text-align:center;
-  padding:25px;
-  background:#020617;
-  margin-top:60px;
-  font-size:14px;
-  color:#94a3b8;
-}
-/* ===== SOCIAL ICONS 2026 ===== */
 footer {
-  text-align: center;
-  padding: 25px;
   background: #020617;
-  margin-top: 60px;
-  font-size: 14px;
   color: #94a3b8;
+  padding: 20px 10%;
+  font-size: 14px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-content p {
+  margin: 0;
 }
 
 .social-icons {
-  margin-top: 15px;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .social-circle {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -312,19 +311,30 @@ footer {
 }
 
 .social-circle img {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1); /* أيقونات بيضاء */
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
   transition: all 0.3s ease;
 }
 
 .social-circle:hover {
-  background: #38bdf8; /* يتحول الأزرق عند hover */
+  background: #38bdf8;
 }
 
 .social-circle:hover img {
-  filter: brightness(0) invert(0); /* أيقونات زرقاء عند hover */
+  filter: brightness(0) invert(0);
   transform: scale(1.2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .social-icons {
+    justify-content: center;
+  }
 }
 /* ===============================
    LOGIN POPUP
