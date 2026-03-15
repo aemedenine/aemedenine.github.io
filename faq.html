@@ -7,6 +7,73 @@
 <link rel="icon" href="images/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== FAQ CARDS ===== */
+.faq {
+  padding:80px 8%;
+  display:grid;
+  gap:20px;
+}
+
+.faq-item {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  border-radius:20px;
+  overflow:hidden;
+  transition:0.5s;
+}
+
+.faq-question {
+  padding:20px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#38bdf8;
+}
+
+.faq-answer {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.5s ease, padding 0.5s;
+  padding:0 20px;
+  color:#cbd5e1;
+}
+
+.faq-item.active .faq-answer {
+  max-height:500px; /* يكفي لكل جواب */
+  padding:15px 20px 20px 20px;
+}
+
+.faq-item:hover{
+  transform:scale(1.02);
+  box-shadow:0 10px 25px rgba(56,189,248,0.3);
+}
+
+/* ===== LANGUAGE SWITCH BUTTONS ===== */
+.lang-switch{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:40px;
+}
+
+.lang-switch button{
+  padding:6px 12px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:600;
+  background:#38bdf8;
+  color:#000;
+  transition:0.3s;
+}
+
+.lang-switch button:hover{
+  transform:scale(1.05);
+}
+</style>
 </head>
 <body>
 
@@ -25,10 +92,15 @@
   </nav>
 </header>
 
-<!-- ================= FAQ ================= -->
-<section class="faq" style="padding:80px 8%; text-align:center;">
+<!-- ===== LANGUAGE SWITCH ===== -->
+<div class="lang-switch">
+  <button onclick="setLang('ar')">🇹🇳 عربي</button>
+  <button onclick="setLang('fr')">🇫🇷 Français</button>
+  <button onclick="setLang('en')">🇬🇧 English</button>
+</div>
 
-<h2 data-i18n="faq_title">الأسئلة الشائعة</h2>
+<!-- ================= FAQ ================= -->
+<section class="faq">
 
 <div class="faq-item">
   <div class="faq-question" data-i18n="faq_q_services"><i class="fas fa-tools"></i> شنوّا الخدمات اللي عندكم يا خويا؟</div>
@@ -83,17 +155,16 @@
 </section>
 
 <script>
-// ================= FAQ toggle =================
+// FAQ toggle
 document.querySelectorAll(".faq-question").forEach(q => {
   q.onclick = () => {
     q.parentElement.classList.toggle("active");
   }
 });
 
-// ================= TRANSLATIONS =================
+// Translations
 const translations = {
   fr: {
-    faq_title:"Questions fréquentes",
     faq_q_services:"Quels services proposez-vous ?",
     faq_a_services:"Nous réparons les cartes électroniques : postes de soudure, lave-linge, climatiseurs, cartes industrielles.",
     faq_q_location:"Où êtes-vous situés ?",
@@ -108,7 +179,6 @@ const translations = {
     faq_a_price:"Diagnostic souvent gratuit, prix confirmé avant réparation."
   },
   en: {
-    faq_title:"Frequently Asked Questions",
     faq_q_services:"What services do you offer?",
     faq_a_services:"We repair electronic boards: welding machines, washing machines, air conditioners, industrial boards.",
     faq_q_location:"Where are you located?",
