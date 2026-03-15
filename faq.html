@@ -6,74 +6,8 @@
 <title>FAQ | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-/* ===== FAQ CARDS ===== */
-.faq {
-  padding:80px 8%;
-  display:grid;
-  gap:20px;
-}
-
-.faq-item {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(8px);
-  border-radius:20px;
-  overflow:hidden;
-  transition:0.5s;
-}
-
-.faq-question {
-  padding:20px;
-  font-weight:600;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#38bdf8;
-}
-
-.faq-answer {
-  max-height:0;
-  overflow:hidden;
-  transition:max-height 0.5s ease, padding 0.5s;
-  padding:0 20px;
-  color:#cbd5e1;
-}
-
-.faq-item.active .faq-answer {
-  max-height:500px; /* يكفي لكل جواب */
-  padding:15px 20px 20px 20px;
-}
-
-.faq-item:hover{
-  transform:scale(1.02);
-  box-shadow:0 10px 25px rgba(56,189,248,0.3);
-}
-
-/* ===== LANGUAGE SWITCH BUTTONS ===== */
-.lang-switch{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:40px;
-}
-
-.lang-switch button{
-  padding:6px 12px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:600;
-  background:#38bdf8;
-  color:#000;
-  transition:0.3s;
-}
-
-.lang-switch button:hover{
-  transform:scale(1.05);
-}
-</style>
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -88,118 +22,135 @@
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="contact.html">Contact</a>
-    <a href="faq.html" class="active">FAQ</a>
+    <button class="login-btn">Login</button>
   </nav>
 </header>
 
-<!-- ===== LANGUAGE SWITCH ===== -->
-<div class="lang-switch">
+<!-- ===== PAGE TITLE ===== -->
+<section class="page-title" style="text-align:center; padding:40px 0;">
+  <h1 style="font-size:36px; color:#38bdf8;">FAQ</h1>
+</section>
+
+<!-- ================= LANGUAGE SWITCH ================= -->
+<div class="lang-switch" style="text-align:center; margin-bottom:20px;">
   <button onclick="setLang('ar')">🇹🇳 عربي</button>
   <button onclick="setLang('fr')">🇫🇷 Français</button>
   <button onclick="setLang('en')">🇬🇧 English</button>
 </div>
 
-<!-- ================= FAQ ================= -->
-<section class="faq">
+<!-- ================= FAQ SECTION ================= -->
+<section class="faq" style="padding:40px 8%;">
+  <div class="faq-container">
 
-<div class="faq-item">
-  <div class="faq-question" data-i18n="faq_q_services"><i class="fas fa-tools"></i> شنوّا الخدمات اللي عندكم يا خويا؟</div>
-  <div class="faq-answer" data-i18n="faq_a_services">
-    متخصصين في تصليح الكروت الإلكترونية بكل أنواعها:<br>
-    • ماكينات لحام (postes de soudure)<br>
-    • كروت الغسالات (lave-linge)<br>
-    • كروت الكليما (climatiseurs)<br>
-    • كروت المصانع والمعامل<br>
-    • كروت الموازين الإلكترونية (mizan)<br>
-    <strong>ما نخدموش في</strong>: الراديو، التلفزيونات، التلفونات.
+    <button id="faq-close-all" class="faq-close-all-btn" style="margin-bottom:20px; padding:8px 18px; border-radius:30px; border:none; background:#38bdf8; cursor:pointer;">
+      Hide All / إخفاء الإجابات / Tout fermer
+    </button>
+
+    <!-- FAQ Item Example -->
+    <div class="faq-item" data-lang-ar="شنوّا الخدمات اللي عندكم يا خويا؟" data-lang-fr="Quels sont vos services ?" data-lang-en="What services do you offer?">
+      <div class="faq-question">
+        <i class="fas fa-tools"></i>
+        <span class="faq-text">شنوّا الخدمات اللي عندكم يا خويا؟</span>
+      </div>
+      <div class="faq-answer">
+        متخصصين في تصليح الكروت الإلكترونية بكل أنواعها:<br>
+        • ماكينات لحام (postes de soudure) بكل أشكالها<br>
+        • كروت الغسالات – كل الماركات<br>
+        • كروت الكليما – inverter وعادي<br>
+        • كروت المصانع والمعامل<br>
+        • كروت الموازين الإلكترونية<br>
+        <strong>ما نخدموش في</strong>: الراديو، التلفزيونات، التلفونات.<br>
+        <em>FR: Spécialistes en réparation de cartes électroniques...</em><br>
+        <em>EN: Specialized in electronic board repair...</em>
+      </div>
+    </div>
+
+    <div class="faq-item" data-lang-ar="وينكم بالضبط؟" data-lang-fr="Où êtes-vous situés ?" data-lang-en="Where are you located?">
+      <div class="faq-question">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="faq-text">وينكم بالضبط؟</span>
+      </div>
+      <div class="faq-answer">
+        مدنين – نهج ليبيا، بعد كوشة شامخ، في أول طلعة على يمينك. لو ضيّعت الطريق، اتصل!<br>
+        <em>FR: Médenine – Rue Libya, après Kosha Shamikh...</em><br>
+        <em>EN: Medenine – Libya Street, after Kosha Shamikh...</em>
+      </div>
+    </div>
+
+    <div class="faq-item" data-lang-ar="نقدر نتصل قبل ما نجي؟" data-lang-fr="Puis-je appeler avant de venir ?" data-lang-en="Can I call before coming?">
+      <div class="faq-question">
+        <i class="fas fa-phone"></i>
+        <span class="faq-text">نقدر نتصل قبل ما نجي؟</span>
+      </div>
+      <div class="faq-answer">
+        أكيد يا خويا! أحسن حاجة تتصل قبل (واتساب أو مكالمة) على <strong>98.192.103</strong>، أرسل صورة الكارت إذا تحب.<br>
+        <em>FR: Bien sûr ! Il vaut mieux appeler avant...</em><br>
+        <em>EN: Sure! It's better to call first...</em>
+      </div>
+    </div>
+
+    <div class="faq-item" data-lang-ar="كم ياخذ الوقت باش نصلح الكارت؟" data-lang-fr="Combien de temps pour réparer la carte ?" data-lang-en="How long does it take to fix the board?">
+      <div class="faq-question">
+        <i class="fas fa-clock"></i>
+        <span class="faq-text">كم ياخذ الوقت باش نصلح الكارت؟</span>
+      </div>
+      <div class="faq-answer">
+        يعتمد على العطل: تشخيص مجاني، تصليح بسيط 1-3 أيام، مشاكل كبيرة ممكن 5-7 أيام.<br>
+        <em>FR: Cela dépend de la panne...</em><br>
+        <em>EN: It depends on the fault...</em>
+      </div>
+    </div>
+
+    <div class="faq-item" data-lang-ar="الضمان كيفاه؟" data-lang-fr="Quelle est la garantie ?" data-lang-en="What about the warranty?">
+      <div class="faq-question">
+        <i class="fas fa-shield-alt"></i>
+        <span class="faq-text">الضمان كيفاه؟</span>
+      </div>
+      <div class="faq-answer">
+        كل تصليح عندنا ضمان من شهر لـ 3 أشهر حسب القطعة والعمل.<br>
+        <em>FR: Chaque réparation est garantie de 1 à 3 mois...</em><br>
+        <em>EN: Every repair has 1-3 months warranty...</em>
+      </div>
+    </div>
+
+    <div class="faq-item" data-lang-ar="الأسعار معقولة ولا غالية؟" data-lang-fr="Les prix sont-ils raisonnables ?" data-lang-en="Are the prices reasonable?">
+      <div class="faq-question">
+        <i class="fas fa-tags"></i>
+        <span class="faq-text">الأسعار معقولة ولا غالية؟</span>
+      </div>
+      <div class="faq-answer">
+        نحاولو نكونو من الأرخص، التشخيص غالبًا ببلاش، والسعر حسب القطعة.<br>
+        <em>FR: Nous essayons d'être parmi les moins chers...</em><br>
+        <em>EN: We try to be among the cheapest...</em>
+      </div>
+    </div>
+
   </div>
-</div>
-
-<div class="faq-item">
-  <div class="faq-question" data-i18n="faq_q_location"><i class="fas fa-map-marker-alt"></i> وينكم بالضبط؟</div>
-  <div class="faq-answer" data-i18n="faq_a_location">
-    مدنين – نهج ليبيا، بعد كوشة شامخ، في أول طلعة على يمينك. لو ضيّعت الطريق، اتصل!
-  </div>
-</div>
-
-<div class="faq-item">
-  <div class="faq-question" data-i18n="faq_q_call"><i class="fas fa-phone"></i> نقدر نتصل قبل ما نجي؟</div>
-  <div class="faq-answer" data-i18n="faq_a_call">
-    أكيد يا خويا! أحسن حاجة تتصل قبل (واتساب أو مكالمة) على <strong>98.192.103</strong>.
-  </div>
-</div>
-
-<div class="faq-item">
-  <div class="faq-question" data-i18n="faq_q_time"><i class="fas fa-clock"></i> كم ياخذ الوقت باش نصلح الكارت؟</div>
-  <div class="faq-answer" data-i18n="faq_a_time">
-    يعتمد على العطل:<br>
-    • تصليح بسيط: 1-3 أيام<br>
-    • مشاكل كبيرة: 5-7 أيام
-  </div>
-</div>
-
-<div class="faq-item">
-  <div class="faq-question" data-i18n="faq_q_guarantee"><i class="fas fa-shield-alt"></i> الضمان كيفاه؟</div>
-  <div class="faq-answer" data-i18n="faq_a_guarantee">
-    كل تصليح عندنا ضمان من شهر حتى 3 أشهر حسب القطعة والعمل. لو رجع نفس العيب نصلحوه مجانًا.
-  </div>
-</div>
-
-<div class="faq-item">
-  <div class="faq-question" data-i18n="faq_q_price"><i class="fas fa-tags"></i> الأسعار معقولة ولا غالية؟</div>
-  <div class="faq-answer" data-i18n="faq_a_price">
-    نحاولو نكونو من الأرخص في الجهة. التشخيص غالبًا ببلاش، والسعر حسب القطعة.
-  </div>
-</div>
-
 </section>
 
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>© 2026 Atelier Électronique Médenine</p>
+</footer>
+
+<!-- ================= FAQ JS ================= -->
 <script>
-// FAQ toggle
-document.querySelectorAll(".faq-question").forEach(q => {
-  q.onclick = () => {
-    q.parentElement.classList.toggle("active");
-  }
+document.querySelectorAll('.faq-question').forEach(q=>{
+  q.addEventListener('click', ()=>{
+    const a = q.nextElementSibling;
+    a.style.display = a.style.display === 'block' ? 'none' : 'block';
+  });
 });
 
-// Translations
-const translations = {
-  fr: {
-    faq_q_services:"Quels services proposez-vous ?",
-    faq_a_services:"Nous réparons les cartes électroniques : postes de soudure, lave-linge, climatiseurs, cartes industrielles.",
-    faq_q_location:"Où êtes-vous situés ?",
-    faq_a_location:"Médenine – Rue Libye, près de Kousha Chamekh.",
-    faq_q_call:"Puis-je appeler avant de venir ?",
-    faq_a_call:"Oui, appelez ou envoyez WhatsApp au 98.192.103.",
-    faq_q_time:"Combien de temps prend la réparation ?",
-    faq_a_time:"Réparation simple : 1-3 jours, Problèmes complexes : 5-7 jours.",
-    faq_q_guarantee:"Quelle est la garantie ?",
-    faq_a_guarantee:"Toutes nos réparations ont une garantie de 1 à 3 mois.",
-    faq_q_price:"Les prix sont-ils élevés ?",
-    faq_a_price:"Diagnostic souvent gratuit, prix confirmé avant réparation."
-  },
-  en: {
-    faq_q_services:"What services do you offer?",
-    faq_a_services:"We repair electronic boards: welding machines, washing machines, air conditioners, industrial boards.",
-    faq_q_location:"Where are you located?",
-    faq_a_location:"Medenine – Libya Street, near Kousha Chamekh.",
-    faq_q_call:"Can I call before coming?",
-    faq_a_call:"Yes, call or send WhatsApp to 98.192.103.",
-    faq_q_time:"How long does repair take?",
-    faq_a_time:"Simple repair: 1-3 days, Complex issues: 5-7 days.",
-    faq_q_guarantee:"Do you provide warranty?",
-    faq_a_guarantee:"All repairs have a warranty from 1 to 3 months.",
-    faq_q_price:"Are the prices expensive?",
-    faq_a_price:"Diagnosis often free, price confirmed before repair."
-  }
-};
+document.getElementById('faq-close-all').addEventListener('click', ()=>{
+  document.querySelectorAll('.faq-answer').forEach(a=>a.style.display='none');
+});
 
+// ===== Language Switch =====
 function setLang(lang){
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key=el.getAttribute("data-i18n");
-    if(translations[lang] && translations[lang][key]){
-      el.innerHTML=translations[lang][key];
-    }
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const text = item.getAttribute(`data-lang-${lang}`);
+    item.querySelector('.faq-text').textContent = text;
   });
 }
 </script>
