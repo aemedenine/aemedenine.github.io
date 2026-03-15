@@ -325,7 +325,17 @@ footer {
   filter: brightness(0) invert(0);
   transform: scale(1.2);
 }
+/* ===== HOVER ANIMATION 2026 STYLE ===== */
+.social-circle:hover {
+  background: #38bdf8; /* اللون الأزرق */
+  transform: translateY(-5px) scale(1.15);
+  box-shadow: 0 8px 20px rgba(56,189,248,0.5), 0 0 15px rgba(56,189,248,0.4) inset;
+}
 
+.social-circle:hover img {
+  filter: brightness(0) invert(0);
+  transform: scale(1.3) rotate(-10deg);
+}
 /* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
   .footer-content {
