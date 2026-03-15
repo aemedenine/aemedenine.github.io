@@ -1,4 +1,76 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>FAQ | Atelier Électronique Médenine</title> <link rel="icon" href="images/favicon.png"> <link rel="stylesheet" href="css/style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ</title>
+<link rel="icon" href="images/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ================= HEADER + LOGO ================= */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 8%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+.logo-img{
+  width:50px;
+  height:auto;
+}
+.nav a{
+  color:#fff;
+  margin-left:20px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+.nav a:hover,
+.nav a.active{
+  color:#38bdf8;
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title{
+  text-align:center;
+  font-size:32px;
+  font-weight:700;
+  margin:40px 0 20px 0;
+  color:#38bdf8;
+}
+
+/* ===== LANGUAGE SWITCH BUTTONS ===== */
+.lang-switch{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:40px;
+}
+.lang-switch button{
+  padding:8px 14px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:600;
+  background:#38bdf8;
+  color:#000;
+  transition:0.3s;
+}
+.lang-switch button:hover{
+  transform:scale(1.05);
+}
 
 /* ===== FAQ CARDS ===== */
 .faq {
@@ -62,7 +134,7 @@
 </header>
 
 <!-- ===== PAGE TITLE ===== -->
-<h2 class="page-title" data-i18n="faq_title">FAQ | Atelier Électronique Médenine</h2>
+<h2 class="page-title" data-i18n="faq_title">FAQ</h2>
 
 <!-- ===== LANGUAGE SWITCH ===== -->
 <div class="lang-switch">
@@ -135,7 +207,7 @@ document.querySelectorAll(".faq-question").forEach(q => {
 // Translations
 const translations = {
   fr: {
-    faq_title:"FAQ | Atelier Électronique Médenine",
+    faq_title:"FAQ",
     faq_q_services:"Quels services proposez-vous ?",
     faq_a_services:"Nous réparons les cartes électroniques : postes de soudure, lave-linge, climatiseurs, cartes industrielles.",
     faq_q_location:"Où êtes-vous situés ?",
@@ -150,7 +222,7 @@ const translations = {
     faq_a_price:"Diagnostic souvent gratuit, prix confirmé avant réparation."
   },
   en: {
-    faq_title:"FAQ | Electronic Workshop Medenine",
+    faq_title:"FAQ",
     faq_q_services:"What services do you offer?",
     faq_a_services:"We repair electronic boards: welding machines, washing machines, air conditioners, industrial boards.",
     faq_q_location:"Where are you located?",
@@ -165,7 +237,7 @@ const translations = {
     faq_a_price:"Diagnosis often free, price confirmed before repair."
   },
   ar: {
-    faq_title:"الأسئلة المتكررة | أتلير إلكترونيك مدنين",
+    faq_title:"الأسئلة المتكررة",
     faq_q_services:"شنوّا الخدمات اللي عندكم يا خويا؟",
     faq_a_services:"متخصصين في تصليح الكروت الإلكترونية بكل أنواعها: ماكينات لحام، غسالات، كليما، كروت المصانع والموازين.",
     faq_q_location:"وينكم بالضبط؟",
@@ -182,7 +254,6 @@ const translations = {
 };
 
 function setLang(lang){
-  // تغيير نصوص FAQ
   document.querySelectorAll("[data-i18n]").forEach(el=>{
     const key = el.getAttribute("data-i18n");
     if(translations[lang][key]) el.innerHTML = translations[lang][key];
