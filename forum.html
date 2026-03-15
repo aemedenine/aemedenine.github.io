@@ -1,198 +1,163 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Live | Atelier Électronique Médenine</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<title>Forum Live | Atelier Électronique Médenine</title>
 
-        body {
-            background: linear-gradient(135deg, #020617, #0f172a, #020617);
-            color: white;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-        /* header */
-        header {
-            padding: 18px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+<style>
 
-        /* login */
-        .login {
-            text-align: center;
-            margin-top: 40px;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-        .login button {
-            background: linear-gradient(45deg, #38bdf8, #0ea5e9);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+body{
+background:linear-gradient(135deg,#020617,#0f172a,#020617);
+color:white;
+height:100vh;
+display:flex;
+flex-direction:column;
+}
 
-        .login button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #38bdf8;
-        }
+/* header */
 
-        /* chat area */
-        #chat {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+header{
+padding:18px;
+text-align:center;
+font-size:22px;
+font-weight:600;
+background:rgba(2,6,23,0.9);
+}
 
-        /* message */
-        .message {
-            display: flex;
-            gap: 10px;
-            max-width: 70%;
-            background: rgba(30, 41, 59, 0.7);
-            padding: 12px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            animation: fade 0.3s ease;
-        }
+/* login */
 
-        @keyframes fade {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+.login{
+text-align:center;
+margin-top:40px;
+}
 
-            to {
-                opacity: 1;
-            }
-        }
+.login button{
+background:linear-gradient(45deg,#38bdf8,#0ea5e9);
+border:none;
+padding:12px 25px;
+border-radius:30px;
+color:white;
+cursor:pointer;
+}
 
-        /* avatar */
-        .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #38bdf8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
+/* chat */
 
-        /* text */
-        .text {
-            font-size: 14px;
-        }
+#chat{
+flex:1;
+overflow-y:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
 
-        .text b {
-            font-size: 13px;
-            color: #38bdf8;
-        }
+/* message */
 
-        /* my message */
-        .me {
-            margin-left: auto;
-            background: linear-gradient(45deg, #38bdf8, #0ea5e9);
-            color: black;
-        }
+.message{
+display:flex;
+gap:10px;
+max-width:70%;
+background:#1e293b;
+padding:12px;
+border-radius:15px;
+animation:fade 0.3s;
+}
 
-        /* input */
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;}
+}
 
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 30px;
-            background: #1e293b;
-            color: white;
-            outline: none;
-            font-size: 14px;
-        }
+.avatar{
+width:36px;
+height:36px;
+border-radius:50%;
+background:#38bdf8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
 
-        .chat-input button {
-            margin-left: 10px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            background: linear-gradient(45deg, #38bdf8, #0ea5e9);
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+.text b{
+color:#38bdf8;
+font-size:13px;
+}
 
-        .chat-input button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px #38bdf8;
-        }
+/* my message */
 
-        /* scrollbar */
-        #chat::-webkit-scrollbar {
-            width: 6px;
-        }
+.me{
+margin-left:auto;
+background:linear-gradient(45deg,#38bdf8,#0ea5e9);
+color:black;
+}
 
-        #chat::-webkit-scrollbar-thumb {
-            background: #38bdf8;
-            border-radius: 10px;
-        }
+/* input */
 
-        /* mobile */
-        @media (max-width: 700px) {
-            .message {
-                max-width: 90%;
-            }
+.chat-input{
+display:flex;
+padding:15px;
+background:#020617;
+}
 
-            header {
-                font-size: 18px;
-            }
-        }
-    </style>
+.chat-input input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:30px;
+background:#1e293b;
+color:white;
+outline:none;
+}
+
+.chat-input button{
+margin-left:10px;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#38bdf8;
+cursor:pointer;
+}
+
+/* scrollbar */
+
+#chat::-webkit-scrollbar{
+width:6px;
+}
+
+#chat::-webkit-scrollbar-thumb{
+background:#38bdf8;
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-    💬 Forum Live – Atelier Électronique Médenine
+💬 Forum Live – Atelier Électronique Médenine
 </header>
 
 <div class="login">
-    <button onclick="login()">🔐 Login with Google</button>
+<button onclick="login()">🔐 Login with Google</button>
 </div>
 
 <div id="chat"></div>
 
 <div class="chat-input">
-    <input id="msg" placeholder="Écrire un message... 😊">
-    <button onclick="send()">Send</button>
+<input id="msg" placeholder="Écrire un message... 😊">
+<button onclick="send()">Send</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
@@ -200,70 +165,114 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
 
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-        authDomain: "atelier-electronique-mednine.firebaseapp.com",
-        projectId: "atelier-electronique-mednine",
-        storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-        messagingSenderId: "547430908384",
-        appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
-        databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
-    };
 
-    firebase.initializeApp(firebaseConfig);
+const firebaseConfig={
+apiKey:"AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+authDomain:"atelier-electronique-mednine.firebaseapp.com",
+projectId:"atelier-electronique-mednine",
+storageBucket:"atelier-electronique-mednine.firebasestorage.app",
+messagingSenderId:"547430908384",
+appId:"1:547430908384:web:4caa4cf3869491bd14eb85",
+databaseURL:"https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
+};
 
-    const auth = firebase.auth();
-    const db = firebase.database();
+firebase.initializeApp(firebaseConfig);
 
-    function login() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
-    }
+const auth=firebase.auth();
+const db=firebase.database();
 
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            document.querySelector(".login").style.display = "none";
-            listenMessages();
-        }
-    });
+/* login */
 
-    function send() {
-        const text = document.getElementById("msg").value;
-        if (text === "") return;
+function login(){
 
-        db.ref("messages").push({
-            text: text,
-            uid: auth.currentUser.uid,
-            name: auth.currentUser.displayName,
-            time: firebase.database.ServerValue.TIMESTAMP
-        });
+const provider=new firebase.auth.GoogleAuthProvider();
+auth.signInWithPopup(provider);
 
-        document.getElementById("msg").value = "";
-    }
+}
 
-    function listenMessages() {
-        db.ref("messages").orderByChild("time").on("child_added", snapshot => {
-            const data = snapshot.val();
-            const chat = document.getElementById("chat");
-            const div = document.createElement("div");
-            div.className = "message";
+/* user connected */
 
-            if (data.uid === auth.currentUser.uid) {
-                div.classList.add("me");
-            }
+auth.onAuthStateChanged(user=>{
 
-            div.innerHTML = `
-                <div class="avatar">${data.name.charAt(0)}</div>
-                <div class="text">
-                    <b>${data.name}</b><br>
-                    ${data.text}
-                </div>
-            `;
+if(user){
 
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-        });
-    }
+document.querySelector(".login").style.display="none";
+listenMessages();
+
+}
+
+});
+
+/* send message */
+
+function send(){
+
+const input=document.getElementById("msg");
+const text=input.value.trim();
+
+if(!text) return;
+
+db.ref("messages").push({
+
+text:text,
+uid:auth.currentUser.uid,
+name:auth.currentUser.displayName,
+time:Date.now()
+
+});
+
+input.value="";
+
+}
+
+/* enter send */
+
+document.getElementById("msg").addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+send();
+}
+
+});
+
+/* listen messages */
+
+function listenMessages(){
+
+db.ref("messages").on("child_added",snapshot=>{
+
+const data=snapshot.val();
+
+const chat=document.getElementById("chat");
+
+const div=document.createElement("div");
+div.className="message";
+
+if(data.uid===auth.currentUser.uid){
+
+div.classList.add("me");
+
+}
+
+div.innerHTML=`
+
+<div class="avatar">${data.name.charAt(0)}</div>
+
+<div class="text">
+<b>${data.name}</b><br>
+${data.text}
+</div>
+
+`;
+
+chat.appendChild(div);
+
+chat.scrollTop=chat.scrollHeight;
+
+});
+
+}
+
 </script>
 
 </body>
