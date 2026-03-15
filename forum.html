@@ -3,151 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Forum Live | Atelier Électronique Médenine</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:linear-gradient(135deg,#020617,#0f172a,#020617);
-color:white;
-height:100vh;
-display:flex;
-flex-direction:column;
-}
-
-/* header */
-
-header{
-padding:18px;
-text-align:center;
-font-size:22px;
-font-weight:600;
-background:rgba(2,6,23,0.9);
-}
-
-/* login */
-
-.login{
-text-align:center;
-margin-top:40px;
-}
-
-.login button{
-background:linear-gradient(45deg,#38bdf8,#0ea5e9);
-border:none;
-padding:12px 25px;
-border-radius:30px;
-color:white;
-cursor:pointer;
-}
-
-/* chat */
-
-#chat{
-flex:1;
-overflow-y:auto;
-padding:20px;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-/* message */
-
-.message{
-display:flex;
-gap:10px;
-max-width:70%;
-background:#1e293b;
-padding:12px;
-border-radius:15px;
-animation:fade 0.3s;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;}
-}
-
-.avatar{
-width:36px;
-height:36px;
-border-radius:50%;
-background:#38bdf8;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-}
-
-.text b{
-color:#38bdf8;
-font-size:13px;
-}
-
-/* my message */
-
-.me{
-margin-left:auto;
-background:linear-gradient(45deg,#38bdf8,#0ea5e9);
-color:black;
-}
-
-/* input */
-
-.chat-input{
-display:flex;
-padding:15px;
-background:#020617;
-}
-
-.chat-input input{
-flex:1;
-padding:12px;
-border:none;
-border-radius:30px;
-background:#1e293b;
-color:white;
-outline:none;
-}
-
-.chat-input button{
-margin-left:10px;
-padding:12px 25px;
-border:none;
-border-radius:30px;
-background:#38bdf8;
-cursor:pointer;
-}
-
-/* scrollbar */
-
-#chat::-webkit-scrollbar{
-width:6px;
-}
-
-#chat::-webkit-scrollbar-thumb{
-background:#38bdf8;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#020617,#0f172a,#020617);color:white;height:100vh;display:flex;flex-direction:column;}
+header{padding:18px;text-align:center;font-size:22px;font-weight:600;background:rgba(2,6,23,0.9);}
+.login{text-align:center;margin-top:40px;}
+.login button{background:linear-gradient(45deg,#38bdf8,#0ea5e9);border:none;padding:12px 25px;border-radius:30px;color:white;cursor:pointer;}
+#chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px;}
+.message{display:flex;gap:10px;max-width:70%;background:#1e293b;padding:12px;border-radius:15px;animation:fade 0.3s;}
+@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;}}
+.avatar{width:36px;height:36px;border-radius:50%;background:#38bdf8;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+.text b{color:#38bdf8;font-size:13px;}
+.me{margin-left:auto;background:linear-gradient(45deg,#38bdf8,#0ea5e9);color:black;}
+.chat-input{display:flex;padding:15px;background:#020617;}
+.chat-input input{flex:1;padding:12px;border:none;border-radius:30px;background:#1e293b;color:white;outline:none;}
+.chat-input button{margin-left:10px;padding:12px 25px;border:none;border-radius:30px;background:#38bdf8;cursor:pointer;}
+#chat::-webkit-scrollbar{width:6px;}
+#chat::-webkit-scrollbar-thumb{background:#38bdf8;}
 </style>
 </head>
 
 <body>
 
-<header>
-💬 Forum Live – Atelier Électronique Médenine
-</header>
+<header>💬 Forum Live – Atelier Électronique Médenine</header>
 
 <div class="login">
 <button onclick="login()">🔐 Login with Google</button>
@@ -165,7 +47,7 @@ background:#38bdf8;
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
 
 <script>
-
+// ⚡ Firebase Config
 const firebaseConfig={
 apiKey:"AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
 authDomain:"atelier-electronique-mednine.firebaseapp.com",
@@ -175,104 +57,62 @@ messagingSenderId:"547430908384",
 appId:"1:547430908384:web:4caa4cf3869491bd14eb85",
 databaseURL:"https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
 };
-
 firebase.initializeApp(firebaseConfig);
 
 const auth=firebase.auth();
 const db=firebase.database();
 
-/* login */
-
+// 🔑 Login Google
 function login(){
-
 const provider=new firebase.auth.GoogleAuthProvider();
 auth.signInWithPopup(provider);
-
 }
 
-/* user connected */
-
+// 🟢 User Connected
 auth.onAuthStateChanged(user=>{
-
 if(user){
-
 document.querySelector(".login").style.display="none";
 listenMessages();
-
 }
-
 });
 
-/* send message */
-
+// 📨 Send Message
 function send(){
-
 const input=document.getElementById("msg");
 const text=input.value.trim();
-
 if(!text) return;
 
 db.ref("messages").push({
-
 text:text,
 uid:auth.currentUser.uid,
 name:auth.currentUser.displayName,
 time:Date.now()
-
 });
 
 input.value="";
-
 }
 
-/* enter send */
-
+// ⏎ Send with Enter
 document.getElementById("msg").addEventListener("keypress",function(e){
-
-if(e.key==="Enter"){
-send();
-}
-
+if(e.key==="Enter") send();
 });
 
-/* listen messages */
-
+// 👀 Listen Messages Realtime
 function listenMessages(){
-
-db.ref("messages").on("child_added",snapshot=>{
-
+db.ref("messages").orderByChild("time").on("child_added",snapshot=>{
 const data=snapshot.val();
-
 const chat=document.getElementById("chat");
-
 const div=document.createElement("div");
 div.className="message";
-
-if(data.uid===auth.currentUser.uid){
-
-div.classList.add("me");
-
-}
-
+if(data.uid===auth.currentUser.uid) div.classList.add("me");
 div.innerHTML=`
-
 <div class="avatar">${data.name.charAt(0)}</div>
-
-<div class="text">
-<b>${data.name}</b><br>
-${data.text}
-</div>
-
+<div class="text"><b>${data.name}</b><br>${data.text}</div>
 `;
-
 chat.appendChild(div);
-
 chat.scrollTop=chat.scrollHeight;
-
 });
-
 }
-
 </script>
 
 </body>
