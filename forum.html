@@ -58,7 +58,7 @@ header{padding:16px;text-align:center;font-size:24px;font-weight:600;background:
   <span class="photo-btn" onclick="document.getElementById('photo-input').click()">📷</span>
   <input type="file" id="photo-input" accept="image/*" style="display:none;">
   <div id="preview-container"><img id="preview-img" src="" alt="Prévisualisation"></div>
-  <button onclick="send()">Envoyer</button>
+  <button id="send-btn">Envoyer</button>
 </div>
 
 <!-- Emoji Picker -->
@@ -69,12 +69,18 @@ header{padding:16px;text-align:center;font-size:24px;font-weight:600;background:
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
-<!-- Emoji Picker (latest CDN) -->
+<!-- Emoji Picker CDN -->
 <script type="module">
   import 'https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/index.js';
 </script>
 
 <script>
+// Variables globales
+let currentUser = null;
+let typingTimeout = null;
+let selectedImage = null;
+let isSending = false; // ← Fix double send
+
 // Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
@@ -90,22 +96,18 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-let currentUser = null;
-let typingTimeout = null;
-let selectedImage = null;
-
-// Login Google
+// Login
 function login() {
   auth.signOut().then(() => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider).catch(err => {
       console.error("Erreur login:", err);
-      alert("Problème login: " + err.message);
+      alert("Problème connexion: " + err.message);
     });
   });
 }
 
-// Auth State Listener
+// Auth state
 auth.onAuthStateChanged(user => {
   if (user) {
     currentUser = user;
@@ -114,7 +116,6 @@ auth.onAuthStateChanged(user => {
     listenMessages();
     listenTyping();
     setPresence(true);
-    console.log("Connecté:", user.displayName);
   } else {
     currentUser = null;
     document.querySelector(".login").style.display = "block";
@@ -123,34 +124,30 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-// Presence (online/offline)
+// Presence
 function setPresence(online) {
   if (!currentUser) return;
   db.ref(`presence/${currentUser.uid}`).set({
-    online: online,
+    online,
     name: currentUser.displayName || "Anonyme",
     lastSeen: Date.now()
   });
 }
 
-// Typing Indicator
+// Typing
 const msgInput = document.getElementById("msg");
 msgInput.addEventListener("input", () => {
   if (!currentUser) return;
   db.ref(`typing/${currentUser.uid}`).set(true);
   clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(() => {
-    db.ref(`typing/${currentUser.uid}`).remove();
-  }, 2500);
+  typingTimeout = setTimeout(() => db.ref(`typing/${currentUser.uid}`).remove(), 2500);
 });
 
 function listenTyping() {
   db.ref("typing").on("child_added", snap => {
     if (snap.key !== currentUser?.uid) showTyping(snap.key);
   });
-  db.ref("typing").on("child_removed", snap => {
-    removeTyping(snap.key);
-  });
+  db.ref("typing").on("child_removed", snap => removeTyping(snap.key));
 }
 
 function showTyping(uid) {
@@ -175,7 +172,7 @@ function scrollToBottom() {
   chat.scrollTop = chat.scrollHeight;
 }
 
-// Emoji Picker Toggle & Insert
+// Emoji Picker
 function toggleEmojiPicker() {
   const picker = document.getElementById("emoji-picker");
   picker.style.display = picker.style.display === "block" ? "none" : "block";
@@ -191,32 +188,32 @@ document.getElementById("emoji-picker").addEventListener("emoji-click", e => {
   toggleEmojiPicker();
 });
 
-// Photo Upload & Preview
+// Photo preview
 document.getElementById("photo-input").addEventListener("change", e => {
   const file = e.target.files[0];
-  if (!file || !file.type.startsWith("image/")) {
-    alert("Choisis une image valide bro!");
-    return;
-  }
+  if (!file || !file.type.startsWith("image/")) return alert("Image valide stp!");
   const reader = new FileReader();
   reader.onload = ev => {
     document.getElementById("preview-img").src = ev.target.result;
     document.getElementById("preview-container").style.display = "flex";
-    selectedImage = ev.target.result; // base64
+    selectedImage = ev.target.result;
   };
   reader.readAsDataURL(file);
 });
 
-// Send Message (text + optional image)
+// Send (avec fix double send)
 function send() {
-  if (!currentUser) {
-    alert("Login awla bro!");
-    return;
-  }
+  if (!currentUser) return alert("Login awla!");
+  if (isSending) return; // ← empêche double envoi rapide
+  isSending = true;
+
   const text = msgInput.value.trim();
   const hasImage = !!selectedImage;
 
-  if (!text && !hasImage) return;
+  if (!text && !hasImage) {
+    isSending = false;
+    return;
+  }
 
   const msgData = {
     text: text || "",
@@ -229,20 +226,25 @@ function send() {
 
   if (hasImage) msgData.image = selectedImage;
 
-  db.ref("messages").push(msgData).then(() => {
-    msgInput.value = "";
-    selectedImage = null;
-    document.getElementById("preview-container").style.display = "none";
-    document.getElementById("preview-img").src = "";
-    db.ref(`typing/${currentUser.uid}`).remove();
-    scrollToBottom();
-  }).catch(err => {
-    console.error("Erreur envoi:", err);
-    alert("Erreur envoi message: " + err.message);
-  });
+  db.ref("messages").push(msgData)
+    .then(() => {
+      msgInput.value = "";
+      selectedImage = null;
+      document.getElementById("preview-container").style.display = "none";
+      document.getElementById("preview-img").src = "";
+      db.ref(`typing/${currentUser.uid}`).remove();
+      scrollToBottom();
+    })
+    .catch(err => {
+      console.error("Erreur envoi:", err);
+      alert("Erreur: " + err.message);
+    })
+    .finally(() => {
+      isSending = false;
+    });
 }
 
-// Listen Messages
+// Listen messages
 function listenMessages() {
   db.ref("messages").orderByChild("time").on("child_added", snap => {
     const msg = snap.val();
@@ -255,13 +257,11 @@ function listenMessages() {
       <div class="avatar">${(msg.name || "?").charAt(0)}</div>
       <div class="text">
         <b>${msg.name || "Inconnu"} <span class="status-dot"></span></b>
-        <small>${new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</small><br>
+        <small>${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small><br>
         ${msg.text}
     `;
 
-    if (msg.image) {
-      html += `<br><img src="${msg.image}" alt="Image envoyée">`;
-    }
+    if (msg.image) html += `<br><img src="${msg.image}" alt="Image">`;
 
     html += `
         <div class="reactions" id="reac-${key}"></div>
@@ -272,11 +272,9 @@ function listenMessages() {
     document.getElementById("chat").appendChild(div);
     scrollToBottom();
 
-    // Double-click pour ajouter ❤️ (najjem t zid picker ba3d)
     div.addEventListener("dblclick", () => addReaction(key, "❤️"));
   });
 
-  // Listen reactions updates
   db.ref("messages").on("child_changed", snap => {
     const msg = snap.val();
     const key = snap.key;
@@ -292,7 +290,7 @@ function addReaction(msgKey, emoji) {
   db.ref(`messages/${msgKey}/reactions/${currentUser.uid}`).set(emoji);
 }
 
-// Send avec Enter (sans shift pour multiligne ida t7eb ba3d)
+// Events
 msgInput.addEventListener("keypress", e => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
@@ -300,10 +298,11 @@ msgInput.addEventListener("keypress", e => {
   }
 });
 
-// Init on load
+document.getElementById("send-btn").addEventListener("click", send);
+
+// Init & cleanup
 listenMessages();
 
-// Cleanup presence on close
 window.addEventListener("beforeunload", () => {
   if (currentUser) setPresence(false);
 });
