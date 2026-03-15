@@ -271,7 +271,6 @@ body{
 .comment-item b {
   margin-right: 5px;
 }
-
 /* ===============================
    FOOTER
 =================================*/
@@ -288,17 +287,20 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
+  direction: ltr; /* خلي النصوص تصطف على اليمين والأيقونات على اليسار */
 }
 
 .footer-content p {
   margin: 0;
   text-align: right; /* النص يروح لليمين */
   flex: 1; /* ياخذ المساحة المتاحة */
+  order: 2; /* النص يظهر على اليمين */
 }
 
 .social-icons {
   display: flex;
   gap: 15px;
+  order: 1; /* الأيقونات تظهر على اليسار */
 }
 
 .social-circle {
