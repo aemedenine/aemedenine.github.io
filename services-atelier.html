@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services Atelier</title>
+<link rel="icon" href="images/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== PAGE TITLE ===== */
+.page-title{
+  text-align:center;
+  font-size:36px;
+  margin-top:40px;
+  margin-bottom:30px;
+  color:#38bdf8;
+}
+
+/* ===== LANGUAGE SWITCH BUTTONS ===== */
+.lang-switch{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin:20px 0;
+}
+
+.lang-switch button{
+  padding:6px 12px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:600;
+  background:#38bdf8;
+  color:#000;
+  transition:0.3s;
+}
+
+.lang-switch button:hover{
+  transform:scale(1.05);
+}
+
+/* ===== SERVICE CONTENT ===== */
+.service-content{
+  padding:40px 10%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  font-size:18px;
+  color:#cbd5e1;
+}
+
+.service-content p{
+  line-height:1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="logo">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="contact.html">Contact</a>
+    <button class="login-btn">Login</button>
+  </nav>
+</header>
+
+<!-- ===== PAGE TITLE ===== -->
+<h2 class="page-title" data-i18n="services_title">خدمات الورشة</h2>
+
+<!-- ===== LANGUAGE SWITCH ===== -->
+<div class="lang-switch">
+  <button onclick="setLang('ar')">🇹🇳 عربي</button>
+  <button onclick="setLang('fr')">🇫🇷 Français</button>
+  <button onclick="setLang('en')">🇬🇧 English</button>
+</div>
+
+<!-- ================= SERVICE CONTENT ================= -->
+<section class="service-content">
+  <p data-i18n="service_1">📢 ورشة إلكترونيك الرحماني تفتح أبوابها لجميع الولايات.</p>
+  <p data-i18n="service_2">🔧 نقدم خدمات تصليح الأجهزة الإلكترونية بجودة عالية وبأسعار منافسة.</p>
+  <p data-i18n="service_3">💻 تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.</p>
+  <p data-i18n="service_4">📱 تواصل معنا عبر واتساب لأي استفسار أو طلب خدمة.</p>
+  <p data-i18n="service_5">🛠️ بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.</p>
+  <p data-i18n="service_6">🚚 خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس.</p>
+</section>
+
+<script>
+const translations = {
+  fr:{
+    services_title:"Services Atelier",
+    service_1:"📢 L'atelier Électronique Rahmani ouvre ses portes pour toutes les régions.",
+    service_2:"🔧 Nous proposons des services de réparation électronique de haute qualité à des prix compétitifs.",
+    service_3:"💻 Réparation d'ordinateurs, appareils ménagers et cartes électroniques avec grande expertise.",
+    service_4:"📱 Contactez-nous via WhatsApp pour toute demande de service.",
+    service_5:"🛠️ Vente et échange de pièces détachées originales de haute qualité.",
+    service_6:"🚚 Service de livraison et de ramassage disponible dans toute la Tunisie."
+  },
+  en:{
+    services_title:"Workshop Services",
+    service_1:"📢 Rahmani Electronic Workshop opens its doors to all regions.",
+    service_2:"🔧 We offer high-quality electronic repair services at competitive prices.",
+    service_3:"💻 Repair of computers, household devices, and electronic boards with high expertise.",
+    service_4:"📱 Contact us via WhatsApp for any inquiry or service request.",
+    service_5:"🛠️ Sale and replacement of original spare parts of high quality.",
+    service_6:"🚚 Delivery and pickup service available throughout Tunisia."
+  },
+  ar:{
+    services_title:"خدمات الورشة",
+    service_1:"📢 ورشة إلكترونيك الرحماني تفتح أبوابها لجميع الولايات.",
+    service_2:"🔧 نقدم خدمات تصليح الأجهزة الإلكترونية بجودة عالية وبأسعار منافسة.",
+    service_3:"💻 تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.",
+    service_4:"📱 تواصل معنا عبر واتساب لأي استفسار أو طلب خدمة.",
+    service_5:"🛠️ بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.",
+    service_6:"🚚 خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس."
+  }
+};
+
+function setLang(lang){
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(translations[lang][key]) el.innerHTML = translations[lang][key];
+  });
+}
+</script>
+
+</body>
+</html>
