@@ -35,13 +35,13 @@ body{background:#0f172a;color:white;line-height:1.6;}
 .login-btn{padding:8px 18px;border:none;border-radius:30px;background:#38bdf8;color:#000;font-weight:600;cursor:pointer;transition:0.3s;}
 .login-btn:hover{transform:scale(1.05);}
 
-/* ===== LANGUAGE SWITCHER ===== */
-.lang-switcher{margin-left:15px;}
-.lang-switcher button{background:#38bdf8;color:#000;padding:5px 10px;border-radius:6px;border:none;font-weight:bold;cursor:pointer;margin-left:5px;}
-.lang-switcher button:hover{background:#0ea5e9;}
-
 /* ===== PAGE TITLE ===== */
 .page-title{text-align:center;font-size:36px;margin:40px 0;color:#38bdf8;}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher{text-align:center;margin-bottom:30px;}
+.lang-switcher button{background:#38bdf8;color:#000;padding:5px 10px;border-radius:6px;border:none;font-weight:bold;cursor:pointer;margin:0 5px;}
+.lang-switcher button:hover{background:#0ea5e9;}
 
 /* ===== PRODUCTS GRID ===== */
 .container{max-width:1200px;margin:auto;padding:20px;}
@@ -84,18 +84,30 @@ footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-si
     <a href="services-atelier.html">الخدمات</a>
     <a href="boutique.html" class="active">المتجر</a>
     <button class="login-btn">Login</button>
-    <div class="lang-switcher">
-      <button onclick="setLang('ar')">AR</button>
-      <button onclick="setLang('fr')">FR</button>
-      <button onclick="setLang('en')">EN</button>
-    </div>
   </nav>
 </header>
 
 <!-- ===== PAGE CONTENT ===== -->
 <section class="container">
 
-  <a href="index.html" class="btn-return">🏠 <span class="lang-ar">رجوع للرئيسية</span><span class="lang-fr hidden">Retour à l'accueil</span><span class="lang-en hidden">Back to Home</span></a>
+  <h2 class="page-title">
+    <span class="lang-ar">متجر الورشة</span>
+    <span class="lang-fr hidden">Boutique de l'Atelier</span>
+    <span class="lang-en hidden">Workshop Store</span>
+  </h2>
+
+  <!-- LANG SWITCHER CENTER -->
+  <div class="lang-switcher">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+
+  <a href="index.html" class="btn-return">
+    <span class="lang-ar">🏠 رجوع للرئيسية</span>
+    <span class="lang-fr hidden">🏠 Retour à l'accueil</span>
+    <span class="lang-en hidden">🏠 Back to Home</span>
+  </a>
 
   <div class="product-grid">
 
@@ -218,18 +230,9 @@ document.querySelectorAll('.btn-store').forEach(btn => {
     modalOverlay.style.display='block';
   });
 });
-document.getElementById('cancelPaymentMethod').addEventListener('click', ()=>{
-  paymentMethodModal.style.display='none';
-  modalOverlay.style.display='none';
-});
-document.getElementById('payD17Btn').addEventListener('click', ()=>{
-  paymentMethodModal.style.display='none';
-  d17Modal.style.display='block';
-});
-document.getElementById('cancelD17').addEventListener('click', ()=>{
-  d17Modal.style.display='none';
-  modalOverlay.style.display='none';
-});
+document.getElementById('cancelPaymentMethod').addEventListener('click', ()=>{paymentMethodModal.style.display='none';modalOverlay.style.display='none';});
+document.getElementById('payD17Btn').addEventListener('click', ()=>{paymentMethodModal.style.display='none';d17Modal.style.display='block';});
+document.getElementById('cancelD17').addEventListener('click', ()=>{d17Modal.style.display='none';modalOverlay.style.display='none';});
 document.getElementById('submitD17').addEventListener('click', ()=>{
   const cardNumber = document.getElementById('cardNumber').value.trim();
   if(!cardNumber){alert('الرجاء إدخال رقم البطاقة');return;}
@@ -239,14 +242,8 @@ document.getElementById('submitD17').addEventListener('click', ()=>{
   modalOverlay.style.display='none';
   document.getElementById('cardNumber').value='';
 });
-document.getElementById('payPostBtn').addEventListener('click', ()=>{
-  paymentMethodModal.style.display='none';
-  postModal.style.display='block';
-});
-document.getElementById('cancelPost').addEventListener('click', ()=>{
-  postModal.style.display='none';
-  modalOverlay.style.display='none';
-});
+document.getElementById('payPostBtn').addEventListener('click', ()=>{paymentMethodModal.style.display='none';postModal.style.display='block';});
+document.getElementById('cancelPost').addEventListener('click', ()=>{postModal.style.display='none';modalOverlay.style.display='none';});
 document.getElementById('postForm').addEventListener('submit', e=>{
   e.preventDefault();
   const firstName=document.getElementById('firstName').value.trim();
@@ -260,12 +257,7 @@ document.getElementById('postForm').addEventListener('submit', e=>{
   modalOverlay.style.display='none';
   document.getElementById('postForm').reset();
 });
-modalOverlay.addEventListener('click', ()=>{
-  paymentMethodModal.style.display='none';
-  d17Modal.style.display='none';
-  postModal.style.display='none';
-  modalOverlay.style.display='none';
-});
+modalOverlay.addEventListener('click', ()=>{paymentMethodModal.style.display='none';d17Modal.style.display='none';postModal.style.display='none';modalOverlay.style.display='none';});
 </script>
 
 </body>
