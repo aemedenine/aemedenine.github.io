@@ -4,17 +4,74 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calcul Condensateur | Atelier Électronique Médenine</title>
+<link rel="icon" href="images/favicon.png">
 
 <style>
 
-/* ===== PAGE ===== */
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:#0f172a;color:white;line-height:1.6;}
 
-body{
-font-family:Arial;
-background:#0f172a;
-color:white;
-margin:0;
+/* ================= HEADER ================= */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 8%;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+z-index:1000;
 }
+
+.logo{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-img{
+width:60px;
+height:60px;
+border-radius:50%;
+border:3px solid #38bdf8;
+padding:5px;
+background:rgba(255,255,255,0.05);
+box-shadow:0 4px 15px rgba(0,0,0,0.3);
+transition:0.3s;
+}
+
+.logo-img:hover{
+transform:scale(1.1);
+box-shadow:0 8px 25px rgba(0,0,0,0.5);
+}
+
+.logo h1{
+font-size:24px;
+font-weight:700;
+color:#fff;
+letter-spacing:1px;
+}
+
+.nav{
+display:flex;
+align-items:center;
+gap:25px;
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
+
+.nav a:hover{
+color:#38bdf8;
+}
+
+/* ================= PAGE ================= */
 
 .calc-cap{
 padding:80px 8%;
@@ -27,15 +84,40 @@ color:#38bdf8;
 margin-bottom:40px;
 }
 
-/* ===== BOX ===== */
+/* ================= BOX ================= */
 
 .cap-box{
 background:rgba(255,255,255,0.05);
+backdrop-filter:blur(8px);
 border-radius:20px;
 padding:30px;
 max-width:500px;
 margin:30px auto;
-backdrop-filter:blur(8px);
+position:relative;
+overflow:hidden;
+transition:transform 0.4s, box-shadow 0.4s;
+}
+
+.cap-box::before{
+content:'';
+position:absolute;
+top:0;
+left:-75%;
+width:50%;
+height:100%;
+background:linear-gradient(120deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
+transform:skewX(-20deg);
+transition:0.5s;
+}
+
+.cap-box:hover::before{
+left:125%;
+}
+
+.cap-box:hover{
+transform:translateY(-5px) scale(1.05);
+box-shadow:0 15px 35px rgba(56,189,248,0.7),
+0 0 20px rgba(56,189,248,0.5) inset;
 }
 
 .cap-box h3{
@@ -61,6 +143,7 @@ background:#38bdf8;
 color:black;
 font-weight:600;
 cursor:pointer;
+transition:0.3s;
 }
 
 .cap-box button:hover{
@@ -71,6 +154,7 @@ box-shadow:0 8px 20px rgba(56,189,248,0.6);
 margin-top:20px;
 font-size:20px;
 color:#38bdf8;
+font-weight:600;
 }
 
 </style>
@@ -79,11 +163,28 @@ color:#38bdf8;
 
 <body>
 
+<header class="header">
+
+<div class="logo">
+<img src="images/logo.png" class="logo-img">
+<h1>Atelier Électronique Médenine</h1>
+</div>
+
+<nav class="nav">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+</header>
+
+
 <section class="calc-cap">
 
 <h2>Calcul Condensateur SMD</h2>
 
-<!-- ================= EIA 3 ================= -->
+
+<!-- ===== EIA 3 ===== -->
 
 <div class="cap-box">
 
@@ -93,12 +194,13 @@ color:#38bdf8;
 
 <button onclick="calc3()">Calculer</button>
 
-<div class="result" id="res3">Résultat: —</div>
+<div class="result" id="res3">Capacité: —</div>
 
 </div>
 
 
-<!-- ================= EIA 4 ================= -->
+
+<!-- ===== EIA 4 ===== -->
 
 <div class="cap-box">
 
@@ -108,12 +210,13 @@ color:#38bdf8;
 
 <button onclick="calc4()">Calculer</button>
 
-<div class="result" id="res4">Résultat: —</div>
+<div class="result" id="res4">Capacité: —</div>
 
 </div>
 
 
-<!-- ================= EIA198 ================= -->
+
+<!-- ===== EIA198 ===== -->
 
 <div class="cap-box">
 
@@ -123,7 +226,7 @@ color:#38bdf8;
 
 <button onclick="calc198()">Calculer</button>
 
-<div class="result" id="res198">Résultat: —</div>
+<div class="result" id="res198">Capacité: —</div>
 
 </div>
 
@@ -154,10 +257,8 @@ function calc3(){
 let code=document.getElementById("code3").value;
 
 if(!/^\d{3}$/.test(code)){
-
 document.getElementById("res3").innerText="Code invalide";
 return;
-
 }
 
 let x1=parseInt(code[0]);
@@ -178,10 +279,8 @@ function calc4(){
 let code=document.getElementById("code4").value;
 
 if(!/^\d{4}$/.test(code)){
-
 document.getElementById("res4").innerText="Code invalide";
 return;
-
 }
 
 let num=parseInt(code.slice(0,3));
@@ -208,10 +307,8 @@ function calc198(){
 let code=document.getElementById("code198").value.toUpperCase();
 
 if(!/^[A-Z]\d$/.test(code)){
-
 document.getElementById("res198").innerText="Code invalide";
 return;
-
 }
 
 let letter=code[0];
