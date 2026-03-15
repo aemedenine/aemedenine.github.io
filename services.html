@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الخدمات | Atelier Électronique Médenine</title>
+<title>Services | Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
 <style>
 /* ================= RESET ================= */
@@ -101,6 +101,8 @@ body{background:#0f172a;color:white;line-height:1.6;}
   margin-bottom:15px;
   border-radius:12px;
 }
+
+/* Close button */
 .close-detail{
   display:inline-block;
   margin-bottom:20px;
@@ -127,7 +129,6 @@ footer{
 }
 </style>
 </head>
-
 <body>
 
 <!-- ================= HEADER ================= -->
@@ -137,8 +138,8 @@ footer{
     <h1>Atelier Électronique Médenine</h1>
   </div>
   <nav class="nav">
-    <a href="index.html">الرئيسية</a>
-    <a href="services.html">الخدمات</a>
+    <a href="index.html">Accueil</a>
+    <a href="services.html">Services</a>
     <a href="radio-codes.html">Code Radio</a>
     <a href="contact.html">Contact</a>
     <button class="login-btn">Login</button>
@@ -147,7 +148,7 @@ footer{
 
 <!-- ================= SERVICES CARDS ================= -->
 <section class="services-container">
-  <h2>خدمات الورشة</h2>
+  <h2>Nos Services</h2>
 
   <div class="cards">
     <div class="card" data-service="repair">
@@ -170,11 +171,11 @@ footer{
   <div id="repair" class="service-detail">
     <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
     <h3>Réparation Électronique</h3>
-    <p>Voici quelques exemples de nos réparations :</p>
-    <img src="images/photo1.jpeg" alt="Réparation 1">
-    <img src="images/photo2.jpeg" alt="Réparation 2">
+    <p>Photos et vidéos de l'atelier pour la réparation :</p>
+    <img src="images/atelier-repair1.jpeg" alt="Atelier Réparation 1">
+    <img src="images/atelier-repair2.jpeg" alt="Atelier Réparation 2">
     <video controls>
-      <source src="videos/video1.mp4" type="video/mp4">
+      <source src="videos/atelier-repair1.mp4" type="video/mp4">
       Votre navigateur ne supporte pas la vidéo.
     </video>
   </div>
@@ -182,11 +183,11 @@ footer{
   <div id="radio" class="service-detail">
     <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
     <h3>Déblocage Radio</h3>
-    <p>Voici quelques exemples de codes radio débloqués :</p>
-    <img src="images/foto1.jpeg" alt="Radio 1">
-    <img src="images/foto2.jpeg" alt="Radio 2">
+    <p>Photos et vidéos de l'atelier pour codes radio :</p>
+    <img src="images/atelier-radio1.jpeg" alt="Atelier Radio 1">
+    <img src="images/atelier-radio2.jpeg" alt="Atelier Radio 2">
     <video controls>
-      <source src="videos/video2.mp4" type="video/mp4">
+      <source src="videos/atelier-radio1.mp4" type="video/mp4">
       Votre navigateur ne supporte pas la vidéo.
     </video>
   </div>
@@ -194,15 +195,14 @@ footer{
   <div id="support" class="service-detail">
     <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
     <h3>Support Technique</h3>
-    <p>Nos interventions et conseils :</p>
-    <img src="images/image1.jpeg" alt="Support 1">
-    <img src="images/image2.jpeg" alt="Support 2">
+    <p>Photos et vidéos de l'atelier pour support technique :</p>
+    <img src="images/atelier-support1.jpeg" alt="Atelier Support 1">
+    <img src="images/atelier-support2.jpeg" alt="Atelier Support 2">
     <video controls>
-      <source src="videos/video3.mp4" type="video/mp4">
+      <source src="videos/atelier-support1.mp4" type="video/mp4">
       Votre navigateur ne supporte pas la vidéo.
     </video>
   </div>
-
 </section>
 
 <footer>
@@ -210,33 +210,34 @@ footer{
 </footer>
 
 <script>
-  // Open service detail on click
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card=>{
-    card.addEventListener('click',()=>{
-      const serviceId = card.getAttribute('data-service');
-      document.getElementById(serviceId).classList.add('active');
-      window.scrollTo({top:document.getElementById(serviceId).offsetTop - 100, behavior:'smooth'});
-    });
+// Open service detail on click
+const cards = document.querySelectorAll('.card');
+cards.forEach(card=>{
+  card.addEventListener('click',()=>{
+    const serviceId = card.getAttribute('data-service');
+    document.getElementById(serviceId).classList.add('active');
+    window.scrollTo({top:document.getElementById(serviceId).offsetTop - 80, behavior:'smooth'});
   });
+});
 
-  function closeDetail(){
-    document.querySelectorAll('.service-detail').forEach(detail=>{
-      detail.classList.remove('active');
-    });
-  }
+// Close service detail
+function closeDetail(){
+  document.querySelectorAll('.service-detail').forEach(detail=>{
+    detail.classList.remove('active');
+  });
+}
 
-  // Open service automatically if hash exists
-  window.addEventListener('DOMContentLoaded',()=>{
-    const hash = window.location.hash.substring(1);
-    if(hash){
-      const section = document.getElementById(hash);
-      if(section){
-        section.classList.add('active');
-        window.scrollTo({top: section.offsetTop - 100, behavior:'smooth'});
-      }
+// Open service automatically if hash exists
+window.addEventListener('DOMContentLoaded',()=>{
+  const hash = window.location.hash.substring(1);
+  if(hash){
+    const section = document.getElementById(hash);
+    if(section){
+      section.classList.add('active');
+      window.scrollTo({top: section.offsetTop - 80, behavior:'smooth'});
     }
-  });
+  }
+});
 </script>
 
 </body>
