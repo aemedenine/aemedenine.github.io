@@ -8,40 +8,6 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* ================= HEADER + LOGO ================= */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 8%;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(6px);
-  color:#fff;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-.logo{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-.logo-img{
-  width:50px;
-  height:auto;
-}
-.nav a{
-  color:#fff;
-  margin-left:20px;
-  text-decoration:none;
-  font-weight:600;
-  transition:0.3s;
-}
-.nav a:hover,
-.nav a.active{
-  color:#38bdf8;
-}
-
 /* ===== PAGE TITLE ===== */
 .page-title{
   text-align:center;
@@ -118,7 +84,7 @@
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ================= HEADER (مثل index.html) ================= -->
 <header class="header">
   <div class="logo">
     <img src="images/logo.png" alt="Logo" class="logo-img">
@@ -130,6 +96,7 @@
     <a href="services.html">Services</a>
     <a href="contact.html">Contact</a>
     <a href="faq.html" class="active">FAQ</a>
+    <button class="login-btn">Login</button>
   </nav>
 </header>
 
@@ -199,9 +166,7 @@
 <script>
 // FAQ toggle
 document.querySelectorAll(".faq-question").forEach(q => {
-  q.onclick = () => {
-    q.parentElement.classList.toggle("active");
-  }
+  q.onclick = () => { q.parentElement.classList.toggle("active"); }
 });
 
 // Translations
@@ -244,8 +209,7 @@ const translations = {
     faq_a_location:"مدنين – نهج ليبيا، بعد كوشة شامخ.",
     faq_q_call:"نقدر نتصل قبل ما نجي؟",
     faq_a_call:"أكيد يا خويا! أحسن حاجة تتصل قبل (واتساب أو مكالمة) على 98.192.103.",
-    faq_q_time:"كم ياخذ الوقت باش نصلح الكارت؟",
-    faq_a_time:"يعتمد على العطل: 1-3 أيام للضرر البسيط، 5-7 أيام للمشاكل الكبيرة.",
+    faq_q_time:"يعتمد على العطل: 1-3 أيام للضرر البسيط، 5-7 أيام للمشاكل الكبيرة.",
     faq_q_guarantee:"الضمان كيفاه؟",
     faq_a_guarantee:"كل تصليح عندنا ضمان من شهر حتى 3 أشهر.",
     faq_q_price:"الأسعار معقولة ولا غالية؟",
