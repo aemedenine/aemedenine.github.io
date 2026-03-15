@@ -284,7 +284,7 @@ footer {
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* المسافة بين النصوص */
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
@@ -292,6 +292,8 @@ footer {
 
 .footer-content p {
   margin: 0;
+  text-align: right; /* النص يروح لليمين */
+  flex: 1; /* ياخذ المساحة المتاحة */
 }
 
 .social-icons {
@@ -319,7 +321,7 @@ footer {
 
 /* ===== HOVER ANIMATION 2026 STYLE ===== */
 .social-circle:hover {
-  background: #38bdf8; /* اللون الأزرق */
+  background: #38bdf8;
   transform: translateY(-5px) scale(1.15);
   box-shadow: 0 8px 20px rgba(56,189,248,0.5), 0 0 15px rgba(56,189,248,0.4) inset;
 }
