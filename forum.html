@@ -62,17 +62,21 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.database();
 
-// 🔑 Google Login
+// 🔑 Login Google (يفتح popup كل مرة)
 function login(){
-  const provider=new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider);
+  auth.signOut().then(()=>{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  });
 }
 
 // 🟢 User Connected
 auth.onAuthStateChanged(user=>{
   if(user){
-    document.querySelector(".login").style.display="none";
-    listenMessages();
+    document.querySelector(".login").style.display="none"; // يخفي زر Login
+    listenMessages(); // يبدأ الفوروم يسمع الرسائل فورًا
+  } else {
+    document.querySelector(".login").style.display="block";
   }
 });
 
