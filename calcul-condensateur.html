@@ -230,9 +230,19 @@ font-weight:600;
 
 </div>
 
+<div class="cap-box">
+
+<h3>Code Condensateur avec R</h3>
+
+<input type="text" id="codeR" placeholder="Ex: 4R7 , R47 , 2R2">
+
+<button onclick="calcR()">Calculer</button>
+
+<div class="result" id="resR">Capacité: —</div>
+
+</div>
 </section>
-
-
+  
 <script>
 
 /* ===== CONVERSION ===== */
@@ -319,7 +329,40 @@ let pf=table[letter]*Math.pow(10,exp);
 document.getElementById("res198").innerText="Capacité: "+formatCap(pf);
 
 }
+function calcR(){
 
+let code=document.getElementById("codeR").value.toUpperCase();
+
+if(!code.includes("R")){
+document.getElementById("resR").innerText="Code invalide";
+return;
+}
+
+let parts=code.split("R");
+
+let value;
+
+if(parts[0]===""){
+
+value=parseFloat("0."+parts[1]);
+
+}
+
+else if(parts[1]===""){
+
+value=parseFloat(parts[0]);
+
+}
+
+else{
+
+value=parseFloat(parts[0]+"."+parts[1]);
+
+}
+
+document.getElementById("resR").innerText="Capacité: "+value+" pF";
+
+}
 </script>
 
 </body>
