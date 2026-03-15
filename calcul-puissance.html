@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Puissance | Atelier Électronique Médenine</title>
+<link rel="icon" href="images/favicon.png">
+<style>
+/* =============================== RESET =============================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:#0f172a;color:white;line-height:1.6;}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 8%;background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);position:sticky;top:0;z-index:1000;}
+.logo{display:flex;align-items:center;gap:15px;}
+.logo-img{width:60px;height:60px;border-radius:50%;border:3px solid #38bdf8;padding:5px;background:rgba(255,255,255,0.05);box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:0.3s;}
+.logo-img:hover{transform:scale(1.1);box-shadow:0 8px 25px rgba(0,0,0,0.5);}
+.logo h1{font-size:24px;font-weight:700;color:#fff;letter-spacing:1px;}
+.nav{display:flex;align-items:center;gap:25px;}
+.nav a{color:white;text-decoration:none;font-weight:500;transition:0.3s;}
+.nav a:hover{color:#38bdf8;}
+
+/* =============================== CALC BOX =============================== */
+.calc-power{padding:80px 8%;text-align:center;}
+.calc-power h2{font-size:36px;color:#38bdf8;margin-bottom:40px;}
+.power-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(8px);
+border-radius:20px;
+padding:30px;
+max-width:500px;
+margin:auto 0 40px;
+position:relative;
+overflow:hidden;
+transition: transform 0.4s, box-shadow 0.4s;
+}
+.power-box::before{
+content:'';
+position:absolute;
+top:0;left:-75%;width:50%;height:100%;
+background:linear-gradient(120deg, rgba(255,255,255,0.15), rgba(255,255,255,0), rgba(255,255,255,0.15));
+transform:skewX(-20deg);
+transition:0.5s;
+}
+.power-box:hover::before{left:125%;}
+.power-box:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 15px 35px rgba(56,189,248,0.7),0 0 20px rgba(56,189,248,0.5) inset,0 0 25px rgba(56,189,248,0.3);}
+.power-box label{display:block;text-align:left;margin:15px 0 5px;font-weight:500;color:#cbd5f5;}
+.power-box input{width:100%;padding:12px;border-radius:10px;border:none;background:rgba(255,255,255,0.05);color:white;font-size:16px;margin-bottom:10px;}
+.power-box button{padding:12px;border:none;border-radius:50px;background:#38bdf8;color:black;font-weight:600;cursor:pointer;transition:0.3s;position:relative;z-index:1;}
+.power-box button::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,#38bdf8,#0ea5e9,#06b6d4,#38bdf8);filter:blur(10px);opacity:0;transition:0.3s;border-radius:50px;z-index:-1;}
+.power-box button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(56,189,248,0.5);}
+.power-box button:hover::after{opacity:0.7;}
+.result{margin-top:20px;font-size:20px;color:#38bdf8;font-weight:600;}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<img src="images/logo.png" alt="Logo" class="logo-img">
+<h1>Atelier Électronique Médenine</h1>
+</div>
+<nav class="nav">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<section class="calc-power">
+<h2>Calcul Puissance Électrique</h2>
+
+<!-- ================= Puissance DC ================= -->
+<div class="power-box">
+<h3>Courant Continu (DC)</h3>
+<label>Tension (U en Volts):</label>
+<input type="number" id="voltageDC" placeholder="Ex: 12">
+<label>Intensité (I en Ampères):</label>
+<input type="number" id="currentDC" placeholder="Ex: 2">
+<button onclick="calcDC()">Calculer Puissance</button>
+<div class="result" id="resultDC">Puissance: —</div>
+</div>
+
+<!-- ================= Puissance AC ================= -->
+<div class="power-box">
+<h3>Courant Alternatif (AC)</h3>
+<label>Tension (U en Volts):</label>
+<input type="number" id="voltageAC" placeholder="Ex: 230">
+<label>Intensité (I en Ampères):</label>
+<input type="number" id="currentAC" placeholder="Ex: 5">
+<label>Facteur de puissance (cos φ):</label>
+<input type="number" step="0.01" id="cosPhi" placeholder="Ex: 0.85">
+<button onclick="calcAC()">Calculer Puissance</button>
+<div class="result" id="resultAC">Puissance: —</div>
+</div>
+
+</section>
+
+<script>
+function calcDC(){
+let U = parseFloat(document.getElementById("voltageDC").value);
+let I = parseFloat(document.getElementById("currentDC").value);
+if(isNaN(U) || isNaN(I)){document.getElementById("resultDC").innerText="Entrez des valeurs valides"; return;}
+let P = U * I;
+document.getElementById("resultDC").innerText="Puissance: "+P.toFixed(2)+" W";
+}
+
+function calcAC(){
+let U = parseFloat(document.getElementById("voltageAC").value);
+let I = parseFloat(document.getElementById("currentAC").value);
+let cosPhi = parseFloat(document.getElementById("cosPhi").value);
+if(isNaN(U) || isNaN(I) || isNaN(cosPhi)){document.getElementById("resultAC").innerText="Entrez des valeurs valides"; return;}
+let P = U * I * cosPhi;
+document.getElementById("resultAC").innerText="Puissance: "+P.toFixed(2)+" W";
+}
+</script>
+
+</body>
+</html>
