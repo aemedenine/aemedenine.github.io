@@ -139,27 +139,27 @@ body{
 
 
 /* ===============================  
-   SERVICES & CALCUL ELECTRONIQUE CARDS 2026
+   SERVICES, CALCUL ÉLECTRONIQUE & ATELIER CARDS 2026
 =================================*/
-.services, .calcul-electronique {
+.services, .calcul-electronique, .atelier {
   text-align:center;
   padding:80px 8%;
 }
 
-.services h2, .calcul-electronique h2 {
+.services h2, .calcul-electronique h2, .atelier h2 {
   font-size:36px;
   margin-bottom:40px;
   color:#38bdf8;
 }
 
-.services .cards, .calc-cards {
+.services .cards, .calc-cards, .atelier-cards {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:25px;
   justify-items:center;
 }
 
-.service-card, .calc-card {
+.service-card, .calc-card, .atelier-cards .card {
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(8px);
   border-radius:20px;
@@ -174,18 +174,18 @@ body{
   overflow:hidden;
 }
 
-.service-card h3, .calc-card h3 {
+.service-card h3, .calc-card h3, .atelier-cards .card h3 {
   margin-bottom:15px;
   color:#38bdf8;
 }
 
-.service-card p, .calc-card p {
+.service-card p, .calc-card p, .atelier-cards .card p {
   font-size:15px;
   line-height:1.4;
   color:#cbd5e1;
 }
 
-.service-card::before, .calc-card::before{
+.service-card::before, .calc-card::before, .atelier-cards .card::before{
   content:'';
   position:absolute;
   top:0;
@@ -197,11 +197,11 @@ body{
   transition:0.5s;
 }
 
-.service-card:hover::before, .calc-card:hover::before{
+.service-card:hover::before, .calc-card:hover::before, .atelier-cards .card:hover::before{
   left:125%;
 }
 
-.service-card:hover, .calc-card:hover{
+.service-card:hover, .calc-card:hover, .atelier-cards .card:hover{
   transform:translateY(-5px) scale(1.05);
   box-shadow:0 15px 35px rgba(56,189,248,0.7), 0 0 15px rgba(56,189,248,0.5) inset;
 }
