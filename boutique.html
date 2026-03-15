@@ -9,6 +9,7 @@
 /* ===== RESET ===== */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
 body{background:#0f172a;color:white;line-height:1.6;}
+.hidden{display:none;}
 
 /* ===== HEADER ===== */
 .header{
@@ -22,21 +23,8 @@ body{background:#0f172a;color:white;line-height:1.6;}
   top:0;
   z-index:1000;
 }
-.logo{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-.logo-img{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  border: 3px solid #38bdf8;
-  padding:5px;
-  background:rgba(255,255,255,0.05);
-  box-shadow:0 4px 15px rgba(0,0,0,0.3);
-  transition:0.3s;
-}
+.logo{display:flex;align-items:center;gap:15px;}
+.logo-img{width:60px;height:60px;border-radius:50%;border:3px solid #38bdf8;padding:5px;background:rgba(255,255,255,0.05);box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:0.3s;}
 .logo-img:hover{transform:scale(1.1);box-shadow:0 8px 25px rgba(0,0,0,0.5);}
 .logo h1{font-size:24px;font-weight:700;color:#ffffff;letter-spacing:1px;}
 
@@ -46,6 +34,11 @@ body{background:#0f172a;color:white;line-height:1.6;}
 .nav a:hover{color:#38bdf8;}
 .login-btn{padding:8px 18px;border:none;border-radius:30px;background:#38bdf8;color:#000;font-weight:600;cursor:pointer;transition:0.3s;}
 .login-btn:hover{transform:scale(1.05);}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher{margin-left:15px;}
+.lang-switcher button{background:#38bdf8;color:#000;padding:5px 10px;border-radius:6px;border:none;font-weight:bold;cursor:pointer;margin-left:5px;}
+.lang-switcher button:hover{background:#0ea5e9;}
 
 /* ===== PAGE TITLE ===== */
 .page-title{text-align:center;font-size:36px;margin:40px 0;color:#38bdf8;}
@@ -91,39 +84,82 @@ footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-si
     <a href="services-atelier.html">الخدمات</a>
     <a href="boutique.html" class="active">المتجر</a>
     <button class="login-btn">Login</button>
+    <div class="lang-switcher">
+      <button onclick="setLang('ar')">AR</button>
+      <button onclick="setLang('fr')">FR</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
   </nav>
 </header>
 
 <!-- ===== PAGE CONTENT ===== -->
 <section class="container">
-  <a href="index.html" class="btn-return">🏠 رجوع للرئيسية</a>
+
+  <a href="index.html" class="btn-return">🏠 <span class="lang-ar">رجوع للرئيسية</span><span class="lang-fr hidden">Retour à l'accueil</span><span class="lang-en hidden">Back to Home</span></a>
+
   <div class="product-grid">
 
-    <!-- المنتج 1 -->
+    <!-- PRODUCT 1 -->
     <div class="product-card">
       <img src="images/250a.webp" alt="Poste Meakida 250A" class="product-img">
-      <h3>Poste a souder Meakida 250A</h3>
-      <p>ماكينة لحام قوية 250 أمبير</p>
+      <h3>
+        <span class="lang-ar">Poste a souder Meakida 250A</span>
+        <span class="lang-fr hidden">Poste à souder Meakida 250A</span>
+        <span class="lang-en hidden">Meakida Welding Machine 250A</span>
+      </h3>
+      <p>
+        <span class="lang-ar">ماكينة لحام قوية 250 أمبير</span>
+        <span class="lang-fr hidden">Machine de soudage 250A puissante</span>
+        <span class="lang-en hidden">Powerful 250A welding machine</span>
+      </p>
       <div class="price">د.ت 319,000</div>
-      <button class="btn-store">شراء</button>
+      <button class="btn-store">
+        <span class="lang-ar">شراء</span>
+        <span class="lang-fr hidden">Acheter</span>
+        <span class="lang-en hidden">Buy</span>
+      </button>
     </div>
 
-    <!-- المنتج 2 -->
+    <!-- PRODUCT 2 -->
     <div class="product-card">
       <img src="images/300a.webp" alt="Poste Meakida 300A" class="product-img">
-      <h3>Poste a souder Meakida 300A</h3>
-      <p>أداء أفضل بـ 300 أمبير</p>
+      <h3>
+        <span class="lang-ar">Poste a souder Meakida 300A</span>
+        <span class="lang-fr hidden">Poste à souder Meakida 300A</span>
+        <span class="lang-en hidden">Meakida Welding Machine 300A</span>
+      </h3>
+      <p>
+        <span class="lang-ar">أداء أفضل بـ 300 أمبير</span>
+        <span class="lang-fr hidden">Performance améliorée à 300A</span>
+        <span class="lang-en hidden">Better performance 300A</span>
+      </p>
       <div class="price">د.ت 339,000</div>
-      <button class="btn-store">شراء</button>
+      <button class="btn-store">
+        <span class="lang-ar">شراء</span>
+        <span class="lang-fr hidden">Acheter</span>
+        <span class="lang-en hidden">Buy</span>
+      </button>
     </div>
 
-    <!-- المنتج 3 -->
+    <!-- PRODUCT 3 -->
     <div class="product-card">
       <img src="images/ingco200a.webp" alt="Poste Ingco 200A" class="product-img">
-      <h3>Poste a souder INGCO 200A</h3>
-      <p>ماركة مشهورة وعملية</p>
+      <h3>
+        <span class="lang-ar">Poste a souder INGCO 200A</span>
+        <span class="lang-fr hidden">Poste à souder INGCO 200A</span>
+        <span class="lang-en hidden">INGCO Welding Machine 200A</span>
+      </h3>
+      <p>
+        <span class="lang-ar">ماركة مشهورة وعملية</span>
+        <span class="lang-fr hidden">Marque célèbre et pratique</span>
+        <span class="lang-en hidden">Famous and practical brand</span>
+      </p>
       <div class="price">د.ت 480,000</div>
-      <button class="btn-store">شراء</button>
+      <button class="btn-store">
+        <span class="lang-ar">شراء</span>
+        <span class="lang-fr hidden">Acheter</span>
+        <span class="lang-en hidden">Buy</span>
+      </button>
     </div>
 
   </div>
@@ -133,23 +169,20 @@ footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-si
   <p>© 2026 Atelier Electronique Médenine – جميع الحقوق محفوظة</p>
 </footer>
 
-<!-- ===== MODALS PAYMENT ===== -->
+<!-- MODAL + JS كما قبل -->
 <div id="modalOverlay"></div>
-
 <div id="paymentMethodModal" class="modal">
   <h3>اختر طريقة الدفع</h3>
   <button id="payD17Btn" class="d17">الدفع عن طريق D17</button>
   <button id="payPostBtn" class="post">الدفع عن طريق البريد</button>
   <br><button id="cancelPaymentMethod" class="cancel">إلغاء</button>
 </div>
-
 <div id="d17Modal" class="modal">
   <h3>الدفع عن طريق D17</h3>
   <input type="text" id="cardNumber" placeholder="أدخل رقم بطاقتك">
   <button id="submitD17" class="d17">إرسال</button>
   <button id="cancelD17" class="cancel">إلغاء</button>
 </div>
-
 <div id="postModal" class="modal">
   <h3>الدفع عن طريق البريد</h3>
   <form id="postForm">
@@ -163,6 +196,12 @@ footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-si
 </div>
 
 <script>
+function setLang(lang){
+  document.querySelectorAll('.lang-ar,.lang-fr,.lang-en').forEach(el=>el.classList.add('hidden'));
+  document.querySelectorAll('.lang-'+lang).forEach(el=>el.classList.remove('hidden'));
+}
+
+// باقي جافاسكريبت الدفع كما في الكود السابق
 const whatsappNumber = '21698192103';
 const modalOverlay = document.getElementById('modalOverlay');
 const paymentMethodModal = document.getElementById('paymentMethodModal');
@@ -170,8 +209,6 @@ const d17Modal = document.getElementById('d17Modal');
 const postModal = document.getElementById('postModal');
 let currentProductName = '';
 let currentProductPrice = '';
-
-// أزرار شراء
 document.querySelectorAll('.btn-store').forEach(btn => {
   btn.addEventListener('click', () => {
     const card = btn.closest('.product-card');
@@ -181,7 +218,6 @@ document.querySelectorAll('.btn-store').forEach(btn => {
     modalOverlay.style.display='block';
   });
 });
-
 document.getElementById('cancelPaymentMethod').addEventListener('click', ()=>{
   paymentMethodModal.style.display='none';
   modalOverlay.style.display='none';
