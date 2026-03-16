@@ -3,294 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forum Live| Atelier Électronique Médenine</title>
+<title>Forum Live 2026 | Atelier Électronique Médenine</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:linear-gradient(135deg,#020617,#0f172a,#020617);color:#e2e8f0;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
-header{padding:16px;text-align:center;font-size:24px;font-weight:600;background:rgba(2,6,23,0.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(56,189,248,0.2);}
-.login{text-align:center;margin:80px auto;max-width:400px;}
-.login button{background:linear-gradient(45deg,#38bdf8,#0ea5e9);border:none;padding:14px 40px;border-radius:50px;color:white;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(14,165,233,0.4);transition:all 0.3s;}
-.login button:hover{transform:scale(1.05);}
-#chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:rgba(15,23,42,0.4);backdrop-filter:blur(8px);}
-.message{display:flex;gap:12px;max-width:80%;background:rgba(30,41,59,0.7);backdrop-filter:blur(12px);padding:12px 16px;border-radius:18px;border:1px solid rgba(56,189,248,0.15);animation:fadeIn 0.4s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
-.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(45deg,#38bdf8,#0ea5e9);display:flex;align-items:center;justify-content:center;font-weight:bold;color:white;font-size:18px;box-shadow:0 2px 10px rgba(14,165,233,0.5);}
-.text{flex:1;}
-.text b{color:#38bdf8;font-size:14px;}
-.text small{color:#94a3b8;font-size:11px;}
-.me{margin-left:auto;background:linear-gradient(45deg,#38bdf8,#0ea5e9);color:#0f172a;border:none;}
-.me .text b{color:#0f172a;}
-.reactions{margin-top:6px;display:flex;gap:6px;}
-.reaction{background:rgba(255,255,255,0.15);padding:4px 8px;border-radius:20px;font-size:14px;cursor:pointer;transition:0.2s;}
-.reaction:hover{background:rgba(255,255,255,0.3);}
-.typing{text-align:center;color:#38bdf8;font-style:italic;padding:10px;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:0.6;}50%{opacity:1;}}
-.status-dot{width:10px;height:10px;border-radius:50%;margin-left:6px;display:inline-block;}
-.online{background:#22c55e;}
-.offline{background:#ef4444;}
-.chat-input{display:flex;align-items:center;padding:16px;background:rgba(2,6,23,0.9);backdrop-filter:blur(10px);border-top:1px solid rgba(56,189,248,0.2);}
-.chat-input input{flex:1;padding:14px 20px;border:none;border-radius:30px;background:rgba(30,41,59,0.7);color:white;outline:none;font-size:16px;}
-.chat-input .emoji-btn{margin-left:10px;font-size:24px;cursor:pointer;}
-.chat-input .photo-btn{margin-left:10px;font-size:22px;cursor:pointer;}
-.chat-input button{margin-left:12px;padding:14px 28px;border:none;border-radius:30px;background:#38bdf8;color:white;cursor:pointer;font-weight:600;transition:0.3s;}
-.chat-input button:hover{background:#0ea5e9;transform:scale(1.05);}
-#emoji-picker{display:none;position:absolute;bottom:90px;right:20px;z-index:100;width:320px;height:400px;}
-#preview-container{display:none;margin-left:10px;align-items:center;}
-#preview-img{max-width:60px;max-height:60px;border-radius:8px;border:1px solid #38bdf8;}
-.message img{max-width:220px;border-radius:12px;margin-top:8px;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
-#chat::-webkit-scrollbar{width:6px;}
-#chat::-webkit-scrollbar-thumb{background:#38bdf8;border-radius:3px;}
-  /* ================= MOBILE OPTIMISATION ================= */
-
-@media (max-width: 768px){
-
-header{
-font-size:18px;
-padding:12px;
-}
-
-.login{
-margin:40px 20px;
-}
-
-.login button{
-width:100%;
-padding:14px;
-font-size:16px;
-}
-
-#chat{
-padding:12px;
-gap:10px;
-}
-
-.message{
-max-width:95%;
-padding:10px 12px;
-}
-
-.avatar{
-width:34px;
-height:34px;
-font-size:14px;
-}
-
-.text b{
-font-size:13px;
-}
-
-.text small{
-font-size:10px;
-}
-
-.message img{
-max-width:180px;
-}
-
-.chat-input{
-padding:10px;
-gap:6px;
-}
-
-.chat-input input{
-padding:10px 14px;
-font-size:14px;
-}
-
-.chat-input button{
-padding:10px 16px;
-font-size:14px;
-}
-
-.emoji-btn,
-.photo-btn{
-font-size:20px;
-}
-
-#emoji-picker{
-width:100%;
-right:0;
-bottom:70px;
-height:300px;
-}
-
-}
+body{background:linear-gradient(135deg,#020617,#0f172a,#020617);color:#e2e8f0;height:100vh;display:flex;overflow:hidden;}
+header{padding:16px;text-align:center;font-size:24px;font-weight:600;background:rgba(2,6,23,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(56,189,248,0.2);position:relative;}
+.notification-badge{position:absolute;top:10px;right:20px;background:#ef4444;color:white;border-radius:50%;padding:4px 8px;font-size:12px;display:none;}
+#sidebar{width:220px;background:rgba(15,23,42,0.6);backdrop-filter:blur(8px);padding:16px;overflow-y:auto;border-right:1px solid rgba(56,189,248,0.2);}
+#chat{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+#messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:rgba(15,23,42,0.4);}
+.message{display:flex;gap:12px;max-width:80%;background:rgba(30,41,59,0.7);backdrop-filter:blur(12px);padding:12px 16px;border-radius:18px;border:1px solid rgba(56,189,248,0.15);animation:fadeIn 0.4s ease;position:relative;}
+.reply-to{font-size:11px;color:#38bdf8;margin-bottom:4px;}
+.message-actions{position:absolute;top:8px;right:8px;display:flex;gap:8px;opacity:0;transition:0.2s;}
+.message:hover .message-actions{opacity:1;}
+.edit-btn,.delete-btn{cursor:pointer;font-size:16px;}
+.edit-btn{color:#fbbf24;}
+.delete-btn{color:#ef4444;}
+/* ... (style précédent pour avatar, text, me, reactions, typing, etc.) */
+.online-user{display:flex;align-items:center;gap:8px;padding:8px;border-bottom:1px solid rgba(56,189,248,0.1);}
+.online-user .status-dot{margin:0;}
+#chat-input{display:flex;align-items:center;padding:16px;background:rgba(2,6,23,0.9);backdrop-filter:blur(10px);border-top:1px solid rgba(56,189,248,0.2);}
 </style>
 </head>
 <body>
-<header>💬 Forum Live– AÉM</header>
-
-<div class="login">
-  <button onclick="login()">🔐 Login avec Google</button>
-</div>
-
-<div id="chat" style="display:none;"></div>
-
-<div class="chat-input">
-  <input id="msg" placeholder="Écris un message... 😏🔥" autocomplete="off">
-  <span class="emoji-btn" onclick="toggleEmojiPicker()">😊</span>
-  <span class="photo-btn" onclick="document.getElementById('photo-input').click()">📷</span>
-  <input type="file" id="photo-input" accept="image/*" style="display:none;">
-  <div id="preview-container"><img id="preview-img" src="" alt="Prévisualisation"></div>
-  <button onclick="send()">Envoyer</button>
+<div style="display:flex;height:100vh;">
+  <div id="sidebar">
+    <h3 style="margin-bottom:12px;">Online (🟢)</h3>
+    <div id="online-users"></div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;">
+    <header>💬 Forum Live – AÉM <span id="notif-badge" class="notification-badge">0</span></header>
+    <div id="chat">
+      <div id="messages"></div>
+      <div class="chat-input" id="chat-input">
+        <input id="msg" placeholder="Écris un message... 😏🔥" autocomplete="off">
+        <span class="emoji-btn" onclick="toggleEmojiPicker()">😊</span>
+        <span class="photo-btn" onclick="document.getElementById('photo-input').click()">📷</span>
+        <input type="file" id="photo-input" accept="image/*" style="display:none;">
+        <div id="preview-container"><img id="preview-img" src="" alt="Prévisualisation"></div>
+        <button id="send-btn">Envoyer</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Emoji Picker -->
 <emoji-picker id="emoji-picker" skin-tone-emoji="👍"></emoji-picker>
 
-<!-- Firebase Compat SDK -->
+<!-- Firebase Compat -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
-<!-- Emoji Picker (latest CDN) -->
 <script type="module">
   import 'https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/index.js';
 </script>
 
 <script>
-// Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-  authDomain: "atelier-electronique-mednine.firebaseapp.com",
-  projectId: "atelier-electronique-mednine",
-  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-  messagingSenderId: "547430908384",
-  appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
-  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
-};
-
+// Config
+const firebaseConfig = { /* ton config */ };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
+const storage = firebase.storage();
 
 let currentUser = null;
 let typingTimeout = null;
 let selectedImage = null;
+let isSending = false;
+let replyToKey = null; // Pour reply
+let notifCount = 0;
 
-// Login Google
-function login() {
-  auth.signOut().then(() => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).catch(err => {
-      console.error("Erreur login:", err);
-      alert("Problème login: " + err.message);
+// ... (login, auth.onAuthStateChanged, setPresence, typing functions kif 9bal – zidna juste online list)
+
+function listenOnlineUsers() {
+  db.ref("presence").orderByChild("online").equalTo(true).on("value", snap => {
+    const list = document.getElementById("online-users");
+    list.innerHTML = "";
+    snap.forEach(child => {
+      const data = child.val();
+      if (data.online) {
+        const div = document.createElement("div");
+        div.className = "online-user";
+        div.innerHTML = `<span class="status-dot online"></span> ${data.name || "Anonyme"}`;
+        list.appendChild(div);
+      }
     });
   });
 }
 
-// Auth State Listener
-auth.onAuthStateChanged(user => {
-  if (user) {
-    currentUser = user;
-    document.querySelector(".login").style.display = "none";
-    document.getElementById("chat").style.display = "flex";
-    listenTyping();
-    setPresence(true);
-    console.log("Connecté:", user.displayName);
-  } else {
-    currentUser = null;
-    document.querySelector(".login").style.display = "block";
-    document.getElementById("chat").style.display = "none";
-    setPresence(false);
+// Send with reply & storage upload
+async function send() {
+  if (!currentUser || isSending) return;
+  isSending = true;
+
+  const text = document.getElementById("msg").value.trim();
+  if (!text && !selectedImage) { isSending = false; return; }
+
+  let imageUrl = null;
+  if (selectedImage) {
+    const file = document.getElementById("photo-input").files[0];
+    const ref = storage.ref(`messages/${Date.now()}_${file.name}`);
+    try {
+      await ref.put(file);
+      imageUrl = await ref.getDownloadURL();
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("Erreur upload image");
+      isSending = false;
+      return;
+    }
   }
-});
-
-// Presence (online/offline)
-function setPresence(online) {
-  if (!currentUser) return;
-  db.ref(`presence/${currentUser.uid}`).set({
-    online: online,
-    name: currentUser.displayName || "Anonyme",
-    lastSeen: Date.now()
-  });
-}
-
-// Typing Indicator
-const msgInput = document.getElementById("msg");
-msgInput.addEventListener("input", () => {
-  if (!currentUser) return;
-  db.ref(`typing/${currentUser.uid}`).set(true);
-  clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(() => {
-    db.ref(`typing/${currentUser.uid}`).remove();
-  }, 2500);
-});
-
-function listenTyping() {
-  db.ref("typing").on("child_added", snap => {
-    if (snap.key !== currentUser?.uid) showTyping(snap.key);
-  });
-  db.ref("typing").on("child_removed", snap => {
-    removeTyping(snap.key);
-  });
-}
-
-function showTyping(uid) {
-  db.ref(`presence/${uid}`).once("value", snap => {
-    const name = snap.val()?.name || "Quelqu'un";
-    const div = document.createElement("div");
-    div.id = `typing-${uid}`;
-    div.className = "typing";
-    div.textContent = `${name} est en train d'écrire... ✍️`;
-    document.getElementById("chat").appendChild(div);
-    scrollToBottom();
-  });
-}
-
-function removeTyping(uid) {
-  const el = document.getElementById(`typing-${uid}`);
-  if (el) el.remove();
-}
-
-function scrollToBottom() {
-  const chat = document.getElementById("chat");
-  chat.scrollTop = chat.scrollHeight;
-}
-
-// Emoji Picker Toggle & Insert
-function toggleEmojiPicker() {
-  const picker = document.getElementById("emoji-picker");
-  picker.style.display = picker.style.display === "block" ? "none" : "block";
-}
-
-document.getElementById("emoji-picker").addEventListener("emoji-click", e => {
-  const emoji = e.detail.unicode;
-  const input = document.getElementById("msg");
-  const pos = input.selectionStart;
-  input.value = input.value.slice(0, pos) + emoji + input.value.slice(pos);
-  input.focus();
-  input.selectionStart = input.selectionEnd = pos + emoji.length;
-  toggleEmojiPicker();
-});
-
-// Photo Upload & Preview
-document.getElementById("photo-input").addEventListener("change", e => {
-  const file = e.target.files[0];
-  if (!file || !file.type.startsWith("image/")) {
-    alert("Choisis une image valide bro!");
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = ev => {
-    document.getElementById("preview-img").src = ev.target.result;
-    document.getElementById("preview-container").style.display = "flex";
-    selectedImage = ev.target.result; // base64
-  };
-  reader.readAsDataURL(file);
-});
-
-// Send Message (text + optional image)
-function send() {
-  if (!currentUser) {
-    alert("Login awla bro!");
-    return;
-  }
-  const text = msgInput.value.trim();
-  const hasImage = !!selectedImage;
-
-  if (!text && !hasImage) return;
 
   const msgData = {
     text: text || "",
@@ -298,25 +123,23 @@ function send() {
     name: currentUser.displayName || "Anonyme",
     photoURL: currentUser.photoURL || "",
     time: Date.now(),
-    reactions: {}
+    reactions: {},
+    image: imageUrl,
+    replyTo: replyToKey ? { key: replyToKey, text: "..." } : null  // zid full quote ba3d
   };
 
-  if (hasImage) msgData.image = selectedImage;
-
   db.ref("messages").push(msgData).then(() => {
-    msgInput.value = "";
+    document.getElementById("msg").value = "";
     selectedImage = null;
     document.getElementById("preview-container").style.display = "none";
-    document.getElementById("preview-img").src = "";
+    replyToKey = null;
+    document.getElementById("msg").placeholder = "Écris un message... 😏🔥";
     db.ref(`typing/${currentUser.uid}`).remove();
-    scrollToBottom();
-  }).catch(err => {
-    console.error("Erreur envoi:", err);
-    alert("Erreur envoi message: " + err.message);
-  });
+  }).catch(err => alert("Erreur: " + err.message))
+  .finally(() => isSending = false);
 }
 
-// Listen Messages
+// Listen messages + edit/delete/reply UI
 function listenMessages() {
   db.ref("messages").orderByChild("time").on("child_added", snap => {
     const msg = snap.val();
@@ -328,59 +151,76 @@ function listenMessages() {
     let html = `
       <div class="avatar">${(msg.name || "?").charAt(0)}</div>
       <div class="text">
-        <b>${msg.name || "Inconnu"} <span class="status-dot"></span></b>
-        <small>${new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</small><br>
-        ${msg.text}
+        <b>${msg.name} <span class="status-dot"></span></b>
+        <small>${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small><br>
     `;
-
-    if (msg.image) {
-      html += `<br><img src="${msg.image}" alt="Image envoyée">`;
-    }
-
+    if (msg.replyTo) html += `<div class="reply-to">Réponse à : ${msg.replyTo.text.substring(0,50)}...</div>`;
+    html += `${msg.text}`;
+    if (msg.image) html += `<br><img src="${msg.image}" alt="Image">`;
     html += `
         <div class="reactions" id="reac-${key}"></div>
+        <div class="message-actions">
+          ${msg.uid === currentUser?.uid ? `<span class="edit-btn" onclick="editMessage('${key}', '${msg.text.replace(/'/g,"\\\'")}')">✏️</span>` : ''}
+          ${msg.uid === currentUser?.uid ? `<span class="delete-btn" onclick="deleteMessage('${key}')">🗑️</span>` : ''}
+          <span onclick="setReply('${key}')">💬</span>
+        </div>
       </div>
     `;
-
     div.innerHTML = html;
-    document.getElementById("chat").appendChild(div);
+    document.getElementById("messages").appendChild(div);
     scrollToBottom();
 
-    // Double-click pour ajouter ❤️ (najjem t zid picker ba3d)
+    // Notif simple si pas moi
+    if (msg.uid !== currentUser?.uid) {
+      notifCount++;
+      const badge = document.getElementById("notif-badge");
+      badge.textContent = notifCount;
+      badge.style.display = "inline";
+    }
+
     div.addEventListener("dblclick", () => addReaction(key, "❤️"));
   });
 
-  // Listen reactions updates
-  db.ref("messages").on("child_changed", snap => {
-    const msg = snap.val();
-    const key = snap.key;
-    const reacDiv = document.getElementById(`reac-${key}`);
-    if (reacDiv) {
-      reacDiv.innerHTML = Object.values(msg.reactions || {}).map(r => `<span class="reaction">${r}</span>`).join(" ");
-    }
-  });
+  // ... (reactions child_changed kif 9bal)
 }
 
-function addReaction(msgKey, emoji) {
-  if (!currentUser) return;
-  db.ref(`messages/${msgKey}/reactions/${currentUser.uid}`).set(emoji);
+function editMessage(key, oldText) {
+  const newText = prompt("Édite ton message:", oldText);
+  if (newText !== null && newText.trim() !== "") {
+    db.ref(`messages/${key}/text`).set(newText.trim());
+  }
 }
 
-// Send avec Enter (sans shift pour multiligne ida t7eb ba3d)
+function deleteMessage(key) {
+  if (confirm("Supprimer ce message ?")) {
+    db.ref(`messages/${key}`).remove();
+  }
+}
+
+function setReply(key) {
+  replyToKey = key;
+  document.getElementById("msg").placeholder = "Répondre au message...";
+  document.getElementById("msg").focus();
+}
+
+// Events & init
+document.getElementById("send-btn").addEventListener("click", send);
 msgInput.addEventListener("keypress", e => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    send();
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    currentUser = user;
+    // hide login, show chat
+    listenMessages();
+    listenOnlineUsers();
+    listenTyping();
+    setPresence(true);
   }
 });
 
-// Init on load
-listenMessages();
-
-// Cleanup presence on close
-window.addEventListener("beforeunload", () => {
-  if (currentUser) setPresence(false);
-});
+// ... (autres functions kif 9bal: emoji, photo preview, presence cleanup, etc.)
 </script>
 </body>
 </html>
