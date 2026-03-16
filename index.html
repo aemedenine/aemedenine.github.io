@@ -196,26 +196,46 @@
 <script src="js/script.js"></script>
 <script>
 
-const text = "Bienvenue chez Atelier Electronique Medenine";
-const speed = 80;
+document.addEventListener("DOMContentLoaded", function(){
 
+const text = "Atelier Électrique Medenine";
+const speed = 80;
 let i = 0;
+
+const target = document.getElementById("typingTitle");
 
 function typing(){
 
 if(i < text.length){
 
-document.getElementById("typingTitle").innerHTML += text.charAt(i);
+target.innerHTML += text.charAt(i);
 
 i++;
 
 setTimeout(typing, speed);
 
+}else{
+
+/* pause 10s ثم إعادة */
+setTimeout(resetTyping, 10000);
+
 }
+
+}
+
+function resetTyping(){
+
+target.innerHTML = "";
+
+i = 0;
+
+typing();
 
 }
 
 typing();
+
+});
 
 </script>
 </body>
