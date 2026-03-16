@@ -195,6 +195,29 @@
 
 <!-- ================= SCRIPTS ================= -->
 <script src="js/script.js"></script>
+<script>
 
+const text = "Electronique Medenine";
+const speed = 80;
+
+let i = 0;
+
+function typing(){
+
+if(i < text.length){
+
+document.getElementById("typingTitle").innerHTML += text.charAt(i);
+
+i++;
+
+setTimeout(typing, speed);
+
+}
+
+}
+
+typing();
+
+</script>
 </body>
 </html>
