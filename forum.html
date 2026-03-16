@@ -6,24 +6,318 @@
 <title>Forum Live 2026 | Atelier Électronique Médenine</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:linear-gradient(135deg,#020617,#0f172a,#020617);color:#e2e8f0;height:100vh;display:flex;overflow:hidden;}
-header{padding:16px;text-align:center;font-size:24px;font-weight:600;background:rgba(2,6,23,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(56,189,248,0.2);position:relative;}
-.notification-badge{position:absolute;top:10px;right:20px;background:#ef4444;color:white;border-radius:50%;padding:4px 8px;font-size:12px;display:none;}
-#sidebar{width:220px;background:rgba(15,23,42,0.6);backdrop-filter:blur(8px);padding:16px;overflow-y:auto;border-right:1px solid rgba(56,189,248,0.2);}
-#chat{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-#messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:rgba(15,23,42,0.4);}
-.message{display:flex;gap:12px;max-width:80%;background:rgba(30,41,59,0.7);backdrop-filter:blur(12px);padding:12px 16px;border-radius:18px;border:1px solid rgba(56,189,248,0.15);animation:fadeIn 0.4s ease;position:relative;}
-.reply-to{font-size:11px;color:#38bdf8;margin-bottom:4px;}
-.message-actions{position:absolute;top:8px;right:8px;display:flex;gap:8px;opacity:0;transition:0.2s;}
-.message:hover .message-actions{opacity:1;}
-.edit-btn,.delete-btn{cursor:pointer;font-size:16px;}
-.edit-btn{color:#fbbf24;}
-.delete-btn{color:#ef4444;}
-/* ... (style précédent pour avatar, text, me, reactions, typing, etc.) */
-.online-user{display:flex;align-items:center;gap:8px;padding:8px;border-bottom:1px solid rgba(56,189,248,0.1);}
-.online-user .status-dot{margin:0;}
-#chat-input{display:flex;align-items:center;padding:16px;background:rgba(2,6,23,0.9);backdrop-filter:blur(10px);border-top:1px solid rgba(56,189,248,0.2);}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#020617,#0f172a,#020617);
+color:#e2e8f0;
+height:100vh;
+display:flex;
+overflow:hidden;
+}
+
+/* HEADER */
+
+header{
+padding:16px;
+text-align:center;
+font-size:22px;
+font-weight:600;
+background:rgba(2,6,23,0.85);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(56,189,248,0.2);
+position:relative;
+letter-spacing:1px;
+}
+
+/* NOTIFICATION */
+
+.notification-badge{
+position:absolute;
+top:10px;
+right:20px;
+background:#ef4444;
+color:white;
+border-radius:50%;
+padding:4px 8px;
+font-size:12px;
+display:none;
+}
+
+/* SIDEBAR */
+
+#sidebar{
+width:230px;
+background:rgba(15,23,42,0.6);
+backdrop-filter:blur(10px);
+padding:16px;
+overflow-y:auto;
+border-right:1px solid rgba(56,189,248,0.2);
+}
+
+#sidebar h3{
+margin-bottom:12px;
+font-size:16px;
+color:#38bdf8;
+}
+
+/* ONLINE USER */
+
+.online-user{
+display:flex;
+align-items:center;
+gap:8px;
+padding:8px;
+border-radius:8px;
+transition:0.2s;
+cursor:pointer;
+}
+
+.online-user:hover{
+background:rgba(56,189,248,0.08);
+}
+
+.status-dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#22c55e;
+}
+
+/* CHAT */
+
+#chat{
+flex:1;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+#messages{
+flex:1;
+overflow-y:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:12px;
+background:rgba(15,23,42,0.4);
+}
+
+/* MESSAGE */
+
+.message{
+display:flex;
+gap:12px;
+max-width:75%;
+background:rgba(30,41,59,0.7);
+backdrop-filter:blur(12px);
+padding:12px 16px;
+border-radius:16px;
+border:1px solid rgba(56,189,248,0.15);
+animation:fadeIn 0.3s ease;
+position:relative;
+}
+
+.message.me{
+margin-left:auto;
+background:linear-gradient(135deg,#0ea5e9,#0284c7);
+color:white;
+border:none;
+}
+
+/* AVATAR */
+
+.avatar{
+width:34px;
+height:34px;
+border-radius:50%;
+background:#38bdf8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+color:white;
+font-size:14px;
+flex-shrink:0;
+}
+
+/* TEXT */
+
+.text{
+font-size:14px;
+line-height:1.4;
+}
+
+.text b{
+color:#38bdf8;
+font-size:13px;
+}
+
+.text small{
+opacity:0.7;
+margin-left:6px;
+font-size:11px;
+}
+
+/* IMAGE */
+
+.message img{
+margin-top:8px;
+max-width:220px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.15);
+}
+
+/* REPLY */
+
+.reply-to{
+font-size:11px;
+color:#38bdf8;
+margin-bottom:4px;
+}
+
+/* MESSAGE ACTIONS */
+
+.message-actions{
+position:absolute;
+top:6px;
+right:8px;
+display:flex;
+gap:8px;
+opacity:0;
+transition:0.2s;
+}
+
+.message:hover .message-actions{
+opacity:1;
+}
+
+.edit-btn{
+cursor:pointer;
+color:#fbbf24;
+}
+
+.delete-btn{
+cursor:pointer;
+color:#ef4444;
+}
+
+/* INPUT */
+
+#chat-input{
+display:flex;
+align-items:center;
+gap:8px;
+padding:14px;
+background:rgba(2,6,23,0.9);
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(56,189,248,0.2);
+}
+
+#msg{
+flex:1;
+padding:10px 14px;
+border-radius:20px;
+border:none;
+outline:none;
+background:#0f172a;
+color:white;
+font-size:14px;
+}
+
+#msg::placeholder{
+color:#94a3b8;
+}
+
+/* BUTTON */
+
+#send-btn{
+padding:8px 16px;
+border:none;
+border-radius:20px;
+background:#38bdf8;
+color:#020617;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+#send-btn:hover{
+background:#0ea5e9;
+}
+
+/* EMOJI */
+
+.emoji-btn,
+.photo-btn{
+font-size:20px;
+cursor:pointer;
+}
+
+/* PREVIEW */
+
+#preview-container{
+display:none;
+position:absolute;
+bottom:70px;
+}
+
+#preview-img{
+max-width:120px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.2);
+}
+
+/* SCROLLBAR */
+
+#messages::-webkit-scrollbar{
+width:6px;
+}
+
+#messages::-webkit-scrollbar-thumb{
+background:#38bdf8;
+border-radius:10px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+#sidebar{
+display:none;
+}
+
+.message{
+max-width:90%;
+}
+
+header{
+font-size:18px;
+}
+
+#msg{
+font-size:13px;
+}
+
+}
 </style>
 </head>
 <body>
