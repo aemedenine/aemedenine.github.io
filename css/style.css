@@ -100,31 +100,37 @@ body{
 /* ===============================
    HERO SECTION
 =================================*/
+
 .hero{
   text-align:center;
   padding:120px 20px;
 }
 
-.hero h2{
+/* title */
+.hero-title{
   font-size:40px;
   margin-bottom:15px;
-   
+  color:white;
+
   transform:translateY(20px);
   transition:0.6s;
 }
 
+/* typing effect */
+.hero-title span{
+  color:#38bdf8;
+  border-right:3px solid #38bdf8;
+  padding-right:6px;
+  animation:cursor 0.8s infinite;
+}
+
+/* paragraph */
 .hero p{
   color:#cbd5f5;
   margin-bottom:25px;
 }
-/* animation title */
-.hero-title span{
-  border-right:3px solid #38bdf8;
-  padding-right:5px;
-  color:#38bdf8;
-  animation:cursor 0.8s infinite;
-}
 
+/* cursor blink */
 @keyframes cursor{
   0%{border-color:#38bdf8;}
   50%{border-color:transparent;}
