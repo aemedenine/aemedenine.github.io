@@ -6,54 +6,55 @@
 <title>Forum Live 2026 | Atelier Électronique Médenine</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-body { background:linear-gradient(135deg,#020617,#0f172a,#020617); color:#e2e8f0; height:100vh; display:flex; overflow:hidden; }
-header { padding:16px; text-align:center; font-size:22px; font-weight:600; background:rgba(2,6,23,0.85); backdrop-filter:blur(10px); border-bottom:1px solid rgba(56,189,248,0.2); position:relative; letter-spacing:1px; }
-.notification-badge { position:absolute; top:10px; right:20px; background:#ef4444; color:white; border-radius:50%; padding:4px 8px; font-size:12px; display:none; }
-#sidebar { width:230px; background:rgba(15,23,42,0.6); backdrop-filter:blur(10px); padding:16px; overflow-y:auto; border-right:1px solid rgba(56,189,248,0.2); }
-#sidebar h3 { margin-bottom:12px; font-size:16px; color:#38bdf8; }
-.online-user { display:flex; align-items:center; gap:8px; padding:8px; border-radius:8px; transition:0.2s; cursor:pointer; }
-.online-user:hover { background:rgba(56,189,248,0.08); }
-.status-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; }
-#chat { flex:1; display:flex; flex-direction:column; overflow:hidden; }
-#messages { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:12px; background:rgba(15,23,42,0.4); }
-.message { display:flex; gap:12px; max-width:75%; background:rgba(30,41,59,0.7); backdrop-filter:blur(12px); padding:12px 16px; border-radius:16px; border:1px solid rgba(56,189,248,0.15); animation:fadeIn 0.3s ease; position:relative; }
-.message.me { margin-left:auto; background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white; border:none; }
-.avatar { width:34px; height:34px; border-radius:50%; background:#38bdf8; display:flex; align-items:center; justify-content:center; font-weight:bold; color:white; font-size:14px; flex-shrink:0; }
-.text { font-size:14px; line-height:1.4; }
-.text b { color:#38bdf8; font-size:13px; }
-.text small { opacity:0.7; margin-left:6px; font-size:11px; }
-.message img { margin-top:8px; max-width:220px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); }
-.reply-to { font-size:11px; color:#38bdf8; margin-bottom:4px; }
-.message-actions { position:absolute; top:6px; right:8px; display:flex; gap:8px; opacity:0; transition:0.2s; }
-.message:hover .message-actions { opacity:1; }
-.edit-btn { cursor:pointer; color:#fbbf24; }
-.delete-btn { cursor:pointer; color:#ef4444; }
-#chat-input { display:flex; align-items:center; gap:8px; padding:14px; background:rgba(2,6,23,0.9); backdrop-filter:blur(10px); border-top:1px solid rgba(56,189,248,0.2); }
-#msg { flex:1; padding:10px 14px; border-radius:20px; border:none; outline:none; background:#0f172a; color:white; font-size:14px; }
-#msg::placeholder { color:#94a3b8; }
-#send-btn { padding:8px 16px; border:none; border-radius:20px; background:#38bdf8; color:#020617; font-weight:600; cursor:pointer; transition:0.2s; }
-#send-btn:hover { background:#0ea5e9; }
-.emoji-btn, .photo-btn { font-size:20px; cursor:pointer; }
-#preview-container { display:none; margin-left:8px; }
-#preview-img { max-width:60px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); }
-#messages::-webkit-scrollbar { width:6px; }
-#messages::-webkit-scrollbar-thumb { background:#38bdf8; border-radius:10px; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-@media(max-width:768px) { #sidebar { display:none; } .message { max-width:90%; } header { font-size:18px; } #msg { font-size:13px; } }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#020617,#0f172a,#020617);color:#e2e8f0;height:100vh;display:flex;overflow:hidden;}
+header{padding:16px;text-align:center;font-size:24px;font-weight:600;background:rgba(2,6,23,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(56,189,248,0.2);position:relative;}
+.notification-badge{position:absolute;top:10px;right:20px;background:#ef4444;color:white;border-radius:50%;padding:4px 8px;font-size:12px;display:none;}
+#sidebar{width:220px;background:rgba(15,23,42,0.6);backdrop-filter:blur(8px);padding:16px;overflow-y:auto;border-right:1px solid rgba(56,189,248,0.2);}
+#sidebar h3{margin-bottom:12px;font-size:16px;color:#38bdf8;}
+.online-user{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;transition:0.2s;}
+.online-user:hover{background:rgba(56,189,248,0.1);}
+.status-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;}
+#chat{flex:1;display:flex;flex-direction:column;}
+#messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;background:rgba(15,23,42,0.4);}
+.message{display:flex;gap:12px;max-width:80%;background:rgba(30,41,59,0.7);backdrop-filter:blur(12px);padding:12px 16px;border-radius:18px;border:1px solid rgba(56,189,248,0.15);animation:fadeIn 0.4s ease;position:relative;}
+.message.me{margin-left:auto;background:linear-gradient(45deg,#38bdf8,#0ea5e9);color:#0f172a;border:none;}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(45deg,#38bdf8,#0ea5e9);display:flex;align-items:center;justify-content:center;font-weight:bold;color:white;font-size:18px;}
+.text{flex:1;}
+.text b{color:#38bdf8;font-size:14px;}
+.text small{color:#94a3b8;font-size:11px;}
+.reactions{margin-top:6px;display:flex;gap:6px;}
+.reaction{background:rgba(255,255,255,0.15);padding:4px 8px;border-radius:20px;font-size:14px;cursor:pointer;}
+.message-actions{position:absolute;top:8px;right:8px;display:flex;gap:8px;opacity:0;transition:0.2s;}
+.message:hover .message-actions{opacity:1;}
+.edit-btn{color:#fbbf24;cursor:pointer;}
+.delete-btn{color:#ef4444;cursor:pointer;}
+.reply-to{font-size:11px;color:#38bdf8;margin-bottom:4px;}
+.chat-input{display:flex;align-items:center;padding:16px;background:rgba(2,6,23,0.9);backdrop-filter:blur(10px);border-top:1px solid rgba(56,189,248,0.2);}
+.chat-input input{flex:1;padding:14px 20px;border:none;border-radius:30px;background:rgba(30,41,59,0.7);color:white;outline:none;font-size:16px;}
+.chat-input .emoji-btn,.chat-input .photo-btn{margin-left:10px;font-size:24px;cursor:pointer;}
+#preview-container{display:none;margin-left:10px;}
+#preview-img{max-width:60px;border-radius:8px;border:1px solid #38bdf8;}
+.message img{max-width:220px;border-radius:12px;margin-top:8px;}
+#chat-input button{margin-left:12px;padding:14px 28px;border:none;border-radius:30px;background:#38bdf8;color:white;cursor:pointer;font-weight:600;}
+#chat-input button:hover{background:#0ea5e9;}
+#emoji-picker{display:none;position:absolute;bottom:90px;right:20px;z-index:100;width:320px;height:400px;}
+#messages::-webkit-scrollbar{width:6px;}
+#messages::-webkit-scrollbar-thumb{background:#38bdf8;border-radius:3px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;}}
 </style>
 </head>
 <body>
 <div style="display:flex;height:100vh;">
   <div id="sidebar">
-    <h3 style="margin-bottom:12px;">Online (🟢)</h3>
+    <h3>Online (🟢)</h3>
     <div id="online-users"></div>
   </div>
   <div style="flex:1;display:flex;flex-direction:column;">
     <header>💬 Forum Live – AÉM <span id="notif-badge" class="notification-badge">0</span></header>
     <div id="chat">
       <div id="messages"></div>
-      <div class="chat-input" id="chat-input">
+      <div class="chat-input">
         <input id="msg" placeholder="Écris un message... 😏🔥" autocomplete="off">
         <span class="emoji-btn" onclick="toggleEmojiPicker()">😊</span>
         <span class="photo-btn" onclick="document.getElementById('photo-input').click()">📷</span>
@@ -76,7 +77,6 @@ header { padding:16px; text-align:center; font-size:22px; font-weight:600; backg
 </script>
 
 <script>
-// Firebase Config (badlha b mte3ek s7i7a)
 const firebaseConfig = {
   apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
   authDomain: "atelier-electronique-mednine.firebaseapp.com",
@@ -86,7 +86,6 @@ const firebaseConfig = {
   appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
   databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
@@ -103,41 +102,32 @@ let notifCount = 0;
 function login() {
   auth.signOut().then(() => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).catch(err => {
-      console.error("Login error:", err);
-      alert("Erreur login: " + err.message);
-    });
+    auth.signInWithPopup(provider).catch(err => console.error("Login error:", err));
   });
 }
 
-// Auth state (zidna show/hide login + chat)
+// Auth state
 auth.onAuthStateChanged(user => {
   if (user) {
     currentUser = user;
-    document.querySelector(".login") ? document.querySelector(".login").style.display = "none" : null;
+    document.querySelector(".login").style.display = "none";
     document.getElementById("chat").style.display = "flex";
     listenMessages();
     listenOnlineUsers();
     listenTyping();
     setPresence(true);
-    console.log("User connecté:", user.displayName);
   } else {
     currentUser = null;
-    document.querySelector(".login") ? document.querySelector(".login").style.display = "block" : null;
+    document.querySelector(".login").style.display = "block";
     document.getElementById("chat").style.display = "none";
     setPresence(false);
-    console.log("Aucun user");
   }
 });
 
 // Presence
 function setPresence(online) {
   if (!currentUser) return;
-  db.ref(`presence/${currentUser.uid}`).set({
-    online,
-    name: currentUser.displayName || "Anonyme",
-    lastSeen: Date.now()
-  }).catch(err => console.error("Presence error:", err));
+  db.ref(`presence/${currentUser.uid}`).set({online, name: currentUser.displayName || "Anonyme", lastSeen: Date.now()});
 }
 
 // Typing
@@ -160,7 +150,6 @@ function showTyping(uid) {
   db.ref(`presence/${uid}`).once("value", snap => {
     const name = snap.val()?.name || "Quelqu'un";
     const div = document.createElement("div");
-    div.id = `typing-${uid}`;
     div.className = "typing";
     div.textContent = `${name} est en train d'écrire... ✍️`;
     document.getElementById("messages").appendChild(div);
@@ -183,7 +172,7 @@ function listenOnlineUsers() {
       if (data.online) {
         const div = document.createElement("div");
         div.className = "online-user";
-        div.innerHTML = `<span class="status-dot online"></span> ${data.name || "Anonyme"}`;
+        div.innerHTML = `<span class="status-dot"></span> ${data.name || "Anonyme"}`;
         list.appendChild(div);
       }
     });
@@ -219,12 +208,12 @@ document.getElementById("photo-input").addEventListener("change", e => {
   reader.onload = ev => {
     document.getElementById("preview-img").src = ev.target.result;
     document.getElementById("preview-container").style.display = "block";
-    selectedImage = ev.target.result;
+    selectedImage = file; // file object for upload
   };
   reader.readAsDataURL(file);
 });
 
-// Send (avec Storage)
+// Send
 async function send() {
   if (!currentUser || isSending) return;
   isSending = true;
@@ -233,14 +222,13 @@ async function send() {
 
   let imageUrl = null;
   if (selectedImage) {
-    const file = document.getElementById("photo-input").files[0];
-    const ref = storage.ref(`messages/${Date.now()}_${file.name}`);
+    const ref = storage.ref(`messages/${Date.now()}_${selectedImage.name}`);
     try {
-      await ref.put(file);
+      await ref.put(selectedImage);
       imageUrl = await ref.getDownloadURL();
     } catch (err) {
       console.error("Upload error:", err);
-      alert("Erreur upload image");
+      alert("Erreur upload");
       isSending = false;
       return;
     }
@@ -254,7 +242,7 @@ async function send() {
     time: Date.now(),
     reactions: {},
     image: imageUrl,
-    replyTo: replyToKey ? { key: replyToKey, text: "..." } : null
+    replyTo: replyToKey ? {key: replyToKey} : null
   };
 
   db.ref("messages").push(msgData).then(() => {
@@ -264,14 +252,11 @@ async function send() {
     replyToKey = null;
     msgInput.placeholder = "Écris un message... 😏🔥";
     db.ref(`typing/${currentUser.uid}`).remove();
-    scrollToBottom();
-  }).catch(err => {
-    console.error("Send error:", err);
-    alert("Erreur envoi: " + err.message);
-  }).finally(() => isSending = false);
+  }).catch(err => alert("Erreur: " + err.message))
+  .finally(() => isSending = false);
 }
 
-// Listen messages (zidna edit/delete/reply/notif)
+// Listen messages
 function listenMessages() {
   db.ref("messages").orderByChild("time").on("child_added", snap => {
     const msg = snap.val();
@@ -286,7 +271,7 @@ function listenMessages() {
         <b>${msg.name || "Inconnu"} <span class="status-dot"></span></b>
         <small>${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small><br>
     `;
-    if (msg.replyTo) html += `<div class="reply-to">Réponse à : ${msg.replyTo.text.substring(0,50)}...</div>`;
+    if (msg.replyTo) html += `<div class="reply-to">Réponse à un message</div>`;
     html += msg.text;
     if (msg.image) html += `<br><img src="${msg.image}" alt="Image">`;
     html += `
@@ -315,9 +300,7 @@ function listenMessages() {
     const msg = snap.val();
     const key = snap.key;
     const reacDiv = document.getElementById(`reac-${key}`);
-    if (reacDiv) {
-      reacDiv.innerHTML = Object.values(msg.reactions || {}).map(r => `<span class="reaction">${r}</span>`).join(" ");
-    }
+    if (reacDiv) reacDiv.innerHTML = Object.values(msg.reactions || {}).map(r => `<span class="reaction">${r}</span>`).join("");
   });
 }
 
@@ -327,10 +310,8 @@ function addReaction(key, emoji) {
 }
 
 function editMessage(key, oldText) {
-  const newText = prompt("Édite ton message:", oldText);
-  if (newText && newText.trim()) {
-    db.ref(`messages/${key}/text`).set(newText.trim());
-  }
+  const newText = prompt("Édite:", oldText);
+  if (newText && newText.trim()) db.ref(`messages/${key}/text`).set(newText.trim());
 }
 
 function deleteMessage(key) {
@@ -351,6 +332,9 @@ msgInput.addEventListener("keypress", e => {
     send();
   }
 });
+
+// Init
+listenMessages();
 
 // Cleanup
 window.addEventListener("beforeunload", () => {
