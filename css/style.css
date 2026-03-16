@@ -278,7 +278,6 @@ body{
 .service-card,
 .calc-card,
 .atelier-cards .card{
-  opacity:0;
   transform:translateY(60px);
   transition:all 0.7s ease;
 }
