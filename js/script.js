@@ -148,7 +148,19 @@ onlineRef.on("value", snapshot=>{
     container.appendChild(div);
   });
 });
+// ================= animation nos services
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
 
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+
+  });
+});
+
+document.querySelectorAll(".service-card, .calc-card, .atelier-cards .card")
+.forEach(el => observer.observe(el));
 // ================= SCROLL ANIMATION
 const heroTitle = document.querySelector(".hero h2");
 const cards = document.querySelectorAll(".card");
