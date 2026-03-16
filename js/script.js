@@ -124,7 +124,10 @@ db.ref("views").on("value", snap => {
 });
 
 // Appel l'increment lamma page t7mel (w zid check ida deja vu ida t7ebb – simple hné)
-incrementViews();
+if(!localStorage.getItem("visitedAEM")){
+  incrementViews();
+  localStorage.setItem("visitedAEM", "true");
+}
 
 // 2. Rating (5 stars)
 const ratingStars = document.getElementById("ratingStars");
@@ -141,7 +144,20 @@ ratingStars.addEventListener("click", e => {
     saveRating(userRating);
   }
 });
+const stars = ratingStars.querySelectorAll("span");
 
+stars.forEach(star=>{
+  star.addEventListener("mouseover",()=>{
+    const val = star.dataset.value;
+    stars.forEach(s=>{
+      s.style.color = s.dataset.value <= val ? "#fbbf24" : "#94a3b8";
+    });
+  });
+
+  star.addEventListener("mouseleave",()=>{
+    updateAverageRating();
+  });
+});
 function saveRating(rating) {
   const ratingRef = db.ref(`ratings/${currentUser.uid}`);
   ratingRef.set(rating).then(() => {
@@ -202,10 +218,30 @@ db.ref("comments").orderByChild("time").on("child_added", snap => {
   div.style.borderRadius = "12px";
   div.style.marginBottom = "10px";
   div.innerHTML = `
+<div style="display:flex;gap:10px;align-items:flex-start;">
+  <div style="
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#38bdf8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  color:white;">
+  ${comment.name.charAt(0)}
+  </div>
+
+  <div>
     <strong style="color:#38bdf8;">${comment.name}</strong>
-    <small style="color:#94a3b8; margin-left:8px;">${new Date(comment.time).toLocaleString()}</small>
+    <small style="color:#94a3b8;margin-left:6px;">
+      ${new Date(comment.time).toLocaleString()}
+    </small>
+
     <p style="margin-top:6px;">${comment.text}</p>
-  `;
+  </div>
+</div>
+`;
   commentsList.appendChild(div);
   commentsList.scrollTop = commentsList.scrollHeight;
 });
