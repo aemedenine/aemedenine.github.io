@@ -502,26 +502,133 @@ color:inherit;
 display:block;
 }
 /* ===============================
-   MOBILE
+   MOBILE OPTIMISATION
 =================================*/
-@media(max-width:768px){
-  .hero h2{
-    font-size:28px;
-  }
-  .header{
-    padding:15px 5%;
-  }
-  .nav{
-    gap:15px;
-  }
-  .profile-content{
-    width:90%;
-    padding:15px;
-  }
-  .online-users{
-    max-width:90%;
-  }
-  .comments textarea, .comments button{
-    font-size:14px;
-  }
+@media (max-width:768px){
+
+/* ===== HEADER ===== */
+.header{
+padding:12px 4%;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
+
+.logo{
+font-size:18px;
+text-align:center;
+}
+
+/* ===== NAVIGATION ===== */
+.nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+.nav a{
+font-size:14px;
+padding:6px 10px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero{
+padding:40px 15px;
+text-align:center;
+}
+
+.hero h2{
+font-size:24px;
+line-height:1.4;
+}
+
+.hero p{
+font-size:15px;
+margin-top:10px;
+}
+
+/* ===== BUTTONS ===== */
+.btn{
+padding:10px 18px;
+font-size:14px;
+}
+
+/* ===== SERVICES / CARDS ===== */
+.services{
+display:grid;
+grid-template-columns:1fr;
+gap:18px;
+padding:20px 15px;
+}
+
+.card{
+padding:18px;
+border-radius:12px;
+}
+
+/* ===== PROFILE POPUP ===== */
+.profile-content{
+width:95%;
+padding:18px;
+border-radius:12px;
+}
+
+/* ===== ONLINE USERS ===== */
+.online-users{
+max-width:95%;
+margin:auto;
+font-size:14px;
+padding:12px;
+}
+
+/* ===== COMMENTS ===== */
+.comments{
+padding:15px;
+}
+
+.comments textarea{
+width:100%;
+font-size:14px;
+padding:10px;
+border-radius:8px;
+}
+
+.comments button{
+font-size:14px;
+padding:10px 16px;
+margin-top:8px;
+}
+
+/* ===== IMAGES ===== */
+img{
+max-width:100%;
+height:auto;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+font-size:13px;
+text-align:center;
+padding:20px;
+}
+
+/* ===== CONTAINER ===== */
+.container{
+width:95%;
+margin:auto;
+}
+
+/* ===== TABLE ===== */
+table{
+width:100%;
+font-size:13px;
+}
+
+/* ===== SCROLL FIX ===== */
+body{
+overflow-x:hidden;
+}
+
 }
