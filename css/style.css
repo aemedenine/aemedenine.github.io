@@ -106,6 +106,18 @@ body{
   padding:120px 20px;
 }
 
+.hero-title span{
+  color:#38bdf8;
+  border-right:3px solid #38bdf8;
+  padding-right:6px;
+  animation:cursor 0.8s infinite;
+}
+
+@keyframes cursor{
+  0%{border-color:#38bdf8;}
+  50%{border-color:transparent;}
+  100%{border-color:#38bdf8;}
+}
 /* title */
 .hero-title{
   font-size:40px;
