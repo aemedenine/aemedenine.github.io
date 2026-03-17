@@ -1,102 +1,325 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>متجر الورشة</title>
-<link rel="icon" href="images/favicon.png">
-<style>
-/* ===== RESET ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
-body{background:#0f172a;color:white;line-height:1.6;}
-.hidden{display:none;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر الورشة | Atelier Électronique Médenine</title>
+  <link rel="icon" href="images/favicon.png">
+  
+  <style>
+    /* ================= RESET & BASE ================= */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
+    body { background:#0f172a; color:white; line-height:1.6; direction:rtl; text-align:right; }
 
-/* ===== HEADER ===== */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 8%;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-.logo{display:flex;align-items:center;gap:15px;}
-.logo-img{width:60px;height:60px;border-radius:50%;border:3px solid #38bdf8;padding:5px;background:rgba(255,255,255,0.05);box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:0.3s;}
-.logo-img:hover{transform:scale(1.1);box-shadow:0 8px 25px rgba(0,0,0,0.5);}
-.logo h1{font-size:24px;font-weight:700;color:#ffffff;letter-spacing:1px;}
+    /* ================= HEADER ================= */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 5%;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #38bdf8;
+      padding: 4px;
+    }
+    .logo h1 {
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
 
-/* ===== NAVIGATION ===== */
-.nav{display:flex;align-items:center;gap:25px;}
-.nav a{color:white;text-decoration:none;font-weight:500;transition:0.3s;}
-.nav a:hover{color:#38bdf8;}
-.login-btn{padding:8px 18px;border:none;border-radius:30px;background:#38bdf8;color:#000;font-weight:600;cursor:pointer;transition:0.3s;}
-.login-btn:hover{transform:scale(1.05);}
+    /* Hamburger (mobile) */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: 0.4s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-/* ===== PAGE TITLE ===== */
-.page-title{text-align:center;font-size:36px;margin:40px 0;color:#38bdf8;}
+    /* Nav links - BLANC fixe */
+    .nav {
+      display: none;
+      align-items: center;
+      gap: 25px;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .nav a:hover, .nav a.active {
+      color: white;
+      text-decoration: underline;
+      transform: scale(1.03);
+    }
 
-/* ===== LANGUAGE SWITCHER ===== */
-.lang-switcher{text-align:center;margin-bottom:30px;}
-.lang-switcher button{background:#38bdf8;color:#000;padding:5px 10px;border-radius:6px;border:none;font-weight:bold;cursor:pointer;margin:0 5px;}
-.lang-switcher button:hover{background:#0ea5e9;}
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 100%;
+      background: rgba(15,23,42,0.98);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+      gap: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      padding: 12px 30px;
+      width: 85%;
+      text-align: center;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active {
+      background: rgba(56,189,248,0.15);
+    }
 
-/* ===== PRODUCTS GRID ===== */
-.container{max-width:1200px;margin:auto;padding:20px;}
-.btn-return{display:inline-block;margin-bottom:30px;background:#38bdf8;color:#000;padding:10px 16px;border-radius:6px;font-weight:700;text-decoration:none;transition:0.3s;}
-.btn-return:hover{transform:scale(1.05);}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;justify-items:center;}
-.product-card{background:rgba(255,255,255,0.05);backdrop-filter:blur(8px);border-radius:15px;padding:20px;width:280px;text-align:center;position:relative;overflow:hidden;transition:0.5s;}
-.product-card:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 15px 35px rgba(56,189,248,0.7),0 0 15px rgba(56,189,248,0.5) inset;}
-.product-img{max-width:100%;border-radius:8px;box-shadow:0 0 6px rgba(56,189,248,0.6);margin-bottom:10px;}
-.product-card h3{margin-bottom:10px;color:#38bdf8;}
-.product-card p{margin-bottom:10px;color:#cbd5e1;font-size:15px;line-height:1.4;}
-.price{color:#ffc107;font-size:1.2rem;font-weight:bold;margin-bottom:10px;}
-.btn-store{background:#38bdf8;color:#000;padding:10px 20px;border-radius:6px;border:none;font-weight:bold;cursor:pointer;transition:0.3s;}
-.btn-store:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+    /* ================= PAGE CONTENT ================= */
+    .page-title {
+      text-align: center;
+      font-size: 28px;
+      margin: 100px 5% 30px;
+      color: #38bdf8;
+    }
 
-/* ===== FOOTER ===== */
-footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-size:14px;color:#94a3b8;}
+    .lang-switcher {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 5% 40px;
+      flex-wrap: wrap;
+    }
+    .lang-switcher button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      background: #38bdf8;
+      color: #000;
+      transition: 0.3s;
+    }
+    .lang-switcher button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(56,189,248,0.4);
+    }
 
-/* ===== MODAL ===== */
-#modalOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;}
-.modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;color:#000;padding:20px;border-radius:10px;width:320px;text-align:center;z-index:1000;font-family:Arial, sans-serif;direction:rtl;}
-.modal h3{margin-bottom:15px;}
-.modal button{margin:5px;padding:10px 20px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}
-.modal .cancel{background:#d9534f;color:white;}
-.modal .d17{background:#ffc107;}
-.modal .post{background:#28a745;color:white;}
-.modal input, .modal textarea{width:100%;padding:6px;margin-bottom:10px;border-radius:4px;border:1px solid #ccc;}
-</style>
+    .btn-return {
+      display: inline-block;
+      margin: 0 auto 30px;
+      background: #38bdf8;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn-return:hover {
+      transform: scale(1.05);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 0 5% 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.4s;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(56,189,248,0.35);
+    }
+    .product-img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .product-card h3 {
+      font-size: 20px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .product-card p {
+      font-size: 15px;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+    }
+    .price {
+      color: #ffc107;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .btn-store {
+      background: #38bdf8;
+      color: #000;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-store:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(56,189,248,0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: #020617;
+      color: #94a3b8;
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 50px;
+    }
+
+    /* ================= MODAL ================= */
+    #modalOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30,41,59,0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 25px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      z-index: 1000;
+      direction: rtl;
+    }
+    .modal h3 {
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+    .modal input, .modal textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #38bdf8;
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+    .modal button {
+      padding: 10px 24px;
+      margin: 8px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .cancel { background: #ef4444; color: white; }
+    .d17 { background: #ffc107; color: #000; }
+    .post { background: #22c55e; color: white; }
+
+    /* ================= DESKTOP ================= */
+    @media (min-width: 768px) {
+      .header { padding: 15px 8%; }
+      .logo-img { width: 60px; height: 60px; }
+      .logo h1 { font-size: 22px; }
+      .hamburger { display: none; }
+      .nav { display: flex; gap: 30px; }
+      .page-title { font-size: 36px; margin-top: 140px; }
+      .product-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); padding: 0 8% 80px; }
+      .modal { max-width: 480px; padding: 35px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-  <div class="logo">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1>متجر الورشة</h1>
-  </div>
-  <nav class="nav">
-    <a href="index.html">الرئيسية</a>
-    <a href="services-atelier.html">الخدمات</a>
-    <a href="boutique.html" class="active">المتجر</a>
-    <button class="login-btn">Login</button>
-  </nav>
-</header>
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo" class="logo-img">
+      <h1>متجر الورشة</h1>
+    </div>
 
-<!-- ===== PAGE CONTENT ===== -->
-<section class="container">
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
+    <nav class="nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="services-atelier.html">الخدمات</a>
+      <a href="boutique.html" class="active">المتجر</a>
+      <a href="contact.html">اتصل بنا</a>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">الرئيسية</a>
+      <a href="services-atelier.html">الخدمات</a>
+      <a href="boutique.html" class="active">المتجر</a>
+      <a href="contact.html">اتصل بنا</a>
+    </div>
+  </header>
+
+  <!-- ================= CONTENT ================= -->
   <h2 class="page-title">
     <span class="lang-ar">متجر الورشة</span>
     <span class="lang-fr hidden">Boutique de l'Atelier</span>
     <span class="lang-en hidden">Workshop Store</span>
   </h2>
 
-  <!-- LANG SWITCHER CENTER -->
   <div class="lang-switcher">
     <button onclick="setLang('ar')">AR</button>
     <button onclick="setLang('fr')">FR</button>
@@ -110,7 +333,6 @@ footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-si
   </a>
 
   <div class="product-grid">
-
     <!-- PRODUCT 1 -->
     <div class="product-card">
       <img src="images/250a.webp" alt="Poste Meakida 250A" class="product-img">
@@ -173,92 +395,156 @@ footer{text-align:center;padding:25px;background:#020617;margin-top:60px;font-si
         <span class="lang-en hidden">Buy</span>
       </button>
     </div>
-
   </div>
-</section>
 
-<footer>
-  <p>© 2026 Atelier Electronique Médenine – جميع الحقوق محفوظة</p>
-</footer>
+  <footer>
+    <p>© 2026 Atelier Électronique Médenine</p>
+  </footer>
 
-<!-- MODAL + JS كما قبل -->
-<div id="modalOverlay"></div>
-<div id="paymentMethodModal" class="modal">
-  <h3>اختر طريقة الدفع</h3>
-  <button id="payD17Btn" class="d17">الدفع عن طريق D17</button>
-  <button id="payPostBtn" class="post">الدفع عن طريق البريد</button>
-  <br><button id="cancelPaymentMethod" class="cancel">إلغاء</button>
-</div>
-<div id="d17Modal" class="modal">
-  <h3>الدفع عن طريق D17</h3>
-  <input type="text" id="cardNumber" placeholder="أدخل رقم بطاقتك">
-  <button id="submitD17" class="d17">إرسال</button>
-  <button id="cancelD17" class="cancel">إلغاء</button>
-</div>
-<div id="postModal" class="modal">
-  <h3>الدفع عن طريق البريد</h3>
-  <form id="postForm">
-    <input type="text" id="firstName" placeholder="الاسم" required>
-    <input type="text" id="lastName" placeholder="اللقب" required>
-    <textarea id="address" placeholder="العنوان الكامل" required></textarea>
-    <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-    <button type="submit" class="post">إرسال</button>
-    <button type="button" id="cancelPost" class="cancel">إلغاء</button>
-  </form>
-</div>
+  <!-- ================= MODALS ================= -->
+  <div id="modalOverlay"></div>
 
-<script>
-function setLang(lang){
-  document.querySelectorAll('.lang-ar,.lang-fr,.lang-en').forEach(el=>el.classList.add('hidden'));
-  document.querySelectorAll('.lang-'+lang).forEach(el=>el.classList.remove('hidden'));
-}
+  <div id="paymentMethodModal" class="modal">
+    <h3>اختر طريقة الدفع</h3>
+    <button id="payD17Btn" class="d17">الدفع عن طريق D17</button>
+    <button id="payPostBtn" class="post">الدفع عن طريق البريد</button>
+    <button id="cancelPaymentMethod" class="cancel">إلغاء</button>
+  </div>
 
-// باقي جافاسكريبت الدفع كما في الكود السابق
-const whatsappNumber = '21698192103';
-const modalOverlay = document.getElementById('modalOverlay');
-const paymentMethodModal = document.getElementById('paymentMethodModal');
-const d17Modal = document.getElementById('d17Modal');
-const postModal = document.getElementById('postModal');
-let currentProductName = '';
-let currentProductPrice = '';
-document.querySelectorAll('.btn-store').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const card = btn.closest('.product-card');
-    currentProductName = card.querySelector('h3').textContent;
-    currentProductPrice = card.querySelector('.price').textContent;
-    paymentMethodModal.style.display='block';
-    modalOverlay.style.display='block';
-  });
-});
-document.getElementById('cancelPaymentMethod').addEventListener('click', ()=>{paymentMethodModal.style.display='none';modalOverlay.style.display='none';});
-document.getElementById('payD17Btn').addEventListener('click', ()=>{paymentMethodModal.style.display='none';d17Modal.style.display='block';});
-document.getElementById('cancelD17').addEventListener('click', ()=>{d17Modal.style.display='none';modalOverlay.style.display='none';});
-document.getElementById('submitD17').addEventListener('click', ()=>{
-  const cardNumber = document.getElementById('cardNumber').value.trim();
-  if(!cardNumber){alert('الرجاء إدخال رقم البطاقة');return;}
-  const msg=encodeURIComponent(`طلب شراء:\nالمنتج: ${currentProductName}\nالسعر: ${currentProductPrice}\nطريقة الدفع: D17\nرقم البطاقة: ${cardNumber}`);
-  window.open(`https://wa.me/${whatsappNumber}?text=${msg}`,'_blank');
-  d17Modal.style.display='none';
-  modalOverlay.style.display='none';
-  document.getElementById('cardNumber').value='';
-});
-document.getElementById('payPostBtn').addEventListener('click', ()=>{paymentMethodModal.style.display='none';postModal.style.display='block';});
-document.getElementById('cancelPost').addEventListener('click', ()=>{postModal.style.display='none';modalOverlay.style.display='none';});
-document.getElementById('postForm').addEventListener('submit', e=>{
-  e.preventDefault();
-  const firstName=document.getElementById('firstName').value.trim();
-  const lastName=document.getElementById('lastName').value.trim();
-  const address=document.getElementById('address').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-  if(!firstName||!lastName||!address||!phone){alert('الرجاء تعبئة جميع الحقول');return;}
-  const msg=encodeURIComponent(`طلب شراء:\nالمنتج: ${currentProductName}\nالسعر: ${currentProductPrice}\nطريقة الدفع: البريد\nالاسم: ${firstName}\nاللقب: ${lastName}\nالعنوان: ${address}\nرقم الهاتف: ${phone}`);
-  window.open(`https://wa.me/${whatsappNumber}?text=${msg}`,'_blank');
-  postModal.style.display='none';
-  modalOverlay.style.display='none';
-  document.getElementById('postForm').reset();
-});
-modalOverlay.addEventListener('click', ()=>{paymentMethodModal.style.display='none';d17Modal.style.display='none';postModal.style.display='none';modalOverlay.style.display='none';});
-</script>
+  <div id="d17Modal" class="modal">
+    <h3>الدفع عن طريق D17</h3>
+    <input type="text" id="cardNumber" placeholder="أدخل رقم بطاقتك">
+    <button id="submitD17" class="d17">إرسال</button>
+    <button id="cancelD17" class="cancel">إلغاء</button>
+  </div>
 
+  <div id="postModal" class="modal">
+    <h3>الدفع عن طريق البريد</h3>
+    <form id="postForm">
+      <input type="text" id="firstName" placeholder="الاسم" required>
+      <input type="text" id="lastName" placeholder="اللقب" required>
+      <textarea id="address" placeholder="العنوان الكامل" required></textarea>
+      <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+      <button type="submit" class="post">إرسال</button>
+      <button type="button" id="cancelPost" class="cancel">إلغاء</button>
+    </form>
+  </div>
+
+  <script>
+    // Lang switch
+    function setLang(lang) {
+      document.querySelectorAll('.lang-ar,.lang-fr,.lang-en').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.lang-' + lang).forEach(el => el.classList.remove('hidden'));
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      document.body.style.textAlign = (lang === 'ar') ? 'right' : 'left';
+    }
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(el => {
+      el.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.style.display = 'none';
+      });
+    });
+
+    // Payment logic
+    const whatsappNumber = '21698192103';
+    const modalOverlay = document.getElementById('modalOverlay');
+    const paymentMethodModal = document.getElementById('paymentMethodModal');
+    const d17Modal = document.getElementById('d17Modal');
+    const postModal = document.getElementById('postModal');
+    let currentProductName = '';
+    let currentProductPrice = '';
+
+    document.querySelectorAll('.btn-store').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.product-card');
+        currentProductName = card.querySelector('h3').textContent.trim();
+        currentProductPrice = card.querySelector('.price').textContent.trim();
+
+        paymentMethodModal.style.display = 'block';
+        modalOverlay.style.display = 'block';
+      });
+    });
+
+    document.getElementById('cancelPaymentMethod').addEventListener('click', () => {
+      paymentMethodModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    document.getElementById('payD17Btn').addEventListener('click', () => {
+      paymentMethodModal.style.display = 'none';
+      d17Modal.style.display = 'block';
+    });
+
+    document.getElementById('cancelD17').addEventListener('click', () => {
+      d17Modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    document.getElementById('submitD17').addEventListener('click', () => {
+      const cardNumber = document.getElementById('cardNumber').value.trim();
+      if (!cardNumber) return alert('الرجاء إدخال رقم البطاقة');
+
+      const msg = encodeURIComponent(
+        `طلب شراء:\nالمنتج: ${currentProductName}\nالسعر: ${currentProductPrice}\nطريقة الدفع: D17\nرقم البطاقة: ${cardNumber}`
+      );
+      window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+
+      d17Modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+      document.getElementById('cardNumber').value = '';
+    });
+
+    document.getElementById('payPostBtn').addEventListener('click', () => {
+      paymentMethodModal.style.display = 'none';
+      postModal.style.display = 'block';
+    });
+
+    document.getElementById('cancelPost').addEventListener('click', () => {
+      postModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    document.getElementById('postForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!firstName || !lastName || !address || !phone) {
+        return alert('الرجاء تعبئة جميع الحقول');
+      }
+
+      const msg = encodeURIComponent(
+        `طلب شراء:\nالمنتج: ${currentProductName}\nالسعر: ${currentProductPrice}\nطريقة الدفع: البريد\nالاسم: ${firstName}\nاللقب: ${lastName}\nالعنوان: ${address}\nرقم الهاتف: ${phone}`
+      );
+      window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+
+      postModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+      document.getElementById('postForm').reset();
+    });
+
+    modalOverlay.addEventListener('click', () => {
+      paymentMethodModal.style.display = 'none';
+      d17Modal.style.display = 'none';
+      postModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    // Default lang
+    setLang('ar');
+  </script>
 </body>
 </html>
