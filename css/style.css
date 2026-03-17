@@ -96,7 +96,12 @@ button.login-submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* مساحة لو تحب تحط أيقونة مستقبلا */
+    gap: 12px; /* زيادة المسافة بين النص و الأيقونة */
+}
+
+button.login-btn .google-logo, button.login-submit .google-logo {
+    width: 20px; /* حجم الأيقونة */
+    height: 20px; /* حجم الأيقونة */
 }
 
 button.login-btn:hover,
