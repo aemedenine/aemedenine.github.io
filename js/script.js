@@ -111,96 +111,128 @@ closeProfile.onclick = ()=>profileModal.style.display = "none";
 // ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
 const ratingMessage = document.getElementById('rating-message');
-
-let currentUser = null;        // المستخدم الحالي
-let currentUserRating = 0;     // تقييمه الحالي إذا قيم
+let currentUser = null;
+let currentUserRating = 0;
 
 // Firebase References
 const ratingsRef = firebase.database().ref("ratings");
 const userRatingsRef = firebase.database().ref("userRatings");
 
-// ================= تحديث currentUser بعد تسجيل الدخول
+// Auth change + load user rating
 auth.onAuthStateChanged(user => {
   currentUser = user;
-
-  if(currentUser){
-    // جلب تقييم المستخدم إذا كان موجود مسبقاً
-    userRatingsRef.child(currentUser.uid).once('value').then(snapshot=>{
+  if (currentUser) {
+    userRatingsRef.child(currentUser.uid).once('value').then(snapshot => {
       const data = snapshot.val();
-      if(data && data.rating){
+      if (data && data.rating) {
         currentUserRating = data.rating;
         updateStars(currentUserRating);
+        ratingMessage.textContent = `Vous avez déjà noté ${currentUserRating} étoiles 🌟`;
+        ratingMessage.classList.add('show');
       }
-    });
+    }).catch(err => console.error("Erreur load user rating:", err));
+  } else {
+    currentUserRating = 0;
+    updateStars(0);
   }
+  // Update average après login (pour refresh)
+  updateAverageStars();
 });
 
-// ================= تحديث النجوم حسب الرقم
-function updateStars(r){
+// Update stars UI
+function updateStars(r) {
   stars.forEach(star => {
     const val = Number(star.dataset.value);
     star.classList.toggle('selected', val <= r);
   });
 }
 
-// ================= الضغط على النجوم
+// Click on star
 stars.forEach(star => {
   star.addEventListener('click', () => {
-    if(!currentUser){
+    if (!currentUser) {
       alert("🔒 Connectez-vous pour noter !");
       return;
     }
-
-    if(currentUserRating > 0){
-      alert("Vous avez déjà noté !");
+    if (currentUserRating > 0) {
+      alert("Vous avez déjà noté ! Vous ne pouvez pas modifier pour l'instant.");
       return;
     }
 
     const val = Number(star.dataset.value);
 
-    // 1️⃣ تخزين تقييم المستخدم
+    // 1. Save user rating (unique per user)
     userRatingsRef.child(currentUser.uid).set({
       rating: val,
-      name: currentUser.displayName,
+      name: currentUser.displayName || "Anonyme",
       timestamp: firebase.database.ServerValue.TIMESTAMP
+    }).then(() => {
+      console.log("User rating saved:", val);
+    }).catch(err => {
+      console.error("Erreur save user rating:", err);
+      alert("Erreur lors de l'enregistrement de votre note.");
     });
 
-    // 2️⃣ تحديث معدل النجوم العام
+    // 2. Update global ratings (transaction safe)
     ratingsRef.transaction(current => {
-      const data = current || {sum:0,count:0,breakdown:{1:0,2:0,3:0,4:0,5:0}};
+      // Si null ou undefined → init
+      const data = current || { sum: 0, count: 0, breakdown: {1:0, 2:0, 3:0, 4:0, 5:0} };
+
       data.sum += val;
       data.count += 1;
       data.breakdown[val] = (data.breakdown[val] || 0) + 1;
+
       return data;
+    }, (error, committed, snapshot) => {
+      if (error) {
+        console.error("Transaction failed:", error);
+        alert("Erreur lors de la mise à jour du rating global.");
+      } else if (committed) {
+        console.log("Global rating updated");
+        updateAverageStars();
+      }
     });
 
-    // 3️⃣ تحديث واجهة المستخدم
+    // 3. UI feedback
     currentUserRating = val;
     updateStars(val);
-    ratingMessage.textContent = `Merci ${currentUser.displayName}, votre note (${val} étoiles) a été enregistrée 🌟`;
+    ratingMessage.textContent = `Merci ${currentUser.displayName || "bro"}, votre note (${val} étoiles) a été enregistrée 🌟`;
     ratingMessage.classList.add('show');
-    setTimeout(() => ratingMessage.classList.remove('show'), 8000);
-
-    updateAverageStars();
+    setTimeout(() => ratingMessage.classList.remove('show'), 6000);
   });
 });
 
-// ================= تحديث المتوسط على الصفحة
-function updateAverageStars(){
+// Update average display
+function updateAverageStars() {
   ratingsRef.once('value').then(snapshot => {
     const data = snapshot.val();
-    if(data && data.count > 0){
+    if (data && data.count > 0) {
       const avg = (data.sum / data.count).toFixed(1);
       document.getElementById('avg-stars').textContent = avg;
       document.getElementById('vote-count').textContent = data.count;
+
+      // Highlight stars based on average
+      const starsElements = document.querySelectorAll('.stars-horizontal span');
+      starsElements.forEach((star, index) => {
+        const starValue = 5 - index;
+        star.classList.toggle('average-highlight', starValue <= Math.round(avg));
+      });
+    } else {
+      document.getElementById('avg-stars').textContent = "0.0";
+      document.getElementById('vote-count').textContent = "0";
     }
+  }).catch(err => {
+    console.error("Erreur load average:", err);
   });
 }
 
-// ================= تحميل المعدل عند الصفحة مباشرة
+// Listen realtime changes (pour multi-users)
 ratingsRef.on('value', () => {
   updateAverageStars();
 });
+
+// Initial load
+updateAverageStars();
 // ================= ONLINE USERS DISPLAY
 onlineRef.on("value", snapshot=>{
   const container = document.getElementById("onlineUsers");
