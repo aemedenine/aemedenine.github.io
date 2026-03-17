@@ -30,8 +30,6 @@ const onlineCount = document.getElementById("onlineCount");
 const usersRef = db.ref("users");
 const onlineRef = db.ref("onlineUsers");
 
-let currentUser = null;
-
 // ================= LOGIN POPUP =================
 document.querySelector(".login-btn")?.addEventListener("click", () => {
   loginPopup.style.display = "flex";
@@ -144,7 +142,6 @@ closeProfile?.addEventListener("click", () => {
 // ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
 const ratingMessage = document.getElementById('rating-message');
-let currentUser = null;
 let currentUserRating = 0;
 
 // Firebase References
