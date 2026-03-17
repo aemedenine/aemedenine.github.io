@@ -8,35 +8,6 @@ const closeLogin = document.getElementById("close-login");
 loginButton.onclick = () => loginPopup.style.display = "flex";
 closeLogin.onclick = () => loginPopup.style.display = "none";
 
-// ==========================================
-// FIREBASE CONFIG & GOOGLE LOGIN
-// ==========================================
-const firebaseConfig = {
-  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-  authDomain: "atelier-electronique-mednine.firebaseapp.com",
-  projectId: "atelier-electronique-mednine",
-  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-  messagingSenderId: "547430908384",
-  appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
-  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-const userBox = document.getElementById("userBox");
-const logoutBtn = document.getElementById("logoutBtn");
-const profileModal = document.getElementById("profileModal");
-const closeProfile = document.getElementById("closeProfile");
-
-const commentInput = document.getElementById("commentInput");
-const commentSubmit = document.getElementById("commentSubmit");
-const commentsList = document.getElementById("commentsList");
-
-const onlineRef = firebase.database().ref("onlineUsers");
-const commentsRef = firebase.database().ref("comments");
 
 // ================= LOGIN GOOGLE
 document.querySelector(".login-submit").onclick = () => {
