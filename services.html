@@ -1,244 +1,402 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services | Atelier Électronique Médenine</title>
-<link rel="icon" href="images/favicon.png">
-<style>
-/* ================= RESET ================= */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
-body{background:#0f172a;color:white;line-height:1.6;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Atelier Électronique Médenine</title>
+  <link rel="icon" href="images/favicon.png">
+  
+  <style>
+    /* ================= RESET & BASE ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      background: #0f172a;
+      color: white;
+      line-height: 1.6;
+    }
 
-/* ================= HEADER ================= */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 8%;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-.logo{display:flex;align-items:center;gap:15px;}
-.logo-img{width:60px;height:60px;border-radius:50%;border:3px solid #38bdf8;padding:5px;background:rgba(255,255,255,0.05);box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:0.3s;}
-.logo-img:hover{transform:scale(1.1);box-shadow:0 8px 25px rgba(0,0,0,0.5);}
-.logo h1{font-size:24px;font-weight:700;color:#ffffff;letter-spacing:1px;}
-.nav{display:flex;align-items:center;gap:25px;}
-.nav a{color:white;text-decoration:none;font-weight:500;transition:0.3s;}
-.nav a:hover{color:#38bdf8;}
-.login-btn{padding:8px 18px;border:none;border-radius:30px;background:#38bdf8;color:#000;font-weight:600;cursor:pointer;transition:0.3s;}
-.login-btn:hover{transform:scale(1.05);}
+    /* ================= HEADER ================= */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 5%;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #38bdf8;
+      padding: 4px;
+      background: rgba(255,255,255,0.05);
+    }
+    .logo h1 {
+      font-size: 18px;
+      font-weight: 700;
+    }
 
-/* ================= SERVICES PAGE ================= */
-.services-container{
-  padding:140px 8% 100px;
-  max-width:1200px;
-  margin:auto;
-  text-align:center;
-}
-.services-container h2{
-  font-size:36px;
-  margin-bottom:60px;
-  color:#38bdf8;
-}
+    /* Hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-/* Service Cards */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-}
-.card{
-  background:rgba(255,255,255,0.05);
-  padding:25px;
-  border-radius:15px;
-  cursor:pointer;
-  transition:0.5s;
-  box-shadow:0 8px 20px rgba(0,0,0,0.4);
-}
-.card:hover{
-  transform:translateY(-8px) scale(1.05);
-  background:rgba(56,189,248,0.1);
-  box-shadow:0 15px 35px rgba(56,189,248,0.5),0 0 15px rgba(56,189,248,0.3) inset;
-}
-.card h3{
-  margin-bottom:12px;
-  font-size:22px;
-  color:#38bdf8;
-}
-.card p{
-  color:#cbd5f5;
-  font-size:15px;
-}
+    /* Navigation desktop + mobile menu */
+    .nav {
+      display: none;           /* caché sur mobile par défaut */
+      align-items: center;
+      gap: 20px;
+    }
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(15,23,42,0.98);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+      gap: 18px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    }
+    .mobile-menu a,
+    .mobile-menu .login-btn {
+      font-size: 17px;
+      padding: 10px 20px;
+      width: 80%;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .mobile-menu a:hover,
+    .mobile-menu .login-btn:hover {
+      background: rgba(56,189,248,0.2);
+      color: #38bdf8;
+    }
 
-/* Service Details */
-.service-detail{
-  display:none;
-  margin-top:40px;
-  text-align:right;
-  background:rgba(255,255,255,0.05);
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
-.service-detail.active{
-  display:block;
-}
-.service-detail h3{
-  font-size:28px;
-  margin-bottom:20px;
-  color:#38bdf8;
-}
-.service-detail p{
-  margin-bottom:15px;
-}
-.service-detail img, .service-detail video{
-  width:100%;
-  max-width:600px;
-  margin-bottom:15px;
-  border-radius:12px;
-}
+    .login-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 30px;
+      background: #38bdf8;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+    }
 
-/* Close button */
-.close-detail{
-  display:inline-block;
-  margin-bottom:20px;
-  padding:10px 22px;
-  background:#38bdf8;
-  color:#000;
-  border-radius:30px;
-  cursor:pointer;
-  transition:0.3s;
-}
-.close-detail:hover{
-  transform:translateY(-3px) scale(1.05);
-  box-shadow:0 8px 25px rgba(56,189,248,0.5);
-}
+    /* ================= MAIN CONTENT ================= */
+    .services-container {
+      padding: 100px 5% 60px;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+    .services-container h2 {
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #38bdf8;
+    }
 
-/* ===== FOOTER ===== */
-footer{
-  background:#020617;
-  color:#94a3b8;
-  padding:20px 8%;
-  text-align:center;
-  margin-top:60px;
-  font-size:14px;
-}
-</style>
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(56,189,248,0.35);
+      background: rgba(56,189,248,0.08);
+    }
+    .card h3 {
+      font-size: 20px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+
+    /* Service Detail */
+    .service-detail {
+      display: none;
+      margin-top: 30px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+    }
+    .service-detail.active {
+      display: block;
+    }
+    .service-detail h3 {
+      font-size: 24px;
+      color: #38bdf8;
+      margin-bottom: 15px;
+    }
+    .service-detail p {
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+    .service-detail img,
+    .service-detail video {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 12px 0;
+      display: block;
+    }
+    .close-detail {
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 8px 18px;
+      background: #38bdf8;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      background: #020617;
+      color: #94a3b8;
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 40px;
+    }
+
+    /* ================= DESKTOP / TABLETTE ================= */
+    @media (min-width: 768px) {
+      .header {
+        padding: 15px 8%;
+      }
+      .logo-img {
+        width: 60px;
+        height: 60px;
+      }
+      .logo h1 {
+        font-size: 22px;
+      }
+      .hamburger {
+        display: none;
+      }
+      .nav {
+        display: flex;
+        gap: 25px;
+      }
+      .mobile-menu {
+        display: none !important;
+      }
+      .services-container {
+        padding: 140px 8% 80px;
+      }
+      .services-container h2 {
+        font-size: 36px;
+      }
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .card {
+        padding: 25px;
+      }
+      .card h3 {
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-  <div class="logo">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1>Atelier Électronique Médenine</h1>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Accueil</a>
-    <a href="services.html">Services</a>
-    <a href="radio-codes.html">Code Radio</a>
-    <a href="contact.html">Contact</a>
-    <button class="login-btn">Login</button>
-  </nav>
-</header>
-
-<!-- ================= SERVICES CARDS ================= -->
-<section class="services-container">
-  <h2>Nos Services</h2>
-
-  <div class="cards">
-    <div class="card" data-service="repair">
-      <h3>Réparation</h3>
-      <p>Réparation électronique professionnelle.</p>
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo" class="logo-img">
+      <h1>Atelier Électronique Médenine</h1>
     </div>
 
-    <div class="card" data-service="radio">
-      <h3>Radio Codes</h3>
-      <p>Déblocage rapide des radios voiture.</p>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
 
-    <div class="card" data-service="support">
-      <h3>Support</h3>
-      <p>Assistance technique et conseils.</p>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Services</a>
+      <a href="radio-codes.html">Code Radio</a>
+      <a href="contact.html">Contact</a>
+      <button class="login-btn">Login</button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Services</a>
+      <a href="radio-codes.html">Code Radio</a>
+      <a href="contact.html">Contact</a>
+      <button class="login-btn">Login</button>
     </div>
-  </div>
+  </header>
 
-  <!-- ================= SERVICE DETAILS ================= -->
-  <div id="repair" class="service-detail">
-    <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
-    <h3>Réparation Électronique</h3>
-    <p>Photos et vidéos de l'atelier pour la réparation :</p>
-    <img src="images/atelier-repair1.jpeg" alt="Atelier Réparation 1">
-    <img src="images/atelier-repair2.jpeg" alt="Atelier Réparation 2">
-    <video controls>
-      <source src="videos/atelier-repair1.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la vidéo.
-    </video>
-  </div>
+  <!-- ================= SERVICES ================= -->
+  <section class="services-container">
+    <h2>Nos Services</h2>
+    
+    <div class="cards">
+      <div class="card" data-service="repair">
+        <h3>Réparation</h3>
+        <p>Réparation électronique professionnelle.</p>
+      </div>
+      <div class="card" data-service="radio">
+        <h3>Radio Codes</h3>
+        <p>Déblocage rapide des radios voiture.</p>
+      </div>
+      <div class="card" data-service="support">
+        <h3>Support</h3>
+        <p>Assistance technique et conseils.</p>
+      </div>
+    </div>
 
-  <div id="radio" class="service-detail">
-    <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
-    <h3>Déblocage Radio</h3>
-    <p>Photos et vidéos de l'atelier pour codes radio :</p>
-    <img src="images/atelier-radio1.jpeg" alt="Atelier Radio 1">
-    <img src="images/atelier-radio2.jpeg" alt="Atelier Radio 2">
-    <video controls>
-      <source src="videos/atelier-radio1.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la vidéo.
-    </video>
-  </div>
+    <!-- Détails des services -->
+    <div id="repair" class="service-detail">
+      <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
+      <h3>Réparation Électronique</h3>
+      <p>Quelques photos et vidéos de l'atelier pour la réparation :</p>
+      <img src="images/atelier-repair1.jpeg" alt="Réparation 1">
+      <img src="images/atelier-repair2.jpeg" alt="Réparation 2">
+      <video controls>
+        <source src="videos/atelier-repair1.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+    </div>
 
-  <div id="support" class="service-detail">
-    <span class="close-detail" onclick="closeDetail()">✖ Fermer</span>
-    <h3>Support Technique</h3>
-    <p>Photos et vidéos de l'atelier pour support technique :</p>
-    <img src="images/atelier-support1.jpeg" alt="Atelier Support 1">
-    <img src="images/atelier-support2.jpeg" alt="Atelier Support 2">
-    <video controls>
-      <source src="videos/atelier-support1.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la vidéo.
-    </video>
-  </div>
-</section>
+    <div id="radio" class="service-detail">
+      <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
+      <h3>Déblocage Radio</h3>
+      <p>Photos et vidéos du travail sur les codes radio :</p>
+      <img src="images/atelier-radio1.jpeg" alt="Radio 1">
+      <img src="images/atelier-radio2.jpeg" alt="Radio 2">
+      <video controls>
+        <source src="videos/atelier-radio1.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+    </div>
 
-<footer>
-  <p>© 2026 Atelier Électronique Médenine</p>
-</footer>
+    <div id="support" class="service-detail">
+      <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
+      <h3>Support Technique</h3>
+      <p>Exemples d'assistance et conseils techniques :</p>
+      <img src="images/atelier-support1.jpeg" alt="Support 1">
+      <img src="images/atelier-support2.jpeg" alt="Support 2">
+      <video controls>
+        <source src="videos/atelier-support1.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+    </div>
+  </section>
 
-<script>
-// Open service detail on click
-const cards = document.querySelectorAll('.card');
-cards.forEach(card=>{
-  card.addEventListener('click',()=>{
-    const serviceId = card.getAttribute('data-service');
-    document.getElementById(serviceId).classList.add('active');
-    window.scrollTo({top:document.getElementById(serviceId).offsetTop - 80, behavior:'smooth'});
-  });
-});
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <p>© 2026 Atelier Électronique Médenine</p>
+  </footer>
 
-// Close service detail
-function closeDetail(){
-  document.querySelectorAll('.service-detail').forEach(detail=>{
-    detail.classList.remove('active');
-  });
-}
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-// Open service automatically if hash exists
-window.addEventListener('DOMContentLoaded',()=>{
-  const hash = window.location.hash.substring(1);
-  if(hash){
-    const section = document.getElementById(hash);
-    if(section){
-      section.classList.add('active');
-      window.scrollTo({top: section.offsetTop - 80, behavior:'smooth'});
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Fermer le menu mobile quand on clique sur un lien
+    document.querySelectorAll('.mobile-menu a, .mobile-menu .login-btn').forEach(item => {
+      item.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.style.display = 'none';
+      });
+    });
+
+    // Gestion des cards et détails
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const serviceId = card.getAttribute('data-service');
+        const detail = document.getElementById(serviceId);
+        
+        // Fermer tous les détails d'abord
+        document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
+        
+        // Ouvrir celui cliqué
+        if (detail) {
+          detail.classList.add('active');
+          window.scrollTo({
+            top: detail.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    function closeDetail() {
+      document.querySelectorAll('.service-detail').forEach(detail => {
+        detail.classList.remove('active');
+      });
     }
-  }
-});
-</script>
+
+    // Ouvrir automatiquement si lien avec # (ex: services.html#repair)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        const section = document.getElementById(hash);
+        if (section) {
+          section.classList.add('active');
+          window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
