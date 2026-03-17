@@ -504,7 +504,6 @@ footer {
   box-shadow: 0 0 15px #38bdf8;
 }
 
-/* ================= USER BOX HEADER ================= */
 /* ===============================
    USER ACCOUNT LOGO DISPLAY
 =================================*/
@@ -521,24 +520,31 @@ footer {
 }
 
 #userBox img {
-  width: 40px;
+  width: 40px; /* الحجم المناسب للصورة */
   height: 40px;
-  border-radius: 50%;
-  border: 2px solid #38bdf8;
+  border-radius: 50%; /* جعل الصورة دائرية */
+  border: 2px solid #38bdf8; /* تأكيد التنسيق الجمالي للصورة */
 }
 
 #userBox div {
-  display: none; /* Hide name and visits */
+  display: none; /* إخفاء الاسم وعدد الزيارات */
 }
 
 #userBox .user-rank {
-  display: none; /* Hide rank too */
+  display: none; /* إخفاء الرتبة */
 }
 
 #loginButton {
-  display: none; /* Hide default login button after login */
+  display: none; /* إخفاء زر تسجيل الدخول بعد تسجيل الدخول */
 }
-
+#user-profile-image {
+  width: 40px; /* الحجم المناسب للصورة */
+  height: 40px;
+  border-radius: 50%; /* شكل دائري */
+  border: 2px solid #38bdf8; /* إضافة حد للصورة */
+  margin-right: 12px; /* المسافة بين الصورة والكلمة */
+  display: inline-block; /* جعل الصورة تظهر بجانب النص */
+}
 /* ===============================
    NAVBAR + LOGIN BUTTON UPDATE
 =================================*/
