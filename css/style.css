@@ -58,6 +58,35 @@ body{
   margin-left: 15px; /* إضافة مسافة بين الصورة و "Contact" */
 }
 
+/* ================= LOGO 2026 ================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #38bdf8;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+.logo-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
 /* ===============================
    LOGIN BUTTON
 =================================*/
@@ -83,35 +112,6 @@ button.login-btn:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* ================= LOGO 2026 ================= */
-.logo{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.logo-img{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  border: 3px solid #38bdf8;
-  padding:5px;
-  background:rgba(255,255,255,0.05);
-  box-shadow:0 4px 15px rgba(0,0,0,0.3);
-  transition:0.3s;
-}
-
-.logo-img:hover{
-  transform:scale(1.1);
-  box-shadow:0 8px 25px rgba(0,0,0,0.5);
-}
-
-.logo h1{
-  font-size:24px;
-  font-weight:700;
-  color:#ffffff;
-  letter-spacing:1px;
-}
 
 /* ===============================
    NAVBAR
