@@ -156,34 +156,39 @@ function updateUserVisits(user) {
 
 function updateOnlineUsers(user) {
   if (!user || !user.uid) return;
+
   const userOnlineRef = onlineRef.child(user.uid);
   userOnlineRef.set({
-    name: user.displayName || "Anonyme",
     avatar: user.photoURL || "",
     lastActive: firebase.database.ServerValue.TIMESTAMP
   });
   userOnlineRef.onDisconnect().remove();
 }
 
-function listenOnlineUsers() {
-  const onlineList = document.getElementById("onlineUsersList");
-  if (!onlineList) return;
+function listenOnlineUsersMini() {
+  const onlineMiniContainer = document.getElementById("onlineMini");
+  if (!onlineMiniContainer) return;
 
   onlineRef.on("value", snap => {
-    onlineList.innerHTML = "";
-    let count = 0;
+    onlineMiniContainer.innerHTML = "";
     snap.forEach(child => {
       const data = child.val();
-      if (data) {
-        count++;
-        const li = document.createElement("li");
-        li.innerHTML = `<img src="${data.avatar}" width="24" height="24" style="border-radius:50%; margin-right:8px;"> ${data.name}`;
-        onlineList.appendChild(li);
+      if (data && data.avatar) {
+        const div = document.createElement("div");
+        div.innerHTML = `<img src="${data.avatar}" alt="Online User">`;
+        onlineMiniContainer.appendChild(div);
       }
     });
-    document.getElementById("onlineCount").innerText = count || 0;
   });
 }
+
+// === CALL THE FUNCTION AFTER LOGIN ===
+auth.onAuthStateChanged(user => {
+  if(user){
+    updateOnlineUsers(user);
+    listenOnlineUsersMini();
+  }
+});
 // ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
 const ratingMessage = document.getElementById('rating-message');
