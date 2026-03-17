@@ -1,192 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atelier Électronique Médenine</title>
-<link rel="icon" href="images/favicon.png">
-<link rel="stylesheet" href="css/style.css">
-&nbsp;&nbsp;<meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atelier Électronique Médenine</title>
+  <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
 </head>
 <body>
-<!-- ================= HEADER ================= -->
-<header class="header">
-&nbsp;&nbsp;<div class="logo">
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/logo.png" alt="Logo" class="logo-img">
-&nbsp;&nbsp;&nbsp;&nbsp;<h1>Atelier Électronique Médenine</h1>
-&nbsp;&nbsp;</div>
-&nbsp;&nbsp;<nav class="nav">
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.html">Home</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="services.html">Services</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="contact.html">Contact</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<button class="login-btn">
-&nbsp;&nbsp;<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="google-logo">
-</button>
-&nbsp;&nbsp;</nav>
-</header>
-&nbsp;&nbsp;<!-- Login Popup -->
-<div id="login-popup" style="display:none;">
-&nbsp;&nbsp;<button id="close-login">X Fermer</button>
-&nbsp;&nbsp;<button class="login-submit">
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
-&nbsp;&nbsp;&nbsp;&nbsp;Login Google
-&nbsp;&nbsp;</button>
-</div>
-<!-- User Box in header -->
-<div id="userBox">
-&nbsp;&nbsp;<img id="userAvatar" src="" alt="Avatar">
-&nbsp;&nbsp;<div>
-&nbsp;&nbsp;&nbsp;&nbsp;<div id="username"></div>
-&nbsp;&nbsp;&nbsp;&nbsp;<div class="user-rank"></div>
-&nbsp;&nbsp;&nbsp;&nbsp;<div>Visites: <span id="visitCount">0</span></div>
-&nbsp;&nbsp;</div>
-&nbsp;&nbsp;<button id="logoutBtn">Logout</button>
-</div>
-<!-- Online Users Mini Box -->
-<div id="onlineBox">
-&nbsp;&nbsp;<div class="online-header">Online:</div>
-&nbsp;&nbsp;<div class="online-users-mini" id="onlineMini"></div>
-</div>
-<!-- Profile Modal -->
-<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center;justify-content:center;z-index:1000;">
-&nbsp;&nbsp;<div style="background:#1e293b; padding:24px; border-radius:16px; max-width:400px; width:90%; text-align:center;">
-&nbsp;&nbsp;&nbsp;&nbsp;<img id="profileAvatar" src="" width="80" height="80" style="border-radius:50%; margin-bottom:16px;">
-&nbsp;&nbsp;&nbsp;&nbsp;<h2 id="profileName" style="margin-bottom:8px;"></h2>
-&nbsp;&nbsp;&nbsp;&nbsp;<p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
-&nbsp;&nbsp;&nbsp;&nbsp;<p>Visites: <span id="profileVisits">0</span></p>
-&nbsp;&nbsp;&nbsp;&nbsp;<button id="closeProfile" style="margin-top:16px; background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
-&nbsp;&nbsp;</div>
-</div>
-<!-- ================= HERO ================= -->
-<section class="hero">
-&nbsp;&nbsp;<h2 class="hero-title">
-&nbsp;&nbsp;<span id="typingTitle"></span>
-</h2>
-&nbsp;&nbsp;<p>Réparation électronique • Codes Radio • Solutions techniques</p>
-&nbsp;&nbsp;<a href="services.html" class="btn">Découvrir nos services</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="forum.html" class="btn">forum💬live</a>
-</section>
-<!-- ================= Rating Section ================= -->
-<section class="rating-section">
-&nbsp;&nbsp;<div class="rating-title">Évaluez notre atelier</div>
-&nbsp;&nbsp;<div id="rating-average">
-&nbsp;&nbsp;&nbsp;&nbsp;Note moyenne : <span id="avg-stars">0.0</span> ★ sur <span id="vote-count">0</span> votes
-&nbsp;&nbsp;</div>
-&nbsp;&nbsp;<div class="stars-horizontal">
-&nbsp;&nbsp;&nbsp;&nbsp;<span data-value="1">☆</span>
-&nbsp;&nbsp;&nbsp;&nbsp;<span data-value="2">☆</span>
-&nbsp;&nbsp;&nbsp;&nbsp;<span data-value="3">☆</span>
-&nbsp;&nbsp;&nbsp;&nbsp;<span data-value="4">☆</span>
-&nbsp;&nbsp;&nbsp;&nbsp;<span data-value="5">☆</span>
-&nbsp;&nbsp;</div>
-&nbsp;&nbsp;<div id="rating-message" class="rating-message"></div>
-</section>
-<!-- ================= SERVICES ================= -->
-<section class="services">
-&nbsp;&nbsp;<h2>Nos Services</h2>
-&nbsp;&nbsp;<div class="cards">
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="radio-codes.html" class="card service-card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Radio Codes</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Déblocage rapide des radios voiture.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="services.html#repair" class="card service-card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Réparation</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Réparation électronique professionnelle.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="contact.html" class="card service-card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Contact</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Assistance technique et conseils.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;</div>
-</section>
-<!-- ================= CALCUL ÉLECTRONIQUE ================= -->
-<section class="calcul-electronique">
-&nbsp;&nbsp;<h2>Calcul Électronique</h2>
-&nbsp;&nbsp;<div class="cards calc-cards">
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="calcul-resistance.html" class="card calc-card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Calcul Résistance</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Calculez la valeur de vos résistances facilement.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="calcul-puissance.html" class="card calc-card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Calcul Puissance</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Déterminez la puissance dissipée dans vos composants.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="calcul-condensateur.html" class="card calc-card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Calcul Condensateur</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Calculez la capacité idéale pour vos circuits.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;</div>
-</section>
-&nbsp;<!-- ================= ATELIER ================= -->
-<section class="atelier">
-&nbsp;&nbsp;<h2>Atelier</h2>
-&nbsp;&nbsp;<div class="cards atelier-cards">
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="faq.html" class="card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>FAQ</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Questions fréquentes et conseils pratiques.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="boutique.html" class="card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Boutique</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Achetez vos composants et accessoires en ligne.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="services-atelier.html" class="card">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Services Atelier</h3>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>Réparation, montage et support technique sur place.</p>
-&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;</div>
-</section>
-<!-- ================= FOOTER ================= -->
-<footer>
-&nbsp;<div class="footer-content">
-&nbsp;&nbsp;&nbsp;&nbsp;<p class="copyright">© 2026 Atelier Électronique Médenine </p>
-&nbsp;&nbsp;&nbsp;&nbsp;<div class="social-icons">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-&nbsp;&nbsp;&nbsp;&nbsp;</div>
-&nbsp;&nbsp;</div>
-</footer>
-<!-- ================= FIREBASE ================= -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- ================= SCRIPTS ================= -->
-<script src="js/script.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-const text = "Atelier Électrique Medenine";
-const speed = 80;
-let i = 0;
-const target = document.getElementById("typingTitle");
-function typeWriter(){
-if(i < text.length){
-target.innerHTML += text.charAt(i);
-i++;
-setTimeout(typeWriter, speed);
-}else{
-// يعمل blink
-target.classList.add("text-blink");
-// بعد blink يستنى شوية ثم يعاود
-setTimeout(restartTyping, 5000);
-}
-}
-function restartTyping(){
-target.classList.remove("text-blink");
-target.innerHTML = "";
-i = 0;
-typeWriter();
-}
-typeWriter();
-});
-</script>
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo" class="logo-img">
+      <h1>Atelier Électronique Médenine</h1>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <button class="login-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="google-logo">
+        Login with Google
+      </button>
+    </nav>
+  </header>
+
+  <!-- ================= LOGIN POPUP ================= -->
+  <div id="login-popup">
+    <button id="close-login">X Fermer</button>
+    <button class="login-submit">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
+      Login Google
+    </button>
+  </div>
+
+  <!-- ================= USER BOX ================= -->
+  <div id="userBox">
+    <img id="userAvatar" src="" alt="Avatar">
+    <div>
+      <div id="username"></div>
+      <div class="user-rank"></div>
+      <div>Visites: <span id="visitCount">0</span></div>
+    </div>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- ================= ONLINE MINI ================= -->
+  <div id="onlineBox">
+    <div class="online-header">Online:</div>
+    <div class="online-users-mini" id="onlineMini"></div>
+  </div>
+
+  <!-- ================= PROFILE MODAL ================= -->
+  <div id="profileModal">
+    <div class="profile-content">
+      <img id="profileAvatar" src="" width="80" height="80" style="border-radius:50%; margin-bottom:16px;">
+      <h2 id="profileName"></h2>
+      <p id="profileRank" style="color:#fbbf24;"></p>
+      <p>Visites: <span id="profileVisits">0</span></p>
+      <button id="closeProfile">Fermer</button>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <h2 class="hero-title"><span id="typingTitle"></span></h2>
+    <p>Réparation électronique • Codes Radio • Solutions techniques</p>
+    <a href="services.html" class="btn">Découvrir nos services</a>
+    <a href="forum.html" class="btn">forum💬live</a>
+  </section>
+
+  <!-- ================= RATING ================= -->
+  <section class="rating-section">
+    <div class="rating-title">Évaluez notre atelier</div>
+    <div id="rating-average">
+      Note moyenne : <span id="avg-stars">0.0</span> ★ sur <span id="vote-count">0</span> votes
+    </div>
+    <div class="stars-horizontal">
+      <span data-value="1">☆</span>
+      <span data-value="2">☆</span>
+      <span data-value="3">☆</span>
+      <span data-value="4">☆</span>
+      <span data-value="5">☆</span>
+    </div>
+    <div id="rating-message" class="rating-message"></div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="services">
+    <h2>Nos Services</h2>
+    <div class="cards">
+      <a href="radio-codes.html" class="card service-card">
+        <h3>Radio Codes</h3>
+        <p>Déblocage rapide des radios voiture.</p>
+      </a>
+      <a href="services.html#repair" class="card service-card">
+        <h3>Réparation</h3>
+        <p>Réparation électronique professionnelle.</p>
+      </a>
+      <a href="contact.html" class="card service-card">
+        <h3>Contact</h3>
+        <p>Assistance technique et conseils.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CALCUL ÉLECTRONIQUE ================= -->
+  <section class="calcul-electronique">
+    <h2>Calcul Électronique</h2>
+    <div class="cards calc-cards">
+      <a href="calcul-resistance.html" class="card calc-card">
+        <h3>Calcul Résistance</h3>
+        <p>Calculez la valeur de vos résistances facilement.</p>
+      </a>
+      <a href="calcul-puissance.html" class="card calc-card">
+        <h3>Calcul Puissance</h3>
+        <p>Déterminez la puissance dissipée dans vos composants.</p>
+      </a>
+      <a href="calcul-condensateur.html" class="card calc-card">
+        <h3>Calcul Condensateur</h3>
+        <p>Calculez la capacité idéale pour vos circuits.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= ATELIER ================= -->
+  <section class="atelier">
+    <h2>Atelier</h2>
+    <div class="cards atelier-cards">
+      <a href="faq.html" class="card">
+        <h3>FAQ</h3>
+        <p>Questions fréquentes et conseils pratiques.</p>
+      </a>
+      <a href="boutique.html" class="card">
+        <h3>Boutique</h3>
+        <p>Achetez vos composants et accessoires en ligne.</p>
+      </a>
+      <a href="services-atelier.html" class="card">
+        <h3>Services Atelier</h3>
+        <p>Réparation, montage et support technique sur place.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-content">
+      <p class="copyright">© 2026 Atelier Électronique Médenine</p>
+      <div class="social-icons">
+        <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+        </a>
+        <a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+        </a>
+        <a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+        </a>
+        <a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FIREBASE ================= -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="js/script.js"></script>
+
+  <!-- ================= TYPING ANIMATION ================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const text = "Atelier Électronique Médenine";
+      const speed = 80;
+      let i = 0;
+      const target = document.getElementById("typingTitle");
+      function typeWriter(){
+        if(i < text.length){
+          target.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        } else {
+          target.classList.add("text-blink");
+          setTimeout(restartTyping, 5000);
+        }
+      }
+      function restartTyping(){
+        target.classList.remove("text-blink");
+        target.innerHTML = "";
+        i = 0;
+        typeWriter();
+      }
+      typeWriter();
+    });
+  </script>
 </body>
 </html>
