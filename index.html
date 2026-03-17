@@ -35,28 +35,30 @@
   <p>Réparation électronique • Codes Radio • Solutions techniques</p>
   <a href="services.html" class="btn">Découvrir nos services</a>
 </section>
-<!-- ================= RATING ================= -->
-<div class="rating-container">
-  <div class="rating-title">Évaluez notre atelier</div>
-
-  <div class="stars-horizontal">
-    <span data-value="1">☆</span>
-    <span data-value="2">☆</span>
-    <span data-value="3">☆</span>
-    <span data-value="4">☆</span>
-    <span data-value="5">☆</span>
-  </div>
-
-  <div id="rating-value">0/5</div>
-  <div id="rating-message" class="rating-message">Connectez-vous avec Google pour noter</div>
-  <div id="rating-average">
-    Note moyenne : <span id="avg-stars">0.0</span> ★
-    sur <span id="vote-count">0</span> votes
-  </div>
-  <div id="rating-breakdown" class="rating-breakdown"></div>
+<!-- ================= Rating ================= -->
+<div class="rating-title">Évaluez notre atelier</div>
+<div id="rating-average">
+  Note moyenne : <span id="avg-stars">0.0</span> ★ sur <span id="vote-count">0</span> votes
 </div>
-<a href="forum.html" class="btn">forum💬live</a>
-  
+<div class="stars-horizontal">
+  <span data-value="1">☆</span>
+  <span data-value="2">☆</span>
+  <span data-value="3">☆</span>
+  <span data-value="4">☆</span>
+  <span data-value="5">☆</span>
+</div>
+<div id="rating-message" class="rating-message"></div>
+
+<!-- ================= Actualités ================= -->
+<section class="actualites">
+  <h2>Actualités</h2>
+  <div id="postsList"></div>
+  <div class="new-post">
+    <textarea id="postInput" placeholder="Écrire une nouvelle actualité..."></textarea>
+    <button id="postSubmit">Publier</button>
+  </div>
+  <a href="forum.html" class="btn">forum💬live</a>
+</section>
 
 
 <!-- ================= SERVICES ================= -->
