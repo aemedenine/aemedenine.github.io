@@ -200,40 +200,42 @@ document.addEventListener("DOMContentLoaded", function(){
 
 const text = "Atelier Électrique Medenine";
 const speed = 80;
+
 let i = 0;
 
 const target = document.getElementById("typingTitle");
 
-function typing(){
+function typeWriter(){
 
 if(i < text.length){
 
 target.innerHTML += text.charAt(i);
-
 i++;
-
-setTimeout(typing, speed);
+setTimeout(typeWriter, speed);
 
 }else{
 
-/* pause 10s ثم إعادة */
-setTimeout(resetTyping, 10000);
+// بعد ما يكمل ➜ يعمل blink مرة وحدة
+target.classList.add("blink-once");
+
+// بعد 10 ثواني ➜ يعاود
+setTimeout(restartTyping, 10000);
 
 }
 
 }
 
-function resetTyping(){
+function restartTyping(){
 
+target.classList.remove("blink-once");
 target.innerHTML = "";
-
 i = 0;
 
-typing();
+typeWriter();
 
 }
 
-typing();
+typeWriter();
 
 });
 
