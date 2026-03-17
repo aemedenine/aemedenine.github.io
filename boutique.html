@@ -41,7 +41,7 @@
       white-space: nowrap;
     }
 
-    /* Hamburger (mobile) */
+    /* Hamburger (mobile only) */
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -110,40 +110,17 @@
 
     /* ================= PAGE CONTENT ================= */
     .page-title {
-      text-align: center;
       font-size: 28px;
       margin: 100px 5% 30px;
       color: #38bdf8;
     }
 
-    .lang-switcher {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin: 20px 5% 40px;
-      flex-wrap: wrap;
-    }
-    .lang-switcher button {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      background: #38bdf8;
-      color: #000;
-      transition: 0.3s;
-    }
-    .lang-switcher button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(56,189,248,0.4);
-    }
-
     .btn-return {
       display: inline-block;
-      margin: 0 auto 30px;
+      margin: 0 auto 40px;
       background: #38bdf8;
       color: #000;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 30px;
       font-weight: 700;
       text-decoration: none;
@@ -313,86 +290,36 @@
   </header>
 
   <!-- ================= CONTENT ================= -->
-  <h2 class="page-title">
-    <span class="lang-fr">Boutique de l'Atelier</span>
-    <span class="lang-ar hidden">متجر الورشة</span>
-    <span class="lang-en hidden">Workshop Store</span>
-  </h2>
+  <h2 class="page-title">Boutique de l'Atelier</h2>
 
-  <div class="lang-switcher">
-    <button onclick="setLang('ar')">AR</button>
-    <button onclick="setLang('fr')">FR</button>
-    <button onclick="setLang('en')">EN</button>
-  </div>
-
-  <a href="index.html" class="btn-return">
-    <span class="lang-fr">🏠 Retour à l'accueil</span>
-    <span class="lang-ar hidden">🏠 رجوع للرئيسية</span>
-    <span class="lang-en hidden">🏠 Back to Home</span>
-  </a>
+  <a href="index.html" class="btn-return">🏠 Retour à l'accueil</a>
 
   <div class="product-grid">
     <!-- PRODUCT 1 -->
     <div class="product-card">
-      <img src="images/250a.webp" alt="Poste Meakida 250A" class="product-img">
-      <h3>
-        <span class="lang-fr">Poste à souder Meakida 250A</span>
-        <span class="lang-ar hidden">Poste a souder Meakida 250A</span>
-        <span class="lang-en hidden">Meakida Welding Machine 250A</span>
-      </h3>
-      <p>
-        <span class="lang-fr hidden">Machine de soudage 250A puissante</span>
-        <span class="lang-ar hidden">ماكينة لحام قوية 250 أمبير</span>
-        <span class="lang-en hidden">Powerful 250A welding machine</span>
-      </p>
+      <img src="images/250a.webp" alt="Poste à souder Meakida 250A" class="product-img">
+      <h3>Poste à souder Meakida 250A</h3>
+      <p>Machine de soudage 250A puissante</p>
       <div class="price">319 000 DT</div>
-      <button class="btn-store">
-        <span class="lang-fr">Acheter</span>
-        <span class="lang-ar hidden">شراء</span>
-        <span class="lang-en hidden">Buy</span>
-      </button>
+      <button class="btn-store">Acheter</button>
     </div>
 
     <!-- PRODUCT 2 -->
     <div class="product-card">
-      <img src="images/300a.webp" alt="Poste Meakida 300A" class="product-img">
-      <h3>
-        <span class="lang-fr">Poste à souder Meakida 300A</span>
-        <span class="lang-ar hidden">Poste a souder Meakida 300A</span>
-        <span class="lang-en hidden">Meakida Welding Machine 300A</span>
-      </h3>
-      <p>
-        <span class="lang-fr hidden">Performance améliorée à 300A</span>
-        <span class="lang-ar hidden">أداء أفضل بـ 300 أمبير</span>
-        <span class="lang-en hidden">Better performance 300A</span>
-      </p>
+      <img src="images/300a.webp" alt="Poste à souder Meakida 300A" class="product-img">
+      <h3>Poste à souder Meakida 300A</h3>
+      <p>Performance améliorée à 300A</p>
       <div class="price">339 000 DT</div>
-      <button class="btn-store">
-        <span class="lang-fr">Acheter</span>
-        <span class="lang-ar hidden">شراء</span>
-        <span class="lang-en hidden">Buy</span>
-      </button>
+      <button class="btn-store">Acheter</button>
     </div>
 
     <!-- PRODUCT 3 -->
     <div class="product-card">
-      <img src="images/ingco200a.webp" alt="Poste Ingco 200A" class="product-img">
-      <h3>
-        <span class="lang-fr">Poste à souder INGCO 200A</span>
-        <span class="lang-ar hidden">Poste a souder INGCO 200A</span>
-        <span class="lang-en hidden">INGCO Welding Machine 200A</span>
-      </h3>
-      <p>
-        <span class="lang-fr hidden">Marque célèbre et pratique</span>
-        <span class="lang-ar hidden">ماركة مشهورة وعملية</span>
-        <span class="lang-en hidden">Famous and practical brand</span>
-      </p>
+      <img src="images/ingco200a.webp" alt="Poste à souder INGCO 200A" class="product-img">
+      <h3>Poste à souder INGCO 200A</h3>
+      <p>Marque célèbre et pratique</p>
       <div class="price">480 000 DT</div>
-      <button class="btn-store">
-        <span class="lang-fr">Acheter</span>
-        <span class="lang-ar hidden">شراء</span>
-        <span class="lang-en hidden">Buy</span>
-      </button>
+      <button class="btn-store">Acheter</button>
     </div>
   </div>
 
@@ -430,15 +357,6 @@
   </div>
 
   <script>
-    // Lang switch + default FR
-    function setLang(lang) {
-      document.querySelectorAll('.lang-ar,.lang-fr,.lang-en').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.lang-' + lang).forEach(el => el.classList.remove('hidden'));
-      document.documentElement.lang = lang;
-      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-      document.body.style.textAlign = (lang === 'ar') ? 'right' : 'center';
-    }
-
     // Hamburger menu
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -455,7 +373,7 @@
       });
     });
 
-    // Payment logic (même que avant)
+    // Payment logic
     const whatsappNumber = '21698192103';
     const modalOverlay = document.getElementById('modalOverlay');
     const paymentMethodModal = document.getElementById('paymentMethodModal');
@@ -541,9 +459,6 @@
       postModal.style.display = 'none';
       modalOverlay.style.display = 'none';
     });
-
-    // Charger Français par défaut
-    setLang('fr');
   </script>
 </body>
 </html>
