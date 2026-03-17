@@ -379,123 +379,69 @@ footer {
     justify-content: center;
   }
 }
-/* =============================== LOGIN POPUP =================================*/
-#login-popup{ 
-   display:none;
-   position:fixed;
-   top:0; left:0;
-   width:100%; 
-   height:100%;
-   background:rgba(0,0,0,0.8); 
-   justify-content:center; 
-   align-items:center; z-index:2000;
-} 
-.login-box{
-   background:#020617; 
-   padding:40px; 
-   border-radius:15px;
-   width:320px; 
-   text-align:center; 
-   position:relative; 
+ /* =============================== LOGIN & USER MINI EFFECT 2026 =============================== */
+
+/* Login Button Glow */
+.login-btn {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
-.login-box h2{
-   margin-bottom:20px;
+.login-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: 0.5s;
+  transform: scale(0);
+  border-radius: 50%;
+  z-index: -1;
 }
-.login-box input{
-   width:100%;
-   padding:10px;
-   margin:10px 0;
-   border:none;
-   border-radius:8px; 
-} 
-.login-submit{ 
-   margin-top:10px;
-   width:100%;
-   padding:10px;
-   border:none; 
-   border-radius:30px;
-   background:#38bdf8; 
-   font-weight:600;
-   cursor:pointer; 
-} 
-#close-login{ 
-   position:absolute; 
-   right:15px; 
-   top:10px; 
-   cursor:pointer;
+.login-btn:hover::after {
+  opacity: 1;
+  transform: scale(1);
 }
-/* =============================== USER BOX =================================*/
-.user-box{ 
-   position:fixed; 
-   bottom:20px; 
-   right:20px; 
-   background:#020617;
-   padding:10px 15px;
-   border-radius:30px;
-   display:none; 
-   align-items:center; 
-   gap:10px; 
-   cursor:pointer; 
-} 
-.user-box img{ 
-   width:40px; 
-   border-radius:50%;
+
+/* User Box Pulse */
+.user-box {
+  animation: pulseUser 2.5s infinite;
 }
-.user-box .user-info{
-   display:flex; 
-   flex-direction:column; 
-} 
-.user-box .user-info span{ 
-   font-size:12px;
-} 
-/* Logout Button */ 
-#logoutBtn{ 
-   background:#ef4444;
-   color:white;
-   border:none; 
-   border-radius:20px; 
-   padding:5px 10px;
-   cursor:pointer;
-   margin-left:10px;
-   font-size:12px;
+@keyframes pulseUser {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 8px rgba(56,189,248,0.4); }
+  50% { transform: translateY(-3px); box-shadow: 0 0 20px rgba(56,189,248,0.6); }
 }
-/* =============================== PROFILE MODAL =================================*/ 
-.profile-modal{
-   display:none;
-   position:fixed;
-   top:0; left:0;
-   width:100%;
-   height:100%;
-   background:rgba(0,0,0,0.85);
-   justify-content:center; 
-   align-items:center;
-   z-index:3000;
-} 
-.profile-content{
-   background:#020617;
-   padding:30px;
-   border-radius:15px;
-   width:350px;
-   text-align:center; 
-} 
-.profile-content img{
-   width:80px;
-   border-radius:50%;
-   margin-bottom:10px;
+
+/* Profile Modal Tiny Pop */
+.profile-content {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
-/* ONLINE USERS */ 
-.online-users{
-   margin-top:20px; max-height:200px; overflow-y:auto; 
-} 
-.online-users div{ 
-   display:flex;
-   align-items:center;
-   gap:5px;
-   margin-bottom:5px; 
-} 
-.online-users img{
-   width:25px; 
-   border-radius:50%; 
+.profile-modal.show .profile-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Close Button Hover Effect */
+#close-login, #closeProfile {
+  color: #38bdf8;
+  transition: 0.3s;
+}
+#close-login:hover, #closeProfile:hover {
+  transform: rotate(90deg) scale(1.2);
+}
+
+/* Online Users mini pop */
+.online-users div {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.online-users div:hover {
+  transform: translateX(5px);
+  box-shadow: 0 0 10px rgba(56,189,248,0.5);
 }
 /* ===============================
    SHOW ANIMATION
