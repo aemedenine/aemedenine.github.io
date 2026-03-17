@@ -108,11 +108,22 @@ userBox.onclick = ()=>{
 };
 closeProfile.onclick = ()=>profileModal.style.display = "none";
 
-// ================= STARS RATING
+// ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
 const ratingMessage = document.getElementById('rating-message');
+
+let currentUser = null; // هذي باش نحطو بعد login
 let currentUserRating = 0;
 
+const ratingsRef = firebase.database().ref("ratings");
+const userRatingsRef = firebase.database().ref("userRatings");
+
+// تحديث currentUser بعد تسجيل الدخول
+auth.onAuthStateChanged(user => {
+  currentUser = user;
+});
+
+// تحديث النجوم حسب الرقم
 function updateStars(r){
   stars.forEach(s => {
     const val = Number(s.dataset.value);
@@ -120,52 +131,63 @@ function updateStars(r){
   });
 }
 
+// عند الضغط على نجمة
 stars.forEach(star=>{
   star.addEventListener('click',()=>{
-    if(!currentUser) return alert("Connectez-vous pour noter !");
+    if(!currentUser){
+      alert("🔒 Connectez-vous pour noter !");
+      return;
+    }
     const val = Number(star.dataset.value);
-    if(currentUserRating>0){ alert("Vous avez déjà noté !"); return; }
-    
-    userRatingsRef.child(currentUser.uid).set({rating:val,name:currentUser.displayName,timestamp:firebase.database.ServerValue.TIMESTAMP});
-    ratingsRef.transaction(current => {
+    if(currentUserRating > 0){
+      alert("Vous avez déjà noté !");
+      return;
+    }
+
+    // تخزين تقييم المستخدم
+    userRatingsRef.child(currentUser.uid).set({
+      rating: val,
+      name: currentUser.displayName,
+      timestamp: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    // تحديث معدل النجوم
+    ratingsRef.transaction(current=>{
       const data = current || {sum:0,count:0,breakdown:{1:0,2:0,3:0,4:0,5:0}};
       data.sum += val;
       data.count +=1;
       data.breakdown[val] = (data.breakdown[val]||0)+1;
       return data;
     });
+
     currentUserRating = val;
     updateStars(val);
     ratingMessage.textContent = `Merci ${currentUser.displayName}, votre note (${val} étoiles) a été enregistrée 🌟`;
     ratingMessage.classList.add('show');
     setTimeout(()=>ratingMessage.classList.remove('show'),8000);
+
+    // تحديث المتوسط على الصفحة
+    ratingsRef.once('value').then(snapshot=>{
+      const data = snapshot.val();
+      if(data && data.count>0){
+        const avg = (data.sum/data.count).toFixed(1);
+        document.getElementById('avg-stars').textContent = avg;
+        document.getElementById('vote-count').textContent = data.count;
+      }
+    });
+
   });
 });
 
-// ================= LOAD POSTS
-const postInput = document.getElementById('postInput');
-const postSubmit = document.getElementById('postSubmit');
-const postsList = document.getElementById('postsList');
-
-postSubmit.onclick = () => {
-  if(!currentUser) return alert("Connectez-vous pour publier !");
-  const text = postInput.value.trim();
-  if(!text) return;
-  postsRef.push({author:currentUser.displayName,avatar:currentUser.photoURL,text:text,timestamp:firebase.database.ServerValue.TIMESTAMP});
-  postInput.value = '';
-};
-
-postsRef.on('value', snapshot=>{
-  postsList.innerHTML = '';
-  snapshot.forEach(child=>{
-    const data = child.val();
-    const postDiv = document.createElement('div');
-    postDiv.className = 'post';
-    postDiv.innerHTML = `<div class="post-header"><img src="${data.avatar}" width="30" height="30" style="border-radius:50%;"><strong>${data.author}</strong> <span>${new Date(data.timestamp).toLocaleString()}</span></div><p>${data.text}</p>`;
-    postsList.prepend(postDiv);
-  });
+// تحميل المعدل عند الصفحة
+ratingsRef.on('value', snapshot=>{
+  const data = snapshot.val();
+  if(data && data.count>0){
+    const avg = (data.sum/data.count).toFixed(1);
+    document.getElementById('avg-stars').textContent = avg;
+    document.getElementById('vote-count').textContent = data.count;
+  }
 });
-
 // ================= ONLINE USERS DISPLAY
 onlineRef.on("value", snapshot=>{
   const container = document.getElementById("onlineUsers");
