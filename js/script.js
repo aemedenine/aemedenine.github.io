@@ -174,6 +174,54 @@ if (closeProfile) {
     if (profileModal) profileModal.style.display = "none";
   };
 }
+// Attendre que la page soit complètement chargée
+document.addEventListener("DOMContentLoaded", () => {
+  // Login popup
+  const loginButton = document.querySelector(".login-btn");
+  const loginPopup = document.getElementById("login-popup");
+  const closeLogin = document.getElementById("close-login");
+
+  if (loginButton) {
+    loginButton.addEventListener("click", () => {
+      if (loginPopup) loginPopup.style.display = "flex";
+    });
+  }
+
+  if (closeLogin) {
+    closeLogin.addEventListener("click", () => {
+      if (loginPopup) loginPopup.style.display = "none";
+    });
+  }
+
+  // Logout
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      auth.signOut().then(() => {
+        alert("🔓 Déconnecté !");
+        if (userBox) userBox.style.display = "none";
+      }).catch(err => console.error("Logout error:", err));
+    });
+  }
+
+  // User box click → profile modal
+  const userBox = document.getElementById("userBox");
+  const profileModal = document.getElementById("profileModal");
+  const closeProfile = document.getElementById("closeProfile");
+
+  if (userBox) {
+    userBox.addEventListener("click", () => {
+      if (profileModal) profileModal.style.display = "flex";
+    });
+  }
+
+  if (closeProfile) {
+    closeProfile.addEventListener("click", () => {
+      if (profileModal) profileModal.style.display = "none";
+    });
+  }
+});
 
 // ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
