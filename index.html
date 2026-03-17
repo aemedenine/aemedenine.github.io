@@ -202,7 +202,6 @@ const text = "Atelier Électrique Medenine";
 const speed = 80;
 
 let i = 0;
-
 const target = document.getElementById("typingTitle");
 
 function typeWriter(){
@@ -215,10 +214,23 @@ setTimeout(typeWriter, speed);
 
 }else{
 
-// النص كامل يرمش مرة واحدة
-target.classList.add("text-blink-once");
+// يعمل blink
+target.classList.add("text-blink");
+
+// بعد blink يستنى شوية ثم يعاود
+setTimeout(restartTyping, 10000);
 
 }
+
+}
+
+function restartTyping(){
+
+target.classList.remove("text-blink");
+target.innerHTML = "";
+i = 0;
+
+typeWriter();
 
 }
 
