@@ -379,13 +379,14 @@ footer {
     justify-content: center;
   }
 }
- /* =============================== LOGIN & USER MINI EFFECT 2026 =============================== */
+/* =============================== LOGIN & USER MINI EFFECT 2026 =============================== */
 
-/* Login Button Glow */
+/* ===== Login Button Glow ===== */
 .login-btn {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  border-radius: 30px;
 }
 .login-btn::after {
   content: '';
@@ -406,16 +407,22 @@ footer {
   transform: scale(1);
 }
 
-/* User Box Pulse */
+/* ===== User Box Pulse ===== */
 .user-box {
   animation: pulseUser 2.5s infinite;
+  border-radius: 30px;
+  background: linear-gradient(145deg, #020617, #0f172a);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 @keyframes pulseUser {
   0%, 100% { transform: translateY(0); box-shadow: 0 0 8px rgba(56,189,248,0.4); }
   50% { transform: translateY(-3px); box-shadow: 0 0 20px rgba(56,189,248,0.6); }
 }
 
-/* Profile Modal Tiny Pop */
+/* ===== Profile Modal Tiny Pop ===== */
 .profile-content {
   transform: scale(0.9);
   opacity: 0;
@@ -426,64 +433,80 @@ footer {
   opacity: 1;
 }
 
-/* Close Button Hover Effect */
+/* ===== Close Button Hover Effect ===== */
 #close-login, #closeProfile {
   color: #38bdf8;
   transition: 0.3s;
+  cursor: pointer;
 }
 #close-login:hover, #closeProfile:hover {
   transform: rotate(90deg) scale(1.2);
 }
 
-/* Mini Online Box */
-#onlineBox {
+/* ===== Online Mini Box ===== */
+#onlineMiniBox {
   position: fixed;
-  bottom: 100px; /* فوق الـuser-box */
-  right: 20px;
-  background: rgba(2,6,23,0.85);
-  backdrop-filter: blur(10px);
-  padding: 8px 12px;
+  bottom: 20px;
+  left: 20px;
+  width: 130px;
+  background: rgba(2,6,23,0.95);
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  z-index: 2500;
+  padding: 8px 10px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  z-index: 4000;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#onlineMiniBox .mini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+#onlineMiniBox .mini-header #closeMiniBox {
+  color: #38bdf8;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+#onlineMiniBox .mini-header #closeMiniBox:hover {
+  transform: scale(1.2);
+}
+
+#onlineMiniBox .mini-content {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  align-items: flex-start;
-  min-width: 100px;
+  align-items: center;
+  gap: 4px;
 }
 
-#onlineBox .online-header {
-  font-size: 12px;
-  font-weight: 700;
-  color: #38bdf8;
-  margin-bottom: 4px;
-}
-
-.online-users-mini {
+#onlineMiniBox .avatars {
   display: flex;
-  gap: 5px;
-  overflow-x: auto;
-  padding: 2px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
 }
 
-.online-users-mini div {
-  width: 28px;
-  height: 28px;
+#onlineMiniBox .avatars div img {
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  overflow: hidden;
   border: 2px solid #38bdf8;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-
-.online-users-mini img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.online-users-mini div:hover {
+#onlineMiniBox .avatars div img:hover {
   transform: scale(1.3);
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+#onlineMiniBox #miniVisits {
+  font-size: 11px;
+  color: #a5b4fc;
+  margin-top: 4px;
+  text-align: center;
 }
 /* ===============================
    SHOW ANIMATION
