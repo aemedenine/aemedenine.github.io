@@ -140,38 +140,32 @@
   </div>
 </footer>
 
-<!-- ================= LOGIN POPUP ================= -->
-<div id="login-popup">
-  <div class="login-box">
-    <span id="close-login">✖</span>
-    <h2>Login</h2>
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password">
-    <button class="login-submit">Login with Google</button>
+<!-- User Box -->
+<div id="userBox" style="display:none; align-items:center; gap:12px; padding:12px; background:rgba(30,41,59,0.6); border-radius:12px; margin:10px;">
+  <img id="userAvatar" src="" width="48" height="48" style="border-radius:50%;">
+  <div>
+    <div id="username" style="font-weight:600;"></div>
+    <div class="user-rank" style="color:#fbbf24; font-size:14px;"></div>
+    <div style="font-size:13px;">Visites: <span id="visitCount">0</span></div>
   </div>
+  <button id="logoutBtn" style="margin-left:auto; background:#ef4444; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;">Logout</button>
 </div>
 
-<!-- ================= USER BOX ================= -->
-<div class="user-box" id="userBox">
-  <img id="userAvatar" src="https://i.imgur.com/6VBx3io.png">
-  <div class="user-info">
-    <span id="username">User</span>
-    <span class="user-rank">⭐ Member</span>
-    <span class="user-visits">👁 Visits: <span id="visitCount">0</span></span>
-  </div>
-  <button id="logoutBtn">Logout</button>
+<!-- Online Users -->
+<div style="padding:10px; background:rgba(15,23,42,0.5); border-radius:12px; margin:10px;">
+  Online: <span id="onlineCount">0</span>
+  <ul id="onlineUsersList" style="list-style:none; padding:0; margin-top:8px;"></ul>
 </div>
 
-<!-- ================= USER PROFILE MODAL ================= -->
-<div id="profileModal" class="profile-modal">
-  <div class="profile-content">
-    <span id="closeProfile">✖</span>
-    <img id="profileAvatar" src="https://i.imgur.com/6VBx3io.png">
-    <h2 id="profileName">User</h2>
-    <p id="profileRank">⭐ Member</p>
-    <p>👁 Visits: <span id="profileVisits">0</span></p>
+<!-- Profile Modal -->
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:400px; width:90%; text-align:center;">
+    <img id="profileAvatar" src="" width="80" height="80" style="border-radius:50%; margin-bottom:16px;">
+    <h2 id="profileName" style="margin-bottom:8px;"></h2>
+    <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
+    <p>Visites: <span id="profileVisits">0</span></p>
+    <button id="closeProfile" style="margin-top:16px; background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
   </div>
-  <div class="online-users" id="onlineUsers"></div>
 </div>
 
 <!-- ================= FIREBASE ================= -->
