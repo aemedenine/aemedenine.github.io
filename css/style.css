@@ -87,8 +87,8 @@ button.login-submit {
     background-color: #38bdf8; /* أزرق جذاب */
     color: #000; /* نص أسود */
     font-weight: 600;
-    font-size: 16px;
-    padding: 12px 28px;
+    font-size: 8px;
+    padding: 8px 14px;
     border-radius: 30px;
     border: none;
     cursor: pointer;
