@@ -48,6 +48,7 @@
     .logo h1 {
       font-size: 18px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     /* Hamburger */
@@ -56,24 +57,55 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      z-index: 1100;
     }
     .hamburger span {
       width: 25px;
       height: 3px;
       background: white;
       border-radius: 3px;
-      transition: 0.3s;
+      transition: 0.4s;
     }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-    /* Navigation desktop + mobile menu */
+    /* Navigation links - BLANC permanent sur desktop */
     .nav {
-      display: none;           /* caché sur mobile par défaut */
+      display: none;
       align-items: center;
-      gap: 20px;
+      gap: 28px;
     }
+    .nav a {
+      color: white;               /* blanc fixe */
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+    .nav a:hover {
+      color: white;               /* reste blanc */
+      text-decoration: underline; /* juste underline au hover */
+      transform: scale(1.05);
+    }
+
+    .login-btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 30px;
+      background: #38bdf8;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .login-btn:hover {
+      background: #2da8e0;
+      transform: scale(1.05);
+    }
+
+    /* Mobile menu */
     .mobile-menu {
       display: none;
       position: absolute;
@@ -84,36 +116,23 @@
       backdrop-filter: blur(10px);
       flex-direction: column;
       align-items: center;
-      padding: 20px 0;
-      gap: 18px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      padding: 25px 0;
+      gap: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
     }
     .mobile-menu a,
     .mobile-menu .login-btn {
-      font-size: 17px;
-      padding: 10px 20px;
-      width: 80%;
-      text-align: center;
-      text-decoration: none;
       color: white;
-      border-radius: 8px;
+      text-decoration: none;
+      font-size: 17px;
+      padding: 12px 30px;
+      width: 85%;
+      text-align: center;
+      border-radius: 10px;
       transition: 0.3s;
     }
-    .mobile-menu a:hover,
-    .mobile-menu .login-btn:hover {
-      background: rgba(56,189,248,0.2);
-      color: #38bdf8;
-    }
-
-    .login-btn {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 30px;
-      background: #38bdf8;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 15px;
+    .mobile-menu a:hover {
+      background: rgba(56,189,248,0.15);
     }
 
     /* ================= MAIN CONTENT ================= */
@@ -125,7 +144,7 @@
     }
     .services-container h2 {
       font-size: 28px;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       color: #38bdf8;
     }
 
@@ -136,15 +155,14 @@
     }
     .card {
       background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 15px;
+      padding: 22px;
+      border-radius: 16px;
       cursor: pointer;
       transition: all 0.4s ease;
     }
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(56,189,248,0.35);
-      background: rgba(56,189,248,0.08);
+      box-shadow: 0 12px 30px rgba(56,189,248,0.3);
     }
     .card h3 {
       font-size: 20px;
@@ -159,10 +177,10 @@
     /* Service Detail */
     .service-detail {
       display: none;
-      margin-top: 30px;
+      margin-top: 35px;
       background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 15px;
+      padding: 22px;
+      border-radius: 16px;
     }
     .service-detail.active {
       display: block;
@@ -172,22 +190,16 @@
       color: #38bdf8;
       margin-bottom: 15px;
     }
-    .service-detail p {
-      margin-bottom: 15px;
-      font-size: 15px;
-    }
     .service-detail img,
     .service-detail video {
       width: 100%;
-      max-width: 100%;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 12px 0;
-      display: block;
     }
     .close-detail {
       display: inline-block;
-      margin-bottom: 15px;
-      padding: 8px 18px;
+      margin-bottom: 18px;
+      padding: 10px 20px;
       background: #38bdf8;
       color: #000;
       border: none;
@@ -203,46 +215,24 @@
       padding: 20px;
       text-align: center;
       font-size: 13px;
-      margin-top: 40px;
+      margin-top: 50px;
     }
 
-    /* ================= DESKTOP / TABLETTE ================= */
+    /* ================= DESKTOP ================= */
     @media (min-width: 768px) {
       .header {
         padding: 15px 8%;
       }
-      .logo-img {
-        width: 60px;
-        height: 60px;
-      }
-      .logo h1 {
-        font-size: 22px;
-      }
-      .hamburger {
-        display: none;
-      }
-      .nav {
-        display: flex;
-        gap: 25px;
-      }
-      .mobile-menu {
-        display: none !important;
-      }
-      .services-container {
-        padding: 140px 8% 80px;
-      }
-      .services-container h2 {
-        font-size: 36px;
-      }
-      .cards {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-      .card {
-        padding: 25px;
-      }
-      .card h3 {
-        font-size: 22px;
-      }
+      .logo-img { width: 60px; height: 60px; }
+      .logo h1 { font-size: 22px; }
+      .hamburger { display: none; }
+      .nav { display: flex; gap: 30px; }
+      .mobile-menu { display: none !important; }
+      .services-container { padding: 140px 8% 80px; }
+      .services-container h2 { font-size: 36px; margin-bottom: 60px; }
+      .cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+      .card { padding: 28px; }
+      .card h3 { font-size: 22px; }
     }
   </style>
 </head>
@@ -297,51 +287,40 @@
       </div>
     </div>
 
-    <!-- Détails des services -->
     <div id="repair" class="service-detail">
       <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
       <h3>Réparation Électronique</h3>
-      <p>Quelques photos et vidéos de l'atelier pour la réparation :</p>
+      <p>Quelques photos et vidéos de l'atelier :</p>
       <img src="images/atelier-repair1.jpeg" alt="Réparation 1">
       <img src="images/atelier-repair2.jpeg" alt="Réparation 2">
-      <video controls>
-        <source src="videos/atelier-repair1.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
-      </video>
+      <video controls><source src="videos/atelier-repair1.mp4" type="video/mp4"></video>
     </div>
 
     <div id="radio" class="service-detail">
       <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
       <h3>Déblocage Radio</h3>
-      <p>Photos et vidéos du travail sur les codes radio :</p>
+      <p>Exemples de déblocage radios :</p>
       <img src="images/atelier-radio1.jpeg" alt="Radio 1">
       <img src="images/atelier-radio2.jpeg" alt="Radio 2">
-      <video controls>
-        <source src="videos/atelier-radio1.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
-      </video>
+      <video controls><source src="videos/atelier-radio1.mp4" type="video/mp4"></video>
     </div>
 
     <div id="support" class="service-detail">
       <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
       <h3>Support Technique</h3>
-      <p>Exemples d'assistance et conseils techniques :</p>
+      <p>Assistance et conseils en direct :</p>
       <img src="images/atelier-support1.jpeg" alt="Support 1">
       <img src="images/atelier-support2.jpeg" alt="Support 2">
-      <video controls>
-        <source src="videos/atelier-support1.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
-      </video>
+      <video controls><source src="videos/atelier-support1.mp4" type="video/mp4"></video>
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
   <footer>
     <p>© 2026 Atelier Électronique Médenine</p>
   </footer>
 
   <script>
-    // Hamburger menu toggle
+    // Hamburger toggle
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
@@ -350,53 +329,42 @@
       mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
-    // Fermer le menu mobile quand on clique sur un lien
-    document.querySelectorAll('.mobile-menu a, .mobile-menu .login-btn').forEach(item => {
-      item.addEventListener('click', () => {
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu a, .mobile-menu .login-btn').forEach(el => {
+      el.addEventListener('click', () => {
         hamburger.classList.remove('active');
         mobileMenu.style.display = 'none';
       });
     });
 
-    // Gestion des cards et détails
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
+    // Cards & details
+    document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', () => {
-        const serviceId = card.getAttribute('data-service');
-        const detail = document.getElementById(serviceId);
-        
-        // Fermer tous les détails d'abord
+        const id = card.dataset.service;
         document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
-        
-        // Ouvrir celui cliqué
+        const detail = document.getElementById(id);
         if (detail) {
           detail.classList.add('active');
-          window.scrollTo({
-            top: detail.offsetTop - 80,
-            behavior: 'smooth'
-          });
+          detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
 
     function closeDetail() {
-      document.querySelectorAll('.service-detail').forEach(detail => {
-        detail.classList.remove('active');
-      });
+      document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
     }
 
-    // Ouvrir automatiquement si lien avec # (ex: services.html#repair)
+    // Hash support
     window.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.substring(1);
+      const hash = location.hash.slice(1);
       if (hash) {
-        const section = document.getElementById(hash);
-        if (section) {
-          section.classList.add('active');
-          window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
+        const el = document.getElementById(hash);
+        if (el) {
+          el.classList.add('active');
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     });
   </script>
-
 </body>
 </html>
