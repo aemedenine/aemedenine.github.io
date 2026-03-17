@@ -548,6 +548,39 @@ footer {
   transform: scale(1.05);
   box-shadow: 0 0 10px #ef4444;
 }
+/* ================= ONLINE USERS 2026 ================= */
+#onlineBox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(15,23,42,0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 12px 15px;
+  box-shadow: 0 0 20px rgba(56,189,248,0.4);
+  width: 160px;
+  z-index: 999;
+}
+
+.online-header {
+  font-size: 14px;
+  color: #38bdf8;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.online-users-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.online-users-mini img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+}
 /* ===============================
    SHOW ANIMATION
 =================================*/
@@ -674,7 +707,60 @@ font-size:13px;
 text-align:center;
 padding:20px;
 }
+/* ===== LOGIN MOBILE FIX ===== */
+.login-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+  gap: 6px;
+}
 
+.login-btn .google-logo {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== NAVBAR FIX ===== */
+.nav {
+  justify-content: center;
+  gap: 8px;
+}
+
+.nav a {
+  font-size: 13px;
+}
+
+.login-btn {
+  margin-top: 5px;
+}
+
+/* ===== ONLINE BOX MOBILE ===== */
+#onlineBox {
+  bottom: 10px;
+  right: 10px;
+  width: auto;
+  padding: 8px 10px;
+}
+
+.online-header {
+  font-size: 12px;
+}
+
+.online-users-mini img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== HEADER FIX ===== */
+.logo-img {
+  width: 45px;
+  height: 45px;
+}
+
+.logo h1 {
+  font-size: 18px;
+}
+
+}
 /* ===== CONTAINER ===== */
 .container{
 width:95%;
