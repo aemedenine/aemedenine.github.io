@@ -505,8 +505,11 @@ footer {
 }
 
 /* ================= USER BOX HEADER ================= */
+/* ===============================
+   USER ACCOUNT LOGO DISPLAY
+=================================*/
 #userBox {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 12px;
   padding: 8px 16px;
@@ -514,11 +517,7 @@ footer {
   border-radius: 12px;
   cursor: pointer;
   transition: 0.3s ease;
-}
-
-#userBox:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 15px #38bdf8;
+  position: relative;
 }
 
 #userBox img {
@@ -529,31 +528,54 @@ footer {
 }
 
 #userBox div {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  color: #fff;
+  display: none; /* Hide name and visits */
 }
 
 #userBox .user-rank {
-  font-size: 13px;
-  color: #fbbf24;
+  display: none; /* Hide rank too */
 }
 
-#logoutBtn {
-  margin-left: auto;
-  background: #ef4444;
-  color: white;
+#loginButton {
+  display: none; /* Hide default login button after login */
+}
+
+/* ===============================
+   NAVBAR + LOGIN BUTTON UPDATE
+=================================*/
+nav .nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+button.login-btn {
+  background-color: #38bdf8; 
+  color: #000; 
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 28px;
+  border-radius: 30px;
   border: none;
-  padding: 6px 14px;
-  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* Increase the gap between text and icon */
 }
 
-#logoutBtn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #ef4444;
+button.login-btn .google-logo {
+  width: 15px; /* Icon size adjusted */
+  height: 15px; 
+}
+
+button.login-btn:hover {
+  background: #2563eb;
+}
+
+button.login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 /* ================= ONLINE USERS 2026 ================= */
 #onlineBox {
