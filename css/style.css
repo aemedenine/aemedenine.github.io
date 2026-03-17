@@ -100,8 +100,8 @@ button.login-submit {
 }
 
 button.login-btn .google-logo, button.login-submit .google-logo {
-    width: 20px; /* حجم الأيقونة */
-    height: 20px; /* حجم الأيقونة */
+    width: 10px; /* حجم الأيقونة */
+    height: 10px; /* حجم الأيقونة */
 }
 
 button.login-btn:hover,
