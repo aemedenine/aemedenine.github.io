@@ -7,18 +7,9 @@
   <link rel="icon" href="images/favicon.png">
   
   <style>
-    /* ================= RESET & BASE ================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-    body {
-      background: #0f172a;
-      color: white;
-      line-height: 1.6;
-    }
+    /* ================= RESET ================= */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
+    body { background:#0f172a; color:white; line-height:1.6; }
 
     /* ================= HEADER ================= */
     .header {
@@ -43,7 +34,6 @@
       border-radius: 50%;
       border: 2px solid #38bdf8;
       padding: 4px;
-      background: rgba(255,255,255,0.05);
     }
     .logo h1 {
       font-size: 18px;
@@ -51,7 +41,7 @@
       white-space: nowrap;
     }
 
-    /* Hamburger */
+    /* Hamburger (mobile only) */
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -70,23 +60,52 @@
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-    /* Navigation links - BLANC fixe */
+    /* Nav links - BLANC fixe */
     .nav {
       display: none;
       align-items: center;
-      gap: 28px;
+      gap: 25px;
     }
     .nav a {
       color: white;
       text-decoration: none;
       font-weight: 500;
       font-size: 15px;
-      transition: all 0.3s;
+      transition: 0.3s;
     }
     .nav a:hover {
-      color: white;                /* reste blanc */
-      text-decoration: underline;  /* juste underline */
-      transform: scale(1.05);
+      color: white;
+      text-decoration: underline;
+      transform: scale(1.03);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(15,23,42,0.98);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+      gap: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      padding: 12px 30px;
+      width: 85%;
+      text-align: center;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .mobile-menu a:hover {
+      background: rgba(56,189,248,0.15);
     }
 
     /* ================= MAIN CONTENT ================= */
@@ -145,27 +164,11 @@
       color: #000;
       font-weight: 600;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: 0.4s;
+      transition: 0.3s;
     }
     .calc-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 25px rgba(56,189,248,0.5);
-    }
-    .calc-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.25), transparent, rgba(255,255,255,0.25));
-      transform: skewX(-20deg);
-      transition: 0.6s;
-    }
-    .calc-btn:hover::before {
-      left: 125%;
     }
 
     /* Modal */
@@ -179,9 +182,7 @@
       align-items: center;
       z-index: 2000;
     }
-    .modal.active {
-      display: flex;
-    }
+    .modal.active { display: flex; }
     .modal-content {
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(10px);
@@ -191,11 +192,7 @@
       width: 90%;
       text-align: center;
     }
-    .modal-content h2 {
-      color: #38bdf8;
-      margin-bottom: 15px;
-      font-size: 24px;
-    }
+    .modal-content h2 { color: #38bdf8; margin-bottom: 15px; font-size: 24px; }
     .modal-actions {
       margin-top: 20px;
       display: flex;
@@ -209,16 +206,10 @@
       cursor: pointer;
       border: none;
     }
-    .close-btn {
-      background: #4b5563;
-      color: white;
-    }
-    .copy-btn {
-      background: #38bdf8;
-      color: #000;
-    }
+    .close-btn { background: #4b5563; color: white; }
+    .copy-btn { background: #38bdf8; color: #000; }
 
-    /* WhatsApp floating button */
+    /* WhatsApp btn */
     .whatsapp-btn {
       position: fixed;
       bottom: 20px;
@@ -237,11 +228,9 @@
       z-index: 1000;
       transition: 0.3s;
     }
-    .whatsapp-btn:hover {
-      transform: scale(1.1);
-    }
+    .whatsapp-btn:hover { transform: scale(1.1); }
 
-    /* ================= FOOTER ================= */
+    /* Footer */
     footer {
       background: #020617;
       color: #94a3b8;
@@ -253,9 +242,7 @@
 
     /* ================= DESKTOP ================= */
     @media (min-width: 768px) {
-      .header {
-        padding: 15px 8%;
-      }
+      .header { padding: 15px 8%; }
       .logo-img { width: 60px; height: 60px; }
       .logo h1 { font-size: 22px; }
       .hamburger { display: none; }
@@ -297,7 +284,7 @@
     </div>
   </header>
 
-  <!-- ================= MAIN CONTENT ================= -->
+  <!-- ================= MAIN ================= -->
   <section class="radio-container">
     <h2>Déverrouillage Code Radio</h2>
     
@@ -321,10 +308,8 @@
       <p>Marque: <strong id="modal-brand">—</strong></p>
       <p>Précode: <strong id="modal-precode">—</strong></p>
       <p>Code: <strong id="modal-code">🔒 Paiement requis (10 DT)</strong></p>
-      <div id="pay-section">
+      <div class="modal-actions" style="margin-top:20px;">
         <button class="modal-btn copy-btn" onclick="openClientForm()">Payer 10 DT via WhatsApp</button>
-      </div>
-      <div class="modal-actions">
         <button class="modal-btn close-btn" onclick="closeModal()">Fermer</button>
       </div>
     </div>
@@ -336,14 +321,14 @@
       <h2>Demande Code Radio</h2>
       <input type="text" id="client-name" placeholder="Nom complet">
       <input type="tel" id="client-phone" placeholder="Numéro téléphone (ex: 98 192 103)">
-      <div class="modal-actions" style="margin-top:20px;">
+      <div class="modal-actions" style="margin-top:25px;">
         <button class="modal-btn copy-btn" onclick="sendWhatsApp()">Envoyer</button>
         <button class="modal-btn close-btn" onclick="closeForm()">Fermer</button>
       </div>
     </div>
   </div>
 
-  <!-- WhatsApp floating button -->
+  <!-- WhatsApp floating -->
   <a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
   <footer>
@@ -351,7 +336,7 @@
   </footer>
 
   <script>
-    // Hamburger menu
+    // Hamburger
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
@@ -374,65 +359,37 @@
       let brand = document.getElementById("car-brand").value.trim();
       let precode = document.getElementById("precode").value.trim().toUpperCase();
 
-      if (!brand || !precode) {
-        alert("Remplissez tous les champs svp");
-        return;
-      }
-      if (!brand.toLowerCase().includes("renault")) {
-        alert("Pour l'instant, l'outil est optimisé pour Renault seulement.");
-        return;
-      }
-      if (!/^[A-Z]\d{3}$/.test(precode)) {
-        alert("Précode invalide ! Format attendu : A123");
-        return;
-      }
+      if (!brand || !precode) return alert("Remplissez tous les champs");
+      if (!brand.toLowerCase().includes("renault")) return alert("Outil optimisé pour Renault seulement");
+      if (!/^[A-Z]\d{3}$/.test(precode)) return alert("Précode invalide (ex: A123)");
 
       savedBrand = brand;
       savedPrecode = precode;
 
       document.getElementById("modal-brand").textContent = brand;
       document.getElementById("modal-precode").textContent = precode;
-
       document.getElementById("result-modal").classList.add("active");
     }
 
-    function closeModal() {
-      document.getElementById("result-modal").classList.remove("active");
-    }
-
-    function openClientForm() {
-      document.getElementById("client-form").classList.add("active");
-    }
-
-    function closeForm() {
-      document.getElementById("client-form").classList.remove("active");
-    }
+    function closeModal() { document.getElementById("result-modal").classList.remove("active"); }
+    function openClientForm() { document.getElementById("client-form").classList.add("active"); }
+    function closeForm() { document.getElementById("client-form").classList.remove("active"); }
 
     function sendWhatsApp() {
       let name = document.getElementById("client-name").value.trim();
       let phone = document.getElementById("client-phone").value.trim();
 
-      if (!name || !phone) {
-        alert("Veuillez remplir votre nom et numéro");
-        return;
-      }
+      if (!name || !phone) return alert("Remplissez nom et téléphone");
 
-      // Calcul du code (algorithme simple que tu avais)
       let p = savedPrecode;
-      let x = p.charCodeAt(1) + p.charCodeAt(0) * 10 - 698;
-      let y = p.charCodeAt(3) + p.charCodeAt(2) * 10 + x - 528;
-      let z = (y * 7) % 100;
+      let x = p.charCodeAt(1) + p.charCodeAt(0)*10 - 698;
+      let y = p.charCodeAt(3) + p.charCodeAt(2)*10 + x - 528;
+      let z = (y*7) % 100;
       if (z < 0) z += 100;
-      let codeNum = Math.floor(z / 10) + (z % 10) * 10 + ((259 % Math.abs(x)) % 100) * 100;
-      let code = codeNum.toString().padStart(4, '0');
+      let codeNum = Math.floor(z/10) + (z%10)*10 + ((259 % Math.abs(x)) % 100)*100;
+      let code = codeNum.toString().padStart(4,'0');
 
-      let message = `Demande Code Radio\n` +
-                    `Nom: ${name}\n` +
-                    `Téléphone: ${phone}\n` +
-                    `Voiture: ${savedBrand}\n` +
-                    `Précode: ${savedPrecode}\n` +
-                    `Prix: 10 DT\n` +
-                    `#REF-${code}`;
+      let message = `Demande Code Radio\nNom: ${name}\nTéléphone: ${phone}\nVoiture: ${savedBrand}\nPrécode: ${savedPrecode}\nPrix: 10 DT\n#REF-${code}`;
 
       window.open(`https://wa.me/21698192103?text=${encodeURIComponent(message)}`, "_blank");
       closeForm();
