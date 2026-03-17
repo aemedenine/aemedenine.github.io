@@ -379,134 +379,114 @@ footer {
     justify-content: center;
   }
 }
-/* =============================== LOGIN & USER MINI EFFECT 2026 =============================== */
-
-/* ===== Login Button Glow ===== */
-.login-btn {
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  border-radius: 30px;
+/* ================= LOGIN POPUP ================= */
+#login-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 16px;
 }
-.login-btn::after {
-  content: '';
+
+#login-popup button {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+#login-popup #close-login {
+  background: transparent;
+  color: #38bdf8;
+  font-size: 18px;
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 70%);
-  opacity: 0;
-  transition: 0.5s;
-  transform: scale(0);
-  border-radius: 50%;
-  z-index: -1;
-}
-.login-btn:hover::after {
-  opacity: 1;
-  transform: scale(1);
+  top: 16px;
+  right: 16px;
 }
 
-/* ===== User Box Pulse ===== */
-.user-box {
-  animation: pulseUser 2.5s infinite;
-  border-radius: 30px;
-  background: linear-gradient(145deg, #020617, #0f172a);
-  padding: 10px 15px;
+#login-popup #close-login:hover {
+  transform: rotate(90deg) scale(1.2);
+}
+
+.login-submit {
+  background: #38bdf8;
+  color: #000;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-@keyframes pulseUser {
-  0%, 100% { transform: translateY(0); box-shadow: 0 0 8px rgba(56,189,248,0.4); }
-  50% { transform: translateY(-3px); box-shadow: 0 0 20px rgba(56,189,248,0.6); }
+
+.login-submit img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 
-/* ===== Profile Modal Tiny Pop ===== */
-.profile-content {
-  transform: scale(0.9);
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-.profile-modal.show .profile-content {
-  transform: scale(1);
-  opacity: 1;
+/* Hover animation */
+.login-submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #38bdf8;
 }
 
-/* ===== Close Button Hover Effect ===== */
-#close-login, #closeProfile {
-  color: #38bdf8;
-  transition: 0.3s;
-  cursor: pointer;
-}
-#close-login:hover, #closeProfile:hover {
-  transform: rotate(90deg) scale(1.2);
-}
-
-/* ===== Online Mini Box ===== */
-#onlineMiniBox {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 130px;
-  background: rgba(2,6,23,0.95);
-  border-radius: 15px;
-  padding: 8px 10px;
-  font-family: 'Segoe UI', sans-serif;
-  color: #ffffff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  z-index: 4000;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-#onlineMiniBox .mini-header {
-  display: flex;
-  justify-content: space-between;
+/* ================= USER BOX HEADER ================= */
+#userBox {
+  display: none;
   align-items: center;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-#onlineMiniBox .mini-header #closeMiniBox {
-  color: #38bdf8;
+  gap: 12px;
+  padding: 8px 16px;
+  background: rgba(30,41,59,0.9);
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: bold;
-  transition: transform 0.2s;
-}
-#onlineMiniBox .mini-header #closeMiniBox:hover {
-  transform: scale(1.2);
+  transition: 0.3s ease;
 }
 
-#onlineMiniBox .mini-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+#userBox:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px #38bdf8;
 }
 
-#onlineMiniBox .avatars {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-}
-
-#onlineMiniBox .avatars div img {
-  width: 26px;
-  height: 26px;
+#userBox img {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid #38bdf8;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-#onlineMiniBox .avatars div img:hover {
-  transform: scale(1.3);
-  box-shadow: 0 0 8px #38bdf8;
 }
 
-#onlineMiniBox #miniVisits {
-  font-size: 11px;
-  color: #a5b4fc;
-  margin-top: 4px;
-  text-align: center;
+#userBox div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #fff;
+}
+
+#userBox .user-rank {
+  font-size: 13px;
+  color: #fbbf24;
+}
+
+#logoutBtn {
+  margin-left: auto;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#logoutBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ef4444;
 }
 /* ===============================
    SHOW ANIMATION
