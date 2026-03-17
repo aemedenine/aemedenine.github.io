@@ -18,6 +18,10 @@ const auth = firebase.auth();
 const db = firebase.database();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+// 🔥 نطلبو access للصورة
+provider.addScope('profile');
+provider.addScope('email');
+
 // ================= REFERENCES =================
 const usersRef = db.ref("users");
 const onlineRef = db.ref("onlineUsers");
