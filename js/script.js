@@ -57,7 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
     auth.signInWithPopup(provider)
       .then(result => {
         const user = result.user;
-        showUserBox(user);
+       // ❌ showUserBox(user); (تم تعطيله)
+
+// نخليو غير logo
+if(userBox) userBox.style.display = "none";
+if(loginButton) loginButton.style.display = "inline-block";
         loginPopup.style.display = "none";
         updateUserVisits(user);
         updateOnlineUsers(user);
@@ -96,13 +100,21 @@ document.addEventListener("DOMContentLoaded", () => {
 // ================= AUTH STATE CHANGE =================
 auth.onAuthStateChanged(user => {
   currentUser = user;
-  if (user) {
-    showUserBox(user);
-    updateUserVisits(user);
-    updateOnlineUsers(user);
-    updateOnlineMini();
-    loadUserRating();
-  } else {
+ if (user) {
+
+  // ❌ ما نظهروش userBox
+  if(userBox) userBox.style.display = "none";
+
+  // ✅ نخليو غير logo
+  if(loginButton) loginButton.style.display = "flex";
+
+  // ✅ نخدمو الباقي عادي (firebase)
+  updateUserVisits(user);
+  updateOnlineUsers(user);
+  updateOnlineMini();
+  loadUserRating();
+}
+ else {
     userBox.style.display = "none";
     loginButton.style.display = "inline-block";
     currentUserRating = 0;
@@ -114,10 +126,11 @@ auth.onAuthStateChanged(user => {
 
 // -------- Show User Box --------
 function showUserBox(user) {
-  userBox.style.display = "flex";
-  loginButton.style.display = "none";
-  document.getElementById("username").innerText = user.displayName || "Anonyme";
-  document.getElementById("userAvatar").src = user.photoURL || "https://via.placeholder.com/48";
+  // ❌ ما نظهروش userBox
+  if(userBox) userBox.style.display = "none";
+
+  // ✅ نخليو غير زر Google ظاهر
+  if(loginButton) loginButton.style.display = "flex";
 }
 
 // -------- Update Visits & Rank --------
