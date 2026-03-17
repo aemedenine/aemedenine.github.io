@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atelier Électronique Médenine</title>
 <link rel="icon" href="images/favicon.png">
 <link rel="stylesheet" href="css/style.css">
-  <meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
+<meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
 </head>
-
 <body>
 
 <!-- ================= HEADER ================= -->
@@ -18,44 +16,48 @@
     <img src="images/logo.png" alt="Logo" class="logo-img">
     <h1>Atelier Électronique Médenine</h1>
   </div>
-
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="contact.html">Contact</a>
     <button class="login-btn">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="google-logo">
-</button>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="google-logo">
+      Login
+    </button>
   </nav>
 </header>
-  <!-- Login Popup -->
-<div id="login-popup" style="display:none;">
-  <button id="close-login">X Fermer</button>
-  <button class="login-submit">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
-    Login Google
-  </button>
-</div>
 
-<!-- User Box in header -->
-<div id="userBox">
-  <img id="userAvatar" src="" alt="Avatar">
-  <div>
-    <div id="username"></div>
-    <div class="user-rank"></div>
-    <div>Visites: <span id="visitCount">0</span></div>
+<!-- ================= LOGIN POPUP ================= -->
+<div id="login-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center;justify-content:center;z-index:2000;">
+  <div style="background:#1e293b; padding:30px; border-radius:16px; text-align:center; max-width:400px; width:90%;">
+    <button id="close-login" style="position:absolute;top:10px;right:10px;background:#ef4444;border:none;color:white;padding:8px 12px;border-radius:50%;cursor:pointer;">✕</button>
+    <h2>Connectez-vous</h2>
+    <button class="login-submit" style="background:#4285F4;color:white;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:16px;margin-top:20px;width:100%;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" style="width:20px; vertical-align:middle; margin-right:8px;">
+      Login avec Google
+    </button>
   </div>
-  <button id="logoutBtn">Logout</button>
 </div>
 
-<!-- Online Users Mini Box -->
-<div id="onlineBox">
-  <div class="online-header">Online:</div>
-  <div class="online-users-mini" id="onlineMini"></div>
+<!-- ================= USER BOX ================= -->
+<div id="userBox" style="display:none; align-items:center; gap:12px; padding:12px; background:rgba(30,41,59,0.6); border-radius:12px; margin:10px;">
+  <img id="userAvatar" src="" width="48" height="48" style="border-radius:50%;">
+  <div>
+    <div id="username" style="font-weight:600;"></div>
+    <div class="user-rank" style="color:#fbbf24; font-size:14px;"></div>
+    <div style="font-size:13px;">Visites: <span id="visitCount">0</span></div>
+  </div>
+  <button id="logoutBtn" style="margin-left:auto; background:#ef4444; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;">Logout</button>
 </div>
 
-<!-- Profile Modal -->
-<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center;justify-content:center;z-index:1000;">
+<!-- ================= ONLINE MINI BOX ================= -->
+<div id="onlineBox" style="padding:10px; background:rgba(15,23,42,0.5); border-radius:12px; margin:10px;">
+  <div class="online-header">Online : <span id="onlineCount">0</span></div>
+  <div id="onlineMini" class="online-users-mini"></div>
+</div>
+
+<!-- ================= PROFILE MODAL ================= -->
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center;justify-content:center;z-index:2000;">
   <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:400px; width:90%; text-align:center;">
     <img id="profileAvatar" src="" width="80" height="80" style="border-radius:50%; margin-bottom:16px;">
     <h2 id="profileName" style="margin-bottom:8px;"></h2>
@@ -68,13 +70,14 @@
 <!-- ================= HERO ================= -->
 <section class="hero">
   <h2 class="hero-title">
-  <span id="typingTitle"></span>
-</h2>
+    <span id="typingTitle"></span>
+  </h2>
   <p>Réparation électronique • Codes Radio • Solutions techniques</p>
   <a href="services.html" class="btn">Découvrir nos services</a>
-    <a href="forum.html" class="btn">forum💬live</a>
+  <a href="forum.html" class="btn">forum💬live</a>
 </section>
-<!-- ================= Rating Section ================= -->
+
+<!-- ================= RATING SECTION ================= -->
 <section class="rating-section">
   <div class="rating-title">Évaluez notre atelier</div>
   <div id="rating-average">
@@ -90,77 +93,67 @@
   <div id="rating-message" class="rating-message"></div>
 </section>
 
-
 <!-- ================= SERVICES ================= -->
 <section class="services">
   <h2>Nos Services</h2>
   <div class="cards">
-
     <a href="radio-codes.html" class="card service-card">
       <h3>Radio Codes</h3>
       <p>Déblocage rapide des radios voiture.</p>
     </a>
-
     <a href="services.html#repair" class="card service-card">
       <h3>Réparation</h3>
       <p>Réparation électronique professionnelle.</p>
     </a>
-
     <a href="contact.html" class="card service-card">
       <h3>Contact</h3>
       <p>Assistance technique et conseils.</p>
     </a>
-
   </div>
 </section>
+
 <!-- ================= CALCUL ÉLECTRONIQUE ================= -->
 <section class="calcul-electronique">
   <h2>Calcul Électronique</h2>
   <div class="cards calc-cards">
-
     <a href="calcul-resistance.html" class="card calc-card">
       <h3>Calcul Résistance</h3>
       <p>Calculez la valeur de vos résistances facilement.</p>
     </a>
-
     <a href="calcul-puissance.html" class="card calc-card">
       <h3>Calcul Puissance</h3>
       <p>Déterminez la puissance dissipée dans vos composants.</p>
     </a>
-
     <a href="calcul-condensateur.html" class="card calc-card">
       <h3>Calcul Condensateur</h3>
       <p>Calculez la capacité idéale pour vos circuits.</p>
     </a>
-
   </div>
 </section>
- <!-- ================= ATELIER ================= -->
+
+<!-- ================= ATELIER ================= -->
 <section class="atelier">
   <h2>Atelier</h2>
   <div class="cards atelier-cards">
-
     <a href="faq.html" class="card">
       <h3>FAQ</h3>
       <p>Questions fréquentes et conseils pratiques.</p>
     </a>
-
     <a href="boutique.html" class="card">
       <h3>Boutique</h3>
       <p>Achetez vos composants et accessoires en ligne.</p>
     </a>
-
     <a href="services-atelier.html" class="card">
       <h3>Services Atelier</h3>
       <p>Réparation, montage et support technique sur place.</p>
     </a>
-
   </div>
 </section>
+
 <!-- ================= FOOTER ================= -->
 <footer>
- <div class="footer-content">
-    <p class="copyright">© 2026 Atelier Électronique Médenine </p>
+  <div class="footer-content">
+    <p class="copyright">© 2026 Atelier Électronique Médenine</p>
     <div class="social-icons">
       <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
@@ -178,58 +171,100 @@
   </div>
 </footer>
 
-
-<!-- ================= FIREBASE ================= -->
+<!-- ================= FIREBASE SCRIPTS ================= -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<!-- ================= SCRIPTS ================= -->
-<script src="js/script.js"></script>
+<!-- ================= MAIN SCRIPT ================= -->
 <script>
+// Firebase Init
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
 
-document.addEventListener("DOMContentLoaded", function(){
+// Elements
+const loginButton = document.querySelector(".login-btn");
+const loginPopup = document.getElementById("login-popup");
+const closeLogin = document.getElementById("close-login");
+const loginSubmit = document.querySelector(".login-submit");
+const userBox = document.getElementById("userBox");
+const logoutBtn = document.getElementById("logoutBtn");
+const profileModal = document.getElementById("profileModal");
+const closeProfile = document.getElementById("closeProfile");
+const stars = document.querySelectorAll('.stars-horizontal span');
+const ratingMessage = document.getElementById('rating-message');
 
-const text = "Atelier Électrique Medenine";
-const speed = 80;
+// DOM Ready
+document.addEventListener("DOMContentLoaded", () => {
+  // Login popup
+  if (loginButton) loginButton.addEventListener("click", () => loginPopup && (loginPopup.style.display = "flex"));
+  if (closeLogin) closeLogin.addEventListener("click", () => loginPopup && (loginPopup.style.display = "none"));
 
-let i = 0;
-const target = document.getElementById("typingTitle");
+  // Google Login
+  if (loginSubmit) {
+    loginSubmit.addEventListener("click", () => {
+      auth.signInWithPopup(provider).then(result => {
+        const user = result.user;
+        showUserBox(user);
+        loginPopup.style.display = "none";
+        updateUserVisits(user);
+        updateOnlineUsers(user);
+      }).catch(err => alert("Erreur: " + err.message));
+    });
+  }
 
-function typeWriter(){
+  // Logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      auth.signOut().then(() => {
+        userBox.style.display = "none";
+        loginButton.style.display = "inline-block";
+        alert("🔓 Déconnecté !");
+      });
+    });
+  }
 
-if(i < text.length){
-
-target.innerHTML += text.charAt(i);
-i++;
-setTimeout(typeWriter, speed);
-
-}else{
-
-// يعمل blink
-target.classList.add("text-blink");
-
-// بعد blink يستنى شوية ثم يعاود
-setTimeout(restartTyping, 5000);
-
-}
-
-}
-
-function restartTyping(){
-
-target.classList.remove("text-blink");
-target.innerHTML = "";
-i = 0;
-
-typeWriter();
-
-}
-
-typeWriter();
-
+  // Profile modal
+  if (userBox) userBox.addEventListener("click", () => profileModal && (profileModal.style.display = "flex"));
+  if (closeProfile) closeProfile.addEventListener("click", () => profileModal && (profileModal.style.display = "none"));
 });
 
+// Auth state
+let currentUser = null;
+auth.onAuthStateChanged(user => {
+  currentUser = user;
+  if (user) {
+    showUserBox(user);
+    updateUserVisits(user);
+    updateOnlineUsers(user);
+  } else {
+    if (userBox) userBox.style.display = "none";
+    if (loginButton) loginButton.style.display = "inline-block";
+  }
+});
+
+// Typing title
+const text = "Atelier Électronique Medenine";
+let i = 0;
+const target = document.getElementById("typingTitle");
+function typeWriter() {
+  if (i < text.length) {
+    target.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 80);
+  } else {
+    target.classList.add("text-blink");
+    setTimeout(() => {
+      target.classList.remove("text-blink");
+      target.innerHTML = "";
+      i = 0;
+      typeWriter();
+    }, 5000);
+  }
+}
+typeWriter();
 </script>
 </body>
 </html>
