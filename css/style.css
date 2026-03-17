@@ -262,12 +262,12 @@ button.login-submit:active {
 =================================*/
 .btn{
   display:inline-block;
-  padding:12px 28px;
+  padding: 8px 10px;
   background:#38bdf8;
   color:#000;
-  border-radius:40px;
+  border-radius:30px;
   text-decoration:none;
-  font-weight:600;
+  font-weight:500;
   transition:0.3s;
 }
 
