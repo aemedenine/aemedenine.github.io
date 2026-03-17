@@ -1,15 +1,44 @@
 // ==========================================
-// LOGIN POPUP
+// FIREBASE CONFIG & INIT
 // ==========================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+  authDomain: "atelier-electronique-mednine.firebaseapp.com",
+  projectId: "atelier-electronique-mednine",
+  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
+  messagingSenderId: "547430908384",
+  appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
+  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database(); // HADHI LAZMA BARCHA
+
+const provider = new firebase.auth.GoogleAuthProvider();
+
+// Elements
 const loginButton = document.querySelector(".login-btn");
 const loginPopup = document.getElementById("login-popup");
 const closeLogin = document.getElementById("close-login");
+const userBox = document.getElementById("userBox");
+const logoutBtn = document.getElementById("logoutBtn");
+const profileModal = document.getElementById("profileModal");
+const closeProfile = document.getElementById("closeProfile");
 
-loginButton.onclick = () => loginPopup.style.display = "flex";
-closeLogin.onclick = () => loginPopup.style.display = "none";
+// Refs
+const usersRef = db.ref("users");
+const onlineRef = db.ref("onlineUsers");
 
+// ==========================================
+// LOGIN POPUP
+// ==========================================
+if (loginButton) loginButton.onclick = () => loginPopup.style.display = "flex";
+if (closeLogin) closeLogin.onclick = () => loginPopup.style.display = "none";
 
-// ================= LOGIN GOOGLE
+// ==========================================
+// GOOGLE LOGIN
+// ==========================================
 document.querySelector(".login-submit").onclick = () => {
   auth.signInWithPopup(provider)
     .then(result => {
@@ -19,65 +48,132 @@ document.querySelector(".login-submit").onclick = () => {
       updateUserVisits(user);
       updateOnlineUsers(user);
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error("Login error:", error);
+      alert("Erreur connexion: " + error.message);
+    });
 };
 
-// ================= KEEP LOGIN
-auth.onAuthStateChanged(user=>{
-  if(user){
+// ==========================================
+// KEEP LOGIN + INIT
+// ==========================================
+auth.onAuthStateChanged(user => {
+  if (user) {
+    currentUser = user;
     showUserBox(user);
     updateUserVisits(user);
     updateOnlineUsers(user);
+    listenOnlineUsers(); // realtime online
+  } else {
+    currentUser = null;
+    if (userBox) userBox.style.display = "none";
   }
 });
 
-// ================= FUNCTIONS
-function showUserBox(user){
-  userBox.style.display = "flex";
-  document.getElementById("username").innerText = user.displayName;
-  document.getElementById("userAvatar").src = user.photoURL;
+// ==========================================
+// FUNCTIONS
+// ==========================================
+function showUserBox(user) {
+  if (userBox) {
+    userBox.style.display = "flex";
+    document.getElementById("username").innerText = user.displayName || "Anonyme";
+    document.getElementById("userAvatar").src = user.photoURL || "https://via.placeholder.com/40";
+  }
 }
 
-function updateUserVisits(user){
-  const userRef = firebase.database().ref("users/" + user.uid);
-  userRef.once('value').then(snapshot=>{
-    let data = snapshot.val();
-    let visits = data ? data.visits + 1 : 1;
-    let rank = "Member";
+function updateUserVisits(user) {
+  if (!user || !user.uid) return;
 
-    // Rank logic
-    if(visits >= 15) rank = "Admin";
-    else if(visits >= 5) rank = "Pro";
+  const userRef = usersRef.child(user.uid);
+  userRef.transaction(current => {
+    let data = current || { visits: 0, rank: "Member" };
+    data.visits = (data.visits || 0) + 1;
 
-    userRef.set({visits, rank});
-    document.getElementById("visitCount").innerText = visits;
-    document.querySelector(".user-rank").innerText = "⭐".repeat(rank==="Member"?1:rank==="Pro"?2:3)+" "+rank;
+    // Rank logic (zid levels ida t7ebb)
+    if (data.visits >= 50) data.rank = "VIP";
+    else if (data.visits >= 20) data.rank = "Pro";
+    else if (data.visits >= 5) data.rank = "Active";
+    else data.rank = "Member";
+
+    return data;
+  }, (error, committed, snapshot) => {
+    if (error) {
+      console.error("Erreur update visits:", error);
+    } else if (committed && snapshot) {
+      const data = snapshot.val();
+      document.getElementById("visitCount").innerText = data.visits;
+      const rankEl = document.querySelector(".user-rank");
+      if (rankEl) {
+        const stars = "⭐".repeat(data.rank === "Member" ? 1 : data.rank === "Active" ? 2 : data.rank === "Pro" ? 3 : 5);
+        rankEl.innerText = stars + " " + data.rank;
+      }
+    }
   });
 }
 
-function updateOnlineUsers(user){
-  onlineRef.child(user.uid).set({name:user.displayName, avatar:user.photoURL});
-  onlineRef.child(user.uid).onDisconnect().remove();
+function updateOnlineUsers(user) {
+  if (!user || !user.uid) return;
+
+  const userOnlineRef = onlineRef.child(user.uid);
+  userOnlineRef.set({
+    name: user.displayName || "Anonyme",
+    avatar: user.photoURL || "",
+    lastActive: firebase.database.ServerValue.TIMESTAMP
+  });
+
+  userOnlineRef.onDisconnect().remove();
 }
 
-// ================= LOGOUT
-logoutBtn.onclick = e=>{
-  e.stopPropagation();
-  auth.signOut().then(()=>{
-    userBox.style.display="none";
-    alert("🔓 Logged out!");
-  });
-};
+// Realtime online users
+function listenOnlineUsers() {
+  const onlineList = document.getElementById("onlineUsersList");
+  if (!onlineList) return;
 
-// ================= PROFILE MODAL
-userBox.onclick = ()=>{
-  profileModal.style.display = "flex";
-  profileModal.querySelector("#profileName").innerText = document.getElementById("username").innerText;
-  profileModal.querySelector("#profileAvatar").src = document.getElementById("userAvatar").src;
-  profileModal.querySelector("#profileRank").innerText = document.querySelector(".user-rank").innerText;
-  profileModal.querySelector("#profileVisits").innerText = document.getElementById("visitCount").innerText;
-};
-closeProfile.onclick = ()=>profileModal.style.display = "none";
+  onlineRef.on("value", snap => {
+    onlineList.innerHTML = "";
+    let count = 0;
+    snap.forEach(child => {
+      const data = child.val();
+      if (data) {
+        count++;
+        const li = document.createElement("li");
+        li.innerHTML = `<img src="${data.avatar}" width="24" height="24" style="border-radius:50%; margin-right:8px;"> ${data.name}`;
+        onlineList.appendChild(li);
+      }
+    });
+    document.getElementById("onlineCount").innerText = count || 0;
+  });
+}
+
+// Logout
+if (logoutBtn) {
+  logoutBtn.onclick = e => {
+    e.stopPropagation();
+    auth.signOut().then(() => {
+      if (userBox) userBox.style.display = "none";
+      alert("🔓 Déconnecté !");
+    }).catch(err => console.error("Logout error:", err));
+  };
+}
+
+// Profile modal
+if (userBox) {
+  userBox.onclick = () => {
+    if (profileModal) {
+      profileModal.style.display = "flex";
+      profileModal.querySelector("#profileName").innerText = document.getElementById("username")?.innerText || "";
+      profileModal.querySelector("#profileAvatar").src = document.getElementById("userAvatar")?.src || "";
+      profileModal.querySelector("#profileRank").innerText = document.querySelector(".user-rank")?.innerText || "";
+      profileModal.querySelector("#profileVisits").innerText = document.getElementById("visitCount")?.innerText || "0";
+    }
+  };
+}
+
+if (closeProfile) {
+  closeProfile.onclick = () => {
+    if (profileModal) profileModal.style.display = "none";
+  };
+}
 
 // ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
