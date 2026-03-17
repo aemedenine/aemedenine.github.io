@@ -21,23 +21,19 @@
         <h1>Atelier Électronique Médenine</h1>
     </div>
     
-    <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="contact.html">Contact</a>
-    
-  <!-- هنا يظهر اللوجو فقط لما يكون المستخدم مسجل دخول -->
-  <div id="userBox">
-    <img src="path_to_user_logo.jpg" alt="User Logo">
-  </div>
+   <nav class="nav">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Contact</a>
+
+  <!-- مكان عرض صورة المستخدم بعد تسجيل الدخول -->
+  <img id="user-profile-image" src="" alt="User Logo" width="40" height="40" style="display: none;" />
   
-  <!-- زر الدخول يظهر فقط لما يكون المستخدم غير مسجل دخول -->
-  <button class="login-btn" id="loginButton">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="google-logo">
+  <button class="login-btn">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo">
     Login
   </button>
-
-    </nav>
+</nav>
 </header>
 
 <!-- Login Popup -->
