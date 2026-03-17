@@ -108,155 +108,63 @@ userBox.onclick = ()=>{
 };
 closeProfile.onclick = ()=>profileModal.style.display = "none";
 
-// ── Rating System (FR) ─────────────────────────────────────────
-
+// ================= STARS RATING
 const stars = document.querySelectorAll('.stars-horizontal span');
-const ratingValue = document.getElementById('rating-value');
 const ratingMessage = document.getElementById('rating-message');
-const avgStarsEl = document.getElementById('avg-stars');
-const voteCountEl = document.getElementById('vote-count');
-const breakdownEl = document.getElementById('rating-breakdown');
 let currentUserRating = 0;
 
-const ratingsRef = firebase.database().ref('ratings');
-const userRatingsRef = firebase.database().ref('userRatings');
-
-// 1. Charger les notes
-function loadRatings() {
-    ratingsRef.on('value', snapshot => {
-        const data = snapshot.val() || { sum: 0, count: 0, breakdown: {1:0,2:0,3:0,4:0,5:0} };
-        const avg = data.count > 0 ? (data.sum / data.count).toFixed(1) : '0.0';
-        
-        avgStarsEl.textContent = avg;
-        voteCountEl.textContent = data.count;
-
-        let html = '';
-        for (let i = 5; i >= 1; i--) {
-            const count = data.breakdown?.[i] || 0;
-            html += `
-                <div>
-                    <span class="stars">${'★'.repeat(i)}</span>
-                    <span class="count">${count} votes</span>
-                </div>
-            `;
-        }
-        breakdownEl.innerHTML = html;
-    });
+function updateStars(r){
+  stars.forEach(s => {
+    const val = Number(s.dataset.value);
+    s.classList.toggle('selected', val <= r);
+  });
 }
 
-// 2. Mettre à jour les étoiles
-function updateStars(rating) {
-    stars.forEach(star => {
-        const val = Number(star.dataset.value);
-        star.classList.toggle('selected', val <= rating);
-        star.textContent = val <= rating ? '★' : '☆';
-    });
-    if (ratingValue) ratingValue.textContent = `${rating}/5`;
-}
-
-// 3. Vérifier utilisateur
-function checkUserRating(user) {
-    if (!user) {
-        updateStars(0);
-        if (ratingMessage) {
-            ratingMessage.textContent = "Connectez-vous avec Google pour noter (une seule fois)";
-            ratingMessage.classList.add('show');
-        }
-        stars.forEach(s => s.style.pointerEvents = 'none');
-        return;
-    }
-
-    const uid = user.uid;
-    userRatingsRef.child(uid).once('value').then(snap => {
-        if (snap.exists()) {
-            const data = snap.val();
-            currentUserRating = data.rating;
-            updateStars(currentUserRating);
-            if (ratingMessage) {
-                ratingMessage.textContent = `Merci ${user.displayName || ''}, votre note (${currentUserRating} étoiles) est enregistrée`;
-                ratingMessage.classList.add('show');
-                setTimeout(() => ratingMessage.classList.remove('show'), 8000);
-            }
-            stars.forEach(s => s.style.pointerEvents = 'none');
-        } else {
-            currentUserRating = 0;
-            updateStars(0);
-            stars.forEach(s => s.style.pointerEvents = 'auto');
-        }
-    }).catch(err => console.error("Erreur check rating:", err));
-}
-
-// 4. Auth state
-auth.onAuthStateChanged(user => checkUserRating(user));
-
-// 5. Interaction étoiles
-stars.forEach(star => {
+stars.forEach(star=>{
+  star.addEventListener('click',()=>{
+    if(!currentUser) return alert("Connectez-vous pour noter !");
     const val = Number(star.dataset.value);
-
-    star.addEventListener('mouseover', () => {
-        if (auth.currentUser && currentUserRating === 0) {
-            stars.forEach(s => {
-                const sVal = Number(s.dataset.value);
-                s.classList.toggle('selected', sVal <= val);
-                s.textContent = sVal <= val ? '★' : '☆';
-            });
-        }
+    if(currentUserRating>0){ alert("Vous avez déjà noté !"); return; }
+    
+    userRatingsRef.child(currentUser.uid).set({rating:val,name:currentUser.displayName,timestamp:firebase.database.ServerValue.TIMESTAMP});
+    ratingsRef.transaction(current => {
+      const data = current || {sum:0,count:0,breakdown:{1:0,2:0,3:0,4:0,5:0}};
+      data.sum += val;
+      data.count +=1;
+      data.breakdown[val] = (data.breakdown[val]||0)+1;
+      return data;
     });
-
-    star.addEventListener('mouseout', () => {
-        if (auth.currentUser && currentUserRating === 0) {
-            updateStars(0);
-        }
-    });
-
-    star.addEventListener('click', () => {
-        if (!auth.currentUser) {
-            alert("Connectez-vous avec Google pour noter une seule fois");
-            document.getElementById('btn-google')?.click();
-            return;
-        }
-
-        if (currentUserRating > 0) {
-            if (ratingMessage) {
-                ratingMessage.textContent = "Vous avez déjà noté";
-                ratingMessage.classList.add('show');
-                setTimeout(() => ratingMessage.classList.remove('show'), 6000);
-            }
-            return;
-        }
-
-        const uid = auth.currentUser.uid;
-        const name = auth.currentUser.displayName || 'Utilisateur';
-
-        userRatingsRef.child(uid).set({
-            rating: val,
-            name: name,
-            timestamp: firebase.database.ServerValue.TIMESTAMP
-        });
-
-        ratingsRef.transaction(current => {
-            const data = current || { sum: 0, count: 0, breakdown: {1:0,2:0,3:0,4:0,5:0} };
-            data.sum += val;
-            data.count += 1;
-            data.breakdown[val] = (data.breakdown[val] || 0) + 1;
-            return data;
-        });
-
-        currentUserRating = val;
-        updateStars(val);
-
-        if (ratingMessage) {
-            ratingMessage.textContent = `Merci ${name}, votre note (${val} étoiles) a été enregistrée 🌟`;
-            ratingMessage.classList.add('show');
-            setTimeout(() => ratingMessage.classList.remove('show'), 8000);
-        }
-
-        stars.forEach(s => s.style.pointerEvents = 'none');
-    });
+    currentUserRating = val;
+    updateStars(val);
+    ratingMessage.textContent = `Merci ${currentUser.displayName}, votre note (${val} étoiles) a été enregistrée 🌟`;
+    ratingMessage.classList.add('show');
+    setTimeout(()=>ratingMessage.classList.remove('show'),8000);
+  });
 });
 
-// 6. Init
-loadRatings();
+// ================= LOAD POSTS
+const postInput = document.getElementById('postInput');
+const postSubmit = document.getElementById('postSubmit');
+const postsList = document.getElementById('postsList');
+
+postSubmit.onclick = () => {
+  if(!currentUser) return alert("Connectez-vous pour publier !");
+  const text = postInput.value.trim();
+  if(!text) return;
+  postsRef.push({author:currentUser.displayName,avatar:currentUser.photoURL,text:text,timestamp:firebase.database.ServerValue.TIMESTAMP});
+  postInput.value = '';
+};
+
+postsRef.on('value', snapshot=>{
+  postsList.innerHTML = '';
+  snapshot.forEach(child=>{
+    const data = child.val();
+    const postDiv = document.createElement('div');
+    postDiv.className = 'post';
+    postDiv.innerHTML = `<div class="post-header"><img src="${data.avatar}" width="30" height="30" style="border-radius:50%;"><strong>${data.author}</strong> <span>${new Date(data.timestamp).toLocaleString()}</span></div><p>${data.text}</p>`;
+    postsList.prepend(postDiv);
+  });
+});
 
 // ================= ONLINE USERS DISPLAY
 onlineRef.on("value", snapshot=>{
