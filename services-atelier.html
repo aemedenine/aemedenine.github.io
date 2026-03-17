@@ -1,191 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services Atelier</title>
-<link rel="icon" href="images/favicon.png">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-/* ===== PAGE TITLE ===== */
-.page-title{
-  text-align:center;
-  font-size:36px;
-  margin-top:40px;
-  margin-bottom:30px;
-  color:#38bdf8;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services Atelier | Atelier Électronique Médenine</title>
+  <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* ================= RESET & BASE ================= */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
+    body { background:#0f172a; color:white; line-height:1.6; }
 
-/* ===== LANGUAGE SWITCH BUTTONS ===== */
-.lang-switch{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  margin:20px 0;
-}
+    /* ================= HEADER ================= */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 5%;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #38bdf8;
+      padding: 4px;
+    }
+    .logo h1 {
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
 
-.lang-switch button{
-  padding:6px 12px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:600;
-  background:#38bdf8;
-  color:#000;
-  transition:0.3s;
-}
+    /* Hamburger (mobile) */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: 0.4s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
 
-.lang-switch button:hover{
-  transform:scale(1.05);
-}
+    /* Nav links - BLANC fixe */
+    .nav {
+      display: none;
+      align-items: center;
+      gap: 25px;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .nav a:hover, .nav a.active {
+      color: white;
+      text-decoration: underline;
+      transform: scale(1.03);
+    }
 
-/* ===== SERVICE CARDS ===== */
-.service-cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-  padding:40px 8%;
-  justify-items:center;
-}
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(15,23,42,0.98);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+      gap: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      padding: 12px 30px;
+      width: 85%;
+      text-align: center;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active {
+      background: rgba(56,189,248,0.15);
+    }
 
-.service-card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(8px);
-  border-radius:20px;
-  padding:25px 20px;
-  width:260px;
-  text-align:center;
-  text-decoration:none;
-  color:white;
-  font-weight:500;
-  transition:0.5s;
-  position:relative;
-  overflow:hidden;
-}
+    /* ================= PAGE CONTENT ================= */
+    .page-title {
+      text-align: center;
+      font-size: 28px;
+      margin: 100px 5% 30px;
+      color: #38bdf8;
+    }
 
-.service-card:hover{
-  transform:translateY(-5px) scale(1.05);
-  box-shadow:0 15px 35px rgba(56,189,248,0.7), 0 0 15px rgba(56,189,248,0.5) inset;
-}
+    .lang-switch {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 5% 40px;
+      flex-wrap: wrap;
+    }
+    .lang-switch button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      background: #38bdf8;
+      color: #000;
+      transition: 0.3s;
+    }
+    .lang-switch button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(56,189,248,0.4);
+    }
 
-.service-card i{
-  font-size:30px;
-  margin-bottom:10px;
-  color:#38bdf8;
-}
+    .service-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 0 5% 60px;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 25px 20px;
+      text-align: center;
+      color: white;
+      transition: 0.4s;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(56,189,248,0.35);
+    }
+    .service-card i {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: #38bdf8;
+    }
+    .service-card h3 {
+      font-size: 20px;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 15px;
+      color: #cbd5e1;
+    }
 
-.service-card h3{
-  margin-bottom:15px;
-  color:#38bdf8;
-}
+    /* Footer */
+    footer {
+      background: #020617;
+      color: #94a3b8;
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+    }
 
-.service-card p{
-  font-size:16px;
-  line-height:1.5;
-  color:#cbd5e1;
-}
-</style>
+    /* ================= DESKTOP ================= */
+    @media (min-width: 768px) {
+      .header { padding: 15px 8%; }
+      .logo-img { width: 60px; height: 60px; }
+      .logo h1 { font-size: 22px; }
+      .hamburger { display: none; }
+      .nav { display: flex; gap: 30px; }
+      .page-title { font-size: 36px; margin-top: 140px; }
+      .service-cards { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); padding: 0 8% 80px; }
+      .service-card { padding: 30px 25px; }
+      .service-card h3 { font-size: 22px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-  <div class="logo">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1>Atelier Électronique Médenine</h1>
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo" class="logo-img">
+      <h1>Atelier Électronique Médenine</h1>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="radio-codes.html">Code Radio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Accueil</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="radio-codes.html">Code Radio</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <!-- ================= CONTENT ================= -->
+  <h2 class="page-title" data-i18n="services_title">خدمات الورشة</h2>
+
+  <div class="lang-switch">
+    <button onclick="setLang('ar')">🇹🇳 عربي</button>
+    <button onclick="setLang('fr')">🇫🇷 Français</button>
+    <button onclick="setLang('en')">🇬🇧 English</button>
   </div>
 
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="services.html" class="active">Services</a>
-    <a href="contact.html">Contact</a>
-    <button class="login-btn">Login</button>
-  </nav>
-</header>
+  <section class="service-cards">
+    <div class="service-card" data-i18n="service_1">
+      <i class="fas fa-bullhorn"></i>
+      <h3>📢 ورشة إلكترونيك الرحماني</h3>
+      <p>تفتح أبوابها لجميع الولايات.</p>
+    </div>
+    <div class="service-card" data-i18n="service_2">
+      <i class="fas fa-wrench"></i>
+      <h3>🔧 خدمات تصليح عالية الجودة</h3>
+      <p>نقدم خدمات تصليح الأجهزة الإلكترونية بأسعار منافسة.</p>
+    </div>
+    <div class="service-card" data-i18n="service_3">
+      <i class="fas fa-laptop"></i>
+      <h3>💻 تصليح أجهزة</h3>
+      <p>تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.</p>
+    </div>
+    <div class="service-card" data-i18n="service_4">
+      <i class="fas fa-phone"></i>
+      <h3>📱 تواصل عبر واتساب</h3>
+      <p>لأي استفسار أو طلب خدمة.</p>
+    </div>
+    <div class="service-card" data-i18n="service_5">
+      <i class="fas fa-tools"></i>
+      <h3>🛠️ قطع غيار أصلية</h3>
+      <p>بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.</p>
+    </div>
+    <div class="service-card" data-i18n="service_6">
+      <i class="fas fa-truck"></i>
+      <h3>🚚 توصيل واستلام</h3>
+      <p>خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس.</p>
+    </div>
+  </section>
 
-<!-- ===== PAGE TITLE ===== -->
-<h2 class="page-title" data-i18n="services_title">خدمات الورشة</h2>
+  <footer>
+    <p>© 2026 Atelier Électronique Médenine</p>
+  </footer>
 
-<!-- ===== LANGUAGE SWITCH ===== -->
-<div class="lang-switch">
-  <button onclick="setLang('ar')">🇹🇳 عربي</button>
-  <button onclick="setLang('fr')">🇫🇷 Français</button>
-  <button onclick="setLang('en')">🇬🇧 English</button>
-</div>
+  <script>
+    const translations = {
+      fr: {
+        services_title: "Services Atelier",
+        service_1: "📢 L'atelier Électronique Rahmani ouvre ses portes pour toutes les régions.",
+        service_2: "🔧 Nous proposons des services de réparation électronique de haute qualité à des prix compétitifs.",
+        service_3: "💻 Réparation d'ordinateurs, appareils ménagers et cartes électroniques avec grande expertise.",
+        service_4: "📱 Contactez-nous via WhatsApp pour toute demande de service.",
+        service_5: "🛠️ Vente et échange de pièces détachées originales de haute qualité.",
+        service_6: "🚚 Service de livraison et de ramassage disponible dans toute la Tunisie."
+      },
+      en: {
+        services_title: "Workshop Services",
+        service_1: "📢 Rahmani Electronic Workshop opens its doors to all regions.",
+        service_2: "🔧 We offer high-quality electronic repair services at competitive prices.",
+        service_3: "💻 Repair of computers, household devices, and electronic boards with high expertise.",
+        service_4: "📱 Contact us via WhatsApp for any inquiry or service request.",
+        service_5: "🛠️ Sale and replacement of original spare parts of high quality.",
+        service_6: "🚚 Delivery and pickup service available throughout Tunisia."
+      },
+      ar: {
+        services_title: "خدمات الورشة",
+        service_1: "📢 ورشة إلكترونيك الرحماني تفتح أبوابها لجميع الولايات.",
+        service_2: "🔧 نقدم خدمات تصليح الأجهزة الإلكترونية بجودة عالية وبأسعار منافسة.",
+        service_3: "💻 تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.",
+        service_4: "📱 تواصل معنا عبر واتساب لأي استفسار أو طلب خدمة.",
+        service_5: "🛠️ بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.",
+        service_6: "🚚 خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس."
+      }
+    };
 
-<!-- ================= SERVICE CARDS ================= -->
-<section class="service-cards">
-  <div class="service-card" data-i18n="service_1">
-    <i class="fas fa-bullhorn"></i>
-    <h3>📢 ورشة إلكترونيك الرحماني</h3>
-    <p>تفتح أبوابها لجميع الولايات.</p>
-  </div>
-  <div class="service-card" data-i18n="service_2">
-    <i class="fas fa-wrench"></i>
-    <h3>🔧 خدمات تصليح عالية الجودة</h3>
-    <p>نقدم خدمات تصليح الأجهزة الإلكترونية بأسعار منافسة.</p>
-  </div>
-  <div class="service-card" data-i18n="service_3">
-    <i class="fas fa-laptop"></i>
-    <h3>💻 تصليح أجهزة</h3>
-    <p>تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.</p>
-  </div>
-  <div class="service-card" data-i18n="service_4">
-    <i class="fas fa-phone"></i>
-    <h3>📱 تواصل عبر واتساب</h3>
-    <p>لأي استفسار أو طلب خدمة.</p>
-  </div>
-  <div class="service-card" data-i18n="service_5">
-    <i class="fas fa-tools"></i>
-    <h3>🛠️ قطع غيار أصلية</h3>
-    <p>بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.</p>
-  </div>
-  <div class="service-card" data-i18n="service_6">
-    <i class="fas fa-truck"></i>
-    <h3>🚚 توصيل واستلام</h3>
-    <p>خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس.</p>
-  </div>
-</section>
+    function setLang(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      // Optionnel : changer lang de la page
+      document.documentElement.lang = lang;
+    }
 
-<script>
-const translations = {
-  fr:{
-    services_title:"Services Atelier",
-    service_1:"📢 L'atelier Électronique Rahmani ouvre ses portes pour toutes les régions.",
-    service_2:"🔧 Nous proposons des services de réparation électronique de haute qualité à des prix compétitifs.",
-    service_3:"💻 Réparation d'ordinateurs, appareils ménagers et cartes électroniques avec grande expertise.",
-    service_4:"📱 Contactez-nous via WhatsApp pour toute demande de service.",
-    service_5:"🛠️ Vente et échange de pièces détachées originales de haute qualité.",
-    service_6:"🚚 Service de livraison et de ramassage disponible dans toute la Tunisie."
-  },
-  en:{
-    services_title:"Workshop Services",
-    service_1:"📢 Rahmani Electronic Workshop opens its doors to all regions.",
-    service_2:"🔧 We offer high-quality electronic repair services at competitive prices.",
-    service_3:"💻 Repair of computers, household devices, and electronic boards with high expertise.",
-    service_4:"📱 Contact us via WhatsApp for any inquiry or service request.",
-    service_5:"🛠️ Sale and replacement of original spare parts of high quality.",
-    service_6:"🚚 Delivery and pickup service available throughout Tunisia."
-  },
-  ar:{
-    services_title:"خدمات الورشة",
-    service_1:"📢 ورشة إلكترونيك الرحماني تفتح أبوابها لجميع الولايات.",
-    service_2:"🔧 نقدم خدمات تصليح الأجهزة الإلكترونية بجودة عالية وبأسعار منافسة.",
-    service_3:"💻 تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.",
-    service_4:"📱 تواصل معنا عبر واتساب لأي استفسار أو طلب خدمة.",
-    service_5:"🛠️ بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.",
-    service_6:"🚚 خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس."
-  }
-};
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-function setLang(lang){
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key = el.getAttribute("data-i18n");
-    if(translations[lang][key]) el.innerHTML = translations[lang][key];
-  });
-}
-</script>
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
 
+    document.querySelectorAll('.mobile-menu a').forEach(el => {
+      el.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.style.display = 'none';
+      });
+    });
+
+    // Charger langue par défaut (arabe)
+    setLang('ar');
+  </script>
 </body>
 </html>
