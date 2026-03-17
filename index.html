@@ -9,7 +9,11 @@
     <meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
 </head>
 <body>
+<!-- تحميل سكريبت جوجل API -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
+<!-- زر تسجيل الدخول عبر جوجل -->
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 <!-- ================= HEADER ================= -->
 <header class="header">
     <div class="logo">
@@ -21,10 +25,17 @@
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="contact.html">Contact</a>
-    <button class="login-btn">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo">
-        Login
-    </button>
+    
+  <!-- هنا يظهر اللوجو فقط لما يكون المستخدم مسجل دخول -->
+  <div id="userBox">
+    <img src="path_to_user_logo.jpg" alt="User Logo">
+  </div>
+  
+  <!-- زر الدخول يظهر فقط لما يكون المستخدم غير مسجل دخول -->
+  <button class="login-btn" id="loginButton">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="google-logo">
+    Login
+  </button>
 
     </nav>
 </header>
@@ -207,6 +218,17 @@ document.addEventListener("DOMContentLoaded", function(){
     typeWriter();
 });
 </script>
-
+ <script>
+    function onSignIn(googleUser) {
+      // الحصول على بيانات ملف تعريف المستخدم
+      var profile = googleUser.getBasicProfile();
+      
+      // الحصول على رابط صورة المستخدم
+      var userImageUrl = profile.getImageUrl();
+      
+      // تعيين صورة المستخدم في الوسم img
+      document.getElementById('user-profile-image').src = userImageUrl;
+    }
+  </script>
 </body>
 </html>
