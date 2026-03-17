@@ -1,6 +1,4 @@
-// ==========================================
-// FIREBASE CONFIG & INIT
-// ==========================================
+// ================= FIREBASE CONFIG =================
 const firebaseConfig = {
   apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
   authDomain: "atelier-electronique-mednine.firebaseapp.com",
@@ -13,216 +11,136 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const db = firebase.database(); // HADHI LAZMA BARCHA
+const db = firebase.database();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-// Elements
-const loginButton = document.querySelector(".login-btn");
+// ================= ELEMENTS =================
 const loginPopup = document.getElementById("login-popup");
 const closeLogin = document.getElementById("close-login");
+const loginSubmit = document.querySelector(".login-submit");
 const userBox = document.getElementById("userBox");
 const logoutBtn = document.getElementById("logoutBtn");
 const profileModal = document.getElementById("profileModal");
 const closeProfile = document.getElementById("closeProfile");
+const onlineUsersList = document.getElementById("onlineUsersList");
+const onlineCount = document.getElementById("onlineCount");
 
-// Refs
+// ================= DATABASE REFS =================
 const usersRef = db.ref("users");
 const onlineRef = db.ref("onlineUsers");
 
-// ==========================================
-// LOGIN POPUP
-// ==========================================
-if (loginButton) loginButton.onclick = () => loginPopup.style.display = "flex";
-if (closeLogin) closeLogin.onclick = () => loginPopup.style.display = "none";
+let currentUser = null;
 
-// ==========================================
-// GOOGLE LOGIN
-// ==========================================
-document.querySelector(".login-submit").onclick = () => {
+// ================= LOGIN POPUP =================
+document.querySelector(".login-btn")?.addEventListener("click", () => {
+  loginPopup.style.display = "flex";
+});
+closeLogin?.addEventListener("click", () => {
+  loginPopup.style.display = "none";
+});
+
+// ================= GOOGLE LOGIN =================
+loginSubmit?.addEventListener("click", () => {
   auth.signInWithPopup(provider)
     .then(result => {
       const user = result.user;
+      currentUser = user;
       showUserBox(user);
       loginPopup.style.display = "none";
       updateUserVisits(user);
       updateOnlineUsers(user);
+      listenOnlineUsers();
     })
-    .catch(error => {
-      console.error("Login error:", error);
-      alert("Erreur connexion: " + error.message);
-    });
-};
+    .catch(err => alert("Erreur: " + err.message));
+});
 
-// ==========================================
-// KEEP LOGIN + INIT
-// ==========================================
+// ================= KEEP LOGIN =================
 auth.onAuthStateChanged(user => {
-  if (user) {
+  if(user){
     currentUser = user;
     showUserBox(user);
     updateUserVisits(user);
     updateOnlineUsers(user);
-    listenOnlineUsers(); // realtime online
+    listenOnlineUsers();
   } else {
     currentUser = null;
-    if (userBox) userBox.style.display = "none";
+    userBox.style.display = "none";
   }
 });
 
-// ==========================================
-// FUNCTIONS
-// ==========================================
-function showUserBox(user) {
-  if (userBox) {
-    userBox.style.display = "flex";
-    document.getElementById("username").innerText = user.displayName || "Anonyme";
-    document.getElementById("userAvatar").src = user.photoURL || "https://via.placeholder.com/40";
-  }
+// ================= FUNCTIONS =================
+function showUserBox(user){
+  if(!userBox) return;
+  userBox.style.display = "flex";
+  document.getElementById("username").innerText = user.displayName || "Anonyme";
+  document.getElementById("userAvatar").src = user.photoURL || "https://via.placeholder.com/40";
 }
 
-function updateUserVisits(user) {
-  if (!user || !user.uid) return;
-
-  const userRef = usersRef.child(user.uid);
-  userRef.transaction(current => {
-    let data = current || { visits: 0, rank: "Member" };
-    data.visits = (data.visits || 0) + 1;
-
-    // Rank logic (zid levels ida t7ebb)
-    if (data.visits >= 50) data.rank = "VIP";
-    else if (data.visits >= 20) data.rank = "Pro";
-    else if (data.visits >= 5) data.rank = "Active";
-    else data.rank = "Member";
-
+function updateUserVisits(user){
+  if(!user?.uid) return;
+  usersRef.child(user.uid).transaction(current => {
+    const data = current || {visits:0, rank:"Member"};
+    data.visits++;
+    if(data.visits >= 50) data.rank="VIP";
+    else if(data.visits >= 20) data.rank="Pro";
+    else if(data.visits >= 5) data.rank="Active";
     return data;
-  }, (error, committed, snapshot) => {
-    if (error) {
-      console.error("Erreur update visits:", error);
-    } else if (committed && snapshot) {
+  }, (err, committed, snapshot) => {
+    if(committed && snapshot){
       const data = snapshot.val();
       document.getElementById("visitCount").innerText = data.visits;
       const rankEl = document.querySelector(".user-rank");
-      if (rankEl) {
-        const stars = "⭐".repeat(data.rank === "Member" ? 1 : data.rank === "Active" ? 2 : data.rank === "Pro" ? 3 : 5);
+      if(rankEl){
+        const stars = "⭐".repeat(data.rank==="Member"?1:data.rank==="Active"?2:data.rank==="Pro"?3:5);
         rankEl.innerText = stars + " " + data.rank;
       }
     }
   });
 }
 
-function updateOnlineUsers(user) {
-  if (!user || !user.uid) return;
-
-  const userOnlineRef = onlineRef.child(user.uid);
-  userOnlineRef.set({
-    name: user.displayName || "Anonyme",
-    avatar: user.photoURL || "",
-    lastActive: firebase.database.ServerValue.TIMESTAMP
-  });
-
-  userOnlineRef.onDisconnect().remove();
+function updateOnlineUsers(user){
+  if(!user?.uid) return;
+  const ref = onlineRef.child(user.uid);
+  ref.set({name:user.displayName, avatar:user.photoURL, lastActive:firebase.database.ServerValue.TIMESTAMP});
+  ref.onDisconnect().remove();
 }
 
-// Realtime online users
-function listenOnlineUsers() {
-  const onlineList = document.getElementById("onlineUsersList");
-  if (!onlineList) return;
-
+function listenOnlineUsers(){
   onlineRef.on("value", snap => {
-    onlineList.innerHTML = "";
-    let count = 0;
-    snap.forEach(child => {
+    onlineUsersList.innerHTML="";
+    let count=0;
+    snap.forEach(child=>{
       const data = child.val();
-      if (data) {
+      if(data){
         count++;
         const li = document.createElement("li");
-        li.innerHTML = `<img src="${data.avatar}" width="24" height="24" style="border-radius:50%; margin-right:8px;"> ${data.name}`;
-        onlineList.appendChild(li);
+        li.innerHTML=`<img src="${data.avatar}" width="24" height="24" style="border-radius:50%; margin-right:8px;"> ${data.name}`;
+        onlineUsersList.appendChild(li);
       }
     });
-    document.getElementById("onlineCount").innerText = count || 0;
+    onlineCount.innerText = count;
   });
 }
 
-// Logout
-if (logoutBtn) {
-  logoutBtn.onclick = e => {
-    e.stopPropagation();
-    auth.signOut().then(() => {
-      if (userBox) userBox.style.display = "none";
-      alert("🔓 Déconnecté !");
-    }).catch(err => console.error("Logout error:", err));
-  };
-}
-
-// Profile modal
-if (userBox) {
-  userBox.onclick = () => {
-    if (profileModal) {
-      profileModal.style.display = "flex";
-      profileModal.querySelector("#profileName").innerText = document.getElementById("username")?.innerText || "";
-      profileModal.querySelector("#profileAvatar").src = document.getElementById("userAvatar")?.src || "";
-      profileModal.querySelector("#profileRank").innerText = document.querySelector(".user-rank")?.innerText || "";
-      profileModal.querySelector("#profileVisits").innerText = document.getElementById("visitCount")?.innerText || "0";
-    }
-  };
-}
-
-if (closeProfile) {
-  closeProfile.onclick = () => {
-    if (profileModal) profileModal.style.display = "none";
-  };
-}
-// Attendre que la page soit complètement chargée
-document.addEventListener("DOMContentLoaded", () => {
-  // Login popup
-  const loginButton = document.querySelector(".login-btn");
-  const loginPopup = document.getElementById("login-popup");
-  const closeLogin = document.getElementById("close-login");
-
-  if (loginButton) {
-    loginButton.addEventListener("click", () => {
-      if (loginPopup) loginPopup.style.display = "flex";
-    });
-  }
-
-  if (closeLogin) {
-    closeLogin.addEventListener("click", () => {
-      if (loginPopup) loginPopup.style.display = "none";
-    });
-  }
-
-  // Logout
-  const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      auth.signOut().then(() => {
-        alert("🔓 Déconnecté !");
-        if (userBox) userBox.style.display = "none";
-      }).catch(err => console.error("Logout error:", err));
-    });
-  }
-
-  // User box click → profile modal
-  const userBox = document.getElementById("userBox");
-  const profileModal = document.getElementById("profileModal");
-  const closeProfile = document.getElementById("closeProfile");
-
-  if (userBox) {
-    userBox.addEventListener("click", () => {
-      if (profileModal) profileModal.style.display = "flex";
-    });
-  }
-
-  if (closeProfile) {
-    closeProfile.addEventListener("click", () => {
-      if (profileModal) profileModal.style.display = "none";
-    });
-  }
+// ================= LOGOUT =================
+logoutBtn?.addEventListener("click", e=>{
+  e.stopPropagation();
+  auth.signOut().then(()=> userBox.style.display="none");
 });
 
+// ================= PROFILE MODAL =================
+userBox?.addEventListener("click", () => {
+  profileModal.style.display = "flex";
+  document.getElementById("profileName").innerText = document.getElementById("username").innerText;
+  document.getElementById("profileAvatar").src = document.getElementById("userAvatar").src;
+  document.getElementById("profileRank").innerText = document.querySelector(".user-rank").innerText;
+  document.getElementById("profileVisits").innerText = document.getElementById("visitCount").innerText;
+});
+
+closeProfile?.addEventListener("click", () => {
+  profileModal.style.display = "none";
+});
 // ================= RATE / STARS =================
 const stars = document.querySelectorAll('.stars-horizontal span');
 const ratingMessage = document.getElementById('rating-message');
