@@ -48,21 +48,21 @@ let currentUserRating = 0;
 document.addEventListener("DOMContentLoaded", () => {
 
   // Google Login
-  loginSubmit?.addEventListener("click", () => {
+// Google Login
+loginButton?.addEventListener("click", () => {
     auth.signInWithPopup(provider)
-      .then(result => {
-        const user = result.user;
-        showUserInterface(user);
-        loginPopup.style.display = "none";
-        updateUserVisits(user);
-        updateOnlineUsers(user);
-      })
-      .catch(err => {
-        console.error("Erreur connexion :", err);
-        alert("Erreur connexion: " + err.message);
-      });
-  });
-
+        .then(result => {
+            const user = result.user;
+            showUserInterface(user);
+            loginPopup.style.display = "none"; // Fermer la fenêtre de login
+            updateUserVisits(user);
+            updateOnlineUsers(user);
+        })
+        .catch(err => {
+            console.error("Erreur connexion :", err);
+            alert("Erreur connexion: " + err.message);
+        });
+});
   // Logout
   logoutBtn?.addEventListener("click", e => {
     e.stopPropagation();
