@@ -30,9 +30,6 @@ const userRatingsRef = db.ref("userRatings");
 
 // ================= ELEMENTS =================
 const loginButton   = document.querySelector(".login-btn");
-const loginPopup    = document.getElementById("login-popup");
-const closeLogin    = document.getElementById("close-login");
-const loginSubmit   = document.querySelector(".login-submit");
 const userBox       = document.getElementById("userBox");
 const logoutBtn     = document.getElementById("logoutBtn");
 const profileModal  = document.getElementById("profileModal");
@@ -47,7 +44,6 @@ let currentUserRating = 0;
 // ================= INIT & EVENT LISTENERS =================
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Google Login
 // Google Login
 loginButton?.addEventListener("click", () => {
     auth.signInWithPopup(provider)
@@ -75,22 +71,26 @@ loginButton?.addEventListener("click", () => {
   });
 
   // Open profile modal
-  userBox?.addEventListener("click", () => {
-    if (!profileModal) return;
-    profileModal.style.display = "flex";
-
-    profileModal.querySelector("#profileName").innerText =
-      document.getElementById("username")?.innerText || "";
-
-    profileModal.querySelector("#profileAvatar").src =
-      document.getElementById("userAvatar")?.src || "";
-
-    profileModal.querySelector("#profileRank").innerText =
-      document.querySelector(".user-rank")?.innerText || "";
-
-    profileModal.querySelector("#profileVisits").innerText =
-      document.getElementById("visitCount")?.innerText || "0";
-  });
+userBox?.addEventListener("click", () => {
+  if (!profileModal || !currentUser) return;
+  
+  profileModal.style.display = "flex";
+  
+  // taswira
+  const profAvatar = profileModal.querySelector("#profileAvatar");
+  if (profAvatar) profAvatar.src = currentUser.photoURL || "https://via.placeholder.com/90?text=User";
+  
+  // nom
+  const profName = profileModal.querySelector("#profileName");
+  if (profName) profName.innerText = currentUser.displayName || "Utilisateur";
+  
+  // rank w visites (t9ader t7ot default "Member" w "0" lken ma3andeksh data)
+  const profRank = profileModal.querySelector("#profileRank");
+  if (profRank) profRank.innerText = "⭐ Member"; // update ba3d men DB lken houni simple
+  
+  const profVisits = profileModal.querySelector("#profileVisits");
+  if (profVisits) profVisits.innerText = "0"; // update ba3d men DB
+});
 
   // Close profile
   closeProfile?.addEventListener("click", () => {
@@ -123,15 +123,16 @@ auth.onAuthStateChanged(user => {
 // ================= HELPER FUNCTIONS =================
 
 function showUserInterface(user) {
-  if (userBox)    userBox.style.display = "flex";
+  if (userBox) {
+    userBox.style.display = "flex";
+    const avatar = document.getElementById("userAvatar");
+    if (avatar) {
+      avatar.src = user.photoURL || "https://via.placeholder.com/40?text=User";
+    }
+  }
   if (loginButton) loginButton.style.display = "none";
-
-  const avatar = document.getElementById("userAvatar");
-  const usernameEl = document.getElementById("username");
-
-  if (avatar)    avatar.src = user.photoURL || "default-avatar.png";
-  if (usernameEl) usernameEl.innerText = user.displayName || "Utilisateur";
 }
+
 
 function hideUserInterface() {
   if (userBox)    userBox.style.display = "none";
