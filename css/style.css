@@ -83,31 +83,27 @@ body{
    LOGIN BUTTON
 =================================*/
 .login-btn {
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #4285F4, #34a853);
-  color: white;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
   border: none;
-  padding: 10px 18px;
-  border-radius: 30px;
   cursor: pointer;
-  font-weight: 600;
   transition: 0.3s;
-  box-shadow: 0 5px 15px rgba(66,133,244,0.4);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 .login-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #4285F4;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #4285F4;
 }
 
-.login-btn .google-logo {
-  width: 24px;
-  height: 24px;
-  background: white;
-  border-radius: 50%;
-  padding: 3px;
+.google-logo {
+  width: 22px;
+  height: 22px;
 }
 /* ================= ONLINE USERS 2026 ================= */
 #onlineBox {
