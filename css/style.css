@@ -82,29 +82,34 @@ body{
 /* ===============================
    LOGIN BUTTON
 =================================*/
-.login-btn {
- backdrop-filter: blur(10px);
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+button.login-btn,
+button.login-submit {
+    background-color: #38bdf8; /* أزرق جذاب */
+    color: #000; /* نص أسود */
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* مساحة لو تحب تحط أيقونة مستقبلا */
 }
 
-.login-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #4285F4;
+button.login-btn:hover,
+button.login-submit:hover {
+    background: #2563eb; /* أزرق أغمق عند المرور */
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-.google-logo {
-  width: 22px;
-  height: 22px;
+button.login-btn:active,
+button.login-submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 /* ================= ONLINE USERS 2026 ================= */
 #onlineBox {
