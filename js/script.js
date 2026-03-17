@@ -112,81 +112,94 @@ closeProfile.onclick = ()=>profileModal.style.display = "none";
 const stars = document.querySelectorAll('.stars-horizontal span');
 const ratingMessage = document.getElementById('rating-message');
 
-let currentUser = null; // هذي باش نحطو بعد login
-let currentUserRating = 0;
+let currentUser = null;        // المستخدم الحالي
+let currentUserRating = 0;     // تقييمه الحالي إذا قيم
 
+// Firebase References
 const ratingsRef = firebase.database().ref("ratings");
 const userRatingsRef = firebase.database().ref("userRatings");
 
-// تحديث currentUser بعد تسجيل الدخول
+// ================= تحديث currentUser بعد تسجيل الدخول
 auth.onAuthStateChanged(user => {
   currentUser = user;
+
+  if(currentUser){
+    // جلب تقييم المستخدم إذا كان موجود مسبقاً
+    userRatingsRef.child(currentUser.uid).once('value').then(snapshot=>{
+      const data = snapshot.val();
+      if(data && data.rating){
+        currentUserRating = data.rating;
+        updateStars(currentUserRating);
+      }
+    });
+  }
 });
 
-// تحديث النجوم حسب الرقم
+// ================= تحديث النجوم حسب الرقم
 function updateStars(r){
-  stars.forEach(s => {
-    const val = Number(s.dataset.value);
-    s.classList.toggle('selected', val <= r);
+  stars.forEach(star => {
+    const val = Number(star.dataset.value);
+    star.classList.toggle('selected', val <= r);
   });
 }
 
-// عند الضغط على نجمة
-stars.forEach(star=>{
-  star.addEventListener('click',()=>{
+// ================= الضغط على النجوم
+stars.forEach(star => {
+  star.addEventListener('click', () => {
     if(!currentUser){
       alert("🔒 Connectez-vous pour noter !");
       return;
     }
-    const val = Number(star.dataset.value);
+
     if(currentUserRating > 0){
       alert("Vous avez déjà noté !");
       return;
     }
 
-    // تخزين تقييم المستخدم
+    const val = Number(star.dataset.value);
+
+    // 1️⃣ تخزين تقييم المستخدم
     userRatingsRef.child(currentUser.uid).set({
       rating: val,
       name: currentUser.displayName,
       timestamp: firebase.database.ServerValue.TIMESTAMP
     });
 
-    // تحديث معدل النجوم
-    ratingsRef.transaction(current=>{
+    // 2️⃣ تحديث معدل النجوم العام
+    ratingsRef.transaction(current => {
       const data = current || {sum:0,count:0,breakdown:{1:0,2:0,3:0,4:0,5:0}};
       data.sum += val;
-      data.count +=1;
-      data.breakdown[val] = (data.breakdown[val]||0)+1;
+      data.count += 1;
+      data.breakdown[val] = (data.breakdown[val] || 0) + 1;
       return data;
     });
 
+    // 3️⃣ تحديث واجهة المستخدم
     currentUserRating = val;
     updateStars(val);
     ratingMessage.textContent = `Merci ${currentUser.displayName}, votre note (${val} étoiles) a été enregistrée 🌟`;
     ratingMessage.classList.add('show');
-    setTimeout(()=>ratingMessage.classList.remove('show'),8000);
+    setTimeout(() => ratingMessage.classList.remove('show'), 8000);
 
-    // تحديث المتوسط على الصفحة
-    ratingsRef.once('value').then(snapshot=>{
-      const data = snapshot.val();
-      if(data && data.count>0){
-        const avg = (data.sum/data.count).toFixed(1);
-        document.getElementById('avg-stars').textContent = avg;
-        document.getElementById('vote-count').textContent = data.count;
-      }
-    });
-
+    updateAverageStars();
   });
 });
 
-// تحميل المعدل عند الصفحة
-ratingsRef.on('value', snapshot=>{
-  const data = snapshot.val();
-  if(data && data.count>0){
-    const avg = (data.sum/data.count).toFixed(1);
-    document.getElementById('avg-stars').textContent = avg;
-    document.getElementById('vote-count').textContent = data.count;
-  }
+// ================= تحديث المتوسط على الصفحة
+function updateAverageStars(){
+  ratingsRef.once('value').then(snapshot => {
+    const data = snapshot.val();
+    if(data && data.count > 0){
+      const avg = (data.sum / data.count).toFixed(1);
+      document.getElementById('avg-stars').textContent = avg;
+      document.getElementById('vote-count').textContent = data.count;
+    }
+  });
+}
+
+// ================= تحميل المعدل عند الصفحة مباشرة
+ratingsRef.on('value', () => {
+  updateAverageStars();
 });
 // ================= ONLINE USERS DISPLAY
 onlineRef.on("value", snapshot=>{
