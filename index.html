@@ -257,6 +257,14 @@ document.addEventListener("DOMContentLoaded", function(){
 
     typeWriter();
 });
+// Scroll smooth lel sections ida click 3la titre
+function scrollToSection(id) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 </script>
 
 </body>
