@@ -215,23 +215,10 @@ setTimeout(typeWriter, speed);
 
 }else{
 
-// بعد ما يكمل ➜ يعمل blink مرة وحدة
-target.classList.add("blink-once");
-
-// بعد 10 ثواني ➜ يعاود
-setTimeout(restartTyping, 10000);
+// النص كامل يرمش مرة واحدة
+target.classList.add("text-blink-once");
 
 }
-
-}
-
-function restartTyping(){
-
-target.classList.remove("blink-once");
-target.innerHTML = "";
-i = 0;
-
-typeWriter();
 
 }
 
