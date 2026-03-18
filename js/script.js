@@ -289,73 +289,71 @@ onlineRef.on("value", snap => {
   });
 });
 // ========================
-// HERO 3 PHOTOS SLIDESHOW
+// HERO 3 PHOTOS SLIDESHOW (indépendant)
 // ========================
 
-const photos = [
-    // Photo 1 (gauche)
+const heroPhotos = [
+    // Position 1 - Gauche
     [
         "images/hero-left-1.png",
         "images/hero-left-2.jpg",
         "images/hero-left-3.jpg",
         "images/hero-left-4.jpg",
         "images/hero-left-5.jpg",
-        "images/hero-left-6.jpg",
-        // zed photos eli 3andek lel position 1
+        "images/hero-left-6.jpg"
     ],
     
-    // Photo 2 (milieu)
+    // Position 2 - Milieu
     [
         "images/hero-right-1.png",
         "images/hero-right-2.jpg",
         "images/hero-right-3.jpg",
-       "images/hero-right-4.jpg",
-       "images/hero-right-5.jpg",
-       "images/hero-right-6.jpg",
-        // zed photos lel milieu
+        "images/hero-right-4.jpg",
+        "images/hero-right-5.jpg",
+        "images/hero-right-6.jpg"
     ],
     
-    // Photo 3 (droite)
+    // Position 3 - Droite
     [
         "images/hero-left-11.jpg",
         "images/hero-left-12.jpg",
         "images/hero-left-13.jpg",
-       "images/hero-left-14.jpg",
-       "images/hero-left-15.jpg",
-       "images/hero-left-16.jpg",
-        // zed photos lel position 3
+        "images/hero-left-14.jpg",
+        "images/hero-left-15.jpg",
+        "images/hero-left-16.jpg"
     ]
 ];
 
-const imgElements = [
+const heroImgElements = [
     document.getElementById("heroImg1"),
     document.getElementById("heroImg2"),
     document.getElementById("heroImg3")
 ];
 
-const indices = [0, 0, 0];  // index courant pour chaque photo
+const currentIndices = [0, 0, 0];
 
-function changePhoto(position) {
-    const idx = (indices[position] + 1) % photos[position].length;
-    indices[position] = idx;
+function changeHeroPhoto(pos) {
+    if (!heroImgElements[pos]) return;
     
-    const img = imgElements[position];
-    img.style.opacity = 0;
+    currentIndices[pos] = (currentIndices[pos] + 1) % heroPhotos[pos].length;
+    
+    const img = heroImgElements[pos];
+    img.classList.add("fade-out");
     
     setTimeout(() => {
-        img.src = photos[position][idx];
-        img.style.opacity = 1;
-    }, 500);  // temps du fade out
+        img.src = heroPhotos[pos][currentIndices[pos]];
+        img.classList.remove("fade-out");
+    }, 500);
 }
 
-// Démarrer les 3 slideshows (tous les 10 secondes)
-setInterval(() => changePhoto(0), 10000);
-setInterval(() => changePhoto(1), 10000);
-setInterval(() => changePhoto(2), 10000);
+// Lancer les 3 slideshows (tous les 10 secondes)
+setInterval(() => changeHeroPhoto(0), 10000);
+setInterval(() => changeHeroPhoto(1), 10000);
+setInterval(() => changeHeroPhoto(2), 10000);
 
-// Optionnel : décalage pour que ça change pas tous en même temps (plus vivant)
-setTimeout(() => setInterval(() => changePhoto(1), 10000), 3000);
-setTimeout(() => setInterval(() => changePhoto(2), 10000), 6000);
+// Décalage pour que ça change pas tous en même temps (plus dynamique)
+setTimeout(() => setInterval(() => changeHeroPhoto(1), 10000), 3500);
+setTimeout(() => setInterval(() => changeHeroPhoto(2), 10000), 7000);
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
