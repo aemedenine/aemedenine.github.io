@@ -296,16 +296,16 @@ onlineRef.on("value", snap => {
 // ========================
 
 const leftHeroPhotos = [
-    "images/hero-left-1.jpg",
-    "images/hero-left-2.jpg",
-    "images/hero-left-3.jpg",
+    "images/hero-left-1.png",
+    "images/hero-left-2.png",
+    "images/hero-left-3.png",
     // ← ajoute tes photos ici (min 2–3 c'est bien)
 ];
 
 const rightHeroPhotos = [
-    "images/hero-right-1.jpg",
-    "images/hero-right-2.jpg",
-    "images/hero-right-3.jpg",
+    "images/hero-right-1.png",
+    "images/hero-right-2.png",
+    "images/hero-right-3.png",
     // ← même chose ici
 ];
 
