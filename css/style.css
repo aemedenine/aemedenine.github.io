@@ -257,26 +257,105 @@ button.login-submit:active {
   color:#cbd5f5;
   margin-bottom:25px;
 }
-/* ===============================
-   BUTTON
-=================================*/
-.btn{
-  display:inline-block;
-  padding: 8px 10px;
-  background:#38bdf8;
-  color:#000;
-  border-radius:30px;
-  text-decoration:none;
-  font-weight:500;
-  transition:0.3s;
+/* ========================
+   HERO BUTTONS - NOUVEAU STYLE 2026
+   ======================== */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+    flex-wrap: wrap;
 }
 
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+.hero-btn {
+    padding: 16px 36px;
+    font-size: 19px;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.5px;
 }
 
+/* Bouton principal (services) - Gradient bleu cyan */
+.hero-btn.primary {
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    color: #000;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.7),
+                0 10px 30px rgba(0, 0, 0, 0.4);
+}
 
+.hero-btn.primary:hover {
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.9),
+                0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Bouton secondaire (forum) - Style glass + bordure neon */
+.hero-btn.secondary {
+    background: rgba(30, 41, 59, 0.85);
+    color: #38bdf8;
+    border: 3px solid #38bdf8;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.hero-btn.secondary:hover {
+    background: rgba(56, 189, 248, 0.15);
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 0 45px rgba(56, 189, 248, 0.9);
+    color: white;
+}
+
+/* Petite flèche animée */
+.hero-btn .arrow {
+    transition: transform 0.3s ease;
+}
+.hero-btn.primary:hover .arrow {
+    transform: translateX(8px);
+}
+
+/* Effet shine (lumière qui passe) */
+.hero-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 300%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    transition: 0.7s;
+}
+
+.hero-btn:hover::before {
+    left: 200%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+    }
+    
+    .hero-btn {
+        padding: 14px 32px;
+        font-size: 17px;
+        width: 280px;
+    }
+}
 /* ===============================  
    SERVICES, CALCUL ÉLECTRONIQUE & ATELIER CARDS 2026
 =================================*/
