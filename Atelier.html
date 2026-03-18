@@ -107,9 +107,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const storage = firebase.storage();
-const auth = firebase.auth();
 
-// Récup pseudo
+// Auth anonyme auto (pour que .write marche sans login Google/email)
+firebase.auth().signInAnonymously()
+  .catch(err => console.error("Auth anon error:", err));
+
+// Pseudo
 const urlParams = new URLSearchParams(window.location.search);
 const myNick = urlParams.get('nick') || localStorage.getItem('electro_nick') || 'Anonyme_Electro';
 document.getElementById('my-nick').textContent = myNick;
@@ -121,19 +124,27 @@ const sendBtn = document.getElementById('send-btn');
 const fileInput = document.getElementById('file-input');
 const typingEl = document.getElementById('typing');
 
-// ==========================================================================
-// Afficher un message
-// ==========================================================================
+// Récup UID une fois connecté
+let myUid = null;
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    myUid = user.uid;
+    console.log("Connecté anonymement, UID:", myUid);
+  }
+});
+
+// Afficher message (innerHTML pour emojis + images)
 function addMessage(msg) {
-  const isMine = msg.nick === myNick;
+  const isMine = msg.uid === myUid;
 
   const div = document.createElement('div');
   div.classList.add('message', isMine ? 'mine' : 'other');
 
-  let content = `<span class="msg-nick">${msg.nick}</span>${msg.text}`;
+  let content = `<span class="msg-nick">${escapeHtml(msg.name || 'Anonyme')}</span>`;
+  content += `<div>${escapeHtml(msg.text)}</div>`;  // emojis passent ici
 
-  if (msg.imageUrl) {
-    content += `<img class="chat-image" src="${msg.imageUrl}" alt="photo chat" loading="lazy">`;
+  if (msg.photoUrl) {
+    content += `<img class="chat-image" src="${msg.photoUrl}" alt="photo" loading="lazy">`;
   }
 
   content += `<div class="msg-time">${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>`;
@@ -143,58 +154,62 @@ function addMessage(msg) {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-// ==========================================================================
-// Écouter TOUS les nouveaux messages en temps réel
-// ==========================================================================
-const messagesRef = db.ref('chat/messages');
+// Échapper HTML basique pour sécurité (mais emojis restent)
+function escapeHtml(text) {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
 
-messagesRef.on('child_added', (snapshot) => {
+// Écouter messages en temps réel
+db.ref('chat/messages').on('child_added', snapshot => {
   const msg = snapshot.val();
-  if (msg && msg.nick && msg.time) {
+  if (msg && msg.text && msg.time) {
     addMessage(msg);
   }
 });
 
-// Optionnel : indicateur de typing (simple)
+// Typing
 let typingTimeout;
 input.addEventListener('input', () => {
-  db.ref('chat/typing').set(myNick);
+  if (myUid) db.ref('chat/typing/' + myUid).set(myNick);
   clearTimeout(typingTimeout);
   typingTimeout = setTimeout(() => {
-    db.ref('chat/typing').remove();
-  }, 2500);
+    if (myUid) db.ref('chat/typing/' + myUid).remove();
+  }, 3000);
 });
 
-db.ref('chat/typing').on('value', (snap) => {
-  const who = snap.val();
-  typingEl.textContent = who && who !== myNick ? `${who} écrit...` : '';
+db.ref('chat/typing').on('value', snap => {
+  const typingUsers = [];
+  snap.forEach(child => {
+    if (child.key !== myUid) typingUsers.push(child.val());
+  });
+  typingEl.textContent = typingUsers.length > 0 ? typingUsers.join(', ') + ' écrit...' : '';
 });
 
-// ==========================================================================
-// Envoyer message texte
-// ==========================================================================
+// Envoyer texte
 function sendTextMessage() {
   const text = input.value.trim();
-  if (!text) return;
+  if (!text || !myUid) return;
 
   const msg = {
-    nick: myNick,
+    uid: myUid,
+    name: myNick,
     text: text,
-    time: Date.now(),
-    // imageUrl: null (optionnel)
+    time: firebase.database.ServerValue.TIMESTAMP
   };
 
-  messagesRef.push(msg);
-  input.value = '';
-  input.focus();
+  db.ref('chat/messages').push(msg)
+    .then(() => {
+      console.log("Message envoyé !");
+      input.value = '';
+    })
+    .catch(err => console.error("Erreur envoi:", err));
 }
 
-// ==========================================================================
 // Envoyer photo
-// ==========================================================================
-fileInput.addEventListener('change', async (e) => {
+fileInput.addEventListener('change', async e => {
   const file = e.target.files[0];
-  if (!file) return;
+  if (!file || !myUid) return;
 
   const storageRef = storage.ref('chat-images/' + Date.now() + '_' + file.name);
   try {
@@ -202,24 +217,23 @@ fileInput.addEventListener('change', async (e) => {
     const url = await snapshot.ref.getDownloadURL();
 
     const msg = {
-      nick: myNick,
+      uid: myUid,
+      name: myNick,
       text: "📸 Photo partagée",
-      imageUrl: url,
-      time: Date.now()
+      photoUrl: url,
+      time: firebase.database.ServerValue.TIMESTAMP
     };
 
-    messagesRef.push(msg);
+    await db.ref('chat/messages').push(msg);
+    console.log("Photo envoyée !");
   } catch (err) {
-    console.error("Erreur upload:", err);
-    alert("Erreur lors de l'envoi de la photo 😕");
+    console.error("Erreur upload/photo:", err);
+    alert("Problème envoi photo : " + err.message);
   }
-
-  fileInput.value = ''; // reset input file
+  fileInput.value = '';
 });
 
-// ==========================================================================
 // Événements
-// ==========================================================================
 sendBtn.onclick = sendTextMessage;
 input.addEventListener('keypress', e => {
   if (e.key === 'Enter' && !e.shiftKey) {
@@ -227,8 +241,6 @@ input.addEventListener('keypress', e => {
     sendTextMessage();
   }
 });
-
-// Bonus : on peut aussi cliquer sur le bouton photo directement
 document.getElementById('file-btn').onclick = () => fileInput.click();
 </script>
 </body>
