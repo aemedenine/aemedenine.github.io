@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atelier Électronique – Salon Chat ⚡</title>
+
+  <style>
+    :root {
+      --bg: #0a0a12;
+      --card: #111122;
+      --primary: #00ffea;
+      --accent: #ff3366;
+      --text: #e0f0ff;
+      --gray: #8899aa;
+      --msg-mine: #004d4d;
+      --msg-other: #222244;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #0d0d1f;
+      padding: 12px 20px;
+      border-bottom: 1px solid #222244;
+      text-align: center;
+    }
+    h1 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      text-shadow: 0 0 10px var(--primary);
+    }
+    #users {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    #chat-area {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .message {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .message.mine {
+      align-self: flex-end;
+      background: var(--msg-mine);
+      border-bottom-right-radius: 3px;
+    }
+    .message.other {
+      align-self: flex-start;
+      background: var(--msg-other);
+      border-bottom-left-radius: 3px;
+    }
+    .msg-nick {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .msg-time {
+      font-size: 0.75rem;
+      color: #555577;
+      margin-top: 4px;
+      text-align: right;
+    }
+    #input-area {
+      background: #0d0d1f;
+      padding: 12px 20px;
+      border-top: 1px solid #222244;
+      display: flex;
+      gap: 10px;
+    }
+    #message-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #333355;
+      border-radius: 8px;
+      background: #0f0f1e;
+      color: white;
+      font-size: 1rem;
+    }
+    #send-btn {
+      background: var(--primary);
+      color: black;
+      border: none;
+      padding: 0 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #send-btn:hover { background: #00e0cc; }
+    #typing { color: var(--gray); font-style: italic; font-size: 0.9rem; padding: 0 20px 8px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Atelier Chat ⚡ #atelier-general</h1>
+  <div id="users">Connecté en tant que : <span id="my-nick">...</span></div>
+</header>
+
+<div id="chat-area"></div>
+
+<div id="typing"></div>
+
+<div id="input-area">
+  <input type="text" id="message-input" placeholder="Tape ton message ici... (ex: mon ampli claque le MOSFET !)" autocomplete="off" />
+  <button id="send-btn">Envoyer</button>
+</div>
+
+<script>
+// Récup pseudo depuis URL (passé depuis index.html)
+const urlParams = new URLSearchParams(window.location.search);
+const myNick = urlParams.get('nick') || localStorage.getItem('electro_nick') || 'Anonyme_Electro';
+document.getElementById('my-nick').textContent = myNick;
+localStorage.setItem('electro_nick', myNick);
+
+// Variables chat
+const chatArea = document.getElementById('chat-area');
+const input = document.getElementById('message-input');
+const sendBtn = document.getElementById('send-btn');
+const typingEl = document.getElementById('typing');
+
+let messages = JSON.parse(localStorage.getItem('atelier_messages')) || [];
+let lastMsgId = messages.length > 0 ? messages[messages.length-1].id : 0;
+
+// Fonction pour afficher un message
+function addMessage(msgObj, isMine = false) {
+  const div = document.createElement('div');
+  div.classList.add('message', isMine ? 'mine' : 'other');
+
+  div.innerHTML = `
+    <span class="msg-nick">${msgObj.nick}</span>
+    ${msgObj.text}
+    <div class="msg-time">${new Date(msgObj.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
+  `;
+
+  chatArea.appendChild(div);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+// Charger messages existants au démarrage
+messages.forEach(m => {
+  const isMine = m.nick === myNick;
+  addMessage(m, isMine);
+});
+
+// Envoyer message
+function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  lastMsgId++;
+  const msg = {
+    id: lastMsgId,
+    nick: myNick,
+    text: text,
+    time: Date.now()
+  };
+
+  messages.push(msg);
+  localStorage.setItem('atelier_messages', JSON.stringify(messages));
+
+  addMessage(msg, true);
+  input.value = '';
+  input.focus();
+
+  // Simulation "quelqu'un tape..." aléatoire (fun)
+  if (Math.random() > 0.6) {
+    typingEl.textContent = `${['ScopeKiller', 'SMD_Sniper', 'TunisElectro', 'AmpliFumeur'][Math.floor(Math.random()*4)]} est en train d'écrire...`;
+    setTimeout(() => { typingEl.textContent = ''; }, 3000);
+  }
+}
+
+sendBtn.onclick = sendMessage;
+input.addEventListener('keypress', e => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+// Polling pour nouveaux messages (toutes les 800ms)
+setInterval(() => {
+  const stored = JSON.parse(localStorage.getItem('atelier_messages')) || [];
+  if (stored.length > messages.length) {
+    const newMsgs = stored.slice(messages.length);
+    newMsgs.forEach(m => {
+      if (m.nick !== myNick) {
+        addMessage(m, false);
+      }
+    });
+    messages = stored;
+    lastMsgId = messages[messages.length-1]?.id || lastMsgId;
+  }
+}, 800);
+
+// Nettoyage auto des vieux messages (optionnel, pour pas exploser localStorage)
+if (messages.length > 200) {
+  messages = messages.slice(-150);
+  localStorage.setItem('atelier_messages', JSON.stringify(messages));
+}
+</script>
+
+</body>
+</html>
