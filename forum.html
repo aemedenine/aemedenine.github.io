@@ -3,191 +3,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Tchatche gratuit, discutez, flirtez, amusez-vous sans inscription • Atelier"/>
-  <title>Tchatche Gratuit – Atelier</title>
+  <meta name="description" content="Forum & tchat électronique gratuit : répare ton ampli, chargeur, Arduino, TV, PC – partage pannes, projets DIY, schémas – du monde entier vers Tunis !" />
+  <title>Atelier Électronique – Réparation & Projets DIY ⚡</title>
 
   <style>
     :root {
-      --primary: #c9973a;
-      --dark: #111;
-      --gray: #222;
-      --lightgray: #444;
-      --text: #eee;
-      --pink: #ff69b4;
-      --blue: #3366ff;
+      --bg: #0a0a12;
+      --card: #111122;
+      --primary: #00ffea;
+      --primary-dark: #00b3a2;
+      --accent: #ff3366;
+      --text: #e0f0ff;
+      --gray: #8899aa;
+      --danger: #ff4444;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: linear-gradient(to bottom, #0f0f1a, #000);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
       color: var(--text);
+      line-height: 1.6;
       min-height: 100vh;
-      line-height: 1.5;
     }
-
     #container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 20px 15px;
     }
-
     header {
       text-align: center;
-      padding: 30px 0 20px;
+      padding: 40px 0 20px;
     }
-
-    header h1 {
+    h1 {
       color: var(--primary);
-      font-size: 2.8rem;
+      font-size: 3rem;
+      text-shadow: 0 0 15px rgba(0,255,234,0.5);
       margin-bottom: 8px;
-      text-shadow: 0 0 10px rgba(201,151,58,0.6);
     }
-
-    header p {
-      color: #aaa;
-      font-size: 1.1rem;
-    }
-
+    header p { color: var(--gray); font-size: 1.1rem; }
     nav {
       text-align: center;
-      margin: 20px 0 40px;
+      margin: 25px 0 40px;
     }
-
     nav a {
       color: var(--primary);
-      margin: 0 18px;
+      margin: 0 20px;
       text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
+      font-weight: 600;
+      transition: all 0.2s;
     }
-
-    nav a:hover {
-      color: white;
-      text-shadow: 0 0 8px var(--primary);
-    }
-
+    nav a:hover { color: white; text-shadow: 0 0 10px var(--primary); }
     .card {
-      background: var(--gray);
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 24px;
+      background: var(--card);
+      border: 1px solid #222244;
+      border-radius: 12px;
+      padding: 25px;
       margin: 30px 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.7);
     }
-
     .card h2 {
       color: var(--primary);
       margin-bottom: 18px;
-      border-bottom: 1px solid #444;
+      border-bottom: 1px solid #333355;
       padding-bottom: 10px;
     }
-
     .form-row {
-      margin: 16px 0;
+      margin: 18px 0;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
     }
-
     .form-row label {
-      min-width: 110px;
+      min-width: 120px;
+      color: var(--gray);
       font-weight: 500;
-      color: #ccc;
     }
-
-    input[type=text], input[type=number],
-    select {
-      padding: 10px 14px;
-      border: 1px solid #444;
+    input[type=text], select, input[type=number] {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #333355;
       border-radius: 6px;
-      background: #1a1a2e;
+      background: #0f0f1e;
       color: white;
       font-size: 1rem;
-      flex: 1;
-      min-width: 180px;
+      min-width: 200px;
     }
-
-    .radio-group {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
+    .radio-group { display: flex; gap: 30px; flex-wrap: wrap; }
     .error {
-      color: #ff5555;
-      font-size: 0.95rem;
-      margin: 8px 0;
-      min-height: 1.3em;
+      color: var(--danger);
+      font-weight: bold;
+      margin: 10px 0;
+      min-height: 1.4em;
+      text-align: center;
     }
-
     button.big {
       background: var(--primary);
       color: black;
       border: none;
-      padding: 16px 40px;
-      font-size: 1.2rem;
+      padding: 16px 50px;
+      font-size: 1.3rem;
       font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-      margin: 24px auto;
       display: block;
+      margin: 30px auto;
       transition: all 0.25s;
     }
-
     button.big:hover {
-      background: #ffca6b;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(201,151,58,0.5);
+      background: #00e0cc;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,255,234,0.4);
     }
-
     .salon {
-      margin: 16px 0;
-      padding: 14px;
-      background: rgba(50,50,70,0.4);
-      border-radius: 8px;
-      border-left: 4px solid var(--primary);
+      background: rgba(20,20,40,0.6);
+      border-left: 5px solid var(--primary);
+      padding: 16px;
+      margin: 14px 0;
+      border-radius: 6px;
     }
-
-    .salon label {
-      cursor: pointer;
-    }
-
     .salon .name {
       color: var(--primary);
       font-weight: bold;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
     }
-
-    .salon .desc {
-      color: #bbb;
-      font-size: 0.95rem;
-      margin: 6px 0;
+    .salon .desc { color: var(--gray); margin: 6px 0; }
+    .salon .online { color: #44ff88; font-size: 0.9rem; }
+    .problems { margin-top: 40px; }
+    .problems ul { list-style: none; padding-left: 0; }
+    .problems li {
+      background: rgba(255,51,102,0.08);
+      border-left: 4px solid var(--accent);
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 6px;
     }
-
-    .salon .online {
-      color: #88ff88;
-      font-size: 0.9rem;
-      font-style: italic;
-    }
-
     footer {
       text-align: center;
-      padding: 40px 0 60px;
-      color: #777;
-      font-size: 0.9rem;
+      padding: 50px 0;
+      color: var(--gray);
+      font-size: 0.95rem;
     }
-
-    @media (max-width: 680px) {
+    @media (max-width: 700px) {
       .form-row { flex-direction: column; align-items: flex-start; }
       .form-row label { min-width: auto; }
-      header h1 { font-size: 2.2rem; }
+      h1 { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -196,138 +156,165 @@
 <div id="container">
 
   <header>
-    <h1>Atelier Tchatche</h1>
-    <p>Discutez • Flirtez • Rencontrez des gens — Gratuit & sans inscription</p>
+    <h1>Atelier Électronique ⚡</h1>
+    <p>Réparation – Projets DIY – Dépannage mondial • Gratuit, sans inscription forcée</p>
   </header>
 
   <nav>
     <a href="#">Accueil</a>
-    <a href="#">Tchatche Gratuit</a>
-    <a href="#">FAQ</a>
-    <a href="#">Contact</a>
+    <a href="#">Forum Pannes</a>
+    <a href="#">Projets DIY</a>
+    <a href="#">Composants & Outils</a>
   </nav>
 
   <div class="card">
-    <h2>Comment ça marche ?</h2>
-    <p>Pas d'inscription, pas de mail, pas de téléphone. Tu choisis un pseudo, ton âge, ton sexe, une ou plusieurs salles… et c’est parti !</p>
-    <p>Salons généralistes, charme, discussions sérieuses ou délire — à toi de voir.</p>
+    <h2>Bienvenue dans l'Atelier !</h2>
+    <p>Ici on parle électronique sans chichi : ampli qui fume, chargeur qui crame, Arduino qui freeze, carte mère qui sent le brûlé, oscilloscope qui ment...</p>
+    <p>Partage tes photos de PCB, schémas, questions — du monde entier (Tunis, Paris, Delhi, Lagos...)</p>
   </div>
 
   <div class="card">
-    <h2>Connexion rapide</h2>
+    <h2>Connexion rapide à l'Atelier</h2>
 
     <div id="error" class="error"></div>
 
-    <form id="chat-form" onsubmit="return false;">
+    <form id="electro-form" onsubmit="return false;">
 
       <div class="form-row">
-        <label for="nick">Pseudo :</label>
-        <input type="text" id="nick" name="nick" maxlength="26" placeholder="Ton pseudo cool" required autocomplete="off"/>
+        <label for="nick">Pseudo Électro :</label>
+        <input type="text" id="nick" maxlength="26" placeholder="SMD_Sniper42 / ScopeKiller" required autocomplete="off"/>
       </div>
 
       <div class="form-row">
         <label for="age">Âge :</label>
-        <select id="age" name="age" required>
-          <option value="">Choisir</option>
-          <option value="18">18</option><option value="19">19</option><option value="20">20</option>
-          <!-- ... tu peux remettre toute la liste si tu veux ... -->
-          <option value="30">30</option>
-          <!-- raccourci : jusqu'à 99 -->
-          <option value="99">99+</option>
+        <input type="number" id="age" min="13" max="99" placeholder="Optionnel" />
+      </div>
+
+      <div class="form-row">
+        <label>Niveau :</label>
+        <select id="niveau" required>
+          <option value="">Choisis ton vibe</option>
+          <option value="debutant">Débutant (je découvre)</option>
+          <option value="moyen">Moyen (je soude déjà)</option>
+          <option value="pro">Pro / Ingénieur</option>
+          <option value="vieux">Vieux de la lampe (lampes & analogique)</option>
         </select>
       </div>
 
       <div class="form-row">
         <label>Sexe :</label>
         <div class="radio-group">
-          <label><input type="radio" name="sex" value="Mec" required/> <span style="color:var(--blue)">Mec</span></label>
-          <label><input type="radio" name="sex" value="Nana"/> <span style="color:var(--pink)">Nana</span></label>
+          <label><input type="radio" name="sex" value="Mec" /> Mec</label>
+          <label><input type="radio" name="sex" value="Nana" /> Nana</label>
+          <label><input type="radio" name="sex" value="Autre" /> Autre / Robot</label>
         </div>
       </div>
 
       <div class="form-row">
-        <label for="country">Pays :</label>
-        <select id="country" name="country">
-          <option value="TN">Tunisie</option>
-          <option value="FR" selected>France</option>
+        <label>Pays :</label>
+        <select id="country">
+          <option value="TN" selected>Tunisie</option>
+          <option value="FR">France</option>
           <option value="MA">Maroc</option>
           <option value="DZ">Algérie</option>
-          <!-- tu peux remettre la liste complète -->
+          <option value="XX">Autre / Monde</option>
         </select>
       </div>
 
-      <div class="form-row" id="salons">
+      <div class="form-row">
         <label>Salons :</label>
-        <div style="flex:1">
+        <div style="flex:1;">
           <div class="salon">
-            <label>
-              <input type="checkbox" name="salons" value="#atelier-accueil" checked/>
-              <span class="name">#atelier-accueil</span><br>
-              <span class="desc">Bienvenue • discussions libres • ambiance cool</span><br>
-              <span class="online">~ 45 connectés</span>
+            <label><input type="checkbox" name="salons" value="#atelier-general" checked />
+              <span class="name">#atelier-general</span><br>
+              <span class="desc">Bienvenue, intros, questions de base, entraide débutants</span><br>
+              <span class="online">~ 35 connectés</span>
             </label>
           </div>
-
           <div class="salon">
-            <label>
-              <input type="checkbox" name="salons" value="#atelier-charme"/>
-              <span class="name">#atelier-charme</span><br>
-              <span class="desc">Flirt, charme, bonne humeur • respect obligatoire</span><br>
-              <span class="online">~ 180 connectés</span>
+            <label><input type="checkbox" name="salons" value="#reparation-pannes" checked />
+              <span class="name">#reparation-pannes</span><br>
+              <span class="desc">Photos de cartes cramées, diagnostic, "mon ampli sent le grillé"</span><br>
+              <span class="online">~ 120 connectés</span>
             </label>
           </div>
-
           <div class="salon">
-            <label>
-              <input type="checkbox" name="salons" value="#atelier-18"/>
-              <span class="name">#atelier-18</span><br>
-              <span class="desc">18+ only • ambiance plus chaude</span><br>
-              <span class="online">~ 90 connectés</span>
+            <label><input type="checkbox" name="salons" value="#projets-diy" />
+              <span class="name">#projets-diy</span><br>
+              <span class="desc">Montre ton projet (Arduino, ampli, chargeur solaire, retro-gaming...)</span><br>
+              <span class="online">~ 85 connectés</span>
+            </label>
+          </div>
+          <div class="salon">
+            <label><input type="checkbox" name="salons" value="#composants-outils" />
+              <span class="name">#composants-outils</span><br>
+              <span class="desc">Où trouver en Tunisie ? AliExpress vs local ? Oscillo pas cher ?</span><br>
+              <span class="online">~ 60 connectés</span>
+            </label>
+          </div>
+          <div class="salon">
+            <label><input type="checkbox" name="salons" value="#embedded-mcu" />
+              <span class="name">#embedded-mcu</span><br>
+              <span class="desc">STM32, ESP32, PIC, AVR, bugs I2C/SPI/UART</span><br>
+              <span class="online">~ 70 connectés</span>
             </label>
           </div>
         </div>
       </div>
 
-      <div class="form-row" style="justify-content:center; margin:30px 0 10px;">
-        <label style="min-width:auto; text-align:center;">
-          <input type="checkbox" id="cgu" required/>
-          J'accepte les <a href="#" style="color:var(--primary);">conditions d'utilisation</a>
+      <div style="text-align:center; margin:25px 0;">
+        <label>
+          <input type="checkbox" id="cgu" required />
+          J'accepte les <a href="#" style="color:var(--primary);">règles de l'Atelier</a> (respect, pas de scam, partage schémas si possible)
         </label>
       </div>
 
-      <button type="submit" class="big" onclick="tryConnect()">ENTRER DANS LE TCHAT</button>
+      <button class="big" onclick="tryEnter()">ENTRER DANS L'ATELIER ⚡</button>
 
     </form>
   </div>
 
+  <div class="card problems">
+    <h2>Problèmes fréquents qu'on voit partout</h2>
+    <ul>
+      <li>Condensateurs électrolytiques gonflés / qui fuient → n°1 sur vieux ampli, TV CRT, PSU ATX</li>
+      <li>Soudures froides / fissurées → consoles, cartes mères, plaques à induction</li>
+      <li>MOSFET / IGBT qui claquent dans alim SMPS ou chargeurs rapides</li>
+      <li>Pont de diodes ou fusible d'entrée 220V qui part après foudre / surtension</li>
+      <li>Tracks PCB qui brûlent sur chargeurs cheap ou ampli mal ventilé</li>
+      <li>Bruit 50 Hz / ronflement → masse mal gérée ou alim filtrée pourri</li>
+      <li>I2C qui freeze / SPI qui bug → sur projets Arduino/ESP/STM32</li>
+      <li>Overheating → pâte thermique sèche, ventilo mort</li>
+    </ul>
+    <p style="margin-top:15px;">Prends une photo de ta carte, décris le symptôme, et poste dans le salon qui matche !</p>
+  </div>
+
   <footer>
-    © Atelier 2025 — Tchatche gratuit • Fait avec ❤️ à Tunis
+    © Atelier Électronique 2025–2026 • Tunis • Fait avec passion et multimetre ❤️<br>
+    Pas de pub, pas de tracking, juste de l'électronique pure.
   </footer>
 
 </div>
 
 <script>
-function tryConnect() {
-  const error = document.getElementById("error");
-  error.textContent = "";
+function tryEnter() {
+  const errorEl = document.getElementById("error");
+  errorEl.textContent = "";
 
-  const nick = document.getElementById("nick").value.trim();
-  const age  = document.getElementById("age").value;
-  const sex  = document.querySelector('input[name="sex"]:checked')?.value;
-  const cgu  = document.getElementById("cgu").checked;
+  const nick    = document.getElementById("nick").value.trim();
+  const niveau  = document.getElementById("niveau").value;
+  const cgu     = document.getElementById("cgu").checked;
 
-  if (!nick)                return error.textContent = "→ Pseudo obligatoire !";
-  if (nick.length < 3)      return error.textContent = "→ Pseudo trop court (min 3 caractères)";
-  if (!age)                 return error.textContent = "→ Choisis ton âge";
-  if (!sex)                 return error.textContent = "→ Mec ou Nana ?";
-  if (!cgu)                 return error.textContent = "→ Accepte les CGU pour continuer";
+  if (!nick)                  return errorEl.textContent = "→ Donne-nous un pseudo électro stp !";
+  if (nick.length < 3)        return errorEl.textContent = "→ Minimum 3 caractères bro";
+  if (!niveau)                return errorEl.textContent = "→ Choisis ton niveau (débutant, pro, vieux de la lampe...)";
+  if (!cgu)                   return errorEl.textContent = "→ Accepte les règles pour entrer";
 
-  // Ici tu peux faire une vraie vérif via fetch si tu as un backend
-  // Pour l'instant on simule un succès
+  // Simulation connexion réussie
+  const msg = `Bienvenue ${nick} ! (${niveau}) — On va réparer le monde... ou au moins ton chargeur qui clignote bizarrement ! ⚡`;
+  alert(msg);
 
-  alert(`Bienvenue ${nick} (${age} ans - ${sex}) !\n\nRedirection vers le tchat Atelier...`);
-
-  // Exemple : window.location = "chat.html?nick=" + encodeURIComponent(nick) + "&age=" + age + "&sex=" + sex;
+  // Plus tard : window.location = "chat.html?nick=" + encodeURIComponent(nick) + "&niveau=" + niveau;
 }
 </script>
 
