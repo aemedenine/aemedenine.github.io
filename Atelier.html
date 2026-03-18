@@ -1,247 +1,235 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Atelier Électronique – Salon Chat ⚡</title>
-
-  <!-- Firebase SDKs (version 9+ compat pour simplicité) -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-
-  <style>
-    :root {
-      --bg: #0a0a12;
-      --card: #111122;
-      --primary: #00ffea;
-      --accent: #ff3366;
-      --text: #e0f0ff;
-      --gray: #8899aa;
-      --msg-mine: #004d4d;
-      --msg-other: #222244;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header { background: #0d0d1f; padding: 12px 20px; border-bottom: 1px solid #222244; text-align: center; }
-    h1 { color: var(--primary); font-size: 1.8rem; text-shadow: 0 0 10px var(--primary); }
-    #users { color: var(--gray); font-size: 0.9rem; margin-top: 4px; }
-    #chat-area {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .message {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-    .message.mine   { align-self: flex-end; background: var(--msg-mine);   border-bottom-right-radius: 3px; }
-    .message.other  { align-self: flex-start; background: var(--msg-other); border-bottom-left-radius: 3px; }
-    .msg-nick { font-weight: bold; color: var(--primary); margin-bottom: 4px; display: block; }
-    .msg-time { font-size: 0.75rem; color: #555577; margin-top: 4px; text-align: right; }
-    img.chat-image { max-width: 240px; border-radius: 8px; margin-top: 6px; display: block; }
-    #input-area { background: #0d0d1f; padding: 12px 20px; border-top: 1px solid #222244; display: flex; gap: 10px; flex-wrap: wrap; }
-    #message-input { flex: 1; padding: 12px 16px; border: 1px solid #333355; border-radius: 8px; background: #0f0f1e; color: white; font-size: 1rem; min-width: 200px; }
-    #file-btn, #send-btn {
-      background: var(--primary);
-      color: black;
-      border: none;
-      padding: 0 18px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    #file-btn:hover, #send-btn:hover { background: #00e0cc; }
-    #typing { color: var(--gray); font-style: italic; font-size: 0.9rem; padding: 0 20px 8px; }
-    #file-input { display: none; }
-  </style>
-</head>
-<body>
-<header>
-  <h1>Atelier Chat ⚡ #atelier-general</h1>
-  <div id="users">Connecté en tant que : <span id="my-nick">...</span></div>
-</header>
-
-<div id="chat-area"></div>
-<div id="typing"></div>
-
-<div id="input-area">
-  <input type="text" id="message-input" placeholder="Tape ton message ici... (emojis supportés 😎🔧)" autocomplete="off" />
-  <label for="file-input">
-    <button id="file-btn" type="button">📎 Photo</button>
-  </label>
-  <input type="file" id="file-input" accept="image/*" />
-  <button id="send-btn">Envoyer</button>
-</div>
-
 <script>
-// ==========================================================================
-// Firebase Configuration
-// ==========================================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-  authDomain: "atelier-electronique-mednine.firebaseapp.com",
-  projectId: "atelier-electronique-mednine",
-  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-  messagingSenderId: "547430908384",
-  appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
-  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
-};
-
+// Firebase Config (déjà ok)
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 const db = firebase.database();
 const storage = firebase.storage();
 
-// Auth anonyme auto (pour que .write marche sans login Google/email)
-firebase.auth().signInAnonymously()
-  .catch(err => console.error("Auth anon error:", err));
+let currentUser = null;
+let typingTimeout = null;
+let selectedFile = null;  // ← on garde le File, pas base64
 
-// Pseudo
-const urlParams = new URLSearchParams(window.location.search);
-const myNick = urlParams.get('nick') || localStorage.getItem('electro_nick') || 'Anonyme_Electro';
-document.getElementById('my-nick').textContent = myNick;
-localStorage.setItem('electro_nick', myNick);
+// Login Google
+function login() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(err => {
+    console.error("Login error:", err);
+    alert("Problème connexion : " + err.message);
+  });
+}
 
-const chatArea = document.getElementById('chat-area');
-const input = document.getElementById('message-input');
-const sendBtn = document.getElementById('send-btn');
-const fileInput = document.getElementById('file-input');
-const typingEl = document.getElementById('typing');
-
-// Récup UID une fois connecté
-let myUid = null;
-firebase.auth().onAuthStateChanged(user => {
+// Auth state
+auth.onAuthStateChanged(user => {
   if (user) {
-    myUid = user.uid;
-    console.log("Connecté anonymement, UID:", myUid);
+    currentUser = user;
+    document.querySelector(".login").style.display = "none";
+    document.getElementById("chat").style.display = "flex";
+    listenTyping();
+    setPresence(true);
+    console.log("Connecté:", user.displayName, user.uid);
+  } else {
+    currentUser = null;
+    document.querySelector(".login").style.display = "block";
+    document.getElementById("chat").style.display = "none";
+    setPresence(false);
   }
 });
 
-// Afficher message (innerHTML pour emojis + images)
-function addMessage(msg) {
-  const isMine = msg.uid === myUid;
-
-  const div = document.createElement('div');
-  div.classList.add('message', isMine ? 'mine' : 'other');
-
-  let content = `<span class="msg-nick">${escapeHtml(msg.name || 'Anonyme')}</span>`;
-  content += `<div>${escapeHtml(msg.text)}</div>`;  // emojis passent ici
-
-  if (msg.photoUrl) {
-    content += `<img class="chat-image" src="${msg.photoUrl}" alt="photo" loading="lazy">`;
-  }
-
-  content += `<div class="msg-time">${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>`;
-
-  div.innerHTML = content;
-  chatArea.appendChild(div);
-  chatArea.scrollTop = chatArea.scrollHeight;
+// Presence
+function setPresence(online) {
+  if (!currentUser) return;
+  db.ref(`presence/${currentUser.uid}`).update({
+    online: online,
+    name: currentUser.displayName || currentUser.email.split('@')[0],
+    lastSeen: firebase.database.ServerValue.TIMESTAMP
+  });
 }
-
-// Échapper HTML basique pour sécurité (mais emojis restent)
-function escapeHtml(text) {
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
-
-// Écouter messages en temps réel
-db.ref('chat/messages').on('child_added', snapshot => {
-  const msg = snapshot.val();
-  if (msg && msg.text && msg.time) {
-    addMessage(msg);
-  }
-});
 
 // Typing
-let typingTimeout;
-input.addEventListener('input', () => {
-  if (myUid) db.ref('chat/typing/' + myUid).set(myNick);
+const msgInput = document.getElementById("msg");
+msgInput.addEventListener("input", () => {
+  if (!currentUser) return;
+  db.ref(`typing/${currentUser.uid}`).set(true);
   clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(() => {
-    if (myUid) db.ref('chat/typing/' + myUid).remove();
-  }, 3000);
+  typingTimeout = setTimeout(() => db.ref(`typing/${currentUser.uid}`).remove(), 2500);
 });
 
-db.ref('chat/typing').on('value', snap => {
-  const typingUsers = [];
-  snap.forEach(child => {
-    if (child.key !== myUid) typingUsers.push(child.val());
+function listenTyping() {
+  db.ref("typing").on("child_added", snap => {
+    if (snap.key !== currentUser?.uid) showTyping(snap.key);
   });
-  typingEl.textContent = typingUsers.length > 0 ? typingUsers.join(', ') + ' écrit...' : '';
-});
-
-// Envoyer texte
-function sendTextMessage() {
-  const text = input.value.trim();
-  if (!text || !myUid) return;
-
-  const msg = {
-    uid: myUid,
-    name: myNick,
-    text: text,
-    time: firebase.database.ServerValue.TIMESTAMP
-  };
-
-  db.ref('chat/messages').push(msg)
-    .then(() => {
-      console.log("Message envoyé !");
-      input.value = '';
-    })
-    .catch(err => console.error("Erreur envoi:", err));
+  db.ref("typing").on("child_removed", snap => removeTyping(snap.key));
 }
 
-// Envoyer photo
-fileInput.addEventListener('change', async e => {
+function showTyping(uid) {
+  db.ref(`presence/${uid}`).once("value", snap => {
+    const name = snap.val()?.name || "Quelqu'un";
+    const div = document.createElement("div");
+    div.id = `typing-${uid}`;
+    div.className = "typing";
+    div.textContent = `${name} écrit... ✍️`;
+    document.getElementById("chat").appendChild(div);
+    scrollToBottom();
+  });
+}
+
+function removeTyping(uid) {
+  document.getElementById(`typing-${uid}`)?.remove();
+}
+
+function scrollToBottom() {
+  const chat = document.getElementById("chat");
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// Emoji picker (déjà bien)
+function toggleEmojiPicker() {
+  const picker = document.getElementById("emoji-picker");
+  picker.style.display = picker.style.display === "block" ? "none" : "block";
+}
+
+document.getElementById("emoji-picker").addEventListener("emoji-click", e => {
+  const emoji = e.detail.unicode;
+  const input = document.getElementById("msg");
+  const pos = input.selectionStart;
+  input.value = input.value.slice(0, pos) + emoji + input.value.slice(pos);
+  input.focus();
+  input.selectionStart = input.selectionEnd = pos + emoji.length;
+  toggleEmojiPicker();
+});
+
+// Photo preview (on garde le File)
+document.getElementById("photo-input").addEventListener("change", e => {
   const file = e.target.files[0];
-  if (!file || !myUid) return;
+  if (!file || !file.type.startsWith("image/")) {
+    alert("Image seulement bro !");
+    return;
+  }
+  if (file.size > 4 * 1024 * 1024) {
+    alert("Image trop lourde (max 4MB)");
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById("preview-img").src = ev.target.result;
+    document.getElementById("preview-container").style.display = "flex";
+    selectedFile = file;  // ← on stocke le File original
+  };
+  reader.readAsDataURL(file);
+});
 
-  const storageRef = storage.ref('chat-images/' + Date.now() + '_' + file.name);
+// Send message
+async function send() {
+  if (!currentUser) {
+    alert("Connecte-toi d'abord bro !");
+    return;
+  }
+
+  const text = msgInput.value.trim();
+  if (!text && !selectedFile) return;
+
+  let imageUrl = null;
+
+  // Upload photo SI présente
+  if (selectedFile) {
+    try {
+      const storageRef = storage.ref(`chat/${Date.now()}_${selectedFile.name}`);
+      const snapshot = await storageRef.put(selectedFile);
+      imageUrl = await snapshot.ref.getDownloadURL();
+      console.log("Photo uploadée →", imageUrl);
+    } catch (err) {
+      console.error("Erreur upload:", err);
+      alert("Erreur envoi photo : " + err.message);
+      return;
+    }
+  }
+
+  // Message data
+  const msgData = {
+    text: text || "📸 Photo",
+    uid: currentUser.uid,
+    name: currentUser.displayName || currentUser.email.split('@')[0],
+    photoURL: currentUser.photoURL || "",
+    imageUrl: imageUrl,   // ← lien Storage, pas base64
+    time: firebase.database.ServerValue.TIMESTAMP,
+    reactions: {}
+  };
+
   try {
-    const snapshot = await storageRef.put(file);
-    const url = await snapshot.ref.getDownloadURL();
-
-    const msg = {
-      uid: myUid,
-      name: myNick,
-      text: "📸 Photo partagée",
-      photoUrl: url,
-      time: firebase.database.ServerValue.TIMESTAMP
-    };
-
-    await db.ref('chat/messages').push(msg);
-    console.log("Photo envoyée !");
+    await db.ref("messages").push(msgData);
+    msgInput.value = "";
+    selectedFile = null;
+    document.getElementById("preview-container").style.display = "none";
+    document.getElementById("preview-img").src = "";
+    db.ref(`typing/${currentUser.uid}`).remove();
+    scrollToBottom();
   } catch (err) {
-    console.error("Erreur upload/photo:", err);
-    alert("Problème envoi photo : " + err.message);
+    console.error("Erreur message:", err);
+    alert("Erreur : " + err.message);
   }
-  fileInput.value = '';
+}
+
+// Affichage messages
+function listenMessages() {
+  db.ref("messages").orderByChild("time").on("child_added", snap => {
+    const msg = snap.val();
+    const key = snap.key;
+    const div = document.createElement("div");
+    div.className = `message ${msg.uid === currentUser?.uid ? "me" : ""}`;
+    div.id = `msg-${key}`;
+
+    let html = `
+      <div class="avatar">${(msg.name || "?").charAt(0).toUpperCase()}</div>
+      <div class="text">
+        <b>${msg.name || "Inconnu"}</b>
+        <small>${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small><br>
+        ${msg.text.replace(/\n/g, '<br>')} <!-- support multiligne -->
+    `;
+
+    if (msg.imageUrl) {
+      html += `<br><img src="${msg.imageUrl}" alt="Photo chat" loading="lazy">`;
+    }
+
+    html += `
+        <div class="reactions" id="reac-${key}"></div>
+      </div>
+    `;
+
+    div.innerHTML = html;
+    document.getElementById("chat").appendChild(div);
+    scrollToBottom();
+
+    div.addEventListener("dblclick", () => addReaction(key, "❤️"));
+  });
+
+  // Reactions live
+  db.ref("messages").on("child_changed", snap => {
+    const msg = snap.val();
+    const key = snap.key;
+    const reacDiv = document.getElementById(`reac-${key}`);
+    if (reacDiv) {
+      reacDiv.innerHTML = Object.values(msg.reactions || {}).map(r => `<span class="reaction">${r}</span>`).join("");
+    }
+  });
+}
+
+function addReaction(msgKey, emoji) {
+  if (!currentUser) return;
+  db.ref(`messages/${msgKey}/reactions/${currentUser.uid}`).set(emoji);
+}
+
+// Enter pour envoyer
+msgInput.addEventListener("keypress", e => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
 });
 
-// Événements
-sendBtn.onclick = sendTextMessage;
-input.addEventListener('keypress', e => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendTextMessage();
-  }
+// Lancement
+listenMessages();
+
+window.addEventListener("beforeunload", () => {
+  if (currentUser) setPresence(false);
 });
-document.getElementById('file-btn').onclick = () => fileInput.click();
 </script>
-</body>
-</html>
