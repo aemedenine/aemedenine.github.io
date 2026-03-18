@@ -1,24 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atelier Électronique – Salon Chat ⚡</title>
+
 <script>
-// Firebase Config (déjà ok)
+// ────────────────────────────────────────────────
+//  CONFIGURATION FIREBASE (mets tes vraies clés)
+// ────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+  authDomain: "atelier-electronique-mednine.firebaseapp.com",
+  projectId: "atelier-electronique-mednine",
+  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
+  messagingSenderId: "547430908384",
+  appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
+  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.database();
 const storage = firebase.storage();
 
 let currentUser = null;
 let typingTimeout = null;
-let selectedFile = null;  // ← on garde le File, pas base64
+let selectedFile = null;
 
-// Login Google
+// ────────────────────────────────────────────────
+//  LOGIN GOOGLE
+// ────────────────────────────────────────────────
 function login() {
   const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).catch(err => {
-    console.error("Login error:", err);
-    alert("Problème connexion : " + err.message);
-  });
+  auth.signInWithPopup(provider)
+    .catch(err => {
+      console.error("Erreur login :", err);
+      alert("Problème connexion : " + err.message);
+    });
 }
 
-// Auth state
+// ────────────────────────────────────────────────
+//  État d'authentification
+// ────────────────────────────────────────────────
 auth.onAuthStateChanged(user => {
   if (user) {
     currentUser = user;
@@ -26,7 +51,7 @@ auth.onAuthStateChanged(user => {
     document.getElementById("chat").style.display = "flex";
     listenTyping();
     setPresence(true);
-    console.log("Connecté:", user.displayName, user.uid);
+    console.log("Connecté →", user.displayName, user.uid);
   } else {
     currentUser = null;
     document.querySelector(".login").style.display = "block";
@@ -35,30 +60,40 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-// Presence
+// ────────────────────────────────────────────────
+//  Présence (online / lastSeen)
+// ────────────────────────────────────────────────
 function setPresence(online) {
   if (!currentUser) return;
   db.ref(`presence/${currentUser.uid}`).update({
     online: online,
     name: currentUser.displayName || currentUser.email.split('@')[0],
     lastSeen: firebase.database.ServerValue.TIMESTAMP
-  });
+  }).catch(err => console.error("Erreur presence :", err));
 }
 
-// Typing
+// ────────────────────────────────────────────────
+//  Typing indicator
+// ────────────────────────────────────────────────
 const msgInput = document.getElementById("msg");
+
 msgInput.addEventListener("input", () => {
   if (!currentUser) return;
   db.ref(`typing/${currentUser.uid}`).set(true);
   clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(() => db.ref(`typing/${currentUser.uid}`).remove(), 2500);
+  typingTimeout = setTimeout(() => {
+    db.ref(`typing/${currentUser.uid}`).remove();
+  }, 2500);
 });
 
 function listenTyping() {
   db.ref("typing").on("child_added", snap => {
     if (snap.key !== currentUser?.uid) showTyping(snap.key);
   });
-  db.ref("typing").on("child_removed", snap => removeTyping(snap.key));
+
+  db.ref("typing").on("child_removed", snap => {
+    removeTyping(snap.key);
+  });
 }
 
 function showTyping(uid) {
@@ -70,7 +105,7 @@ function showTyping(uid) {
     div.textContent = `${name} écrit... ✍️`;
     document.getElementById("chat").appendChild(div);
     scrollToBottom();
-  });
+  }).catch(err => console.error("Erreur presence typing:", err));
 }
 
 function removeTyping(uid) {
@@ -79,10 +114,12 @@ function removeTyping(uid) {
 
 function scrollToBottom() {
   const chat = document.getElementById("chat");
-  chat.scrollTop = chat.scrollHeight;
+  setTimeout(() => { chat.scrollTop = chat.scrollHeight; }, 100);
 }
 
-// Emoji picker (déjà bien)
+// ────────────────────────────────────────────────
+//  Emoji Picker
+// ────────────────────────────────────────────────
 function toggleEmojiPicker() {
   const picker = document.getElementById("emoji-picker");
   picker.style.display = picker.style.display === "block" ? "none" : "block";
@@ -98,27 +135,32 @@ document.getElementById("emoji-picker").addEventListener("emoji-click", e => {
   toggleEmojiPicker();
 });
 
-// Photo preview (on garde le File)
+// ────────────────────────────────────────────────
+//  Photo preview + upload
+// ────────────────────────────────────────────────
 document.getElementById("photo-input").addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file || !file.type.startsWith("image/")) {
-    alert("Image seulement bro !");
+    alert("Seulement des images bro !");
     return;
   }
   if (file.size > 4 * 1024 * 1024) {
-    alert("Image trop lourde (max 4MB)");
+    alert("Image trop lourde (max 4 Mo)");
     return;
   }
+
   const reader = new FileReader();
   reader.onload = ev => {
     document.getElementById("preview-img").src = ev.target.result;
     document.getElementById("preview-container").style.display = "flex";
-    selectedFile = file;  // ← on stocke le File original
+    selectedFile = file;
   };
   reader.readAsDataURL(file);
 });
 
-// Send message
+// ────────────────────────────────────────────────
+//  ENVOI MESSAGE (texte + photo optionnelle)
+// ────────────────────────────────────────────────
 async function send() {
   if (!currentUser) {
     alert("Connecte-toi d'abord bro !");
@@ -130,95 +172,108 @@ async function send() {
 
   let imageUrl = null;
 
-  // Upload photo SI présente
+  // Upload photo si présente
   if (selectedFile) {
     try {
-      const storageRef = storage.ref(`chat/${Date.now()}_${selectedFile.name}`);
+      const fileName = `${Date.now()}_${selectedFile.name.replace(/\s+/g, '_')}`;
+      const storageRef = storage.ref(`chat/${fileName}`);
       const snapshot = await storageRef.put(selectedFile);
       imageUrl = await snapshot.ref.getDownloadURL();
-      console.log("Photo uploadée →", imageUrl);
+      console.log("Photo uploadée :", imageUrl);
     } catch (err) {
-      console.error("Erreur upload:", err);
-      alert("Erreur envoi photo : " + err.message);
+      console.error("Erreur upload photo :", err);
+      alert("Problème envoi photo : " + err.message);
       return;
     }
   }
 
-  // Message data
   const msgData = {
-    text: text || "📸 Photo",
+    text: text || "📸 Photo partagée",
     uid: currentUser.uid,
     name: currentUser.displayName || currentUser.email.split('@')[0],
     photoURL: currentUser.photoURL || "",
-    imageUrl: imageUrl,   // ← lien Storage, pas base64
+    imageUrl: imageUrl,
     time: firebase.database.ServerValue.TIMESTAMP,
     reactions: {}
   };
 
   try {
     await db.ref("messages").push(msgData);
+    console.log("Message envoyé !");
+
     msgInput.value = "";
     selectedFile = null;
     document.getElementById("preview-container").style.display = "none";
     document.getElementById("preview-img").src = "";
-    db.ref(`typing/${currentUser.uid}`).remove();
+    db.ref(`typing/${currentUser.uid}`).remove?.();
     scrollToBottom();
   } catch (err) {
-    console.error("Erreur message:", err);
+    console.error("Erreur envoi message :", err);
     alert("Erreur : " + err.message);
   }
 }
 
-// Affichage messages
+// ────────────────────────────────────────────────
+//  ÉCOUTE DES MESSAGES + AFFICHAGE
+// ────────────────────────────────────────────────
 function listenMessages() {
-  db.ref("messages").orderByChild("time").on("child_added", snap => {
-    const msg = snap.val();
-    const key = snap.key;
-    const div = document.createElement("div");
-    div.className = `message ${msg.uid === currentUser?.uid ? "me" : ""}`;
-    div.id = `msg-${key}`;
+  db.ref("messages")
+    .orderByChild("time")
+    .on("child_added", snap => {
+      const msg = snap.val();
+      const key = snap.key;
 
-    let html = `
-      <div class="avatar">${(msg.name || "?").charAt(0).toUpperCase()}</div>
-      <div class="text">
-        <b>${msg.name || "Inconnu"}</b>
-        <small>${new Date(msg.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small><br>
-        ${msg.text.replace(/\n/g, '<br>')} <!-- support multiligne -->
-    `;
+      const div = document.createElement("div");
+      div.className = `message ${msg.uid === currentUser?.uid ? "me" : ""}`;
+      div.id = `msg-${key}`;
 
-    if (msg.imageUrl) {
-      html += `<br><img src="${msg.imageUrl}" alt="Photo chat" loading="lazy">`;
-    }
+      let html = `
+        <div class="avatar">${(msg.name || "?").charAt(0).toUpperCase()}</div>
+        <div class="text">
+          <b>${msg.name || "Inconnu"}</b>
+          <small>${new Date(msg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</small><br>
+          ${msg.text ? msg.text.replace(/\n/g, '<br>') : ''}
+      `;
 
-    html += `
-        <div class="reactions" id="reac-${key}"></div>
-      </div>
-    `;
+      if (msg.imageUrl) {
+        html += `<br><img src="${msg.imageUrl}" alt="Photo" loading="lazy">`;
+      }
 
-    div.innerHTML = html;
-    document.getElementById("chat").appendChild(div);
-    scrollToBottom();
+      html += `
+          <div class="reactions" id="reac-${key}"></div>
+        </div>
+      `;
 
-    div.addEventListener("dblclick", () => addReaction(key, "❤️"));
-  });
+      div.innerHTML = html;
+      document.getElementById("chat").appendChild(div);
+      scrollToBottom();
 
-  // Reactions live
+      // Double-clic → ❤️
+      div.addEventListener("dblclick", () => addReaction(key, "❤️"));
+    });
+
+  // Mise à jour réactions en live
   db.ref("messages").on("child_changed", snap => {
     const msg = snap.val();
     const key = snap.key;
     const reacDiv = document.getElementById(`reac-${key}`);
     if (reacDiv) {
-      reacDiv.innerHTML = Object.values(msg.reactions || {}).map(r => `<span class="reaction">${r}</span>`).join("");
+      reacDiv.innerHTML = Object.values(msg.reactions || {})
+        .map(r => `<span class="reaction">${r}</span>`)
+        .join("");
     }
   });
 }
 
 function addReaction(msgKey, emoji) {
   if (!currentUser) return;
-  db.ref(`messages/${msgKey}/reactions/${currentUser.uid}`).set(emoji);
+  db.ref(`messages/${msgKey}/reactions/${currentUser.uid}`).set(emoji)
+    .catch(err => console.error("Erreur réaction :", err));
 }
 
-// Enter pour envoyer
+// ────────────────────────────────────────────────
+//  ENVOI AVEC ENTRÉE (sans shift)
+// ────────────────────────────────────────────────
 msgInput.addEventListener("keypress", e => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
@@ -226,10 +281,14 @@ msgInput.addEventListener("keypress", e => {
   }
 });
 
-// Lancement
+// ────────────────────────────────────────────────
+//  DÉMARRAGE + CLEANUP
+// ────────────────────────────────────────────────
 listenMessages();
 
 window.addEventListener("beforeunload", () => {
   if (currentUser) setPresence(false);
 });
 </script>
+</body>
+</html>
