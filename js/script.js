@@ -347,13 +347,13 @@ function changeHeroPhoto(pos) {
 }
 
 // Lancer les 3 slideshows (tous les 10 secondes)
-setInterval(() => changeHeroPhoto(0), 10000);
-setInterval(() => changeHeroPhoto(1), 10000);
-setInterval(() => changeHeroPhoto(2), 10000);
+setInterval(() => changeHeroPhoto(0), 5000);
+setInterval(() => changeHeroPhoto(1), 5000);
+setInterval(() => changeHeroPhoto(2), 5000);
 
 // Décalage pour que ça change pas tous en même temps (plus dynamique)
-setTimeout(() => setInterval(() => changeHeroPhoto(1), 10000), 3500);
-setTimeout(() => setInterval(() => changeHeroPhoto(2), 10000), 7000);
+setTimeout(() => setInterval(() => changeHeroPhoto(1), 5000), 1500);
+setTimeout(() => setInterval(() => changeHeroPhoto(2), 5000), 3000);
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
