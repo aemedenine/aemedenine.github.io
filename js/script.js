@@ -288,7 +288,53 @@ onlineRef.on("value", snap => {
     `;
   });
 });
+// ========================
+// SLIDESHOW 2 PHOTOS HERO
+// ========================
 
+const leftImages = [
+    "images/left1.jpg",
+    "images/left2.jpg",
+    "images/left3.jpg",
+    // zed elli 3andek ...
+];
+
+const rightImages = [
+    "images/right1.jpg",
+    "images/right2.jpg",
+    "images/right3.jpg",
+    // zed elli 3andek ...
+];
+
+let leftIndex = 0;
+let rightIndex = 0;
+
+const leftImgElement  = document.getElementById("leftImg");
+const rightImgElement = document.getElementById("rightImg");
+
+function changeLeftPhoto() {
+    leftIndex = (leftIndex + 1) % leftImages.length;
+    leftImgElement.src = leftImages[leftIndex];
+    // optionnel: petite animation
+    leftImgElement.style.opacity = 0;
+    setTimeout(() => { leftImgElement.style.opacity = 1; }, 150);
+}
+
+function changeRightPhoto() {
+    rightIndex = (rightIndex + 1) % rightImages.length;
+    rightImgElement.src = rightImages[rightIndex];
+    rightImgElement.style.opacity = 0;
+    setTimeout(() => { rightImgElement.style.opacity = 1; }, 150);
+}
+
+// Démarrer les changements (10 secondes = 10000 ms)
+setInterval(changeLeftPhoto, 10000);
+setInterval(changeRightPhoto, 10000);
+
+// Optionnel: les faire démarrer avec un léger décalage
+setTimeout(() => {
+    setInterval(changeRightPhoto, 10000);
+}, 5000);  // droite تبدا بعد 5 ثواني مثلا
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
