@@ -289,63 +289,73 @@ onlineRef.on("value", snap => {
   });
 });
 // ========================
-// SLIDESHOW 2 PHOTOS HERO
+// HERO 3 PHOTOS SLIDESHOW
 // ========================
 
-const leftHeroPhotos = [
-    "images/hero-left-1.png",
-    "images/hero-left-2.jpg",
-    "images/hero-left-3.jpg",
-  "images/hero-left-4.jpg",
-  "images/hero-left-5.jpg",
-  "images/hero-left-6.jpg",
-    // ← ajoute tes photos ici (min 2–3 c'est bien)
+const photos = [
+    // Photo 1 (gauche)
+    [
+        "images/hero-left-1.png",
+        "images/hero-left-2.jpg",
+        "images/hero-left-3.jpg",
+        "images/hero-left-4.jpg",
+        "images/hero-left-5.jpg",
+        "images/hero-left-6.jpg",
+        // zed photos eli 3andek lel position 1
+    ],
+    
+    // Photo 2 (milieu)
+    [
+        "images/hero-right-1.png",
+        "images/hero-right-2.jpg",
+        "images/hero-right-3.jpg",
+       "images/hero-right-4.jpg",
+       "images/hero-right-5.jpg",
+       "images/hero-right-6.jpg",
+        // zed photos lel milieu
+    ],
+    
+    // Photo 3 (droite)
+    [
+        "images/hero-left-11.jpg",
+        "images/hero-left-12.jpg",
+        "images/hero-left-13.jpg",
+       "images/hero-left-14.jpg",
+       "images/hero-left-15.jpg",
+       "images/hero-left-16.jpg",
+        // zed photos lel position 3
+    ]
 ];
 
-const rightHeroPhotos = [
-    "images/hero-right-1.png",
-    "images/hero-right-2.jpg",
-    "images/hero-right-3.jpg",
-      "images/hero-right-4.jpg",
-    "images/hero-right-5.jpg",
-    "images/hero-right-6.jpg",
-
-  
-    // ← même chose ici
+const imgElements = [
+    document.getElementById("heroImg1"),
+    document.getElementById("heroImg2"),
+    document.getElementById("heroImg3")
 ];
 
-let leftHeroIdx = 0;
-let rightHeroIdx = 0;
+const indices = [0, 0, 0];  // index courant pour chaque photo
 
-const leftHeroEl  = document.getElementById("leftHeroImg");
-const rightHeroEl = document.getElementById("rightHeroImg");
-
-function changeHeroLeft() {
-    leftHeroIdx = (leftHeroIdx + 1) % leftHeroPhotos.length;
-    leftHeroEl.classList.add("fade");
+function changePhoto(position) {
+    const idx = (indices[position] + 1) % photos[position].length;
+    indices[position] = idx;
+    
+    const img = imgElements[position];
+    img.style.opacity = 0;
+    
     setTimeout(() => {
-        leftHeroEl.src = leftHeroPhotos[leftHeroIdx];
-        leftHeroEl.classList.remove("fade");
-    }, 400);
+        img.src = photos[position][idx];
+        img.style.opacity = 1;
+    }, 500);  // temps du fade out
 }
 
-function changeHeroRight() {
-    rightHeroIdx = (rightHeroIdx + 1) % rightHeroPhotos.length;
-    rightHeroEl.classList.add("fade");
-    setTimeout(() => {
-        rightHeroEl.src = rightHeroPhotos[rightHeroIdx];
-        rightHeroEl.classList.remove("fade");
-    }, 400);
-}
+// Démarrer les 3 slideshows (tous les 10 secondes)
+setInterval(() => changePhoto(0), 10000);
+setInterval(() => changePhoto(1), 10000);
+setInterval(() => changePhoto(2), 10000);
 
-// Lance les changements toutes les 10 secondes
-setInterval(changeHeroLeft, 10000);
-setInterval(changeHeroRight, 10000);
-
-// Optionnel : faire démarrer la droite avec 4–5s de décalage (plus vivant)
-setTimeout(() => {
-    setInterval(changeHeroRight, 10000);
-}, 4500);
+// Optionnel : décalage pour que ça change pas tous en même temps (plus vivant)
+setTimeout(() => setInterval(() => changePhoto(1), 10000), 3000);
+setTimeout(() => setInterval(() => changePhoto(2), 10000), 6000);
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
