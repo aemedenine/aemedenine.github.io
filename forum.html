@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Live Chat • Atelier Électronique Médenine</title>
+  <title>Forum Live • Atelier Électronique Médenine</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 100%);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
       color: #e2e8f0;
       height: 100vh;
       display: flex;
@@ -18,68 +18,67 @@
     }
 
     header {
-      padding: 14px 20px;
-      background: rgba(2,6,23,0.96);
+      padding: 16px 20px;
+      background: rgba(2,6,23,0.97);
       backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(56,189,248,0.12);
+      border-bottom: 1px solid rgba(56,189,248,0.15);
       text-align: center;
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: #38bdf8;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.8px;
       z-index: 30;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+      box-shadow: 0 4px 25px rgba(0,0,0,0.5);
     }
 
-    .login-view {
+    .login-screen {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 24px;
+      padding: 0 30px;
       text-align: center;
     }
 
     .login-title {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 700;
       color: #38bdf8;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
-    .login-desc {
-      font-size: 1.1rem;
+    .login-subtitle {
+      font-size: 1.15rem;
       color: #94a3b8;
-      margin-bottom: 50px;
-      max-width: 420px;
+      margin-bottom: 60px;
+      max-width: 460px;
     }
 
-    .google-signin {
+    .google-login {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       background: #ffffff;
-      color: #1f2937;
+      color: #111827;
       border: none;
-      padding: 16px 52px;
-      font-size: 1.15rem;
+      padding: 18px 56px;
+      font-size: 1.2rem;
       font-weight: 600;
       border-radius: 999px;
       cursor: pointer;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
-      transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      transition: all 0.4s ease;
     }
 
-    .google-signin img { width: 28px; height: 28px; }
+    .google-login img { width: 32px; height: 32px; }
 
-    .google-signin:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 50px rgba(56,189,248,0.55);
+    .google-login:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(56,189,248,0.6);
     }
 
-    #chat-view {
+    #chat-container {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -89,31 +88,31 @@
     #messages {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 16px;
+      padding: 24px 18px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .msg-item {
+    .message-row {
       display: flex;
-      gap: 14px;
-      max-width: 86%;
+      gap: 16px;
+      max-width: 88%;
       opacity: 0;
-      transform: translateY(35px);
-      animation: msgFadeIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+      transform: translateY(40px);
+      animation: messageEnter 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
     }
 
-    .msg-item.own { flex-direction: row-reverse; }
+    .message-row.own { flex-direction: row-reverse; }
 
-    .avatar-container {
-      width: 46px;
-      height: 46px;
+    .avatar {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       flex-shrink: 0;
       background-size: cover;
       background-position: center;
-      box-shadow: 0 5px 18px rgba(56,189,248,0.35);
+      box-shadow: 0 6px 20px rgba(56,189,248,0.4);
     }
 
     .avatar-fallback {
@@ -123,158 +122,156 @@
       justify-content: center;
       color: white;
       font-weight: 700;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
     }
 
-    .message-bubble {
-      padding: 13px 20px;
-      border-radius: 24px;
-      line-height: 1.5;
-      font-size: 1.02rem;
-      position: relative;
+    .bubble {
+      padding: 14px 22px;
+      border-radius: 26px;
+      line-height: 1.52;
+      font-size: 1.05rem;
       word-break: break-word;
     }
 
-    .message-bubble.other {
-      background: rgba(30,41,59,0.94);
-      backdrop-filter: blur(10px);
+    .bubble.other {
+      background: rgba(30,41,59,0.95);
+      backdrop-filter: blur(12px);
       border-bottom-left-radius: 8px;
     }
 
-    .message-bubble.own {
+    .bubble.own {
       background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
       color: #0f172a;
       border-bottom-right-radius: 8px;
     }
 
-    .msg-meta {
+    .bubble-header {
       display: flex;
       align-items: baseline;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 6px;
+      font-size: 0.95rem;
     }
 
-    .sender {
+    .sender-name {
       font-weight: 600;
       color: #38bdf8;
-      font-size: 1rem;
     }
 
-    .timestamp {
-      font-size: 0.82rem;
-      color: rgba(226,232,240,0.58);
+    .msg-time {
+      color: rgba(226,232,240,0.6);
     }
 
-    .input-area {
-      padding: 16px 20px;
-      background: rgba(15,23,42,0.97);
-      backdrop-filter: blur(24px);
-      border-top: 1px solid rgba(56,189,248,0.15);
-      z-index: 25;
+    .input-section {
+      padding: 18px 24px;
+      background: rgba(15,23,42,0.98);
+      backdrop-filter: blur(28px);
+      border-top: 1px solid rgba(56,189,248,0.16);
+      z-index: 20;
     }
 
-    .input-pill {
+    .input-container {
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: rgba(30,41,59,0.92);
+      gap: 14px;
+      background: rgba(30,41,59,0.94);
       border-radius: 999px;
-      padding: 10px 16px;
-      box-shadow: inset 0 3px 14px rgba(0,0,0,0.45);
+      padding: 12px 18px;
+      box-shadow: inset 0 4px 16px rgba(0,0,0,0.5);
     }
 
-    #input-field {
+    #message-input {
       flex: 1;
       background: transparent;
       border: none;
       outline: none;
       color: white;
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       padding: 10px 0;
     }
 
-    #input-field::placeholder { color: #94a3b8; }
+    #message-input::placeholder { color: #94a3b8; }
 
-    .tool-btn {
-      width: 46px;
-      height: 46px;
+    .action-button {
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: rgba(56,189,248,0.22);
+      background: rgba(56,189,248,0.25);
       color: #38bdf8;
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       cursor: pointer;
       transition: all 0.3s;
     }
 
-    .tool-btn:hover { background: rgba(56,189,248,0.45); transform: scale(1.14); }
+    .action-button:hover { background: rgba(56,189,248,0.5); transform: scale(1.15); }
 
-    #send-btn {
-      width: 52px;
-      height: 52px;
+    #send-button {
+      width: 54px;
+      height: 54px;
       border: none;
       border-radius: 50%;
       background: linear-gradient(45deg, #38bdf8, #0ea5e9);
       color: white;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       cursor: pointer;
-      box-shadow: 0 8px 28px rgba(14,165,233,0.55);
+      box-shadow: 0 10px 35px rgba(14,165,233,0.6);
       transition: all 0.4s;
     }
 
-    #send-btn:hover { transform: scale(1.16); box-shadow: 0 14px 45px rgba(14,165,233,0.7); }
+    #send-button:hover { transform: scale(1.18); box-shadow: 0 16px 50px rgba(14,165,233,0.8); }
 
-    @keyframes msgFadeIn {
+    @keyframes messageEnter {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    #messages::-webkit-scrollbar { width: 6px; }
-    #messages::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 12px; }
+    #messages::-webkit-scrollbar { width: 7px; }
+    #messages::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 14px; }
 
     @media (max-width: 768px) {
-      header { font-size: 1.35rem; padding: 12px 16px; }
-      .msg-item { max-width: 94%; }
-      .message-bubble { padding: 12px 18px; font-size: 0.99rem; }
-      .avatar-container { width: 42px; height: 42px; }
-      .input-pill { padding: 9px 14px; }
-      #input-field { font-size: 1rem; }
-      .tool-btn { width: 44px; height: 44px; font-size: 1.35rem; }
-      #send-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+      header { font-size: 1.4rem; padding: 14px; }
+      .message-row { max-width: 95%; }
+      .bubble { padding: 13px 20px; font-size: 1rem; }
+      .avatar { width: 44px; height: 44px; }
+      .input-container { padding: 11px 16px; }
+      #message-input { font-size: 1.02rem; }
+      .action-button { width: 46px; height: 46px; font-size: 1.4rem; }
+      #send-button { width: 52px; height: 52px; font-size: 1.55rem; }
     }
   </style>
 </head>
 <body>
 
-  <header>Live Chat • Atelier Électronique Médenine</header>
+  <header>Forum Live • Atelier Électronique Médenine</header>
 
-  <div class="login-view" id="loginView">
-    <div class="login-title">Salon en direct</div>
-    <div class="login-desc">Rejoins la discussion avec l'équipe et les passionnés d'électronique</div>
-    <button class="google-signin" onclick="googleSignIn()">
+  <div class="login-screen" id="loginScreen">
+    <div class="login-title">Bienvenue dans le forum live</div>
+    <div class="login-subtitle">Connecte-toi pour participer aux discussions en direct avec l'équipe et les membres</div>
+    <button class="google-login" onclick="signInWithGoogle()">
       <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google">
-      Continuer avec Google
+      Se connecter avec Google
     </button>
   </div>
 
-  <div id="chatView" style="display:none;">
+  <div id="chatContainer" style="display:none;">
     <div id="messages"></div>
 
-    <div class="input-area">
-      <div class="input-pill">
-        <input id="inputField" placeholder="Message..." autocomplete="off">
-        <span class="tool-btn" onclick="toggleEmoji()">😄</span>
-        <span class="tool-btn" onclick="document.getElementById('fileInput').click()">📎</span>
-        <input type="file" id="fileInput" accept="image/*" style="display:none;">
-        <div id="previewZone" style="display:none;position:absolute;bottom:100px;left:24px;background:rgba(30,41,59,0.92);padding:10px;border-radius:14px;border:2px solid #38bdf8;box-shadow:0 8px 30px rgba(0,0,0,0.6);">
-          <img id="previewThumb" style="max-width:110px;border-radius:10px;">
+    <div class="input-section">
+      <div class="input-container">
+        <input id="msgInput" placeholder="Écris ton message..." autocomplete="off">
+        <button class="action-button" onclick="toggleEmojiPicker()">😄</button>
+        <button class="action-button" onclick="document.getElementById('photoInput').click()">📎</button>
+        <input type="file" id="photoInput" accept="image/*" style="display:none;">
+        <div id="previewBox" style="display:none;position:absolute;bottom:100px;left:30px;background:rgba(30,41,59,0.94);padding:12px;border-radius:16px;border:2px solid #38bdf8;box-shadow:0 10px 40px rgba(0,0,0,0.7);">
+          <img id="previewImage" style="max-width:120px;border-radius:12px;">
         </div>
       </div>
-      <button id="sendBtn">➤</button>
+      <button id="sendButton">➤</button>
     </div>
 
-    <emoji-picker id="emojiPicker" style="display:none;position:absolute;bottom:110px;right:24px;z-index:100;width:100%;max-width:420px;height:440px;border-radius:24px;box-shadow:0 16px 60px rgba(0,0,0,0.75);"></emoji-picker>
+    <emoji-picker id="emojiPicker" style="display:none;position:absolute;bottom:120px;right:30px;z-index:100;width:100%;max-width:440px;height:460px;border-radius:28px;box-shadow:0 20px 70px rgba(0,0,0,0.8);"></emoji-picker>
   </div>
 
   <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/index.js"></script>
@@ -283,7 +280,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
   <script>
-    // ================= CONFIG FIREBASE =================
+    // ================= FIREBASE CONFIG =================
     const firebaseConfig = {
       apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
       authDomain: "atelier-electronique-mednine.firebaseapp.com",
@@ -297,39 +294,39 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.database();
-    const chatRef = db.ref('aem_live_chat');
+    const messagesRef = db.ref('aem_forum_chat');
 
     let currentUser = null;
 
-    // ================= LOGIN GOOGLE =================
-    function googleSignIn() {
+    // ================= GOOGLE LOGIN =================
+    function signInWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider).catch(err => {
-        console.error("Erreur connexion:", err);
-        alert("Problème de connexion. Réessaie bro !");
+        console.error(err);
+        alert("Erreur connexion. Réessaie bro !");
       });
     }
 
     auth.onAuthStateChanged(user => {
       if (user) {
         currentUser = user;
-        document.getElementById('loginView').style.display = 'none';
-        document.getElementById('chatView').style.display = 'flex';
-        listenToChat();
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('chatContainer').style.display = 'flex';
+        loadMessages();
       } else {
         currentUser = null;
-        document.getElementById('loginView').style.display = 'flex';
-        document.getElementById('chatView').style.display = 'none';
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('chatContainer').style.display = 'none';
       }
     });
 
-    // ================= ENVOI MESSAGE =================
-    function sendMessage() {
-      if (!currentUser) return alert("Connecte-toi d'abord bro!");
-      const text = document.getElementById('inputField').value.trim();
+    // ================= SEND MESSAGE =================
+    function sendMsg() {
+      if (!currentUser) return alert("Connecte-toi d'abord !");
+      const text = document.getElementById('msgInput').value.trim();
       if (!text) return;
 
-      chatRef.push({
+      messagesRef.push({
         text,
         uid: currentUser.uid,
         name: currentUser.displayName || currentUser.email?.split('@')[0] || 'Anonyme',
@@ -337,54 +334,54 @@
         timestamp: firebase.database.ServerValue.TIMESTAMP
       });
 
-      document.getElementById('inputField').value = '';
+      document.getElementById('msgInput').value = '';
     }
 
-    // ================= ÉCOUTE MESSAGES =================
-    function listenToChat() {
-      chatRef.orderByChild('timestamp').limitToLast(200).on('child_added', snap => {
+    // ================= LOAD MESSAGES =================
+    function loadMessages() {
+      messagesRef.orderByChild('timestamp').limitToLast(250).on('child_added', snap => {
         const msg = snap.val();
         const isOwn = msg.uid === currentUser?.uid;
 
-        const item = document.createElement('div');
-        item.className = `msg-item ${isOwn ? 'own' : ''}`;
+        const row = document.createElement('div');
+        row.className = `message-row ${isOwn ? 'own' : ''}`;
 
-        item.innerHTML = `
-          <div class="avatar-container ${!msg.photo ? 'avatar-fallback' : ''}" 
+        row.innerHTML = `
+          <div class="avatar ${!msg.photo ? 'avatar-fallback' : ''}" 
                style="${msg.photo ? `background-image:url(${msg.photo})` : ''}">
             ${!msg.photo ? (msg.name?.charAt(0) || '?') : ''}
           </div>
-          <div class="message-bubble ${isOwn ? 'own' : 'other'}">
-            <div class="msg-meta">
-              <span class="sender">${msg.name || 'Membre'}</span>
-              <span class="timestamp">${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+          <div class="bubble ${isOwn ? 'own' : 'other'}">
+            <div class="bubble-header">
+              <span class="sender-name">${msg.name || 'Membre'}</span>
+              <span class="msg-time">${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
             </div>
             ${msg.text}
           </div>
         `;
 
-        document.getElementById('messages').appendChild(item);
-        item.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        document.getElementById('messages').appendChild(row);
+        row.scrollIntoView({ behavior: 'smooth', block: 'end' });
       });
     }
 
-    // ================= EVENTS =================
-    document.getElementById('sendBtn').onclick = sendMessage;
-    document.getElementById('inputField').onkeypress = e => {
+    // ================= EVENT LISTENERS =================
+    document.getElementById('sendButton').onclick = sendMsg;
+    document.getElementById('msgInput').onkeypress = e => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        sendMessage();
+        sendMsg();
       }
     };
 
-    function toggleEmoji() {
+    function toggleEmojiPicker() {
       const picker = document.getElementById('emojiPicker');
       picker.style.display = picker.style.display === 'block' ? 'none' : 'block';
-      if (picker.style.display === 'block') document.getElementById('inputField').focus();
+      if (picker.style.display === 'block') document.getElementById('msgInput').focus();
     }
 
     document.getElementById('emojiPicker').addEventListener('emoji-click', e => {
-      const input = document.getElementById('inputField');
+      const input = document.getElementById('msgInput');
       const emoji = e.detail.unicode;
       const pos = input.selectionStart || input.value.length;
       input.value = input.value.substring(0, pos) + emoji + input.value.substring(pos);
@@ -393,15 +390,15 @@
       document.getElementById('emojiPicker').style.display = 'none';
     });
 
-    // ================= PREVIEW PHOTO LOCALE =================
-    document.getElementById('fileInput').onchange = e => {
+    // ================= PHOTO PREVIEW LOCAL =================
+    document.getElementById('photoInput').onchange = e => {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = ev => {
-        document.getElementById('previewThumb').src = ev.target.result;
-        document.getElementById('previewZone').style.display = 'block';
-        setTimeout(() => document.getElementById('previewZone').style.display = 'none', 10000);
+        document.getElementById('previewImage').src = ev.target.result;
+        document.getElementById('previewBox').style.display = 'block';
+        setTimeout(() => document.getElementById('previewBox').style.display = 'none', 12000);
       };
       reader.readAsDataURL(file);
     };
