@@ -291,21 +291,26 @@ onlineRef.on("value", snap => {
 // ========================
 // SLIDESHOW 2 PHOTOS HERO
 // ========================
-// ========================
-// HERO PHOTOS SLIDESHOW (sous le titre)
-// ========================
 
 const leftHeroPhotos = [
     "images/hero-left-1.png",
-    "images/hero-left-2.png",
-    "images/hero-left-3.png",
+    "images/hero-left-2.jpg",
+    "images/hero-left-3.jpg",
+  "images/hero-left-4.jpg",
+  "images/hero-left-5.jpg",
+  "images/hero-left-6.jpg",
     // ← ajoute tes photos ici (min 2–3 c'est bien)
 ];
 
 const rightHeroPhotos = [
     "images/hero-right-1.png",
-    "images/hero-right-2.png",
-    "images/hero-right-3.png",
+    "images/hero-right-2.jpg",
+    "images/hero-right-3.jpg",
+      "images/hero-right-4.jpg",
+    "images/hero-right-5.jpg",
+    "images/hero-right-6.jpg",
+
+  
     // ← même chose ici
 ];
 
