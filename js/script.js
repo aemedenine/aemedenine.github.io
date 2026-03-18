@@ -291,50 +291,56 @@ onlineRef.on("value", snap => {
 // ========================
 // SLIDESHOW 2 PHOTOS HERO
 // ========================
+// ========================
+// HERO PHOTOS SLIDESHOW (sous le titre)
+// ========================
 
-const leftImages = [
-    "images/left1.jpg",
-    "images/left2.jpg",
-    "images/left3.jpg",
-    // zed elli 3andek ...
+const leftHeroPhotos = [
+    "images/hero-left-1.jpg",
+    "images/hero-left-2.jpg",
+    "images/hero-left-3.jpg",
+    // ← ajoute tes photos ici (min 2–3 c'est bien)
 ];
 
-const rightImages = [
-    "images/right1.jpg",
-    "images/right2.jpg",
-    "images/right3.jpg",
-    // zed elli 3andek ...
+const rightHeroPhotos = [
+    "images/hero-right-1.jpg",
+    "images/hero-right-2.jpg",
+    "images/hero-right-3.jpg",
+    // ← même chose ici
 ];
 
-let leftIndex = 0;
-let rightIndex = 0;
+let leftHeroIdx = 0;
+let rightHeroIdx = 0;
 
-const leftImgElement  = document.getElementById("leftImg");
-const rightImgElement = document.getElementById("rightImg");
+const leftHeroEl  = document.getElementById("leftHeroImg");
+const rightHeroEl = document.getElementById("rightHeroImg");
 
-function changeLeftPhoto() {
-    leftIndex = (leftIndex + 1) % leftImages.length;
-    leftImgElement.src = leftImages[leftIndex];
-    // optionnel: petite animation
-    leftImgElement.style.opacity = 0;
-    setTimeout(() => { leftImgElement.style.opacity = 1; }, 150);
+function changeHeroLeft() {
+    leftHeroIdx = (leftHeroIdx + 1) % leftHeroPhotos.length;
+    leftHeroEl.classList.add("fade");
+    setTimeout(() => {
+        leftHeroEl.src = leftHeroPhotos[leftHeroIdx];
+        leftHeroEl.classList.remove("fade");
+    }, 400);
 }
 
-function changeRightPhoto() {
-    rightIndex = (rightIndex + 1) % rightImages.length;
-    rightImgElement.src = rightImages[rightIndex];
-    rightImgElement.style.opacity = 0;
-    setTimeout(() => { rightImgElement.style.opacity = 1; }, 150);
+function changeHeroRight() {
+    rightHeroIdx = (rightHeroIdx + 1) % rightHeroPhotos.length;
+    rightHeroEl.classList.add("fade");
+    setTimeout(() => {
+        rightHeroEl.src = rightHeroPhotos[rightHeroIdx];
+        rightHeroEl.classList.remove("fade");
+    }, 400);
 }
 
-// Démarrer les changements (10 secondes = 10000 ms)
-setInterval(changeLeftPhoto, 10000);
-setInterval(changeRightPhoto, 10000);
+// Lance les changements toutes les 10 secondes
+setInterval(changeHeroLeft, 10000);
+setInterval(changeHeroRight, 10000);
 
-// Optionnel: les faire démarrer avec un léger décalage
+// Optionnel : faire démarrer la droite avec 4–5s de décalage (plus vivant)
 setTimeout(() => {
-    setInterval(changeRightPhoto, 10000);
-}, 5000);  // droite تبدا بعد 5 ثواني مثلا
+    setInterval(changeHeroRight, 10000);
+}, 4500);
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
