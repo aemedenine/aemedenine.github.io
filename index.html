@@ -1,295 +1,410 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atelier Électronique Médenine</title>
-    <link rel="icon" href="images/favicon.png">
-    <link rel="stylesheet" href="css/style.css">
-    <meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Live Chat • Atelier Électronique Médenine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 100%);
+      color: #e2e8f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 14px 16px;
+      background: rgba(2,6,23,0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(56,189,248,0.15);
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.6px;
+      z-index: 30;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .login-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .login-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #38bdf8;
+    }
+
+    .login-subtitle {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      margin-bottom: 40px;
+      max-width: 380px;
+    }
+
+    .google-login-btn {
+      background: #ffffff;
+      color: #000;
+      border: none;
+      padding: 14px 48px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transition: all 0.35s ease;
+    }
+
+    .google-login-btn img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .google-login-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(56,189,248,0.5);
+    }
+
+    #chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #messages-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .msg-wrapper {
+      display: flex;
+      gap: 12px;
+      max-width: 88%;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: msgAppear 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    .msg-wrapper.own { flex-direction: row-reverse; }
+
+    .user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 16px rgba(56,189,248,0.3);
+    }
+
+    .default-avatar {
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .msg-bubble {
+      padding: 12px 18px;
+      border-radius: 22px;
+      line-height: 1.48;
+      font-size: 1rem;
+      position: relative;
+      word-break: break-word;
+    }
+
+    .msg-bubble.other {
+      background: rgba(30,41,59,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom-left-radius: 6px;
+    }
+
+    .msg-bubble.own {
+      background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
+      color: #0f172a;
+      border-bottom-right-radius: 6px;
+    }
+
+    .msg-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .sender-name {
+      font-weight: 600;
+      color: #38bdf8;
+      font-size: 0.98rem;
+    }
+
+    .msg-time {
+      font-size: 0.78rem;
+      color: rgba(226,232,240,0.55);
+    }
+
+    .input-zone {
+      padding: 14px 16px;
+      background: rgba(15,23,42,0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(56,189,248,0.18);
+      z-index: 20;
+    }
+
+    .input-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(30,41,59,0.9);
+      border-radius: 999px;
+      padding: 10px 14px;
+      box-shadow: inset 0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    #chat-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 1.02rem;
+      padding: 8px 0;
+    }
+
+    #chat-input::placeholder { color: #94a3b8; }
+
+    .tool-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.2);
+      color: #38bdf8;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tool-icon:hover { background: rgba(56,189,248,0.4); transform: scale(1.12); }
+
+    #send-msg-btn {
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #38bdf8, #0ea5e9);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.5);
+      transition: all 0.35s;
+    }
+
+    #send-msg-btn:hover { transform: scale(1.15); box-shadow: 0 12px 35px rgba(14,165,233,0.7); }
+
+    @keyframes msgAppear {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #messages-list::-webkit-scrollbar { width: 6px; }
+    #messages-list::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 12px; }
+
+    @media (max-width: 768px) {
+      header { font-size: 1.3rem; padding: 12px; }
+      .msg-wrapper { max-width: 94%; }
+      .msg-bubble { padding: 11px 16px; font-size: 0.97rem; }
+      .user-avatar { width: 40px; height: 40px; }
+      .input-inner { padding: 9px 12px; }
+      #chat-input { font-size: 0.98rem; }
+      .tool-icon { width: 42px; height: 42px; font-size: 1.3rem; }
+      #send-msg-btn { width: 48px; height: 48px; font-size: 1.4rem; }
+    }
+  </style>
 </head>
 <body>
-<!-- ================= HEADER ================= -->
-<header class="header">
-    <div class="logo">
-        <img src="images/logo.png" alt="Logo" class="logo-img">
-        <h1>Atelier Électronique Médenine</h1>
-    </div>
-  
-   <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="contact.html">Contact</a>
 
-        <!-- ✅ JUST EL FOTO (clic 3liha yefta7 profile) -->
-        <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer;">
-            <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
-        </div>
+  <header>Live Chat • Atelier Électronique Médenine</header>
 
-        <button class="login-btn">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo">
-            Login
-        </button>
-    </nav>
-</header>
-
-<!-- Profile Modal (مع logout داخلها) -->
-<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center;justify-content:center;z-index:1000;">
-    <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:420px; width:90%; text-align:center;">
-        <img id="profileAvatar" src="" width="90" height="90" style="border-radius:50%; margin-bottom:16px; border:3px solid #38bdf8;">
-        <h2 id="profileName" style="margin-bottom:8px;"></h2>
-        <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
-        <p>Visites: <span id="profileVisits">0</span></p>
-        
-        <!-- Logout هنا (مش في الـ header) -->
-        <button id="logoutBtn" style="margin:20px 0 10px; background:#ef4444; color:white; border:none; padding:12px 28px; border-radius:30px; cursor:pointer; font-weight:600;">
-            Logout
-        </button>
-        
-        <button id="closeProfile" style="background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
-    </div>
-</div>
-<!-- Login Popup -->
-<div id="login-popup" style="display:none;">
-    <button id="close-login">X Fermer</button>
-   <button class="login-submit">
-    Login
-</button>
-</div>
-
-
-<!-- Online Users Mini Box -->
-<div id="onlineBox">
-    <div class="online-header">Online:</div>
-    <div class="online-users-mini" id="onlineMini"></div>
-</div>
-    </div>
-
-
-<!-- ================= HERO ================= -->
-<section class="hero">
-    <h2 class="hero-title">
-        <span id="typingTitle"></span>
-    </h2>
-
-    <!-- Les 3 photos qui changent automatiquement -->
-    <div class="hero-photos-container">
-        <div class="hero-photo photo-left">
-            <img id="heroImg1" src="images/hero-left-1.png" alt="Atelier photo 1">
-        </div>
-        
-        <div class="hero-photo photo-center">
-            <img id="heroImg2" src="images/hero-right-1.png" alt="Atelier photo 2">
-        </div>
-        
-        <div class="hero-photo photo-right">
-            <img id="heroImg3" src="images/hero-left-11.jpg" alt="Atelier photo 3">
-        </div>
-    </div>
-
-    <p>Réparation électronique • Codes Radio • Solutions techniques</p>
-   <div class="hero-buttons">
-    <a href="services.html" class="hero-btn primary">
-        <span>Découvrir nos services</span>
-        <span class="arrow">→</span>
-    </a>
-    
-    <a href="forum.html" class="hero-btn secondary">
-        forum <span class="live">💬 live</span>
-    </a>
-</div>
-</section>
-
-<!-- ================= Rating Section ================= -->
-<section class="rating-section">
-    <div class="rating-title">Évaluez notre atelier</div>
-    <div id="rating-average">
-        Note moyenne : <span id="avg-stars">0.0</span> ★ sur <span id="vote-count">0</span> votes
-    </div>
-    <div class="stars-horizontal">
-        <span data-value="1">☆</span>
-        <span data-value="2">☆</span>
-        <span data-value="3">☆</span>
-        <span data-value="4">☆</span>
-        <span data-value="5">☆</span>
-    </div>
-    <div id="rating-message" class="rating-message"></div>
-</section>
-
-<!-- ================= SERVICES ================= -->
-<section class="services">
-    <h2>Nos Services</h2>
-    <div class="cards">
-        <a href="radio-codes.html" class="card service-card">
-            <h3>Radio Codes</h3>
-            <p>Déblocage rapide des radios voiture.</p>
-        </a>
-        <a href="services.html#repair" class="card service-card">
-            <h3>Réparation</h3>
-            <p>Réparation électronique professionnelle.</p>
-        </a>
-        <a href="contact.html" class="card service-card">
-            <h3>Contact</h3>
-            <p>Assistance technique et conseils.</p>
-        </a>
-    </div>
-</section>
-
-<!-- ================= CALCUL ÉLECTRONIQUE ================= -->
-<section class="calcul-electronique">
-    <h2>Calcul Électronique</h2>
-    <div class="cards calc-cards">
-        <a href="calcul-resistance.html" class="card calc-card">
-            <h3>Calcul Résistance</h3>
-            <p>Calculez la valeur de vos résistances facilement.</p>
-        </a>
-        <a href="calcul-puissance.html" class="card calc-card">
-            <h3>Calcul Puissance</h3>
-            <p>Déterminez la puissance dissipée dans vos composants.</p>
-        </a>
-        <a href="calcul-condensateur.html" class="card calc-card">
-            <h3>Calcul Condensateur</h3>
-            <p>Calculez la capacité idéale pour vos circuits.</p>
-        </a>
-    </div>
-</section>
-
-<!-- ================= ATELIER ================= -->
-<section class="atelier">
-    <h2>Atelier</h2>
-    <div class="cards atelier-cards">
-        <a href="faq.html" class="card">
-            <h3>FAQ</h3>
-            <p>Questions fréquentes et conseils pratiques.</p>
-        </a>
-        <a href="boutique.html" class="card">
-            <h3>Boutique</h3>
-            <p>Achetez vos composants et accessoires en ligne.</p>
-        </a>
-        <a href="services-atelier.html" class="card">
-            <h3>Services Atelier</h3>
-            <p>Réparation, montage et support technique sur place.</p>
-        </a>
-    </div>
-</section>
-<!-- ================= NEW AEM-STYLE SECTION (fo9 el footer) ================= -->
-<section class="aem-footer-section">
-  <div class="aem-footer-container">
-    
-    <!-- Logo AEM central m3a animation -->
-    <div class="aem-logo-wrapper">
-      <a href="index.html" class="aem-logo-circle">
-        <img src="images/favicon.png" alt="AEM Logo" class="aem-logo-img">
-      </a>
-      <h3 class="aem-logo-text">Atelier Électronique Médenine</h3>
-    </div>
-
-    <!-- Colonnes -->
-    <div class="aem-links-grid">
-      <div class="aem-col">
-        <h4 class="aem-col-title" onclick="scrollToSection('mission')">Notre mission</h4>
-        <a href="#mission">Solutions techniques fiables</a>
-        <a href="#services">Réparation rapide et pro</a>
-      </div>
-
-      <div class="aem-col">
-        <h4 class="aem-col-title" onclick="scrollToSection('about')">Qui sommes-nous ?</h4>
-        <a href="services-atelier.html#about">Atelier spécialisé à Médenine</a>
-        <a href="faq.html">FAQ</a>
-      </div>
-
-      <div class="aem-col">
-        <h4 class="aem-col-title" onclick="scrollToSection('services')">Nos services</h4>
-        <a href="radio-codes.html">Codes Radio</a>
-        <a href="services.html#repair">Réparation électronique</a>
-        <a href="boutique.html">Boutique en ligne</a>
-      </div>
-
-      <div class="aem-col">
-        <h4 class="aem-col-title" onclick="scrollToSection('contact')">Besoin d’aide ?</h4>
-        <a href="https://wa.me/21698192103" target="_blank">Contact WhatsApp</a>
-        <a href="tel:+21698192103">98 192 103</a>
-        <a href="contact.html">Localisation & Horaires</a>
-        <a href="faq.html">Centre d'aide</a>
-      </div>
-    </div>
-
-    <!-- Bouton central (بدل Télécharger) -->
-    <div class="aem-btn-wrapper">
-      <a href="https://wa.me/21698192103" target="_blank" class="aem-contact-btn">
-        Contactez-nous sur WhatsApp ↓
-      </a>
-    </div>
+  <div class="login-screen" id="loginScreen">
+    <div class="login-title">Bienvenue dans le salon live</div>
+    <div class="login-subtitle">Discute en direct avec l'équipe et les membres de l'atelier</div>
+    <button class="google-login-btn" onclick="signIn()">
+      <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google">
+      Se connecter avec Google
+    </button>
   </div>
-</section>
 
-<!-- ================= FOOTER ================= -->
-<footer>
-    <div class="footer-content">
-        <p class="copyright">© 2026 Atelier Électronique Médenine</p>
-        <div class="social-icons">
-            <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
-                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
-            </a>
-            <a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
-                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
-            </a>
-            <a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
-                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
-            </a>
-            <a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
-                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-            </a>
+  <div id="chatArea" style="display:none;">
+    <div id="messagesList"></div>
+
+    <div class="input-zone">
+      <div class="input-inner">
+        <input id="chatInput" placeholder="Tape ton message ici..." autocomplete="off">
+        <span class="tool-icon" onclick="toggleEmojiPicker()">😄</span>
+        <span class="tool-icon" onclick="document.getElementById('imgUpload').click()">📎</span>
+        <input type="file" id="imgUpload" accept="image/*" style="display:none;">
+        <div id="imgPreview" style="display:none;position:absolute;bottom:90px;left:20px;background:rgba(30,41,59,0.9);padding:8px;border-radius:12px;border:2px solid #38bdf8;">
+          <img id="previewThumb" style="max-width:100px;border-radius:8px;">
         </div>
+      </div>
+      <button id="sendMsgBtn">➤</button>
     </div>
-</footer>
 
-<!-- ================= FIREBASE ================= -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <emoji-picker id="emojiPicker" style="display:none;position:absolute;bottom:100px;right:20px;z-index:100;width:100%;max-width:400px;height:420px;border-radius:20px;box-shadow:0 12px 50px rgba(0,0,0,0.7);"></emoji-picker>
+  </div>
 
-<!-- ================= SCRIPTS ================= -->
-<script src="js/script.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/index.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
-<!-- ================= TYPING EFFECT ================= -->
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-    const text = "Atelier Électronique Médenine";
-    const speed = 80;
-    let i = 0;
-    const target = document.getElementById("typingTitle");
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+      authDomain: "atelier-electronique-mednine.firebaseapp.com",
+      databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "atelier-electronique-mednine",
+      storageBucket: "atelier-electronique-mednine.firebasestorage.app",
+      messagingSenderId: "547430908384",
+      appId: "1:547430908384:web:4caa4cf3869491bd14eb85"
+    };
 
-    function typeWriter(){
-        if(i < text.length){
-            target.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        } else {
-            // يعمل blink
-            target.classList.add("text-blink");
-            setTimeout(restartTyping, 5000);
-        }
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    const messagesRef = db.ref('atelier_chat');
+
+    let currentUser = null;
+
+    // Connexion Google
+    function signIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).catch(err => console.error("Erreur login:", err));
     }
 
-    function restartTyping(){
-        target.classList.remove("text-blink");
-        target.innerHTML = "";
-        i = 0;
-        typeWriter();
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        currentUser = user;
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('chatArea').style.display = 'flex';
+        startListening();
+      } else {
+        currentUser = null;
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('chatArea').style.display = 'none';
+      }
+    });
+
+    // Envoi message
+    function sendChatMsg() {
+      if (!currentUser) return alert("Connecte-toi d'abord bro!");
+      const text = document.getElementById('chatInput').value.trim();
+      if (!text) return;
+
+      messagesRef.push({
+        text,
+        uid: currentUser.uid,
+        name: currentUser.displayName || currentUser.email.split('@')[0],
+        photo: currentUser.photoURL || '',
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      document.getElementById('chatInput').value = '';
     }
 
-    typeWriter();
-});
-// Scroll smooth lel sections ida click 3la titre
-function scrollToSection(id) {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
+    // Écoute messages
+    function startListening() {
+      messagesRef.orderByChild('timestamp').limitToLast(150).on('child_added', snap => {
+        const msg = snap.val();
+        const isOwn = msg.uid === currentUser?.uid;
 
-</script>
+        const wrapper = document.createElement('div');
+        wrapper.className = `msg-wrapper ${isOwn ? 'own' : ''}`;
 
+        wrapper.innerHTML = `
+          <div class="user-avatar ${!msg.photo ? 'default-avatar' : ''}" 
+               style="${msg.photo ? `background-image:url(${msg.photo})` : ''}">
+            ${!msg.photo ? (msg.name?.charAt(0) || '?') : ''}
+          </div>
+          <div class="msg-bubble ${isOwn ? 'own' : 'other'}">
+            <div class="msg-header">
+              <span class="sender-name">${msg.name || 'Membre'}</span>
+              <span class="msg-time">${new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+            </div>
+            ${msg.text}
+          </div>
+        `;
+
+        document.getElementById('messagesList').appendChild(wrapper);
+        wrapper.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      });
+    }
+
+    // Events
+    document.getElementById('sendMsgBtn').onclick = sendChatMsg;
+    document.getElementById('chatInput').onkeypress = e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMsg();
+      }
+    };
+
+    // Emoji picker
+    function toggleEmojiPicker() {
+      const picker = document.getElementById('emojiPicker');
+      picker.style.display = picker.style.display === 'block' ? 'none' : 'block';
+      if (picker.style.display === 'block') document.getElementById('chatInput').focus();
+    }
+
+    document.getElementById('emojiPicker').addEventListener('emoji-click', e => {
+      const input = document.getElementById('chatInput');
+      const emoji = e.detail.unicode;
+      const pos = input.selectionStart || input.value.length;
+      input.value = input.value.substring(0, pos) + emoji + input.value.substring(pos);
+      input.focus();
+      input.setSelectionRange(pos + emoji.length, pos + emoji.length);
+      document.getElementById('emojiPicker').style.display = 'none';
+    });
+
+    // Preview image (local pour l'instant)
+    document.getElementById('imgUpload').onchange = e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        document.getElementById('previewThumb').src = ev.target.result;
+        document.getElementById('imgPreview').style.display = 'block';
+        setTimeout(() => document.getElementById('imgPreview').style.display = 'none', 8000);
+      };
+      reader.readAsDataURL(file);
+    };
+  </script>
 </body>
 </html>
