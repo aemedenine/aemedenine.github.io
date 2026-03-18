@@ -257,103 +257,165 @@ button.login-submit:active {
   color:#cbd5f5;
   margin-bottom:25px;
 }
-/* ========================
-   HERO BUTTONS - NOUVEAU STYLE 2026
-   ======================== */
+/* ===============================
+   HERO BUTTONS - STYLE COMPLET 2026 (PC + MOBILE)
+   =============================== */
+
+/* Conteneur des boutons */
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    margin-top: 30px;
+    align-items: center;
+    gap: 28px;
+    margin: 40px auto 20px;
     flex-wrap: wrap;
+    max-width: 100%;
 }
 
+/* Style de base commun aux deux boutons */
 .hero-btn {
-    padding: 16px 36px;
-    font-size: 19px;
-    font-weight: 700;
-    border-radius: 50px;
-    text-decoration: none;
+    position: relative;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    position: relative;
+    padding: 16px 38px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    border-radius: 999px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    letter-spacing: 0.5px;
+    transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    user-select: none;
 }
 
-/* Bouton principal (services) - Gradient bleu cyan */
-.hero-btn.primary {
-    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-    color: #000;
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.7),
-                0 10px 30px rgba(0, 0, 0, 0.4);
-}
-
-.hero-btn.primary:hover {
-    transform: translateY(-6px) scale(1.08);
-    box-shadow: 0 0 50px rgba(56, 189, 248, 0.9),
-                0 15px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* Bouton secondaire (forum) - Style glass + bordure neon */
-.hero-btn.secondary {
-    background: rgba(30, 41, 59, 0.85);
-    color: #38bdf8;
-    border: 3px solid #38bdf8;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-}
-
-.hero-btn.secondary:hover {
-    background: rgba(56, 189, 248, 0.15);
-    transform: translateY(-6px) scale(1.08);
-    box-shadow: 0 0 45px rgba(56, 189, 248, 0.9);
-    color: white;
-}
-
-/* Petite flèche animée */
-.hero-btn .arrow {
-    transition: transform 0.3s ease;
-}
-.hero-btn.primary:hover .arrow {
-    transform: translateX(8px);
-}
-
-/* Effet shine (lumière qui passe) */
+/* Effet shine / lumière qui passe sur hover */
 .hero-btn::before {
     content: '';
     position: absolute;
     top: -50%;
     left: -100%;
-    width: 50%;
-    height: 300%;
+    width: 60%;
+    height: 200%;
     background: linear-gradient(
         120deg,
-        transparent,
-        rgba(255,255,255,0.4),
-        transparent
+        transparent 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 100%
     );
-    transition: 0.7s;
+    transition: left 0.7s ease;
+    pointer-events: none;
 }
 
 .hero-btn:hover::before {
     left: 200%;
 }
 
-/* Responsive */
+/* Bouton principal - "Découvrir nos services" */
+.hero-btn.primary {
+    background: linear-gradient(90deg, #0ea5e9, #38bdf8, #0ea5e9);
+    background-size: 200% 100%;
+    color: #000000;
+    box-shadow: 
+        0 8px 25px rgba(14, 165, 233, 0.5),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+    animation: gradientFlow 6s linear infinite;
+}
+
+.hero-btn.primary:hover {
+    transform: translateY(-5px) scale(1.06);
+    box-shadow: 
+        0 15px 40px rgba(56, 189, 248, 0.7),
+        inset 0 1px 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Bouton secondaire - "forum 💬 live" */
+.hero-btn.secondary {
+    background: rgba(30, 41, 59, 0.75);
+    backdrop-filter: blur(10px);
+    border: 2.5px solid #38bdf8;
+    color: #38bdf8;
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+}
+
+.hero-btn.secondary:hover {
+    background: rgba(56, 189, 248, 0.18);
+    color: white;
+    transform: translateY(-5px) scale(1.06);
+    box-shadow: 0 15px 45px rgba(56, 189, 248, 0.65);
+    border-color: #60a5fa;
+}
+
+/* Animation gradient pour le bouton primary */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Icône flèche pour primary */
+.hero-btn.primary .arrow {
+    font-size: 1.25em;
+    transition: transform 0.4s ease;
+}
+
+.hero-btn.primary:hover .arrow {
+    transform: translateX(8px);
+}
+
+/* Responsive - Téléphone / petits écrans */
 @media (max-width: 768px) {
     .hero-buttons {
         flex-direction: column;
-        align-items: center;
-        gap: 18px;
+        gap: 22px;
+        margin: 45px auto 30px;
     }
-    
+
     .hero-btn {
-        padding: 14px 32px;
+        padding: 18px 0;
+        font-size: 18px;
+        min-width: 82%;
+        max-width: 340px;
+        border-radius: 60px;
+        box-shadow: 
+            0 6px 18px rgba(56, 189, 248, 0.45),
+            inset 0 1px 3px rgba(255, 255, 255, 0.15);
+    }
+
+    .hero-btn:active {
+        transform: scale(0.96);
+        box-shadow: 0 4px 12px rgba(56, 189, 248, 0.6);
+    }
+
+    /* Ripple effect sur tap (mobile) */
+    .hero-btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.5s ease, height 0.5s ease;
+        pointer-events: none;
+    }
+
+    .hero-btn:active::after {
+        width: 400px;
+        height: 400px;
+        opacity: 0;
+    }
+}
+
+/* Très petits écrans (ex: iPhone SE, ~320px) */
+@media (max-width: 480px) {
+    .hero-btn {
         font-size: 17px;
-        width: 280px;
+        padding: 16px 0;
+        min-width: 88%;
     }
 }
 /* ===============================  
