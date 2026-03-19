@@ -11,10 +11,7 @@
     header { text-align:center; padding:30px 0; }
     h1 { color:var(--primary); }
     #user-info { color:var(--primary); font-weight:bold; margin:10px 0; }
-    .salons { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin:30px 0; }
-    .salon-card { background:var(--card); border:1px solid #222244; border-radius:10px; padding:20px; cursor:pointer; }
-    .salon-card h3 { color:var(--primary); margin-bottom:10px; }
-    #chat-area { background:#0d0d1a; border:1px solid #222244; border-radius:10px; padding:20px; min-height:400px; max-height:500px; overflow-y:auto; margin-bottom:20px; }
+    #chat-area { background:#0d0d1a; border:1px solid #222244; border-radius:10px; padding:20px; min-height:400px; max-height:500px; overflow-y:auto; margin:20px 0; }
     .message { margin:12px 0; padding:10px; border-radius:8px; max-width:80%; word-break:break-word; }
     .message.sent { background:var(--primary); color:black; margin-left:auto; }
     .message.received { background:var(--card); }
@@ -34,14 +31,6 @@
     <div id="user-info">Chargement...</div>
   </header>
 
-  <section class="salons">
-    <div class="salon-card" style="border-color:var(--primary);">
-      <h3>#atelier-general</h3>
-      <p>Discussion générale, entraide, questions</p>
-      <small>~35 connectés</small>
-    </div>
-  </section>
-
   <section id="chat-area"></section>
 
   <div id="input-area">
@@ -54,7 +43,6 @@
   <footer>Atelier Électronique – Tunis & le monde entier</footer>
 </div>
 
-<!-- Firebase SDK modular v9+ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getDatabase, ref, push, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
@@ -76,11 +64,10 @@
   const storage = getStorage(app);
   const auth = getAuth(app);
 
-  // Récup pseudo depuis URL
   const params = new URLSearchParams(window.location.search);
   const nick = params.get("nick") || "Anonyme";
-  const niveau = params.get("niveau") || "?";
-  document.getElementById("user-info").innerHTML = `Connecté en tant que <strong>${nick}</strong> (${niveau})`;
+
+  document.getElementById("user-info").innerHTML = `Connecté en tant que <strong>${nick}</strong>`;
 
   const messagesRef = ref(db, 'messages/atelier-general');
   const chatArea = document.getElementById('chat-area');
@@ -90,41 +77,37 @@
   const imageBtn = document.getElementById('image-btn');
 
   let currentUser = null;
+  let authReady = false;
 
-  // Anonymous sign-in + wait auth ready
+  // Auth anonymous
   onAuthStateChanged(auth, (user) => {
     currentUser = user;
     if (user) {
-      console.log("Connecté (anonymous) UID:", user.uid);
+      authReady = true;
+      console.log("Auth OK - UID:", user.uid);
+      document.getElementById("user-info").innerHTML += " (connecté)";
     } else {
-      console.log("Pas connecté – tentative sign-in...");
-      signInAnonymously(auth)
-        .then(() => console.log("Anonymous sign-in OK"))
-        .catch(err => {
-          console.error("Erreur sign-in anonymous:", err.code, err.message);
-          alert("Problème connexion : " + err.message);
-        });
+      signInAnonymously(auth).catch(err => {
+        console.error("Sign-in error:", err);
+        alert("Connexion échouée: " + err.message);
+      });
     }
   });
 
-  // Affichage messages realtime
+  // Affichage messages
   onChildAdded(messagesRef, (snapshot) => {
     const data = snapshot.val();
-    if (!data || !data.name || !data.text) return;
+    if (!data) return;
 
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
     msgDiv.classList.add(data.uid === currentUser?.uid ? 'sent' : 'received');
 
-    msgDiv.innerHTML = `
-      <strong>${data.name}</strong> <small>(${new Date(data.time).toLocaleTimeString() || '...'})</small><br>
-      ${data.text.replace(/\n/g, '<br>')}
-    `;
+    msgDiv.innerHTML = `<strong>${data.name || data.nick || 'Anonyme'}</strong> <small>(${new Date(data.time || Date.now()).toLocaleTimeString()})</small><br>${(data.text || '').replace(/\n/g, '<br>')}`;
 
     if (data.imageUrl) {
       const img = document.createElement('img');
       img.src = data.imageUrl;
-      img.alt = "Photo envoyée";
       msgDiv.appendChild(img);
     }
 
@@ -132,67 +115,55 @@
     chatArea.scrollTop = chatArea.scrollHeight;
   });
 
-  // Envoyer message texte
+  // Send text
   function sendMessage() {
     const text = messageInput.value.trim();
-    if (!text) return;
-
-    if (!currentUser) {
-      alert("Connexion en cours... réessaie dans quelques secondes");
+    if (!text || !authReady || !currentUser) {
+      alert("Attends connexion ou tape un message valide");
       return;
     }
 
     push(messagesRef, {
-      text: text,
+      text,
       uid: currentUser.uid,
       name: nick,
       time: serverTimestamp()
     })
-    .then(() => {
-      messageInput.value = '';
-      console.log("Message envoyé");
-    })
+    .then(() => messageInput.value = '')
     .catch(err => {
-      console.error("Erreur envoi:", err.code, err.message);
-      alert("Erreur envoi message : " + (err.message || "Permission refusée"));
+      console.error("Push error:", err);
+      alert("Erreur envoi: " + err.message);
     });
   }
 
   sendBtn.addEventListener('click', sendMessage);
-  messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+  messageInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
 
-  // Upload photo
+  // Photo upload
   imageBtn.addEventListener('click', () => imageInput.click());
-
-  imageInput.addEventListener('change', async (e) => {
+  imageInput.addEventListener('change', async e => {
     const file = e.target.files[0];
-    if (!file) return;
-
-    if (!currentUser) {
-      alert("Connexion requise pour envoyer photo");
-      return;
-    }
+    if (!file || !authReady || !currentUser) return alert("Attends connexion");
 
     try {
-      const storagePath = `chat-images/${Date.now()}_${file.name}`;
-      const fileRef = storageRef(storage, storagePath);
-      const snapshot = await uploadBytes(fileRef, file);
-      const imageUrl = await getDownloadURL(snapshot.ref);
+      const path = `chat-images/${Date.now()}_${file.name}`;
+      const fileRef = storageRef(storage, path);
+      const snap = await uploadBytes(fileRef, file);
+      const imageUrl = await getDownloadURL(snap.ref);
 
       push(messagesRef, {
-        text: messageInput.value.trim() || "Photo envoyée 📸",
+        text: messageInput.value.trim() || "Photo 📸",
         uid: currentUser.uid,
         name: nick,
         time: serverTimestamp(),
-        imageUrl: imageUrl
+        imageUrl
       });
 
       messageInput.value = '';
       imageInput.value = '';
-      console.log("Photo + message envoyés");
-    } catch (error) {
-      console.error("Erreur upload/photo:", error);
-      alert("Problème envoi photo : " + (error.message || "Vérifie taille/fichier"));
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("Erreur photo: " + err.message);
     }
   });
 </script>
