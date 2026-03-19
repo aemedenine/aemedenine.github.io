@@ -103,6 +103,7 @@
     msgDiv.classList.add('message');
     msgDiv.classList.add(data.uid === currentUser?.uid ? 'sent' : 'received');
 
+    // Utilisation de textContent pour éviter les injections HTML
     msgDiv.innerHTML = `<strong>${data.name || data.nick || 'Anonyme'}</strong> <small>(${new Date(data.time || Date.now()).toLocaleTimeString()})</small><br>${(data.text || '').replace(/\n/g, '<br>')}`;
 
     if (data.imageUrl) {
