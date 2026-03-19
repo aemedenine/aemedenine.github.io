@@ -5,16 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Atelier – Discussion en direct ⚡</title>
   <style>
-    :root { --bg:#0a0a12; --primary:#00ffea; --card:#111122; --text:#e0f0ff; --gray:#8899aa; }
+    :root { --bg:#0a0a12; --primary:#00ffea; --card:#111122; --text:#e0f0ff; --gray:#8899aa; --accent:#ff3366; }
     body { font-family: 'Segoe UI', sans-serif; background:var(--bg); color:var(--text); margin:0; padding:0; min-height:100vh; }
     #container { max-width:1200px; margin:0 auto; padding:20px; }
     header { text-align:center; padding:30px 0; }
     h1 { color:var(--primary); }
     #user-info { color:var(--primary); font-weight:bold; margin:10px 0; }
     .salons { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin:30px 0; }
-    .salon-card { background:var(--card); border:1px solid #222244; border-radius:10px; padding:20px; }
+    .salon-card { background:var(--card); border:1px solid #222244; border-radius:10px; padding:20px; cursor:pointer; }
     .salon-card h3 { color:var(--primary); margin-bottom:10px; }
-    #chat-area { background:#0d0d1a; border:1px solid #222244; border-radius:10px; padding:20px; min-height:400px; }
+    #chat-area { background:#0d0d1a; border:1px solid #222244; border-radius:10px; padding:20px; min-height:400px; max-height:500px; overflow-y:auto; margin-bottom:20px; }
+    .message { margin:12px 0; padding:10px; border-radius:8px; max-width:80%; }
+    .message.sent { background:var(--primary); color:black; align-self:flex-end; margin-left:auto; }
+    .message.received { background:var(--card); }
+    .message img { max-width:220px; border-radius:8px; margin-top:8px; display:block; }
+    #input-area { display:flex; gap:10px; }
+    #message-input { flex:1; padding:12px; border:1px solid #333; border-radius:8px; background:#111; color:white; font-size:1rem; }
+    button { background:var(--primary); color:black; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; }
+    button:hover { background:#00e0cc; }
+    #image-btn { background:var(--accent); }
     footer { text-align:center; padding:40px; color:var(--gray); }
   </style>
 </head>
@@ -25,41 +34,140 @@
     <div id="user-info">Chargement...</div>
   </header>
 
+  <!-- Salons (tu peux cliquer pour switcher plus tard, pour l'instant on fixe #atelier-general) -->
   <section class="salons">
-    <div class="salon-card">
+    <div class="salon-card" style="border-color:var(--primary);">
       <h3>#atelier-general</h3>
-      <p>Bienvenue, intros, entraide général</p>
+      <p>Discussion générale, entraide, questions</p>
       <small>~35 connectés</small>
     </div>
-    <div class="salon-card">
-      <h3>#reparation-pannes</h3>
-      <p>Photos de cartes mortes, diagnostic</p>
-      <small>~120 connectés</small>
-    </div>
-    <div class="salon-card">
-      <h3>#projets-diy</h3>
-      <p>Montre tes montages</p>
-      <small>~85 connectés</small>
-    </div>
-    <!-- Ajoute les autres salons ici -->
+    <!-- Ajoute les autres si tu veux -->
   </section>
 
   <section id="chat-area">
-    <p><em>Zone de discussion (simulation pour l'instant – plus tard WebSocket ou backend)</em></p>
-    <p style="color:#44ff88;">[19:55] SMD_Sniper42 : Y a quelqu'un qui a un schéma d'alim ATX qui clignote ?</p>
+    <!-- Les messages s'affichent ici dynamiquement -->
   </section>
+
+  <div id="input-area">
+    <input type="text" id="message-input" placeholder="Tape ton message... (emojis marchent direct 😎🔧)" />
+    <input type="file" id="image-input" accept="image/*" style="display:none;" />
+    <button id="image-btn">📷 Photo</button>
+    <button id="send-btn">Envoyer ⚡</button>
+  </div>
 
   <footer>Atelier Électronique – Tunis & le monde entier</footer>
 </div>
 
-<script>
-  // Récupérer les params de l'URL
+<!-- Firebase SDK (modular v9+) -->
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getDatabase, ref, push, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+  // Remplace par TA config Firebase !!!
+  const firebaseConfig = {
+   apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+    authDomain: "atelier-electronique-mednine.firebaseapp.com",
+    projectId: "atelier-electronique-mednine",
+    storageBucket: "atelier-electronique-mednine.firebasestorage.app",
+    messagingSenderId: "547430908384",
+    appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
+    databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const storage = getStorage(app);
+
+  // Récup pseudo depuis URL (comme avant)
   const params = new URLSearchParams(window.location.search);
-  const nick   = params.get("nick")   || "Anonyme";
+  const nick = params.get("nick") || "Anonyme";
   const niveau = params.get("niveau") || "?";
 
   document.getElementById("user-info").innerHTML = 
     `Connecté en tant que <strong>${nick}</strong> (${niveau})`;
+
+  // Référence au salon (ici #atelier-general – tu peux changer pour d'autres salons)
+  const messagesRef = ref(db, 'messages/atelier-general');
+
+  const chatArea = document.getElementById('chat-area');
+  const messageInput = document.getElementById('message-input');
+  const sendBtn = document.getElementById('send-btn');
+  const imageInput = document.getElementById('image-input');
+  const imageBtn = document.getElementById('image-btn');
+
+  // Écouter nouveaux messages (realtime)
+  onChildAdded(messagesRef, (snapshot) => {
+    const data = snapshot.val();
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message');
+    msgDiv.classList.add(data.nick === nick ? 'sent' : 'received');
+
+    msgDiv.innerHTML = `
+      <strong>${data.nick}</strong> <small>(${new Date(data.timestamp).toLocaleTimeString()})</small><br>
+      ${data.text ? data.text.replace(/\n/g, '<br>') : ''}
+    `;
+
+    if (data.imageUrl) {
+      const img = document.createElement('img');
+      img.src = data.imageUrl;
+      img.alt = "Photo envoyée";
+      msgDiv.appendChild(img);
+    }
+
+    chatArea.appendChild(msgDiv);
+    chatArea.scrollTop = chatArea.scrollHeight; // auto-scroll
+  });
+
+  // Envoyer message texte
+  function sendMessage() {
+    const text = messageInput.value.trim();
+    if (!text) return;
+
+    push(messagesRef, {
+      nick: nick,
+      text: text,
+      timestamp: serverTimestamp()
+    });
+
+    messageInput.value = '';
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  messageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  // Upload photo
+  imageBtn.addEventListener('click', () => imageInput.click());
+
+  imageInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const storagePath = `chat-images/${Date.now()}_${file.name}`;
+      const fileRef = storageRef(storage, storagePath);
+
+      const snapshot = await uploadBytes(fileRef, file);
+      const imageUrl = await getDownloadURL(snapshot.ref);
+
+      // Envoyer message avec image
+      push(messagesRef, {
+        nick: nick,
+        text: messageInput.value.trim() || "Photo envoyée 📸",
+        imageUrl: imageUrl,
+        timestamp: serverTimestamp()
+      });
+
+      messageInput.value = '';
+      imageInput.value = ''; // reset input
+    } catch (error) {
+      console.error("Erreur upload:", error);
+      alert("Problème upload photo – vérifie connexion ou taille fichier");
+    }
+  });
 </script>
 </body>
 </html>
