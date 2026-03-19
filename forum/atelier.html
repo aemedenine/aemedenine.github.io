@@ -15,12 +15,12 @@
     .salon-card { background:var(--card); border:1px solid #222244; border-radius:10px; padding:20px; cursor:pointer; }
     .salon-card h3 { color:var(--primary); margin-bottom:10px; }
     #chat-area { background:#0d0d1a; border:1px solid #222244; border-radius:10px; padding:20px; min-height:400px; max-height:500px; overflow-y:auto; margin-bottom:20px; }
-    .message { margin:12px 0; padding:10px; border-radius:8px; max-width:80%; }
-    .message.sent { background:var(--primary); color:black; align-self:flex-end; margin-left:auto; }
+    .message { margin:12px 0; padding:10px; border-radius:8px; max-width:80%; word-break:break-word; }
+    .message.sent { background:var(--primary); color:black; margin-left:auto; }
     .message.received { background:var(--card); }
     .message img { max-width:220px; border-radius:8px; margin-top:8px; display:block; }
-    #input-area { display:flex; gap:10px; }
-    #message-input { flex:1; padding:12px; border:1px solid #333; border-radius:8px; background:#111; color:white; font-size:1rem; }
+    #input-area { display:flex; gap:10px; flex-wrap:wrap; }
+    #message-input { flex:1; padding:12px; border:1px solid #333; border-radius:8px; background:#111; color:white; font-size:1rem; min-width:200px; }
     button { background:var(--primary); color:black; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; }
     button:hover { background:#00e0cc; }
     #image-btn { background:var(--accent); }
@@ -34,22 +34,18 @@
     <div id="user-info">Chargement...</div>
   </header>
 
-  <!-- Salons (tu peux cliquer pour switcher plus tard, pour l'instant on fixe #atelier-general) -->
   <section class="salons">
     <div class="salon-card" style="border-color:var(--primary);">
       <h3>#atelier-general</h3>
       <p>Discussion générale, entraide, questions</p>
       <small>~35 connectés</small>
     </div>
-    <!-- Ajoute les autres si tu veux -->
   </section>
 
-  <section id="chat-area">
-    <!-- Les messages s'affichent ici dynamiquement -->
-  </section>
+  <section id="chat-area"></section>
 
   <div id="input-area">
-    <input type="text" id="message-input" placeholder="Tape ton message... (emojis marchent direct 😎🔧)" />
+    <input type="text" id="message-input" placeholder="Tape ton message... (emojis 😎🔧 OK)" />
     <input type="file" id="image-input" accept="image/*" style="display:none;" />
     <button id="image-btn">📷 Photo</button>
     <button id="send-btn">Envoyer ⚡</button>
@@ -58,16 +54,15 @@
   <footer>Atelier Électronique – Tunis & le monde entier</footer>
 </div>
 
-<!-- Firebase SDK (modular v9+) -->
+<!-- Firebase SDK modular v9+ -->
 <script type="module">
-  // Import Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getDatabase, ref, push, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+  import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
-  // Remplace par TA config Firebase !!!
   const firebaseConfig = {
-   apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+    apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
     authDomain: "atelier-electronique-mednine.firebaseapp.com",
     projectId: "atelier-electronique-mednine",
     storageBucket: "atelier-electronique-mednine.firebasestorage.app",
@@ -79,34 +74,51 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const storage = getStorage(app);
+  const auth = getAuth(app);
 
-  // Récup pseudo depuis URL (comme avant)
+  // Récup pseudo depuis URL
   const params = new URLSearchParams(window.location.search);
   const nick = params.get("nick") || "Anonyme";
   const niveau = params.get("niveau") || "?";
+  document.getElementById("user-info").innerHTML = `Connecté en tant que <strong>${nick}</strong> (${niveau})`;
 
-  document.getElementById("user-info").innerHTML = 
-    `Connecté en tant que <strong>${nick}</strong> (${niveau})`;
-
-  // Référence au salon (ici #atelier-general – tu peux changer pour d'autres salons)
   const messagesRef = ref(db, 'messages/atelier-general');
-
   const chatArea = document.getElementById('chat-area');
   const messageInput = document.getElementById('message-input');
   const sendBtn = document.getElementById('send-btn');
   const imageInput = document.getElementById('image-input');
   const imageBtn = document.getElementById('image-btn');
 
-  // Écouter nouveaux messages (realtime)
+  let currentUser = null;
+
+  // Anonymous sign-in + wait auth ready
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    if (user) {
+      console.log("Connecté (anonymous) UID:", user.uid);
+    } else {
+      console.log("Pas connecté – tentative sign-in...");
+      signInAnonymously(auth)
+        .then(() => console.log("Anonymous sign-in OK"))
+        .catch(err => {
+          console.error("Erreur sign-in anonymous:", err.code, err.message);
+          alert("Problème connexion : " + err.message);
+        });
+    }
+  });
+
+  // Affichage messages realtime
   onChildAdded(messagesRef, (snapshot) => {
     const data = snapshot.val();
+    if (!data || !data.name || !data.text) return;
+
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
-    msgDiv.classList.add(data.nick === nick ? 'sent' : 'received');
+    msgDiv.classList.add(data.uid === currentUser?.uid ? 'sent' : 'received');
 
     msgDiv.innerHTML = `
-      <strong>${data.nick}</strong> <small>(${new Date(data.timestamp).toLocaleTimeString()})</small><br>
-      ${data.text ? data.text.replace(/\n/g, '<br>') : ''}
+      <strong>${data.name}</strong> <small>(${new Date(data.time).toLocaleTimeString() || '...'})</small><br>
+      ${data.text.replace(/\n/g, '<br>')}
     `;
 
     if (data.imageUrl) {
@@ -117,7 +129,7 @@
     }
 
     chatArea.appendChild(msgDiv);
-    chatArea.scrollTop = chatArea.scrollHeight; // auto-scroll
+    chatArea.scrollTop = chatArea.scrollHeight;
   });
 
   // Envoyer message texte
@@ -125,19 +137,29 @@
     const text = messageInput.value.trim();
     if (!text) return;
 
-    push(messagesRef, {
-      nick: nick,
-      text: text,
-      timestamp: serverTimestamp()
-    });
+    if (!currentUser) {
+      alert("Connexion en cours... réessaie dans quelques secondes");
+      return;
+    }
 
-    messageInput.value = '';
+    push(messagesRef, {
+      text: text,
+      uid: currentUser.uid,
+      name: nick,
+      time: serverTimestamp()
+    })
+    .then(() => {
+      messageInput.value = '';
+      console.log("Message envoyé");
+    })
+    .catch(err => {
+      console.error("Erreur envoi:", err.code, err.message);
+      alert("Erreur envoi message : " + (err.message || "Permission refusée"));
+    });
   }
 
   sendBtn.addEventListener('click', sendMessage);
-  messageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage();
-  });
+  messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
   // Upload photo
   imageBtn.addEventListener('click', () => imageInput.click());
@@ -146,26 +168,31 @@
     const file = e.target.files[0];
     if (!file) return;
 
+    if (!currentUser) {
+      alert("Connexion requise pour envoyer photo");
+      return;
+    }
+
     try {
       const storagePath = `chat-images/${Date.now()}_${file.name}`;
       const fileRef = storageRef(storage, storagePath);
-
       const snapshot = await uploadBytes(fileRef, file);
       const imageUrl = await getDownloadURL(snapshot.ref);
 
-      // Envoyer message avec image
       push(messagesRef, {
-        nick: nick,
         text: messageInput.value.trim() || "Photo envoyée 📸",
-        imageUrl: imageUrl,
-        timestamp: serverTimestamp()
+        uid: currentUser.uid,
+        name: nick,
+        time: serverTimestamp(),
+        imageUrl: imageUrl
       });
 
       messageInput.value = '';
-      imageInput.value = ''; // reset input
+      imageInput.value = '';
+      console.log("Photo + message envoyés");
     } catch (error) {
-      console.error("Erreur upload:", error);
-      alert("Problème upload photo – vérifie connexion ou taille fichier");
+      console.error("Erreur upload/photo:", error);
+      alert("Problème envoi photo : " + (error.message || "Vérifie taille/fichier"));
     }
   });
 </script>
