@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Atelier – Discussion en direct ⚡</title>
   <style>
-    :root { --bg:#0a0a12; --primary:#00ffea; --card:#111122; --text:#e0f0ff; --gray:#8899aa; --accent:#ff3366; }
+    :root { --bg:#0a0a12; --primary:#00ffea; --card:#111122; --text:#e0f0ff; --gray:#8899aa; --accent:#ff3366; --loader:#00ffea; }
     body { font-family: 'Segoe UI', sans-serif; background:var(--bg); color:var(--text); margin:0; padding:0; min-height:100vh; }
     #container { max-width:1200px; margin:0 auto; padding:20px; }
     header { text-align:center; padding:30px 0; }
@@ -21,6 +21,7 @@
     button { background:var(--primary); color:black; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; }
     button:hover { background:#00e0cc; }
     #image-btn { background:var(--accent); }
+    #loader { display:none; text-align:center; color:var(--loader); margin:20px; font-style:italic; }
     footer { text-align:center; padding:40px; color:var(--gray); }
   </style>
 </head>
@@ -31,13 +32,15 @@
     <div id="user-info">Chargement...</div>
   </header>
 
+  <div id="loader">Connexion en cours... ⚡</div>
+
   <section id="chat-area"></section>
 
   <div id="input-area">
-    <input type="text" id="message-input" placeholder="Tape ton message... (emojis 😎🔧 OK)" />
+    <input type="text" id="message-input" placeholder="Tape ton message... (emojis 😎🔧 OK)" disabled />
     <input type="file" id="image-input" accept="image/*" style="display:none;" />
-    <button id="image-btn">📷 Photo</button>
-    <button id="send-btn">Envoyer ⚡</button>
+    <button id="image-btn" disabled>📷 Photo</button>
+    <button id="send-btn" disabled>Envoyer ⚡</button>
   </div>
 
   <footer>Atelier Électronique – Tunis & le monde entier</footer>
@@ -45,7 +48,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-  import { getDatabase, ref, push, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getDatabase, ref, push, onChildAdded, serverTimestamp, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
@@ -64,51 +67,84 @@
   const storage = getStorage(app);
   const auth = getAuth(app);
 
-  const params = new URLSearchParams(window.location.search);
-  const nick = params.get("nick") || "Anonyme";
-
-  document.getElementById("user-info").innerHTML = `Connecté en tant que <strong>${nick}</strong>`;
-
-  const messagesRef = ref(db, 'messages/atelier-general');
+  // Éléments DOM
   const chatArea = document.getElementById('chat-area');
   const messageInput = document.getElementById('message-input');
   const sendBtn = document.getElementById('send-btn');
   const imageInput = document.getElementById('image-input');
   const imageBtn = document.getElementById('image-btn');
+  const loader = document.getElementById('loader');
+  const userInfo = document.getElementById('user-info');
 
   let currentUser = null;
-  let authReady = false;
+  let userNick = "Anonyme";
+  let userNiveau = "?";
 
-  // Auth anonymous
+  // Authentification anonymous + récupération profil depuis DB
   onAuthStateChanged(auth, (user) => {
-    currentUser = user;
     if (user) {
-      authReady = true;
-      console.log("Auth OK - UID:", user.uid);
-      document.getElementById("user-info").innerHTML += " (connecté)";
+      currentUser = user;
+      console.log("Connecté - UID:", user.uid);
+
+      // Récup nick & niveau depuis /users/uid
+      const userRef = ref(db, `users/${user.uid}`);
+      onValue(userRef, (snap) => {
+        const data = snap.val();
+        if (data) {
+          userNick = data.nick || "Anonyme";
+          userNiveau = data.niveau || "?";
+          userInfo.innerHTML = `Connecté en tant que <strong>${userNick}</strong> (${userNiveau})`;
+        } else {
+          userInfo.innerHTML = `Connecté en tant que <strong>${userNick}</strong> (niveau inconnu)`;
+        }
+      }, { onlyOnce: false });
+
+      // Activer inputs une fois connecté
+      messageInput.disabled = false;
+      sendBtn.disabled = false;
+      imageBtn.disabled = false;
+      loader.style.display = 'none';
     } else {
-      signInAnonymously(auth).catch(err => {
-        console.error("Sign-in error:", err);
-        alert("Connexion échouée: " + err.message);
-      });
+      console.log("Pas connecté – tentative anonymous...");
+      loader.style.display = 'block';
+      signInAnonymously(auth)
+        .catch(err => {
+          console.error("Erreur sign-in:", err.code, err.message);
+          loader.innerHTML = "Échec connexion : " + err.message;
+        });
     }
   });
 
-  // Affichage messages
+  // Affichage des messages en temps réel
+  const messagesRef = ref(db, 'messages/atelier-general');
   onChildAdded(messagesRef, (snapshot) => {
     const data = snapshot.val();
-    if (!data) return;
+    if (!data || !data.text) return;
 
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
     msgDiv.classList.add(data.uid === currentUser?.uid ? 'sent' : 'received');
 
-    // Utilisation de textContent pour éviter les injections HTML
-    msgDiv.innerHTML = `<strong>${data.name || data.nick || 'Anonyme'}</strong> <small>(${new Date(data.time || Date.now()).toLocaleTimeString()})</small><br>${(data.text || '').replace(/\n/g, '<br>')}`;
+    // Sécurité : on utilise textContent pour éviter XSS
+    const header = document.createElement('strong');
+    header.textContent = data.name || data.nick || 'Anonyme';
+    msgDiv.appendChild(header);
+
+    const time = document.createElement('small');
+    time.textContent = ` (${new Date(data.time || Date.now()).toLocaleTimeString()})`;
+    msgDiv.appendChild(time);
+
+    const br = document.createElement('br');
+    msgDiv.appendChild(br);
+
+    const textSpan = document.createElement('span');
+    textSpan.innerHTML = (data.text || '').replace(/\n/g, '<br>');
+    msgDiv.appendChild(textSpan);
 
     if (data.imageUrl) {
       const img = document.createElement('img');
       img.src = data.imageUrl;
+      img.alt = "Photo envoyée";
       msgDiv.appendChild(img);
     }
 
@@ -116,55 +152,64 @@
     chatArea.scrollTop = chatArea.scrollHeight;
   });
 
-  // Send text
+  // Envoi message texte
   function sendMessage() {
     const text = messageInput.value.trim();
-    if (!text || !authReady || !currentUser) {
-      alert("Attends connexion ou tape un message valide");
+    if (!text || !currentUser) {
+      alert("Attends la connexion ou tape quelque chose !");
       return;
     }
 
     push(messagesRef, {
-      text,
+      text: text,
       uid: currentUser.uid,
-      name: nick,
+      name: userNick,
       time: serverTimestamp()
     })
-    .then(() => messageInput.value = '')
+    .then(() => {
+      messageInput.value = '';
+      console.log("Message envoyé");
+    })
     .catch(err => {
-      console.error("Push error:", err);
-      alert("Erreur envoi: " + err.message);
+      console.error("Erreur push:", err.code, err.message);
+      alert("Erreur envoi message : " + err.message);
     });
   }
 
   sendBtn.addEventListener('click', sendMessage);
-  messageInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+  messageInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
 
-  // Photo upload
+  // Upload photo
   imageBtn.addEventListener('click', () => imageInput.click());
-  imageInput.addEventListener('change', async e => {
+
+  imageInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
-    if (!file || !authReady || !currentUser) return alert("Attends connexion");
+    if (!file || !currentUser) return alert("Attends connexion");
 
     try {
-      const path = `chat-images/${Date.now()}_${file.name}`;
+      const path = `chat-images/${currentUser.uid}/${Date.now()}_${file.name}`;
       const fileRef = storageRef(storage, path);
       const snap = await uploadBytes(fileRef, file);
       const imageUrl = await getDownloadURL(snap.ref);
 
       push(messagesRef, {
-        text: messageInput.value.trim() || "Photo 📸",
+        text: messageInput.value.trim() || "Photo envoyée 📸",
         uid: currentUser.uid,
-        name: nick,
+        name: userNick,
         time: serverTimestamp(),
-        imageUrl
+        imageUrl: imageUrl
       });
 
       messageInput.value = '';
       imageInput.value = '';
     } catch (err) {
-      console.error("Upload error:", err);
-      alert("Erreur photo: " + err.message);
+      console.error("Erreur upload:", err);
+      alert("Erreur envoi photo : " + err.message);
     }
   });
 </script>
