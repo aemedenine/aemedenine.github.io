@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Composants & Outils – Atelier Électronique ⚡</title>
+  <style>
+    :root {
+      --bg: #0a0a12;
+      --card: #111122;
+      --primary: #00ffea;
+      --text: #e0f0ff;
+      --gray: #8899aa;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+    #container { max-width: 1100px; margin: 0 auto; padding: 20px 15px; }
+    header { text-align: center; padding: 40px 0 20px; }
+    h1 { color: var(--primary); font-size: 2.8rem; text-shadow: 0 0 12px rgba(0,255,234,0.4); }
+    nav { 
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; 
+      margin: 25px 0 40px; 
+    }
+    nav a { 
+      color: var(--primary); text-decoration: none; font-weight: 600; 
+      padding: 10px 20px; border-radius: 8px; transition: all 0.25s; 
+    }
+    nav a:hover { background: rgba(0,255,234,0.15); color: white; }
+    .card { background: var(--card); border: 1px solid #222244; border-radius: 12px; padding: 25px; margin: 30px 0; box-shadow: 0 6px 25px rgba(0,0,0,0.7); }
+    .item { background: rgba(20,20,40,0.6); padding: 14px; margin: 12px 0; border-radius: 6px; border-left: 4px solid var(--primary); }
+    footer { text-align: center; padding: 50px 0; color: var(--gray); font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+<div id="container">
+  <header>
+    <h1>Composants & Outils ⚡</h1>
+    <p>Où trouver en Tunisie ? Prix AliExpress vs local ? Recommandations oscillo, multimètre...</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="pannes.html">Forum Pannes</a>
+    <a href="projets.html">Projets DIY</a>
+    <a href="composants.html">Composants & Outils</a>
+  </nav>
+
+  <div class="card">
+    <h2>Sujets récents / Bons plans</h2>
+    
+    <div class="item">
+      <h3>Où trouver des MOSFET IRF540 / IRFZ44N en Tunisie 2025 ?</h3>
+      <p><strong>@SMD_Sniper</strong> – Aujourd'hui • 9 réponses</p>
+      <p>Chez Tunis Electronique ou Radiotech ? Ou direct AliExpress ?</p>
+    </div>
+
+    <div class="item">
+      <h3>Oscilloscope pas cher < 100 TND – recommandations ?</h3>
+      <p><strong>@BudgetScope</strong> – 2 jours • 15 réponses</p>
+      <p>FNIRSI vs Hantek vs Rigol d'occasion ?</p>
+    </div>
+
+    <div class="item">
+      <h3>Meilleurs vendeurs AliExpress pour composants 2025 (livraison Tunisie)</h3>
+      <p><strong>@AliHunterTN</strong> – Semaine dernière • 31 réponses</p>
+      <p>Liste des shops fiables + tracking rapide</p>
+    </div>
+
+    <p style="text-align:center; margin-top:30px;">
+      <a href="#" style="color:var(--primary); font-weight:bold;">→ Poser une question sur un composant / outil ←</a>
+    </p>
+  </div>
+
+  <footer>© Atelier Électronique 2025–2026</footer>
+</div>
+</body>
+</html>
