@@ -2,11 +2,10 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <title>Atelier Électronique – Salon Chat ⚡</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/index.js" type="module"></script>
 
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
@@ -17,6 +16,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      overscroll-behavior: none;
     }
     header {
       padding: 16px;
@@ -24,10 +24,13 @@
       font-size: 22px;
       background: #020617;
       border-bottom: 1px solid #38bdf8;
+      z-index: 10;
     }
     .login {
-      text-align: center;
-      margin: 80px auto;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .login button {
       padding: 14px 40px;
@@ -35,8 +38,8 @@
       border-radius: 50px;
       background: #38bdf8;
       color: white;
-      cursor: pointer;
       font-size: 16px;
+      cursor: pointer;
     }
     #chat {
       flex: 1;
@@ -90,9 +93,12 @@
     .chat-input {
       display: flex;
       align-items: center;
-      padding: 10px;
+      padding: 10px 12px;
       background: #020617;
       gap: 8px;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
     }
     .chat-input input {
       flex: 1;
@@ -103,10 +109,11 @@
       color: white;
       font-size: 15px;
     }
-    .emoji-btn, .photo-btn {
-      font-size: 24px;
+    .photo-btn {
+      font-size: 26px;
       cursor: pointer;
       padding: 8px;
+      color: #94a3b8;
     }
     .chat-input button {
       padding: 12px 24px;
@@ -124,21 +131,16 @@
       display: block;
     }
     #preview-container {
-      margin: 8px 0;
+      padding: 0 16px 8px;
       max-width: 220px;
+      align-self: flex-end;
     }
     #preview-img {
       max-width: 100%;
       border-radius: 10px;
       border: 2px solid #38bdf8;
     }
-    #emoji-picker {
-      position: absolute;
-      bottom: 70px;
-      right: 20px;
-      z-index: 100;
-      display: none;
-    }
+    input:focus { outline: none; }
   </style>
 </head>
 <body>
@@ -154,23 +156,20 @@
 <div id="chat" style="display:none;"></div>
 
 <div class="chat-input" id="chat-input" style="display:none;">
-  <span class="emoji-btn" onclick="toggleEmojiPicker()">😊</span>
   <span class="photo-btn" onclick="document.getElementById('photo-input').click()">📷</span>
-  <input type="file" id="photo-input" accept="image/*" style="display:none;">
-  <input id="msg" placeholder="Message..." autocomplete="off">
+  <input type="file" id="photo-input" accept="image/*" style="display:none;" capture="environment">
+  <input id="msg" placeholder="Message... (emoji via clavier téléphone 😊)" autocomplete="off">
   <button onclick="send()">Envoyer</button>
 </div>
 
-<div id="preview-container" style="display:none; padding:0 16px 8px;">
+<div id="preview-container" style="display:none;">
   <img id="preview-img" src="" alt="Prévisualisation">
 </div>
-
-<emoji-picker id="emoji-picker" skin-tone-emoji="👍"></emoji-picker>
 
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-  import { getDatabase, ref, push, onChildAdded, onDisconnect, set, limitToLast } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+  import { getDatabase, ref, push, onChildAdded, onDisconnect, set, query, limitToLast } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
@@ -186,7 +185,6 @@
   let currentUser = null;
   let selectedImage = null;
 
-  // Auth state
   onAuthStateChanged(auth, user => {
     if (user) {
       currentUser = user;
@@ -197,7 +195,7 @@
       listenMessages();
     } else {
       currentUser = null;
-      document.getElementById("login-screen").style.display = "block";
+      document.getElementById("login-screen").style.display = "flex";
       document.getElementById("chat").style.display = "none";
       document.getElementById("chat-input").style.display = "none";
     }
@@ -206,21 +204,21 @@
   function login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).catch(err => {
-      console.error("Login error:", err);
-      alert("Problème de connexion : " + err.message);
+      console.error(err);
+      alert("Erreur login : " + err.message);
     });
   }
 
   function setPresence() {
     if (!currentUser) return;
-    const refPresence = ref(db, "onlineUsers/" + currentUser.uid);
-    set(refPresence, {
+    const presenceRef = ref(db, "onlineUsers/" + currentUser.uid);
+    set(presenceRef, {
       name: currentUser.displayName || "Anonyme",
       photo: currentUser.photoURL || "",
       online: true,
       lastSeen: Date.now()
     });
-    onDisconnect(refPresence).set({
+    onDisconnect(presenceRef).set({
       name: currentUser.displayName || "Anonyme",
       photo: currentUser.photoURL || "",
       online: false,
@@ -228,8 +226,32 @@
     });
   }
 
+  function compressImage(file, callback) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800;
+        let width = img.width;
+        let height = img.height;
+        if (width > MAX_WIDTH) {
+          height = Math.round(height * (MAX_WIDTH / width));
+          width = MAX_WIDTH;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        callback(canvas.toDataURL('image/jpeg', 0.68)); // ~68% qualité = bon équilibre
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
   function send() {
-    if (!currentUser) return;
+    if (!currentUser) return alert("Connecte-toi d'abord !");
     const text = document.getElementById("msg").value.trim();
     if (!text && !selectedImage) return;
 
@@ -240,22 +262,26 @@
       photoURL: currentUser.photoURL || "",
       time: Date.now(),
       image: selectedImage || ""
+    }).then(() => {
+      document.getElementById("msg").value = "";
+      selectedImage = null;
+      document.getElementById("preview-container").style.display = "none";
+      document.getElementById("preview-img").src = "";
+    }).catch(err => {
+      console.error(err);
+      alert("Erreur envoi : " + err.message);
     });
-
-    document.getElementById("msg").value = "";
-    selectedImage = null;
-    document.getElementById("preview-container").style.display = "none";
-    document.getElementById("preview-img").src = "";
   }
 
   function listenMessages() {
-    onChildAdded(limitToLast(ref(db, "messages"), 50), snap => {
+    const messagesQuery = query(ref(db, "messages"), limitToLast(50));
+    onChildAdded(messagesQuery, snap => {
       const msg = snap.val();
       const div = document.createElement("div");
       div.className = `message ${msg.uid === currentUser?.uid ? "me" : ""}`;
 
       const avatar = msg.photoURL
-        ? `<img class="avatar" src="${msg.photoURL}" alt="${msg.name}">`
+        ? `<img class="avatar" src="${msg.photoURL}" referrerpolicy="no-referrer">`
         : `<div class="avatar-letter">${(msg.name?.[0] || "?").toUpperCase()}</div>`;
 
       div.innerHTML = `
@@ -263,7 +289,7 @@
         <div class="text">
           <b>${msg.name || "Anonyme"}</b><br>
           ${msg.text ? msg.text.replace(/\n/g, "<br>") : ""}
-          ${msg.image ? `<br><img src="${msg.image}" alt="Image">` : ""}
+          ${msg.image ? `<br><img src="${msg.image}" alt="Photo">` : ""}
         </div>
       `;
 
@@ -274,39 +300,29 @@
 
   function scrollToBottom() {
     const chat = document.getElementById("chat");
-    chat.scrollTop = chat.scrollHeight;
+    requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
   }
 
-  function toggleEmojiPicker() {
-    const picker = document.getElementById("emoji-picker");
-    picker.style.display = picker.style.display === "block" ? "none" : "block";
-  }
-
-  document.getElementById("emoji-picker").addEventListener("emoji-click", e => {
-    const emoji = e.detail.unicode;
-    const input = document.getElementById("msg");
-    const pos = input.selectionStart;
-    input.value = input.value.slice(0, pos) + emoji + input.value.slice(pos);
-    input.focus();
-    input.selectionStart = input.selectionEnd = pos + emoji.length;
-  });
-
-  // Photo preview
+  // Photo handling
   document.getElementById("photo-input").addEventListener("change", e => {
     const file = e.target.files[0];
     if (!file || !file.type.startsWith("image/")) {
-      alert("Choisis une vraie image stp !");
+      alert("Choisis une image valide !");
       return;
     }
-    const reader = new FileReader();
-    reader.onload = ev => {
-      selectedImage = ev.target.result;
-      document.getElementById("preview-img").src = selectedImage;
+
+    compressImage(file, (compressed) => {
+      selectedImage = compressed;
+      document.getElementById("preview-img").src = compressed;
       document.getElementById("preview-container").style.display = "block";
-    };
-    reader.readAsDataURL(file);
+      scrollToBottom();
+    });
   });
 
+  // Focus input sur mobile quand on touche le chat
+  document.getElementById("chat").addEventListener("click", () => {
+    if (currentUser) document.getElementById("msg").focus();
+  });
 </script>
 </body>
 </html>
