@@ -1,196 +1,229 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>اتيليي – شات مباشر ⚡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atelier – Discussion en direct ⚡</title>
   <style>
     :root {
-      --bg: #05050f;
-      --card: rgba(18,18,38,0.7);
-      --primary: #00ffcc;
-      --accent: #ff3366;
-      --text: #f0faff;
-      --gray: #88a0b5;
-      --glow: rgba(0,255,204,0.45);
+      --bg: #070710;
+      --card: rgba(20,20,40,0.65);
+      --primary: #00ffe0;
+      --accent: #ff3c6a;
+      --text: #e6faff;
+      --gray: #8aa0b3;
+      --glow: rgba(0,255,224,0.5);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      overscroll-behavior: none;
-      touch-action: manipulation;
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(0,255,224,0.08) 0%, transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255,60,106,0.06) 0%, transparent 35%);
     }
     #container {
-      max-width: 960px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 12px;
+      padding: 20px;
     }
     header {
       text-align: center;
-      padding: 28px 0 16px;
+      padding: 50px 0 30px;
     }
     h1 {
-      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      font-size: 3rem;
       color: var(--primary);
-      text-shadow: 0 0 20px var(--glow);
-      margin-bottom: 0.5em;
-      animation: pulse 3s infinite alternate;
+      text-shadow: 0 0 30px var(--glow), 0 0 60px rgba(0,255,224,0.2);
+      margin-bottom: 0.4em;
+      animation: glow 2.5s infinite alternate;
     }
-    @keyframes pulse {
-      from { opacity: 0.92; }
-      to   { opacity: 1; }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffe0; }
+      to { text-shadow: 0 0 30px #00ffe0, 0 0 60px rgba(0,255,224,0.3); }
     }
     #user-info {
-      font-size: 1.1rem;
       color: var(--primary);
-      text-shadow: 0 0 10px var(--glow);
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-shadow: 0 0 12px var(--glow);
     }
-    #chat-section {
+    .salons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .salon-card {
       background: var(--card);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,255,204,0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,255,224,0.12);
       border-radius: 16px;
-      padding: 16px;
-      margin: 16px 0 80px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      padding: 24px;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .salon-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,255,224,0.35);
+      box-shadow: 0 16px 48px rgba(0,255,224,0.15);
+    }
+    .salon-card h3 {
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 1.45rem;
+      text-shadow: 0 0 10px rgba(0,255,224,0.4);
+    }
+    .salon-card p { color: #c0e0ff; margin-bottom: 10px; line-height: 1.45; }
+    .salon-card small { color: var(--gray); font-size: 0.9rem; }
+    /* ── CHAT ZONE ── */
+    #chat-section {
+      background: rgba(15,15,35,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,255,224,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 40px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    #chat-section h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px var(--glow);
     }
     #messages {
-      max-height: 55vh;
+      max-height: 420px;
       overflow-y: auto;
-      padding-right: 6px;
-      margin-bottom: 16px;
-      scroll-behavior: smooth;
+      margin-bottom: 20px;
+      padding-right: 8px;
     }
     .message {
-      margin: 12px 0;
+      margin: 10px 0;
       padding: 12px 16px;
-      border-radius: 14px;
-      background: rgba(0,255,204,0.07);
-      border-right: 4px solid var(--primary); /* rtl */
-      line-height: 1.45;
-      font-size: 1.05rem;
+      border-radius: 10px;
+      background: rgba(0,255,224,0.08);
+      border-left: 4px solid var(--primary);
+      line-height: 1.5;
+      word-wrap: break-word;
     }
     .message strong {
       color: var(--primary);
-    }
-    .message img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 8px 0 4px;
-      box-shadow: 0 4px 16px #0008;
-      display: block;
-    }
-    .input-zone {
-      position: fixed;
-      bottom: 0;
-      left: 0; right: 0;
-      background: rgba(10,10,25,0.92);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0,255,204,0.18);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 100;
+      text-shadow: 0 0 8px var(--glow);
     }
     #message-input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: 24px;
-      border: 1px solid rgba(0,255,204,0.25);
-      background: rgba(20,20,40,0.7);
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,255,224,0.2);
+      background: rgba(10,10,25,0.7);
       color: white;
       font-size: 1.05rem;
-      outline: none;
+      margin-bottom: 12px;
+      resize: vertical;
+      min-height: 52px;
     }
     #message-input:focus {
+      outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(0,255,204,0.3);
-    }
-    .action-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,255,204,0.15);
-      color: var(--primary);
-      transition: all 0.2s;
-    }
-    .action-btn:hover, .action-btn:active {
-      background: var(--primary);
-      color: #000;
-      transform: scale(1.08);
+      box-shadow: 0 0 12px rgba(0,255,224,0.4);
     }
     #send-btn {
-      background: linear-gradient(45deg, #00ffcc, #00aaff);
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #00ffe0, #00c3ff);
       color: black;
       font-weight: bold;
-      font-size: 1rem;
-      padding: 0 24px;
-      border-radius: 50px;
-      width: auto;
-      height: 48px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.25s;
     }
-    #send-btn:disabled {
-      opacity: 0.4;
-      pointer-events: none;
+    #send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,255,224,0.5);
     }
     #error {
       color: var(--accent);
       text-align: center;
-      margin: 8px 0;
-      font-size: 0.95rem;
+      margin: 10px 0;
+      font-weight: bold;
     }
-    @media (max-width: 500px) {
-      .input-zone { padding: 10px 12px; gap: 10px; }
-      #message-input { font-size: 1rem; padding: 10px 14px; }
-      .action-btn { width: 44px; height: 44px; font-size: 1.4rem; }
+    footer {
+      text-align: center;
+      padding: 60px 20px 40px;
+      color: var(--gray);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(0,255,224,0.08);
+    }
+    #user-info strong {
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--glow);
+    }
+
+    /* ── AJOUTS pour images & emojis ─────────────────────── */
+    .message img {
+      max-width: 280px;
+      max-height: 320px;
+      border-radius: 12px;
+      margin-top: 8px;
+      display: block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .message a {
+      color: #00eaff;
+      text-decoration: underline;
+    }
+    .message a:hover {
+      color: #ff3c6a;
+    }
+    .emoji {
+      font-size: 1.6em;
+      line-height: 1;
     }
   </style>
 </head>
 <body>
-
 <div id="container">
   <header>
-    <h1>اتيليي الكترونيك – شات مباشر ⚡</h1>
-    <div id="user-info">جاي نحمل...</div>
+    <h1>Atelier Électronique – En direct ⚡</h1>
+    <div id="user-info">Chargement...</div>
   </header>
+  <section class="salons">
+    <div class="salon-card">
+      <h3>#atelier-general</h3>
+      <p>Bienvenue, intros, entraide général</p>
+      <small>~35 connectés</small>
+    </div>
+    <div class="salon-card">
+      <h3>#reparation-pannes</h3>
+      <p>Photos de cartes mortes, diagnostic</p>
+      <small>~120 connectés</small>
+    </div>
+    <div class="salon-card">
+      <h3>#projets-diy</h3>
+      <p>Montre tes montages</p>
+      <small>~85 connectés</small>
+    </div>
+  </section>
 
   <section id="chat-section">
+    <h2>Zone de discussion ⚡</h2>
     <div id="error"></div>
     <div id="messages"></div>
+    <textarea id="message-input" placeholder="Écris ton message ici... (emojis + lien image OK)"></textarea>
+    <button id="send-btn">ENVOYER ⚡</button>
   </section>
-</div>
 
-<div class="input-zone">
-  <input type="text" id="message-input" placeholder="صورة + كلمتين / إيموجي فقط ..." />
-
-  <button id="emoji-btn" class="action-btn" title="إيموجي">😄</button>
-
-  <label for="image-upload" class="action-btn" title="صورة">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <rect x="3" y="3" width="18" height="18" rx="2"/>
-      <circle cx="8.5" cy="8.5" r="1.5"/>
-      <path d="M21 15L16 10l-5 5-3-3-5 5"/>
-    </svg>
-  </label>
-  <input type="file" id="image-upload" accept="image/*" style="display:none;">
-
-  <button id="send-btn" disabled>ارسل ⚡</button>
+  <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
@@ -211,107 +244,110 @@
   const inputEl = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
   const errorEl = document.getElementById("error");
-  const emojiBtn = document.getElementById("emoji-btn");
-  const imageInput = document.getElementById("image-upload");
 
   let currentUser = null;
 
   const params = new URLSearchParams(window.location.search);
-  const nick = params.get("nick") || "زائر";
-  const niveau = params.get("niveau") || "";
+  const urlNick = params.get("nick") || "Anonyme";
+  const urlNiveau = params.get("niveau") || "?";
 
-  userInfo.innerHTML = `متصل بإسم <strong>${nick}</strong> ${niveau ? `(${niveau})` : ""}`;
+  userInfo.innerHTML = `Connecté en tant que <strong>${urlNick}</strong> (${urlNiveau})`;
 
-  async function login() {
+  async function ensureLoggedIn() {
     if (!auth.currentUser) {
       const cred = await signInAnonymously(auth);
       currentUser = cred.user;
-      if (nick !== "زائر") await updateProfile(currentUser, { displayName: nick });
+      if (urlNick !== "Anonyme") {
+        await updateProfile(currentUser, { displayName: urlNick });
+      }
     } else {
       currentUser = auth.currentUser;
     }
   }
 
-  function canSend() {
-    const hasImage = !!imageInput.files?.[0];
-    const hasText  = inputEl.value.trim().length > 0;
-    sendBtn.disabled = !hasImage;
-    sendBtn.textContent = hasImage ? "ارسل الصورة ⚡" : "ارسل ⚡";
-  }
-
-  inputEl.addEventListener("input", canSend);
-  imageInput.addEventListener("change", canSend);
-
   sendBtn.onclick = async () => {
-    const file = imageInput.files?.[0];
-    if (!file) {
-      errorEl.textContent = "لازم صورة يا خويا !";
-      return;
-    }
+    const text = inputEl.value.trim();
+    if (!text) return errorEl.textContent = "Écris quelque chose voyons !";
+    errorEl.textContent = "";
 
-    errorEl.textContent = "جاي نحمل الصورة...";
-    sendBtn.disabled = true;
+    try {
+      await ensureLoggedIn();
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      try {
-        await login();
-        const msgRef = push(ref(db, "messages"));
-        await set(msgRef, {
-          type: "image",
-          image: reader.result,
-          text: inputEl.value.trim() || null,
-          name: currentUser.displayName || nick,
-          niveau,
-          uid: currentUser.uid,
-          time: Date.now()
-        });
+      const imageMatch = text.match(/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp)(?:\?.*)?)/i);
+      let imageUrl = null;
+      let displayText = text;
 
-        inputEl.value = "";
-        imageInput.value = "";
-        errorEl.textContent = "";
-        canSend();
-      } catch (err) {
-        errorEl.textContent = "فماكش: " + err.message;
-        console.error(err);
+      if (imageMatch) {
+        imageUrl = imageMatch[0];
+        displayText = text.replace(imageMatch[0], '').trim();
       }
-    };
-    reader.readAsDataURL(file);
-  };
 
-  emojiBtn.onclick = () => {
-    const emoji = prompt("حط إيموجي هنا", "🔥💡🛠️");
-    if (emoji && emoji.trim()) {
-      inputEl.value += emoji + " ";
+      const msgRef = push(ref(db, "messages"));
+      await set(msgRef, {
+        text: displayText || (imageUrl ? "📷 Image partagée" : ""),
+        name: currentUser.displayName || urlNick,
+        niveau: urlNiveau,
+        uid: currentUser.uid,
+        time: Date.now(),
+        image: imageUrl || null
+      });
+
+      inputEl.value = "";
       inputEl.focus();
-      canSend();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = "Erreur : " + err.message;
     }
   };
 
-  // Affichage messages
-  onValue(ref(db, "messages"), snap => {
+  const messagesRef = ref(db, "messages");
+  onValue(messagesRef, (snap) => {
     messagesEl.innerHTML = "";
     const msgs = [];
-    snap.forEach(c => msgs.push(c.val()));
+    snap.forEach(child => {
+      msgs.push(child.val());
+    });
+
     msgs.sort((a,b) => a.time - b.time);
 
     msgs.forEach(msg => {
-      const div = document.createElement("div");
-      div.className = "message";
-      let html = `<strong>${msg.name}${msg.niveau ? ` (${msg.niveau})` : ""} :</strong> `;
+      const el = document.createElement("div");
+      el.className = "message";
 
-      if (msg.type === "image" && msg.image) {
-        html += `<img src="${msg.image}" alt="صورة">`;
-        if (msg.text) html += `<br><span style="opacity:0.9">${msg.text}</span>`;
-      } else {
-        html += msg.text || "";
+      const niveauTag = msg.niveau && msg.niveau !== "?" ? `(${msg.niveau}) ` : "";
+
+      let safeText = (msg.text || "")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      // Liens cliquables (youtube, etc.)
+      safeText = safeText.replace(
+        /(https?:\/\/[^\s<]+)/gi,
+        '<a href="$1" target="_blank" rel="noopener">$1</a>'
+      );
+
+      // Emojis un peu plus gros
+      safeText = safeText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, m => `<span class="emoji">${m}</span>`);
+
+      let content = `<strong>${niveauTag}${msg.name} :</strong> ${safeText}`;
+
+      if (msg.image) {
+        content += `<br><img src="${msg.image}" alt="image" loading="lazy">`;
       }
 
-      div.innerHTML = html;
-      messagesEl.appendChild(div);
+      el.innerHTML = content;
+      messagesEl.appendChild(el);
     });
 
     messagesEl.scrollTop = messagesEl.scrollHeight;
+  });
+
+  // Envoyer avec Entrée (sans Shift pour multiligne)
+  inputEl.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendBtn.click();
+    }
   });
 </script>
 </body>
