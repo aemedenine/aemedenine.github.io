@@ -22,7 +22,7 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      background-image: 
+      background-image:
         radial-gradient(circle at 15% 50%, rgba(0,255,224,0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(255,60,106,0.06) 0%, transparent 35%);
     }
@@ -43,6 +43,12 @@
       color: var(--primary);
       text-shadow: 0 0 30px var(--glow), 0 0 60px rgba(0,255,224,0.2);
       margin-bottom: 0.4em;
+      animation: glow 2.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffe0; }
+      to   { text-shadow: 0 0 30px #00ffe0, 0 0 60px rgba(0,255,224,0.3); }
     }
 
     #user-info {
@@ -83,26 +89,86 @@
       text-shadow: 0 0 10px rgba(0,255,224,0.4);
     }
 
-    .salon-card p {
-      color: #c0e0ff;
-      margin-bottom: 10px;
-      line-height: 1.45;
-    }
+    .salon-card p  { color: #c0e0ff; margin-bottom: 10px; line-height: 1.45; }
+    .salon-card small { color: var(--gray); font-size: 0.9rem; }
 
-    .salon-card small {
-      color: var(--gray);
-      font-size: 0.9rem;
-    }
-
-    #chat-area {
+    /* ── CHAT ZONE ── */
+    #chat-section {
       background: rgba(15,15,35,0.7);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0,255,224,0.1);
       border-radius: 16px;
       padding: 24px;
-      min-height: 420px;
       margin: 40px 0;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    #chat-section h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px var(--glow);
+    }
+
+    #messages {
+      max-height: 420px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding-right: 8px;
+    }
+
+    .message {
+      margin: 10px 0;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(0,255,224,0.08);
+      border-left: 4px solid var(--primary);
+      line-height: 1.5;
+    }
+
+    .message strong {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--glow);
+    }
+
+    #message-input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,255,224,0.2);
+      background: rgba(10,10,25,0.7);
+      color: white;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+
+    #message-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(0,255,224,0.4);
+    }
+
+    #send-btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #00ffe0, #00c3ff);
+      color: black;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    #send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,255,224,0.5);
+    }
+
+    #error {
+      color: var(--accent);
+      text-align: center;
+      margin: 10px 0;
+      font-weight: bold;
     }
 
     footer {
@@ -113,7 +179,6 @@
       border-top: 1px solid rgba(0,255,224,0.08);
     }
 
-    /* petit glow sur texte connecté */
     #user-info strong {
       color: var(--primary);
       text-shadow: 0 0 15px var(--glow);
@@ -143,24 +208,120 @@
       <p>Montre tes montages</p>
       <small>~85 connectés</small>
     </div>
-    <!-- Ajoute les autres salons ici -->
+    <!-- Ajoute d'autres salons si tu veux -->
   </section>
 
-  <section id="chat-area">
-    <p><em>Zone de discussion (simulation pour l'instant – plus tard WebSocket ou backend)</em></p>
-    <p style="color:#44ff88;">[19:55] SMD_Sniper42 : Y a quelqu'un qui a un schéma d'alim ATX qui clignote ?</p>
+  <!-- VRAI CHAT ICI -->
+  <section id="chat-section">
+    <h2>Zone de discussion ⚡</h2>
+    <div id="error"></div>
+    <div id="messages"></div>
+
+    <input type="text" id="message-input" placeholder="Écris ton message ici... (ex: Besoin schéma alim ATX svp)">
+    <button id="send-btn">ENVOYER ⚡</button>
   </section>
 
-  <footer>Atelier Électronique – Tunis & le monde entier</footer>
+  <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
 </div>
 
-<script>
-  // Récupérer les params de l'URL
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
+    authDomain: "atelier-electronique-mednine.firebaseapp.com",
+    databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "atelier-electronique-mednine",
+    storageBucket: "atelier-electronique-mednine.firebasestorage.app",
+    messagingSenderId: "547430908384",
+    appId: "1:547430908384:web:4caa4cf3869491bd14eb85"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  // ── ELEMENTS ──
+  const userInfo = document.getElementById("user-info");
+  const messagesEl = document.getElementById("messages");
+  const inputEl = document.getElementById("message-input");
+  const sendBtn = document.getElementById("send-btn");
+  const errorEl = document.getElementById("error");
+
+  let currentUser = null;
+
+  // Récup params URL (depuis index.html)
   const params = new URLSearchParams(window.location.search);
-  const nick = params.get("nick") || "Anonyme";
-  const niveau = params.get("niveau") || "?";
-  document.getElementById("user-info").innerHTML =
-    `Connecté en tant que <strong>${nick}</strong> (${niveau})`;
+  const urlNick = params.get("nick") || "Anonyme";
+  const urlNiveau = params.get("niveau") || "?";
+
+  // Affichage user connecté
+  userInfo.innerHTML = `Connecté en tant que <strong>${urlNick}</strong> (${urlNiveau})`;
+
+  // Login auto (anonymous)
+  async function ensureLoggedIn() {
+    if (!auth.currentUser) {
+      const cred = await signInAnonymously(auth);
+      currentUser = cred.user;
+      if (urlNick !== "Anonyme") {
+        await updateProfile(currentUser, { displayName: urlNick });
+      }
+    } else {
+      currentUser = auth.currentUser;
+    }
+  }
+
+  // Envoi message
+  sendBtn.onclick = async () => {
+    const text = inputEl.value.trim();
+    if (!text) return errorEl.textContent = "Écris quelque chose voyons !";
+
+    errorEl.textContent = "";
+    try {
+      await ensureLoggedIn();
+
+      const msgRef = push(ref(db, "messages"));
+      await set(msgRef, {
+        text: text,
+        name: currentUser.displayName || urlNick,
+        niveau: urlNiveau,
+        uid: currentUser.uid,
+        time: Date.now()
+      });
+
+      inputEl.value = "";
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = "Erreur : " + err.message;
+    }
+  };
+
+  // Affichage messages en temps réel
+  const messagesRef = ref(db, "messages");
+  onValue(messagesRef, (snap) => {
+    messagesEl.innerHTML = "";
+    const msgs = [];
+    snap.forEach(child => {
+      const msg = child.val();
+      msgs.push(msg);
+    });
+
+    // Tri par temps (plus ancien en haut)
+    msgs.sort((a,b) => a.time - b.time);
+
+    msgs.forEach(msg => {
+      const el = document.createElement("div");
+      el.className = "message";
+      const niveauTag = msg.niveau && msg.niveau !== "?" ? `(${msg.niveau}) ` : "";
+      el.innerHTML = `<strong>${niveauTag}${msg.name} :</strong> ${msg.text}`;
+      messagesEl.appendChild(el);
+    });
+
+    // Scroll auto bas
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  });
 </script>
 </body>
 </html>
