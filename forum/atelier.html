@@ -24,15 +24,8 @@
         radial-gradient(circle at 15% 50%, rgba(0,255,224,0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(255,60,106,0.06) 0%, transparent 35%);
     }
-    #container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      padding: 50px 0 30px;
-    }
+    #container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; padding: 50px 0 30px; }
     h1 {
       font-size: 3rem;
       color: var(--primary);
@@ -71,15 +64,10 @@
       border-color: rgba(0,255,224,0.35);
       box-shadow: 0 16px 48px rgba(0,255,224,0.15);
     }
-    .salon-card h3 {
-      color: var(--primary);
-      margin-bottom: 12px;
-      font-size: 1.45rem;
-      text-shadow: 0 0 10px rgba(0,255,224,0.4);
-    }
+    .salon-card h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.45rem; text-shadow: 0 0 10px rgba(0,255,224,0.4); }
     .salon-card p { color: #c0e0ff; margin-bottom: 10px; line-height: 1.45; }
     .salon-card small { color: var(--gray); font-size: 0.9rem; }
-    /* ── CHAT ZONE ── */
+
     #chat-section {
       background: rgba(15,15,35,0.7);
       backdrop-filter: blur(10px);
@@ -89,11 +77,7 @@
       margin: 40px 0;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
-    #chat-section h2 {
-      color: var(--primary);
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px var(--glow);
-    }
+    #chat-section h2 { color: var(--primary); margin-bottom: 20px; text-shadow: 0 0 15px var(--glow); }
     #messages {
       max-height: 420px;
       overflow-y: auto;
@@ -109,19 +93,20 @@
       line-height: 1.5;
       word-wrap: break-word;
     }
-    .message strong {
-      color: var(--primary);
-      text-shadow: 0 0 8px var(--glow);
+    .message strong { color: var(--primary); text-shadow: 0 0 8px var(--glow); }
+    .input-area {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
     }
     #message-input {
-      width: 100%;
+      flex: 1;
       padding: 14px;
       border-radius: 10px;
       border: 1px solid rgba(0,255,224,0.2);
       background: rgba(10,10,25,0.7);
       color: white;
       font-size: 1.05rem;
-      margin-bottom: 12px;
       resize: vertical;
       min-height: 52px;
     }
@@ -130,8 +115,8 @@
       border-color: var(--primary);
       box-shadow: 0 0 12px rgba(0,255,224,0.4);
     }
-    #send-btn {
-      padding: 14px 32px;
+    .chat-btn {
+      padding: 14px 20px;
       border: none;
       border-radius: 10px;
       background: linear-gradient(45deg, #00ffe0, #00c3ff);
@@ -140,11 +125,17 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
     }
-    #send-btn:hover {
+    .chat-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(0,255,224,0.5);
     }
+    .emoji-btn { background: linear-gradient(45deg, #ffdd57, #ff9500); }
+    .image-btn { background: linear-gradient(45deg, #ff3c6a, #ff9500); }
     #error {
       color: var(--accent);
       text-align: center;
@@ -158,12 +149,9 @@
       font-size: 0.95rem;
       border-top: 1px solid rgba(0,255,224,0.08);
     }
-    #user-info strong {
-      color: var(--primary);
-      text-shadow: 0 0 15px var(--glow);
-    }
+    #user-info strong { color: var(--primary); text-shadow: 0 0 15px var(--glow); }
 
-    /* ── AJOUTS pour images & emojis ─────────────────────── */
+    /* Ajouts images & emojis */
     .message img {
       max-width: 280px;
       max-height: 320px;
@@ -172,49 +160,54 @@
       display: block;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
-    .message a {
-      color: #00eaff;
-      text-decoration: underline;
-    }
-    .message a:hover {
-      color: #ff3c6a;
-    }
-    .emoji {
-      font-size: 1.6em;
-      line-height: 1;
+    .message a { color: #00eaff; text-decoration: underline; }
+    .message a:hover { color: #ff3c6a; }
+    .emoji { font-size: 1.6em; line-height: 1; }
+
+    /* Picker emoji (positionné en bas) */
+    emoji-picker {
+      position: absolute;
+      bottom: 80px;
+      right: 20px;
+      z-index: 1000;
+      width: 320px;
+      height: 400px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      display: none;
     }
   </style>
+
+  <!-- Emoji Picker lightweight via CDN -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </head>
 <body>
 <div id="container">
   <header>
-    <h1>Atelier Électronique – En direct ⚡</h1>
+    <h1>AÉM – En direct ⚡</h1>
     <div id="user-info">Chargement...</div>
   </header>
   <section class="salons">
-    <div class="salon-card">
-      <h3>#atelier-general</h3>
-      <p>Bienvenue, intros, entraide général</p>
-      <small>~35 connectés</small>
-    </div>
-    <div class="salon-card">
-      <h3>#reparation-pannes</h3>
-      <p>Photos de cartes mortes, diagnostic</p>
-      <small>~120 connectés</small>
-    </div>
-    <div class="salon-card">
-      <h3>#projets-diy</h3>
-      <p>Montre tes montages</p>
-      <small>~85 connectés</small>
-    </div>
+    <div class="salon-card"><h3>#atelier-general</h3><p>Bienvenue, intros, entraide général</p><small>~35 connectés</small></div>
+    <div class="salon-card"><h3>#reparation-pannes</h3><p>Photos de cartes mortes, diagnostic</p><small>~120 connectés</small></div>
+    <div class="salon-card"><h3>#projets-diy</h3><p>Montre tes montages</p><small>~85 connectés</small></div>
   </section>
 
   <section id="chat-section">
     <h2>Zone de discussion ⚡</h2>
     <div id="error"></div>
     <div id="messages"></div>
-    <textarea id="message-input" placeholder="Écris ton message ici... (emojis + lien image OK)"></textarea>
-    <button id="send-btn">ENVOYER ⚡</button>
+
+    <div class="input-area">
+      <textarea id="message-input" placeholder="Écris ton message... (emojis + images OK)"></textarea>
+      <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis">😄</button>
+      <button id="image-btn" class="chat-btn image-btn" title="Envoyer une image">📎</button>
+      <input type="file" id="image-upload" accept="image/*" style="display:none;">
+      <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
+    </div>
+
+    <!-- Picker emoji caché -->
+    <emoji-picker id="emoji-picker"></emoji-picker>
   </section>
 
   <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
@@ -223,7 +216,8 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
@@ -238,12 +232,17 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
+  const storage = getStorage(app);
 
   const userInfo = document.getElementById("user-info");
   const messagesEl = document.getElementById("messages");
   const inputEl = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
+  const emojiBtn = document.getElementById("emoji-btn");
+  const imageBtn = document.getElementById("image-btn");
+  const imageInput = document.getElementById("image-upload");
   const errorEl = document.getElementById("error");
+  const emojiPicker = document.getElementById("emoji-picker");
 
   let currentUser = null;
 
@@ -257,57 +256,95 @@
     if (!auth.currentUser) {
       const cred = await signInAnonymously(auth);
       currentUser = cred.user;
-      if (urlNick !== "Anonyme") {
-        await updateProfile(currentUser, { displayName: urlNick });
-      }
+      if (urlNick !== "Anonyme") await updateProfile(currentUser, { displayName: urlNick });
     } else {
       currentUser = auth.currentUser;
     }
   }
 
-  sendBtn.onclick = async () => {
-    const text = inputEl.value.trim();
-    if (!text) return errorEl.textContent = "Écris quelque chose voyons !";
-    errorEl.textContent = "";
+  // ── Emoji Picker ───────────────────────────────
+  emojiBtn.onclick = () => {
+    emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
+  };
 
+  emojiPicker.addEventListener("emoji-click", event => {
+    const emoji = event.detail.unicode;
+    const start = inputEl.selectionStart;
+    const end = inputEl.selectionEnd;
+    inputEl.value = inputEl.value.substring(0, start) + emoji + inputEl.value.substring(end);
+    inputEl.selectionStart = inputEl.selectionEnd = start + emoji.length;
+    inputEl.focus();
+    // emojiPicker.style.display = "none"; // optionnel: ferme après choix
+  });
+
+  // ── Image Upload ───────────────────────────────
+  imageBtn.onclick = () => imageInput.click();
+
+  imageInput.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      errorEl.textContent = "Choisis une image svp !";
+      return;
+    }
+
+    errorEl.textContent = "Upload en cours... ⏳";
     try {
       await ensureLoggedIn();
+      const fileName = `${Date.now()}_${file.name}`;
+      const storRef = storageRef(storage, `chat-images/${fileName}`);
+      await uploadBytes(storRef, file);
+      const url = await getDownloadURL(storRef);
 
-      const imageMatch = text.match(/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp)(?:\?.*)?)/i);
-      let imageUrl = null;
-      let displayText = text;
-
-      if (imageMatch) {
-        imageUrl = imageMatch[0];
-        displayText = text.replace(imageMatch[0], '').trim();
-      }
-
+      // Envoi auto du message avec l'image
       const msgRef = push(ref(db, "messages"));
       await set(msgRef, {
-        text: displayText || (imageUrl ? "📷 Image partagée" : ""),
+        text: inputEl.value.trim() || "📸 Image partagée",
         name: currentUser.displayName || urlNick,
         niveau: urlNiveau,
         uid: currentUser.uid,
         time: Date.now(),
-        image: imageUrl || null
+        image: url
       });
 
       inputEl.value = "";
-      inputEl.focus();
+      errorEl.textContent = "";
+      imageInput.value = ""; // reset input
     } catch (err) {
       console.error(err);
+      errorEl.textContent = "Erreur upload : " + err.message;
+    }
+  };
+
+  // ── Envoi message texte ────────────────────────
+  sendBtn.onclick = async () => {
+    const text = inputEl.value.trim();
+    if (!text) return errorEl.textContent = "Écris quelque chose !";
+
+    try {
+      await ensureLoggedIn();
+      const msgRef = push(ref(db, "messages"));
+      await set(msgRef, {
+        text,
+        name: currentUser.displayName || urlNick,
+        niveau: urlNiveau,
+        uid: currentUser.uid,
+        time: Date.now(),
+        image: null
+      });
+      inputEl.value = "";
+      errorEl.textContent = "";
+    } catch (err) {
       errorEl.textContent = "Erreur : " + err.message;
     }
   };
 
-  const messagesRef = ref(db, "messages");
-  onValue(messagesRef, (snap) => {
+  // Affichage messages
+  onValue(ref(db, "messages"), (snap) => {
     messagesEl.innerHTML = "";
     const msgs = [];
-    snap.forEach(child => {
-      msgs.push(child.val());
-    });
-
+    snap.forEach(child => msgs.push(child.val()));
     msgs.sort((a,b) => a.time - b.time);
 
     msgs.forEach(msg => {
@@ -315,25 +352,12 @@
       el.className = "message";
 
       const niveauTag = msg.niveau && msg.niveau !== "?" ? `(${msg.niveau}) ` : "";
-
-      let safeText = (msg.text || "")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-      // Liens cliquables (youtube, etc.)
-      safeText = safeText.replace(
-        /(https?:\/\/[^\s<]+)/gi,
-        '<a href="$1" target="_blank" rel="noopener">$1</a>'
-      );
-
-      // Emojis un peu plus gros
+      let safeText = (msg.text || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      safeText = safeText.replace(/(https?:\/\/[^\s<]+)/gi, '<a href="$1" target="_blank">$1</a>');
       safeText = safeText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, m => `<span class="emoji">${m}</span>`);
 
       let content = `<strong>${niveauTag}${msg.name} :</strong> ${safeText}`;
-
-      if (msg.image) {
-        content += `<br><img src="${msg.image}" alt="image" loading="lazy">`;
-      }
+      if (msg.image) content += `<br><img src="${msg.image}" alt="image" loading="lazy">`;
 
       el.innerHTML = content;
       messagesEl.appendChild(el);
@@ -342,7 +366,7 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
   });
 
-  // Envoyer avec Entrée (sans Shift pour multiligne)
+  // Entrée pour envoyer
   inputEl.addEventListener("keypress", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
