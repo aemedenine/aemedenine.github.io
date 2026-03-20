@@ -328,19 +328,78 @@
     });
 
     // Tri par temps (plus ancien en haut)
-    msgs.sort((a,b) => a.time - b.time);
+msgs.forEach(msg => {
+  const el = document.createElement("div");
+  el.className = "message";
 
-    msgs.forEach(msg => {
-      const el = document.createElement("div");
-      el.className = "message";
-      const niveauTag = msg.niveau && msg.niveau !== "?" ? `(${msg.niveau}) ` : "";
-      el.innerHTML = `<strong>${niveauTag}${msg.name} :</strong> ${msg.text}`;
-      messagesEl.appendChild(el);
-    });
+  let content = `<strong>${niveauTag}${msg.name} :</strong> `;
 
+  if (msg.type === "image" && msg.image) {
+    content += `<br><img src="${msg.image}" alt="Image envoyée" style="max-width:100%; border-radius:10px; margin-top:8px; box-shadow:0 4px 12px rgba(0,0,0,0.5);">`;
+    if (msg.text) content += `<br>${msg.text}`;
+  } else {
+    content += msg.text;
+  }
+
+  el.innerHTML = content;
+  messagesEl.appendChild(el);
+});
     // Scroll auto bas
     messagesEl.scrollTop = messagesEl.scrollHeight;
   });
+  // ── NOUVEAUX ELEMENTS ──
+const emojiBtn   = document.getElementById("emoji-btn");
+const imageInput = document.getElementById("image-upload");
+
+// ── EMOJI (simple prompt pour l'instant – picker natif ou custom plus tard) ──
+emojiBtn.onclick = () => {
+  const emoji = prompt("Colle un emoji ici 😄 (ou choisis-en un)", "🔥");
+  if (emoji && emoji.trim()) {
+    inputEl.value += emoji + " ";
+    inputEl.focus();
+  }
+};
+
+// ── UPLOAD IMAGE (preview + envoi comme message pour l'instant) ──
+imageInput.onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith('image/')) {
+    errorEl.textContent = "Seulement images svp !";
+    return;
+  }
+
+  // Preview simple (optionnel : afficher dans chat plus tard)
+  const reader = new FileReader();
+  reader.onload = async () => {
+    const base64 = reader.result; // data:image/jpeg;base64,...
+
+    errorEl.textContent = "Envoi image...";
+    try {
+      await ensureLoggedIn();
+
+      const msgRef = push(ref(db, "messages"));
+      await set(msgRef, {
+        type: "image",
+        image: base64,               // stocke base64 (limite ~1MB ok pour test)
+        text: inputEl.value.trim(),  // texte optionnel + image
+        name: currentUser.displayName || urlNick,
+        niveau: urlNiveau,
+        uid: currentUser.uid,
+        time: Date.now()
+      });
+
+      inputEl.value = "";
+      errorEl.textContent = "";
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = "Erreur upload : " + err.message;
+    }
+  };
+  reader.readAsDataURL(file);
+  e.target.value = ""; // reset input file
+};
 </script>
 </body>
 </html>
