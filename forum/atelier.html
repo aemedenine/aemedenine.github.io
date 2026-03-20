@@ -20,196 +20,50 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      font-size: 15px;               /* base plus petite */
+      font-size: 15px;
       line-height: 1.45;
       background-image:
         radial-gradient(circle at 15% 50%, rgba(0,255,224,0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(255,60,106,0.06) 0%, transparent 35%);
     }
-    #container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 15px;
-    }
-    header {
-      text-align: center;
-      padding: 35px 0 20px;
-    }
-    h1 {
-      font-size: 2.3rem;            /* réduit de 3rem → 2.3rem */
-      color: var(--primary);
-      text-shadow: 0 0 25px var(--glow);
-      margin-bottom: 0.4em;
-      animation: glow 2.8s infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 8px #00ffe0; }
-      to { text-shadow: 0 0 25px #00ffe0, 0 0 50px rgba(0,255,224,0.25); }
-    }
-    #user-info {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-    .salons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin: 30px 0;
-    }
-    .salon-card {
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,255,224,0.12);
-      border-radius: 14px;
-      padding: 18px;
-      transition: all 0.25s ease;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
-    }
-    .salon-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0,255,224,0.3);
-    }
-    .salon-card h3 {
-      color: var(--primary);
-      margin-bottom: 8px;
-      font-size: 1.25rem;          /* réduit */
-    }
-    .salon-card p {
-      color: #c0e0ff;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-    }
-    .salon-card small {
-      color: var(--gray);
-      font-size: 0.85rem;
-    }
-    #chat-section {
-      background: rgba(15,15,35,0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,255,224,0.1);
-      border-radius: 14px;
-      padding: 18px;
-      margin: 30px 0;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-    }
-    #chat-section h2 {
-      color: var(--primary);
-      margin-bottom: 15px;
-      font-size: 1.6rem;           /* réduit */
-      text-shadow: 0 0 12px var(--glow);
-    }
-    #messages {
-      max-height: 50vh;             /* plus flexible sur mobile */
-      min-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 15px;
-      padding-right: 6px;
-    }
-    .message {
-      margin: 8px 0;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(0,255,224,0.07);
-      border-left: 4px solid var(--primary);
-      line-height: 1.4;
-      font-size: 0.98rem;           /* messages un peu plus petits */
-      word-wrap: break-word;
-    }
-    .message strong {
-      color: var(--primary);
-      text-shadow: 0 0 6px var(--glow);
-    }
-    .input-area {
-      display: flex;
-      gap: 8px;
-      align-items: flex-end;
-    }
-    #message-input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(0,255,224,0.2);
-      background: rgba(10,10,25,0.7);
-      color: white;
-      font-size: 1rem;
-      min-height: 48px;
-      resize: vertical;
-    }
-    #message-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 10px rgba(0,255,224,0.35);
-    }
-    .chat-btn {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(45deg, #00ffe0, #00c3ff);
-      color: black;
-      font-weight: bold;
-      font-size: 0.95rem;
-      cursor: pointer;
-      min-width: 48px;
-      transition: all 0.25s;
-    }
-    .chat-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,255,224,0.45);
-    }
+    #container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+    header { text-align: center; padding: 35px 0 20px; }
+    h1 { font-size: 2.3rem; color: var(--primary); text-shadow: 0 0 25px var(--glow); margin-bottom: 0.4em; animation: glow 2.8s infinite alternate; }
+    @keyframes glow { from { text-shadow: 0 0 8px #00ffe0; } to { text-shadow: 0 0 25px #00ffe0, 0 0 50px rgba(0,255,224,0.25); } }
+    #user-info { color: var(--primary); font-weight: bold; font-size: 1.1rem; }
+    .salons { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 30px 0; }
+    .salon-card { background: var(--card); backdrop-filter: blur(12px); border: 1px solid rgba(0,255,224,0.12); border-radius: 14px; padding: 18px; transition: all 0.25s ease; box-shadow: 0 6px 24px rgba(0,0,0,0.35); }
+    .salon-card:hover { transform: translateY(-4px); border-color: rgba(0,255,224,0.3); }
+    .salon-card h3 { color: var(--primary); margin-bottom: 8px; font-size: 1.25rem; }
+    .salon-card p { color: #c0e0ff; margin-bottom: 8px; font-size: 0.95rem; }
+    .salon-card small { color: var(--gray); font-size: 0.85rem; }
+    #chat-section { background: rgba(15,15,35,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0,255,224,0.1); border-radius: 14px; padding: 18px; margin: 30px 0; box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+    #chat-section h2 { color: var(--primary); margin-bottom: 15px; font-size: 1.6rem; text-shadow: 0 0 12px var(--glow); }
+    #messages { max-height: 50vh; min-height: 200px; overflow-y: auto; margin-bottom: 15px; padding-right: 6px; }
+    .message { margin: 8px 0; padding: 10px 14px; border-radius: 10px; background: rgba(0,255,224,0.07); border-left: 4px solid var(--primary); line-height: 1.4; font-size: 0.98rem; word-wrap: break-word; }
+    .message strong { color: var(--primary); text-shadow: 0 0 6px var(--glow); }
+    .input-area { display: flex; gap: 8px; align-items: flex-end; }
+    #message-input { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid rgba(0,255,224,0.2); background: rgba(10,10,25,0.7); color: white; font-size: 1rem; min-height: 48px; resize: vertical; }
+    #message-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px rgba(0,255,224,0.35); }
+    .chat-btn { padding: 12px 18px; border: none; border-radius: 10px; font-weight: bold; font-size: 0.95rem; cursor: pointer; min-width: 48px; transition: all 0.25s; }
+    .chat-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,255,224,0.45); }
+    #send-btn { background: linear-gradient(45deg, #00ffe0, #00c3ff); color: black; }
     .emoji-btn { background: linear-gradient(45deg, #ffdd57, #ff9500); }
     .image-btn { background: linear-gradient(45deg, #ff3c6a, #ff9500); }
-    #error {
-      color: var(--accent);
-      text-align: center;
-      margin: 8px 0;
-      font-weight: bold;
-      font-size: 0.95rem;
-    }
-    footer {
-      text-align: center;
-      padding: 40px 15px 30px;
-      color: var(--gray);
-      font-size: 0.85rem;
-      border-top: 1px solid rgba(0,255,224,0.08);
-    }
-
-    /* Images & emojis */
-    .message img {
-      max-width: 240px;
-      max-height: 280px;
-      border-radius: 10px;
-      margin-top: 6px;
-      display: block;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.4);
-    }
+    #error { color: var(--accent); text-align: center; margin: 8px 0; font-weight: bold; font-size: 0.95rem; }
+    footer { text-align: center; padding: 40px 15px 30px; color: var(--gray); font-size: 0.85rem; border-top: 1px solid rgba(0,255,224,0.08); }
+    .message img { max-width: 240px; max-height: 280px; border-radius: 10px; margin-top: 6px; display: block; box-shadow: 0 3px 12px rgba(0,0,0,0.4); }
     .message a { color: #00eaff; text-decoration: underline; }
     .message a:hover { color: #ff3c6a; }
     .emoji { font-size: 1.4em; line-height: 1; }
-
-    emoji-picker {
-      position: absolute;
-      bottom: 70px;
-      right: 15px;
-      z-index: 1000;
-      width: 300px;
-      height: 380px;
-      border-radius: 14px;
-      box-shadow: 0 8px 35px rgba(0,0,0,0.6);
-      display: none;
-    }
-
-    /* ── RESPONSIVE pour téléphone ──────────────────────────────── */
+    emoji-picker { position: absolute; bottom: 70px; right: 15px; z-index: 1000; width: 300px; height: 380px; border-radius: 14px; box-shadow: 0 8px 35px rgba(0,0,0,0.6); display: none; }
     @media (max-width: 600px) {
       body { font-size: 14px; }
       h1 { font-size: 2rem; }
       #chat-section h2 { font-size: 1.45rem; }
       .salon-card h3 { font-size: 1.15rem; }
       .message { font-size: 0.95rem; padding: 9px 12px; }
-      #message-input { font-size: 0.98rem; padding: 11px; }
-      .chat-btn { padding: 11px 16px; font-size: 0.9rem; }
       #messages { max-height: 55vh; }
-      .input-area { gap: 6px; }
       emoji-picker { width: 100%; right: 0; left: 0; margin: 0 auto; height: 360px; }
     }
   </style>
@@ -221,20 +75,17 @@
     <h1>Atelier Électronique – En direct ⚡</h1>
     <div id="user-info">Chargement...</div>
   </header>
-
   <section class="salons">
     <div class="salon-card"><h3>#atelier-general</h3><p>Bienvenue, intros, entraide général</p><small>~35 connectés</small></div>
     <div class="salon-card"><h3>#reparation-pannes</h3><p>Photos de cartes mortes, diagnostic</p><small>~120 connectés</small></div>
     <div class="salon-card"><h3>#projets-diy</h3><p>Montre tes montages</p><small>~85 connectés</small></div>
   </section>
-
   <section id="chat-section">
     <h2>Zone de discussion ⚡</h2>
     <div id="error"></div>
     <div id="messages">
-      <div style="text-align:center; color:#666; padding:25px;">Chargement des messages...</div>
+      <div style="text-align:center; color:#666; padding:25px;">Chargement des messages... (vérifie connexion Firebase)</div>
     </div>
-
     <div class="input-area">
       <textarea id="message-input" placeholder="Écris ton message... (emojis + images OK)"></textarea>
       <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis">😄</button>
@@ -242,16 +93,14 @@
       <input type="file" id="image-upload" accept="image/*" style="display:none;">
       <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
     </div>
-
     <emoji-picker id="emoji-picker"></emoji-picker>
   </section>
-
   <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-  import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { getAuth, signInAnonymously, updateProfile, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
   import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 
@@ -289,19 +138,35 @@
   userInfo.innerHTML = `Connecté en tant que <strong>${urlNick}</strong> (${urlNiveau})`;
 
   async function ensureLoggedIn() {
-    if (!auth.currentUser) {
-      try {
-        const cred = await signInAnonymously(auth);
-        currentUser = cred.user;
-        if (urlNick !== "Anonyme") await updateProfile(currentUser, { displayName: urlNick });
-      } catch (err) {
-        console.error("Erreur connexion :", err);
-        errorEl.textContent = "Connexion impossible : " + err.message;
-      }
-    } else {
+    if (auth.currentUser) {
       currentUser = auth.currentUser;
+      console.log("Déjà connecté :", currentUser.uid);
+      return;
+    }
+    try {
+      const cred = await signInAnonymously(auth);
+      currentUser = cred.user;
+      console.log("Connexion anonyme réussie :", currentUser.uid);
+      if (urlNick !== "Anonyme") {
+        await updateProfile(currentUser, { displayName: urlNick });
+      }
+    } catch (err) {
+      console.error("Erreur login anonyme :", err.code, err.message);
+      errorEl.textContent = "Connexion impossible : " + (err.message || err.code);
     }
   }
+
+  // Suivi état auth (très utile pour debug)
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      console.log("Auth state changed → utilisateur connecté :", user.uid);
+      errorEl.textContent = ""; // clear si OK
+    } else {
+      console.log("Pas d'utilisateur connecté");
+      errorEl.textContent = "Pas connecté – recharge la page";
+    }
+  });
 
   emojiBtn.onclick = () => {
     emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
@@ -320,12 +185,11 @@
 
   imageInput.onchange = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      errorEl.textContent = "Sélectionne une image !";
+    if (!file || !file.type.startsWith("image/")) {
+      errorEl.textContent = "Sélectionne une image valide !";
       return;
     }
-    errorEl.textContent = "Upload... ⏳";
+    errorEl.textContent = "Upload en cours... ⏳";
     try {
       await ensureLoggedIn();
       const fileName = `${Date.now()}_${file.name}`;
@@ -335,27 +199,25 @@
 
       const msgRef = push(ref(db, "messages"));
       await set(msgRef, {
-        text: inputEl.value.trim() || "📸 Image",
+        text: inputEl.value.trim() || "📸 Image partagée",
         name: currentUser.displayName || urlNick,
         niveau: urlNiveau,
         uid: currentUser.uid,
         time: Date.now(),
         image: url
       });
-
       inputEl.value = "";
       errorEl.textContent = "";
       imageInput.value = "";
     } catch (err) {
-      console.error(err);
-      errorEl.textContent = "Erreur upload : " + err.message;
+      console.error("Erreur upload :", err);
+      errorEl.textContent = "Erreur upload : " + (err.message || "Vérifie règles Storage");
     }
   };
 
   sendBtn.onclick = async () => {
     const text = inputEl.value.trim();
     if (!text) return errorEl.textContent = "Écris quelque chose !";
-
     try {
       await ensureLoggedIn();
       const msgRef = push(ref(db, "messages"));
@@ -370,20 +232,30 @@
       inputEl.value = "";
       errorEl.textContent = "";
     } catch (err) {
-      console.error(err);
-      errorEl.textContent = "Erreur : " + err.message;
+      console.error("Erreur envoi :", err);
+      errorEl.textContent = "Erreur envoi : " + (err.message || "Vérifie règles Database");
     }
   };
 
+  // Listener messages avec debug renforcé
   onValue(ref(db, "messages"), (snap) => {
+    console.log("[DEBUG] onValue appelé | exists:", snap.exists(), "| size:", snap.size || 0);
+
     messagesEl.innerHTML = "";
+
     if (!snap.exists() || snap.size === 0) {
-      messagesEl.innerHTML = '<div style="text-align:center; color:#777; padding:25px;">Aucun message pour le moment... Envoie le premier !</div>';
+      messagesEl.innerHTML = '<div style="text-align:center; color:#888; padding:30px; font-size:1.1rem;">Aucun message visible... (base vide ou permission read refusée ?)</div>';
+      console.log("[DEBUG] Pas de données → vérifie règles read ou si messages écrits");
       return;
     }
 
     const msgs = [];
-    snap.forEach(child => msgs.push(child.val()));
+    snap.forEach(child => {
+      const msg = child.val();
+      console.log("[DEBUG] Message reçu :", msg);
+      msgs.push(msg);
+    });
+
     msgs.sort((a,b) => (a.time || 0) - (b.time || 0));
 
     msgs.forEach(msg => {
@@ -393,7 +265,6 @@
       let safeText = (msg.text || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
       safeText = safeText.replace(/(https?:\/\/[^\s<]+)/gi, '<a href="$1" target="_blank">$1</a>');
       safeText = safeText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, m => `<span class="emoji">${m}</span>`);
-
       let content = `<strong>${niveauTag}${msg.name || "Anonyme"} :</strong> ${safeText || ""}`;
       if (msg.image) content += `<br><img src="${msg.image}" alt="image" loading="lazy">`;
       el.innerHTML = content;
@@ -402,8 +273,9 @@
 
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }, (err) => {
-    console.error("Erreur listener :", err);
-    errorEl.textContent = "Problème chat : " + err.message;
+    console.error("[ERREUR LISTENER] :", err.code, err.message);
+    errorEl.textContent = "Problème grave chat : " + (err.message || "Permission refusée ?");
+    messagesEl.innerHTML = `<div style="color:#ff3c6a; text-align:center; padding:30px;">Erreur Firebase : ${err.message || "Permission read refusée"}<br>Vérifie règles Database !</div>`;
   });
 
   inputEl.addEventListener("keypress", (e) => {
@@ -413,6 +285,7 @@
     }
   });
 
+  // Démarrage
   ensureLoggedIn();
 </script>
 </body>
