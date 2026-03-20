@@ -204,18 +204,60 @@ footer{
 
 /* MOBILE */
 @media(max-width:700px){
+
   h1{font-size:2rem}
 
+  /* نخلي textarea فوق */
   .input-area{
+    display:flex;
     flex-direction:column;
+    gap:6px;
   }
 
   #message-input{
     width:100%;
+    min-height:55px;
+    font-size:0.85rem;
   }
 
+  /* row للبوتونات */
   .chat-btn{
-    width:100%;
+    flex:1;
+    height:34px;
+    font-size:1.2rem;
+  }
+
+  /* نحطهم جنب بعضهم */
+  #image-btn,
+  #send-btn{
+    width:50%;
+  }
+
+  /* نستعمل flex بدل float */
+  .input-area button{
+    display:inline-flex;
+  }
+
+  .input-area{
+    align-items:stretch;
+  }
+
+  /* أهم حاجة: نرجعوهم row */
+  .input-area .chat-btn{
+    display:inline-flex;
+  }
+
+  /* trick باش يجيبو بعضهم */
+  .input-area{
+    flex-wrap:wrap;
+  }
+
+  #image-btn{
+    order:2;
+  }
+
+  #send-btn{
+    order:3;
   }
 }
   </style>
