@@ -211,16 +211,35 @@
     <!-- Ajoute d'autres salons si tu veux -->
   </section>
 
-  <!-- VRAI CHAT ICI -->
-  <section id="chat-section">
-    <h2>Zone de discussion ⚡</h2>
-    <div id="error"></div>
-    <div id="messages"></div>
+<!-- VRAI CHAT ICI (remplace l'ancien #chat-section) -->
+<section id="chat-section">
+  <h2>Zone de discussion ⚡</h2>
+  <div id="error"></div>
+  <div id="messages"></div>
 
-    <input type="text" id="message-input" placeholder="Écris ton message ici... (ex: Besoin schéma alim ATX svp)">
+  <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px;">
+    <!-- Input message -->
+    <input type="text" id="message-input" placeholder="Écris ton message ici... (ex: Besoin schéma alim ATX svp)" style="flex: 1;">
+
+    <!-- Bouton emoji -->
+    <button id="emoji-btn" title="Ajouter un emoji" style="background:none; border:none; cursor:pointer; font-size:1.6rem; padding:8px; opacity:0.8;">
+      😊
+    </button>
+
+    <!-- Bouton upload image -->
+    <label for="image-upload" title="Joindre une image" style="cursor:pointer; display:flex; align-items:center; padding:8px; opacity:0.8;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="#00ffe0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17 8L12 3L7 8" stroke="#00ffe0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 3V15" stroke="#00ffe0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </label>
+    <input type="file" id="image-upload" accept="image/*" style="display:none;">
+
+    <!-- Bouton envoyer -->
     <button id="send-btn">ENVOYER ⚡</button>
-  </section>
-
+  </div>
+</section>
   <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
 </div>
 
