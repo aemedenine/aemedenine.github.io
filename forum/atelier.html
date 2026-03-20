@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #070710;
-      --card: rgba(20,20,40,0.7);
+      --card: rgba(20,20,40,0.65);
       --primary: #00ffe0;
       --accent: #ff3c6a;
       --text: #e6faff;
@@ -27,100 +27,76 @@
         radial-gradient(circle at 85% 30%, rgba(255,60,106,0.05) 0%, transparent 35%);
     }
     #container { max-width: 1000px; margin: 0 auto; padding: 12px; }
-    header { text-align: center; padding: 20px 0 10px; }
-    h1 { font-size: 1.9rem; color: var(--primary); text-shadow: 0 0 20px var(--glow); margin-bottom: 0.4em; }
+    header { text-align: center; padding: 25px 0 15px; }
+    h1 { font-size: 1.95rem; color: var(--primary); text-shadow: 0 0 20px var(--glow); margin-bottom: 0.3em; }
     #user-info { font-size: 0.95rem; font-weight: bold; }
-    .salons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
-      margin: 18px 0;
-    }
+    .salons { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 20px 0; }
     .salon-card {
       background: var(--card);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,255,224,0.12);
+      border: 1px solid rgba(0,255,224,0.1);
       border-radius: 12px;
       padding: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     }
     .salon-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
     .salon-card p { font-size: 0.85rem; margin-bottom: 6px; }
-    .salon-card small { font-size: 0.78rem; color: var(--gray); }
+    .salon-card small { font-size: 0.78rem; }
     #chat-section {
-      background: rgba(15,15,35,0.75);
+      background: rgba(15,15,35,0.7);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,255,224,0.12);
+      border: 1px solid rgba(0,255,224,0.1);
       border-radius: 12px;
       padding: 14px;
       margin: 20px 0;
     }
-    #chat-section h2 { font-size: 1.3rem; margin-bottom: 12px; }
-    #messages {
-      max-height: 50vh;
-      min-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 12px;
-      padding-right: 6px;
-    }
+    #chat-section h2 { font-size: 1.35rem; margin-bottom: 12px; }
+    #messages { max-height: 45vh; min-height: 180px; overflow-y: auto; margin-bottom: 12px; padding-right: 4px; }
     .message {
-      margin: 8px 0;
-      padding: 9px 13px;
-      border-radius: 9px;
-      background: rgba(0,255,224,0.07);
+      margin: 6px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(0,255,224,0.06);
       border-left: 3px solid var(--primary);
-      font-size: 0.93rem;
-      line-height: 1.4;
+      font-size: 0.92rem;
+      line-height: 1.35;
     }
-    .message strong { font-size: 0.96rem; }
-    .timestamp { font-size: 0.78rem; color: var(--gray); margin-left: 8px; }
+    .message strong { font-size: 0.95rem; }
     .input-area { display: flex; gap: 6px; align-items: flex-end; }
     #message-input {
       flex: 1;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 8px;
-      border: 1px solid rgba(0,255,224,0.2);
-      background: rgba(10,10,25,0.8);
+      border: 1px solid rgba(0,255,224,0.18);
+      background: rgba(10,10,25,0.75);
       color: white;
-      font-size: 0.95rem;
-      min-height: 44px;
+      font-size: 0.94rem;
+      min-height: 42px;
       resize: vertical;
     }
     .chat-btn {
-      padding: 10px 14px;
+      padding: 9px 14px;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 0.9rem;
-      min-width: 44px;
+      font-size: 0.88rem;
+      min-width: 42px;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .chat-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,255,224,0.35); }
+    .chat-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,255,224,0.3); }
     #send-btn { background: linear-gradient(45deg, #00ffe0, #00c3ff); color: black; }
     .emoji-btn { background: linear-gradient(45deg, #ffdd57, #ff9500); }
     .image-btn { background: linear-gradient(45deg, #ff3c6a, #ff9500); }
-    #error { font-size: 0.9rem; margin: 8px 0; min-height: 1.2em; }
-    footer { padding: 25px 12px 15px; font-size: 0.78rem; text-align: center; color: var(--gray); }
-    .message img { max-width: 240px; max-height: 280px; border-radius: 8px; margin-top: 6px; display: block; }
-    .emoji { font-size: 1.35em; }
-    emoji-picker {
-      position: absolute;
-      bottom: 70px;
-      right: 12px;
-      width: 300px;
-      height: 360px;
-      display: none;
-      z-index: 100;
-    }
+    #error { font-size: 0.9rem; margin: 6px 0; min-height: 1.2em; color: #ff6b6b; }
+    footer { padding: 30px 12px 20px; font-size: 0.78rem; text-align: center; }
+    .message img { max-width: 220px; max-height: 260px; border-radius: 8px; margin-top: 5px; }
+    .emoji { font-size: 1.3em; }
+    emoji-picker { bottom: 65px; right: 12px; width: 280px; height: 340px; display: none; }
     @media (max-width: 600px) {
       body { font-size: 13.5px; }
-      h1 { font-size: 1.7rem; }
-      #chat-section h2 { font-size: 1.2rem; }
-      .message { font-size: 0.9rem; padding: 8px 11px; }
-      #message-input { font-size: 0.93rem; min-height: 42px; }
-      .chat-btn { padding: 9px 13px; font-size: 0.86rem; }
-      emoji-picker { width: 100%; height: 340px; right: 0; left: 0; bottom: 65px; }
-      #messages { max-height: 55vh; }
+      h1 { font-size: 1.75rem; }
+      #messages { max-height: 50vh; }
+      emoji-picker { width: 100%; height: 320px; right: 0; left: 0; bottom: 60px; }
     }
   </style>
   <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
@@ -142,25 +118,25 @@
     <h2>Zone de discussion ⚡</h2>
     <div id="error"></div>
     <div id="messages">
-      <div style="text-align:center; color:#777; padding:30px; font-size:0.95rem;">Chargement des messages...</div>
+      <div style="text-align:center; color:#666; padding:20px; font-size:0.9rem;">Chargement des messages...</div>
     </div>
     <div class="input-area">
-      <textarea id="message-input" placeholder="Ton message... (emojis + images possibles)"></textarea>
+      <textarea id="message-input" placeholder="Message... (emojis + images)"></textarea>
       <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis">😊</button>
-      <button id="image-btn" class="chat-btn image-btn" title="Joindre une image">📎</button>
+      <button id="image-btn" class="chat-btn image-btn" title="Image">📎</button>
       <input type="file" id="image-upload" accept="image/*" style="display:none;">
       <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
     </div>
     <emoji-picker id="emoji-picker"></emoji-picker>
   </section>
 
-  <footer>Atelier Électronique Médenine © 2026 – Communauté ouverte</footer>
+  <footer>Atelier Électronique Médenine © 2026</footer>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getAuth, signInAnonymously, updateProfile, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { getDatabase, ref, set, push, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 
   const firebaseConfig = {
@@ -189,40 +165,43 @@
   const emojiPicker = document.getElementById("emoji-picker");
 
   let currentUser = null;
-  let sending = false;
 
   const params = new URLSearchParams(window.location.search);
   const urlNick = params.get("nick") || "Anonyme";
   const urlNiveau = params.get("niveau") || "?";
+
   userInfo.innerHTML = `Connecté en tant que <strong>${urlNick}</strong> (${urlNiveau})`;
 
-  // ───────────────────────────────────────────────
-  // 1. Connexion anonyme
-  // ───────────────────────────────────────────────
   async function ensureLoggedIn() {
-    if (auth.currentUser) return auth.currentUser;
+    if (auth.currentUser) {
+      currentUser = auth.currentUser;
+      console.log("Déjà connecté :", currentUser.uid);
+      return currentUser;
+    }
     try {
       const cred = await signInAnonymously(auth);
       currentUser = cred.user;
+      console.log("Connexion anonyme OK :", currentUser.uid);
       if (urlNick !== "Anonyme") {
         await updateProfile(currentUser, { displayName: urlNick });
       }
       return currentUser;
     } catch (err) {
-      console.error("Erreur connexion:", err);
-      errorEl.textContent = "Impossible de se connecter : " + err.message;
+      console.error("Erreur connexion :", err);
+      errorEl.textContent = "Connexion impossible : " + err.message;
       throw err;
     }
   }
 
   onAuthStateChanged(auth, user => {
-    currentUser = user;
-    if (!user) errorEl.textContent = "Déconnecté – recharge la page";
+    if (user) {
+      currentUser = user;
+      errorEl.textContent = "";
+    } else {
+      errorEl.textContent = "Déconnecté – recharge la page";
+    }
   });
 
-  // ───────────────────────────────────────────────
-  // 2. Emojis
-  // ───────────────────────────────────────────────
   emojiBtn.onclick = () => {
     emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
   };
@@ -235,33 +214,25 @@
     inputEl.focus();
   });
 
-  // ───────────────────────────────────────────────
-  // 3. Upload image
-  // ───────────────────────────────────────────────
   imageBtn.onclick = () => imageInput.click();
 
   imageInput.onchange = async () => {
     const file = imageInput.files[0];
     if (!file || !file.type.startsWith("image/")) {
-      errorEl.textContent = "Choisis une vraie image svp";
+      errorEl.textContent = "Choisis une image valide";
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      errorEl.textContent = "Image trop lourde (max 5 Mo)";
-      return;
-    }
-
-    errorEl.textContent = "Envoi de l’image… ⏳";
+    errorEl.textContent = "Upload en cours...";
     try {
       await ensureLoggedIn();
-      const fileName = `${Date.now()}_${file.name.replace(/\s+/g,'_')}`;
+      const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
       const storRef = storageRef(storage, `chat-images/${fileName}`);
       await uploadBytes(storRef, file);
       const url = await getDownloadURL(storRef);
 
       const msgRef = push(ref(db, "messages"));
       await set(msgRef, {
-        text: inputEl.value.trim() || "📸 Image partagée",
+        text: inputEl.value.trim() || "📸 Image",
         name: currentUser?.displayName || urlNick,
         niveau: urlNiveau,
         uid: currentUser?.uid,
@@ -273,27 +244,17 @@
       imageInput.value = "";
       errorEl.textContent = "";
     } catch (err) {
-      console.error("Erreur upload:", err);
-      errorEl.textContent = "Échec envoi image : " + (err.message || "vérifie les règles Firebase");
+      console.error("Erreur image :", err);
+      errorEl.textContent = "Échec image : " + err.message;
     }
   };
 
-  // ───────────────────────────────────────────────
-  // 4. Envoi message texte
-  // ───────────────────────────────────────────────
   sendBtn.onclick = async () => {
-    if (sending) return;
     const text = inputEl.value.trim();
     if (!text) {
-      errorEl.textContent = "Écris quelque chose d'abord !";
+      errorEl.textContent = "Écris un message !";
       return;
     }
-
-    sending = true;
-    sendBtn.textContent = "Envoi...";
-    sendBtn.disabled = true;
-    errorEl.textContent = "";
-
     try {
       await ensureLoggedIn();
       const msgRef = push(ref(db, "messages"));
@@ -305,16 +266,11 @@
         time: Date.now(),
         image: null
       });
-
       inputEl.value = "";
       errorEl.textContent = "";
     } catch (err) {
-      console.error("Erreur envoi:", err);
+      console.error("Erreur envoi :", err);
       errorEl.textContent = "Erreur envoi : " + err.message;
-    } finally {
-      sending = false;
-      sendBtn.textContent = "ENVOYER ⚡";
-      sendBtn.disabled = false;
     }
   };
 
@@ -325,40 +281,35 @@
     }
   });
 
-  // ───────────────────────────────────────────────
-  // 5. Affichage messages (limité aux 120 derniers)
-  // ───────────────────────────────────────────────
-  const messagesQuery = query(ref(db, "messages"), limitToLast(120));
+  // ─── Affichage messages ───────────────────────────────────────
+  onValue(ref(db, "messages"), snap => {
+    console.log("[DEBUG] Messages reçus - exists:", snap.exists(), "count:", snap.size || 0);
 
-  onValue(messagesQuery, snap => {
     messagesEl.innerHTML = "";
+
     if (!snap.exists() || snap.size === 0) {
       messagesEl.innerHTML = '<div style="text-align:center; color:#888; padding:40px;">Aucun message pour le moment...</div>';
       return;
     }
 
-    const msgs = [];
-    snap.forEach(child => msgs.push({ id: child.key, ...child.val() }));
+    const messages = [];
+    snap.forEach(child => {
+      messages.push(child.val());
+    });
 
-    msgs.sort((a,b) => a.time - b.time);
+    messages.sort((a, b) => (a.time || 0) - (b.time || 0));
 
-    msgs.forEach(msg => {
+    messages.forEach(msg => {
       const div = document.createElement("div");
       div.className = "message";
 
-      const date = new Date(msg.time);
-      const timeStr = date.toLocaleString('fr-TN', {
-        day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
-      });
-
       const niveau = msg.niveau && msg.niveau !== "?" ? `(${msg.niveau}) ` : "";
       let safeText = (msg.text || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      safeText = safeText.replace(/(https?:\/\/[^\s<]+)/gi, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      safeText = safeText.replace(/(https?:\/\/[^\s<]+)/gi, '<a href="$1" target="_blank">$1</a>');
       safeText = safeText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, m => `<span class="emoji">${m}</span>`);
 
-      let html = `<strong>${niveau}${msg.name || "Anonyme"}</strong><span class="timestamp">${timeStr}</span><br>`;
-      html += safeText;
-      if (msg.image) html += `<br><img src="${msg.image}" alt="image partagée" loading="lazy">`;
+      let html = `<strong>${niveau}${msg.name || "Anonyme"} :</strong> ${safeText}`;
+      if (msg.image) html += `<br><img src="${msg.image}" alt="image" loading="lazy">`;
 
       div.innerHTML = html;
       messagesEl.appendChild(div);
@@ -366,11 +317,14 @@
 
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }, err => {
-    console.error("Erreur lecture:", err);
-    messagesEl.innerHTML = `<div style="color:#ff6b6b; text-align:center; padding:30px;">Erreur : ${err.message}<br>Vérifie les règles de la base de données !</div>`;
+    console.error("ERREUR LISTENER :", err);
+    messagesEl.innerHTML = `<div style="color:#ff3c6a; text-align:center; padding:40px;">
+      Erreur Firebase : ${err.message}<br>
+      (souvent → permission read refusée)
+    </div>`;
   });
 
-  // Démarrage
+  // Lancement
   ensureLoggedIn().catch(() => {});
 </script>
 </body>
