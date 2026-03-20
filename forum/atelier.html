@@ -67,7 +67,6 @@
     .salon-card h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.45rem; text-shadow: 0 0 10px rgba(0,255,224,0.4); }
     .salon-card p { color: #c0e0ff; margin-bottom: 10px; line-height: 1.45; }
     .salon-card small { color: var(--gray); font-size: 0.9rem; }
-
     #chat-section {
       background: rgba(15,15,35,0.7);
       backdrop-filter: blur(10px);
@@ -150,8 +149,6 @@
       border-top: 1px solid rgba(0,255,224,0.08);
     }
     #user-info strong { color: var(--primary); text-shadow: 0 0 15px var(--glow); }
-
-    /* Ajouts images & emojis */
     .message img {
       max-width: 280px;
       max-height: 320px;
@@ -163,8 +160,6 @@
     .message a { color: #00eaff; text-decoration: underline; }
     .message a:hover { color: #ff3c6a; }
     .emoji { font-size: 1.6em; line-height: 1; }
-
-    /* Picker emoji (positionné en bas) */
     emoji-picker {
       position: absolute;
       bottom: 80px;
@@ -177,14 +172,12 @@
       display: none;
     }
   </style>
-
-  <!-- Emoji Picker lightweight via CDN -->
   <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </head>
 <body>
 <div id="container">
   <header>
-    <h1>AÉM – En direct ⚡</h1>
+    <h1>Atelier Électronique – En direct ⚡</h1>
     <div id="user-info">Chargement...</div>
   </header>
   <section class="salons">
@@ -192,12 +185,12 @@
     <div class="salon-card"><h3>#reparation-pannes</h3><p>Photos de cartes mortes, diagnostic</p><small>~120 connectés</small></div>
     <div class="salon-card"><h3>#projets-diy</h3><p>Montre tes montages</p><small>~85 connectés</small></div>
   </section>
-
   <section id="chat-section">
     <h2>Zone de discussion ⚡</h2>
     <div id="error"></div>
-    <div id="messages"></div>
-
+    <div id="messages">
+      <div style="text-align:center; color:#666; padding:30px;">Chargement des messages...</div>
+    </div>
     <div class="input-area">
       <textarea id="message-input" placeholder="Écris ton message... (emojis + images OK)"></textarea>
       <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis">😄</button>
@@ -205,11 +198,8 @@
       <input type="file" id="image-upload" accept="image/*" style="display:none;">
       <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
     </div>
-
-    <!-- Picker emoji caché -->
     <emoji-picker id="emoji-picker"></emoji-picker>
   </section>
-
   <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
 </div>
 
@@ -254,15 +244,22 @@
 
   async function ensureLoggedIn() {
     if (!auth.currentUser) {
-      const cred = await signInAnonymously(auth);
-      currentUser = cred.user;
-      if (urlNick !== "Anonyme") await updateProfile(currentUser, { displayName: urlNick });
+      try {
+        const cred = await signInAnonymously(auth);
+        currentUser = cred.user;
+        if (urlNick !== "Anonyme") {
+          await updateProfile(currentUser, { displayName: urlNick });
+        }
+      } catch (err) {
+        console.error("Erreur connexion anonyme :", err);
+        errorEl.textContent = "Impossible de se connecter : " + err.message;
+      }
     } else {
       currentUser = auth.currentUser;
     }
   }
 
-  // ── Emoji Picker ───────────────────────────────
+  // Emoji Picker
   emojiBtn.onclick = () => {
     emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
   };
@@ -274,21 +271,18 @@
     inputEl.value = inputEl.value.substring(0, start) + emoji + inputEl.value.substring(end);
     inputEl.selectionStart = inputEl.selectionEnd = start + emoji.length;
     inputEl.focus();
-    // emojiPicker.style.display = "none"; // optionnel: ferme après choix
   });
 
-  // ── Image Upload ───────────────────────────────
+  // Image Upload
   imageBtn.onclick = () => imageInput.click();
 
   imageInput.onchange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     if (!file.type.startsWith("image/")) {
       errorEl.textContent = "Choisis une image svp !";
       return;
     }
-
     errorEl.textContent = "Upload en cours... ⏳";
     try {
       await ensureLoggedIn();
@@ -297,7 +291,6 @@
       await uploadBytes(storRef, file);
       const url = await getDownloadURL(storRef);
 
-      // Envoi auto du message avec l'image
       const msgRef = push(ref(db, "messages"));
       await set(msgRef, {
         text: inputEl.value.trim() || "📸 Image partagée",
@@ -310,14 +303,14 @@
 
       inputEl.value = "";
       errorEl.textContent = "";
-      imageInput.value = ""; // reset input
+      imageInput.value = "";
     } catch (err) {
-      console.error(err);
+      console.error("Erreur upload/image :", err);
       errorEl.textContent = "Erreur upload : " + err.message;
     }
   };
 
-  // ── Envoi message texte ────────────────────────
+  // Envoi message texte
   sendBtn.onclick = async () => {
     const text = inputEl.value.trim();
     if (!text) return errorEl.textContent = "Écris quelque chose !";
@@ -336,16 +329,32 @@
       inputEl.value = "";
       errorEl.textContent = "";
     } catch (err) {
-      errorEl.textContent = "Erreur : " + err.message;
+      console.error("Erreur envoi message :", err);
+      errorEl.textContent = "Erreur envoi : " + err.message;
     }
   };
 
-  // Affichage messages
+  // ── AFFICHAGE MESSAGES + DEBUG ────────────────────────────────
   onValue(ref(db, "messages"), (snap) => {
+    console.log("onValue déclenché ! Snapshot existe :", snap.exists());
+    console.log("Nombre d'enfants :", snap.size || 0);
+
     messagesEl.innerHTML = "";
+
+    if (!snap.exists() || snap.size === 0) {
+      console.log("Aucun message dans la base pour le moment");
+      messagesEl.innerHTML = '<div style="text-align:center; color:#888; padding:30px; font-size:1.1rem;">Aucun message encore... Envoie le premier ! ⚡</div>';
+      return;
+    }
+
     const msgs = [];
-    snap.forEach(child => msgs.push(child.val()));
-    msgs.sort((a,b) => a.time - b.time);
+    snap.forEach(child => {
+      const msg = child.val();
+      console.log("Message reçu :", msg);
+      msgs.push(msg);
+    });
+
+    msgs.sort((a,b) => (a.time || 0) - (b.time || 0));
 
     msgs.forEach(msg => {
       const el = document.createElement("div");
@@ -353,26 +362,36 @@
 
       const niveauTag = msg.niveau && msg.niveau !== "?" ? `(${msg.niveau}) ` : "";
       let safeText = (msg.text || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-      safeText = safeText.replace(/(https?:\/\/[^\s<]+)/gi, '<a href="$1" target="_blank">$1</a>');
+      safeText = safeText.replace(/(https?:\/\/[^\s<]+)/gi, '<a href="$1" target="_blank" rel="noopener">$1</a>');
       safeText = safeText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, m => `<span class="emoji">${m}</span>`);
 
-      let content = `<strong>${niveauTag}${msg.name} :</strong> ${safeText}`;
-      if (msg.image) content += `<br><img src="${msg.image}" alt="image" loading="lazy">`;
+      let content = `<strong>${niveauTag}${msg.name || "Anonyme"} :</strong> ${safeText || ""}`;
+      if (msg.image) {
+        console.log("Image trouvée :", msg.image);
+        content += `<br><img src="${msg.image}" alt="image partagée" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Image+introuvable'; this.alt='Échec chargement';">`;
+      }
 
       el.innerHTML = content;
       messagesEl.appendChild(el);
     });
 
     messagesEl.scrollTop = messagesEl.scrollHeight;
+  }, (error) => {
+    console.error("ERREUR LISTENER FIREBASE :", error);
+    errorEl.textContent = "Problème connexion au chat : " + (error.message || "Permission refusée ? Vérifie les règles Firebase");
+    messagesEl.innerHTML = '<div style="text-align:center; color:#ff3c6a; padding:30px;">Erreur de connexion au chat<br>Vérifie la console (F12) et les règles Firebase</div>';
   });
 
-  // Entrée pour envoyer
+  // Envoyer avec Entrée
   inputEl.addEventListener("keypress", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendBtn.click();
     }
   });
+
+  // Chargement initial
+  ensureLoggedIn().catch(err => console.error("Erreur initiale :", err));
 </script>
 </body>
 </html>
