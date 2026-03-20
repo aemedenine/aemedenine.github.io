@@ -29,6 +29,8 @@ const ratingsRef   = db.ref("ratings");
 const userRatingsRef = db.ref("userRatings");
 
 // ================= ELEMENTS =================
+const loginPopup = document.getElementById("login-popup");
+const closeLogin = document.getElementById("close-login");
 const loginButton   = document.querySelector(".login-btn");
 const userBox       = document.getElementById("userBox");
 const logoutBtn     = document.getElementById("logoutBtn");
@@ -50,7 +52,7 @@ loginButton?.addEventListener("click", () => {
         .then(result => {
             const user = result.user;
             showUserInterface(user);
-            loginPopup.style.display = "none"; // Fermer la fenêtre de login
+
             updateUserVisits(user);
             updateOnlineUsers(user);
         })
