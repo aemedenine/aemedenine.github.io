@@ -113,7 +113,7 @@ emoji-picker { bottom: 65px; right: 12px; width: 280px; height: 340px; display: 
   #messages { max-height: 50vh; }
   emoji-picker { width: 100%; height: 320px; right: 0; left: 0; bottom: 60px; }
 
-  /* === Chat form compact === */
+  /* === Chat form long textarea + same row buttons === */
   .input-area {
     flex-direction: row;
     gap: 4px;
@@ -121,17 +121,19 @@ emoji-picker { bottom: 65px; right: 12px; width: 280px; height: 340px; display: 
   }
   #message-input {
     flex: 1;
-    font-size: 0.9rem;
-    min-height: 36px;
-    padding: 6px 10px;
+    font-size: 0.92rem;
+    min-height: 50px;      /* textarea أطول */
+    max-height: 120px;     /* حد أقصى عند الكتابة الطويلة */
+    padding: 8px 10px;
+    border-radius: 6px;
   }
   .chat-btn {
     padding: 6px 10px;
     font-size: 0.84rem;
     min-width: 40px;
-    border-radius: 6px; /* border-radius موحد أصغر */
+    border-radius: 6px;
   }
-  #send-btn { padding: 6px 10px; }
+  #send-btn { padding: 6px 12px; }
   .emoji-btn, .image-btn { padding: 6px 10px; font-size: 0.84rem; }
 }
 </style>
