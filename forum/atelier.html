@@ -156,12 +156,23 @@ h1{
 
 /* BUTTONS */
 .chat-btn{
-  flex:1;
+  flex: 0.8; /* أصغر شوية */
+  padding: 6px 6px;
+  font-size: 0.75rem;
   border:none;
-  border-radius:10px;
+  border-radius:8px;
   cursor:pointer;
-  font-size:0.85rem;
-  transition:.3s;
+  transition:.2s;
+  height:40px; /* يولي نفس الارتفاع */
+}
+  .input-area{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+#message-input{
+  flex:3.5; /* textarea أكبر */
 }
 
 .chat-btn:hover{
@@ -175,8 +186,14 @@ h1{
   font-weight:bold;
 }
 
-.emoji-btn{
-  background:linear-gradient(45deg,#ffdd57,#ff9500);
+emoji-picker{
+  display:none;
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:280px;
+  height:320px;
+  z-index:999;
 }
 
 .image-btn{
@@ -324,17 +341,17 @@ footer{
     }
   });
 
-  emojiBtn.onclick = () => {
-    emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
-  };
+ emojiBtn.onclick = (e) => {
+  e.stopPropagation();
+  emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
+};
 
-  emojiPicker.addEventListener("emoji-click", e => {
-    const emoji = e.detail.unicode;
-    const start = inputEl.selectionStart;
-    inputEl.value = inputEl.value.substring(0, start) + emoji + inputEl.value.substring(inputEl.selectionEnd);
-    inputEl.selectionStart = inputEl.selectionEnd = start + emoji.length;
-    inputEl.focus();
-  });
+document.addEventListener("click", () => {
+  emojiPicker.style.display = "none";
+});
+  emojiPicker.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
 
   imageBtn.onclick = () => imageInput.click();
 
