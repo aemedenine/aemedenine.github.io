@@ -14,7 +14,11 @@
   --gray:#8aa0b3;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body{
   font-family:'Segoe UI',sans-serif;
@@ -145,27 +149,33 @@ h1{
 
 #message-input{
   flex:3;
-
+  padding:10px;
   border-radius:10px;
   border:1px solid #333;
   background:#0c0c1a;
   color:white;
   font-size:0.9rem;
-  min-height:20px;
+  min-height:60px;
+  resize:none;
 }
 
 /* BUTTONS */
+.btn-row{
+  display:flex;
+  gap:6px;
+}
+
 .chat-btn{
-  flex: 0.4; /* أصغر شوية */
-  padding: 4px 4px;
-  font-size: 1.6rem;
+  flex:1;
+  padding:6px;
+  font-size:1.3rem;
   border:none;
   border-radius:8px;
   cursor:pointer;
   transition:.2s;
-  height:40px; /* يولي نفس الارتفاع */
+  height:40px;
 }
- 
+
 .chat-btn:hover{
   transform:translateY(-2px) scale(1.03);
   box-shadow:0 5px 20px rgba(0,255,224,0.4);
@@ -205,11 +215,11 @@ footer{
 /* MOBILE */
 @media(max-width:700px){
 
-  h1{font-size:2rem}
+  h1{
+    font-size:2rem;
+  }
 
-  /* نخلي textarea فوق */
   .input-area{
-    display:flex;
     flex-direction:column;
     gap:6px;
   }
@@ -218,47 +228,20 @@ footer{
     width:100%;
     min-height:55px;
     font-size:0.85rem;
+    padding:8px;
   }
 
-  /* row للبوتونات */
-  .chat-btn{
+  .btn-row{
+    display:flex;
+    gap:6px;
+  }
+
+  .btn-row .chat-btn{
     flex:1;
     height:34px;
     font-size:1.2rem;
   }
 
-  /* نحطهم جنب بعضهم */
-  #image-btn,
-  #send-btn{
-    width:50%;
-  }
-
-  /* نستعمل flex بدل float */
-  .input-area button{
-    display:inline-flex;
-  }
-
-  .input-area{
-    align-items:stretch;
-  }
-
-  /* أهم حاجة: نرجعوهم row */
-  .input-area .chat-btn{
-    display:inline-flex;
-  }
-
-  /* trick باش يجيبو بعضهم */
-  .input-area{
-    flex-wrap:wrap;
-  }
-
-  #image-btn{
-    order:2;
-  }
-
-  #send-btn{
-    order:3;
-  }
 }
   </style>
 </head>
@@ -281,12 +264,14 @@ footer{
     <div id="messages">
       <div style="text-align:center; color:#666; padding:20px; font-size:0.9rem;">Chargement des messages...</div>
     </div>
-    <div class="input-area">
-      <textarea id="message-input" placeholder="Message... (emojis + images)"></textarea>
-      <button id="image-btn" class="chat-btn image-btn" title="Image">📎</button>
-      <input type="file" id="image-upload" accept="image/*" style="display:none;">
-     <button id="send-btn" class="chat-btn">⚡</button>
-    </div>
+  <div class="input-area">
+  <textarea id="message-input"></textarea>
+
+  <div class="btn-row">
+    <button id="image-btn" class="chat-btn image-btn">📎</button>
+    <button id="send-btn" class="chat-btn">⚡</button>
+  </div>
+</div>
   </section>
 
   <footer>Atelier Électronique Médenine © 2026</footer>
