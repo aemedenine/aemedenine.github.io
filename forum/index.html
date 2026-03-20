@@ -1,138 +1,285 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Forum & tchat électronique gratuit : répare ton ampli, chargeur, Arduino, TV, PC – partage pannes, projets DIY, schémas – du monde entier vers Tunis !" />
-  <title>Atelier Électronique – Réparation & Projets DIY ⚡</title>
-  <style>
-    /* ton style inchangé – je le garde pour brevité */
-    :root { --bg: #0a0a12; --card: #111122; --primary: #00ffea; --primary-dark: #00b3a2; --accent: #ff3366; --text: #e0f0ff; --gray: #8899aa; --danger: #ff4444; }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
-    #container { max-width: 1100px; margin: 0 auto; padding: 20px 15px; }
-    header { text-align: center; padding: 40px 0 20px; }
-    h1 { color: var(--primary); font-size: 3rem; text-shadow: 0 0 15px rgba(0,255,234,0.5); margin-bottom: 8px; }
-    header p { color: var(--gray); font-size: 1.1rem; }
-    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 25px 0 40px; }
-    nav a { color: var(--primary); text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: 8px; transition: all 0.25s; }
-    nav a:hover { background: rgba(0,255,234,0.15); color: white; }
-    .card { background: var(--card); border: 1px solid #222244; border-radius: 12px; padding: 25px; margin: 30px 0; box-shadow: 0 6px 25px rgba(0,0,0,0.7); }
-    .card h2 { color: var(--primary); margin-bottom: 18px; border-bottom: 1px solid #333355; padding-bottom: 10px; }
-    .form-row { margin: 18px 0; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-    .form-row label { min-width: 120px; color: var(--gray); font-weight: 500; }
-    input[type=text], select, input[type=number] { flex: 1; padding: 12px 16px; border: 1px solid #333355; border-radius: 6px; background: #0f0f1e; color: white; font-size: 1rem; min-width: 200px; }
-    .radio-group { display: flex; gap: 30px; flex-wrap: wrap; }
-    .error { color: var(--danger); font-weight: bold; margin: 10px 0; min-height: 1.4em; text-align: center; }
-    button.big { background: var(--primary); color: black; border: none; padding: 16px 50px; font-size: 1.3rem; font-weight: bold; border-radius: 8px; cursor: pointer; display: block; margin: 30px auto; transition: all 0.25s; }
-    button.big:hover { background: #00e0cc; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,255,234,0.4); }
-    footer { text-align: center; padding: 50px 0; color: var(--gray); font-size: 0.95rem; }
-    @media (max-width: 700px) { .form-row { flex-direction: column; align-items: flex-start; } .form-row label { min-width: auto; } h1 { font-size: 2.4rem; } }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Forum & tchat électronique gratuit"/>
+<title>Atelier Électronique ⚡</title>
+
+<style>
+:root{
+  --bg:#070710;
+  --card:rgba(20,20,40,0.7);
+  --primary:#00ffe0;
+  --accent:#ff3c6a;
+  --text:#e6faff;
+  --gray:#8aa0b3;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  background: radial-gradient(circle at top, #0b0b1a, #050509);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* container */
+#container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:50px 0 20px;
+}
+
+h1{
+  font-size:3rem;
+  color:var(--primary);
+  text-shadow:0 0 25px rgba(0,255,224,0.6);
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{ text-shadow:0 0 10px #00ffe0;}
+  to{ text-shadow:0 0 25px #00ffe0;}
+}
+
+header p{
+  color:var(--gray);
+  margin-top:10px;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin:30px 0;
+}
+
+nav a{
+  color:var(--primary);
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  transition:.3s;
+}
+
+nav a:hover{
+  background:rgba(0,255,224,0.1);
+  color:#fff;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:16px;
+  padding:25px;
+  margin:25px 0;
+  box-shadow:0 10px 40px rgba(0,0,0,0.8);
+  animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1}
+}
+
+.card h2{
+  color:var(--primary);
+  margin-bottom:15px;
+}
+
+/* FORM */
+.form-row{
+  display:flex;
+  gap:10px;
+  margin:15px 0;
+  flex-wrap:wrap;
+}
+
+.form-row label{
+  min-width:120px;
+  color:var(--gray);
+}
+
+input, select{
+  flex:1;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #333;
+  background:#0c0c1a;
+  color:white;
+  outline:none;
+  transition:.3s;
+}
+
+input:focus, select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 10px rgba(0,255,224,0.3);
+}
+
+/* BUTTON */
+button.big{
+  display:block;
+  margin:30px auto;
+  padding:16px 60px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:linear-gradient(45deg,#00ffe0,#00c3ff);
+  color:black;
+  font-weight:bold;
+  transition:.3s;
+}
+
+button.big:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 10px 30px rgba(0,255,224,0.5);
+}
+
+/* ERROR */
+.error{
+  text-align:center;
+  color:var(--accent);
+  font-weight:bold;
+  margin-top:10px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  margin-top:40px;
+  color:var(--gray);
+}
+
+/* MOBILE */
+@media(max-width:700px){
+  h1{font-size:2.2rem}
+  .form-row{flex-direction:column}
+}
+</style>
 </head>
+
 <body>
+
 <div id="container">
-  <header>
-    <h1>Atelier Électronique ⚡</h1>
-    <p>Réparation – Projets DIY – Dépannage mondial • Gratuit, sans inscription forcée</p>
-  </header>
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="pannes.html">Forum Pannes</a>
-    <a href="projets.html">Projets DIY</a>
-    <a href="composants.html">Composants & Outils</a>
-  </nav>
-  <div class="card">
-    <h2>Bienvenue dans l'Atelier !</h2>
-    <p>Ici on parle électronique sans chichi : ampli qui fume, chargeur qui crame, Arduino qui freeze...</p>
-  </div>
-  <div class="card">
-    <h2>Connexion rapide à l'Atelier</h2>
-    <div id="error" class="error"></div>
-    <form id="electro-form">
-      <div class="form-row">
-        <label for="nick">Pseudo Électro :</label>
-        <input type="text" id="nick" maxlength="26" placeholder="SMD_Sniper42" required autocomplete="off"/>
-      </div>
-      <div class="form-row">
-        <label for="niveau">Niveau :</label>
-        <select id="niveau" required>
-          <option value="">Choisis ton vibe</option>
-          <option value="debutant">Débutant</option>
-          <option value="moyen">Moyen</option>
-          <option value="pro">Pro / Ingénieur</option>
-          <option value="vieux">Vieux de la lampe</option>
-        </select>
-      </div>
-      <div style="text-align:center; margin:25px 0;">
-        <label><input type="checkbox" id="cgu" required /> J'accepte les règles</label>
-      </div>
-      <button type="button" class="big" id="enter-btn">ENTRER DANS L'ATELIER ⚡</button>
-    </form>
-  </div>
-  <footer>© Atelier Électronique 2025–2026</footer>
+
+<header>
+  <h1>⚡ Atelier Électronique</h1>
+  <p>Réparation • DIY • Forum mondial</p>
+</header>
+
+<nav>
+  <a href="index.html">Accueil</a>
+  <a href="#">Forum</a>
+  <a href="#">Projets</a>
+  <a href="#">Composants</a>
+</nav>
+
+<div class="card">
+  <h2>Bienvenue 👋</h2>
+  <p>Entre dans l’atelier et partage tes projets électroniques ⚡</p>
 </div>
 
-<!-- Firebase SDK -->
+<div class="card">
+  <h2>Connexion rapide</h2>
+
+  <div id="error" class="error"></div>
+
+  <div class="form-row">
+    <label>Pseudo :</label>
+    <input type="text" id="nick" placeholder="SMD_Sniper42">
+  </div>
+
+  <div class="form-row">
+    <label>Niveau :</label>
+    <select id="niveau">
+      <option value="">Choisir</option>
+      <option value="debutant">Débutant</option>
+      <option value="moyen">Moyen</option>
+      <option value="pro">Pro</option>
+    </select>
+  </div>
+
+  <div style="text-align:center;margin-top:15px;">
+    <label><input type="checkbox" id="cgu"> J'accepte</label>
+  </div>
+
+  <button class="big" id="enter-btn">ENTRER ⚡</button>
+</div>
+
+<footer>© 2026 Atelier Électronique</footer>
+
+</div>
+
+<!-- FIREBASE MODULE -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-  import { getAuth, signInAnonymously, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-    authDomain: "atelier-electronique-mednine.firebaseapp.com",
-    projectId: "atelier-electronique-mednine",
-    storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-    messagingSenderId: "547430908384",
-    appId: "1:547430908384:web:4caa4cf3869491bd14eb85",
-    databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app"
-  };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getDatabase, ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+const firebaseConfig = {
+  apiKey: "AIzaSy...",
+  authDomain: "atelier-electronique-mednine.firebaseapp.com",
+  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "atelier-electronique-mednine"
+};
 
-  const errorEl = document.getElementById("error");
-  const enterBtn = document.getElementById("enter-btn");
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
-  enterBtn.addEventListener("click", async () => {
-    errorEl.textContent = "";
+const btn = document.getElementById("enter-btn");
+const errorEl = document.getElementById("error");
 
-    const nick = document.getElementById("nick").value.trim();
-    const niveau = document.getElementById("niveau").value;
-    const cgu = document.getElementById("cgu").checked;
+btn.onclick = async () => {
 
-    if (!nick) return errorEl.textContent = "Donne un pseudo stp !";
-    if (nick.length < 3) return errorEl.textContent = "Minimum 3 caractères";
-    if (!niveau) return errorEl.textContent = "Choisis ton niveau";
-    if (!cgu) return errorEl.textContent = "Accepte les règles";
+  const nick = document.getElementById("nick").value.trim();
+  const niveau = document.getElementById("niveau").value;
+  const cgu = document.getElementById("cgu").checked;
 
-    try {
-      // Sign in anonymous si pas déjà connecté
-      let user = auth.currentUser;
-      if (!user) {
-        const userCredential = await signInAnonymously(auth);
-        user = userCredential.user;
-      }
+  if(!nick) return errorEl.textContent="Pseudo obligatoire";
+  if(nick.length<3) return errorEl.textContent="Min 3 caractères";
+  if(!niveau) return errorEl.textContent="Choisir niveau";
+  if(!cgu) return errorEl.textContent="Accepte les règles";
 
-      // Sauvegarde nick & niveau dans DB (sous /users/uid)
-      await set(ref(db, `users/${user.uid}`), {
-        nick: nick,
-        niveau: niveau,
-        createdAt: Date.now()
-      });
+  try{
+    let user = auth.currentUser;
 
-      // Optionnel : update displayName Firebase Auth (pour futur usage)
-      await updateProfile(user, { displayName: nick });
-
-      // Redirection propre (sans params URL)
-      window.location.href = "atelier.html";
-    } catch (error) {
-      console.error("Erreur connexion/sauvegarde:", error);
-      errorEl.textContent = "Erreur connexion : " + (error.message || "Réessaie");
+    if(!user){
+      const cred = await signInAnonymously(auth);
+      user = cred.user;
     }
-  });
+
+    await set(ref(db,"users/"+user.uid),{
+      nick,
+      niveau,
+      createdAt: serverTimestamp()
+    });
+
+    await updateProfile(user,{displayName:nick});
+
+    window.location.href="atelier.html";
+
+  }catch(err){
+    console.error(err);
+    errorEl.textContent="Erreur: "+err.message;
+  }
+};
+
 </script>
+
 </body>
 </html>
