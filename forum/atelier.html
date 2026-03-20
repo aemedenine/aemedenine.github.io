@@ -1,137 +1,166 @@
-<!-- forum/atelier.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atelier Chat ⚡</title>
-<style>
-:root {
-  --bg:#070710; --card:rgba(20,20,40,0.7); --primary:#00ffe0; --accent:#ff3c6a; --text:#e6faff; --gray:#8aa0b3;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-#container{max-width:1100px;margin:auto;padding:20px;}
-header{text-align:center;padding:50px 0 20px;}
-h1{font-size:2.8rem;color:var(--primary);text-shadow:0 0 25px rgba(0,255,224,0.6);}
-nav{display:flex;justify-content:center;gap:15px;margin:20px 0;}
-nav a{color:var(--primary);text-decoration:none;padding:10px 18px;border-radius:8px;}
-.card{background:var(--card);backdrop-filter:blur(10px);border-radius:16px;padding:20px;margin:20px 0;}
-input, textarea{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #333;background:#0c0c1a;color:white;}
-button{padding:12px 25px;margin-top:10px;border:none;border-radius:8px;background:linear-gradient(45deg,#00ffe0,#00c3ff);cursor:pointer;font-weight:bold;}
-#error{color:var(--accent);text-align:center;margin-top:10px;}
-#messages{max-height:400px;overflow-y:auto;margin-top:15px;}
-.message{margin:6px 0;padding:8px;border-radius:8px;background:rgba(0,255,224,0.1);}
-.message strong{color:var(--primary);}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atelier – Discussion en direct ⚡</title>
+  <style>
+    :root {
+      --bg: #070710;
+      --card: rgba(20,20,40,0.65);
+      --primary: #00ffe0;
+      --accent: #ff3c6a;
+      --text: #e6faff;
+      --gray: #8aa0b3;
+      --glow: rgba(0,255,224,0.5);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(0,255,224,0.08) 0%, transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255,60,106,0.06) 0%, transparent 35%);
+    }
+
+    #container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 0 30px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: var(--primary);
+      text-shadow: 0 0 30px var(--glow), 0 0 60px rgba(0,255,224,0.2);
+      margin-bottom: 0.4em;
+    }
+
+    #user-info {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-shadow: 0 0 12px var(--glow);
+    }
+
+    .salons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .salon-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,255,224,0.12);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+
+    .salon-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,255,224,0.35);
+      box-shadow: 0 16px 48px rgba(0,255,224,0.15);
+    }
+
+    .salon-card h3 {
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 1.45rem;
+      text-shadow: 0 0 10px rgba(0,255,224,0.4);
+    }
+
+    .salon-card p {
+      color: #c0e0ff;
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+
+    .salon-card small {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    #chat-area {
+      background: rgba(15,15,35,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,255,224,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      min-height: 420px;
+      margin: 40px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px 40px;
+      color: var(--gray);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(0,255,224,0.08);
+    }
+
+    /* petit glow sur texte connecté */
+    #user-info strong {
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--glow);
+    }
+  </style>
 </head>
 <body>
 <div id="container">
-  <header><h1>⚡ Atelier Chat</h1></header>
+  <header>
+    <h1>Atelier Électronique – En direct ⚡</h1>
+    <div id="user-info">Chargement...</div>
+  </header>
 
-  <div class="card">
-    <h2>Envoyer un message</h2>
-    <div id="error"></div>
-    <input type="text" id="nick" placeholder="Pseudo (ex: SMD_Sniper42)">
-    <select id="niveau">
-      <option value="">Choisir niveau</option>
-      <option value="debutant">Débutant</option>
-      <option value="moyen">Moyen</option>
-      <option value="pro">Pro</option>
-    </select>
-    <button id="enter-btn">ENTRER ⚡</button>
-  </div>
+  <section class="salons">
+    <div class="salon-card">
+      <h3>#atelier-general</h3>
+      <p>Bienvenue, intros, entraide général</p>
+      <small>~35 connectés</small>
+    </div>
+    <div class="salon-card">
+      <h3>#reparation-pannes</h3>
+      <p>Photos de cartes mortes, diagnostic</p>
+      <small>~120 connectés</small>
+    </div>
+    <div class="salon-card">
+      <h3>#projets-diy</h3>
+      <p>Montre tes montages</p>
+      <small>~85 connectés</small>
+    </div>
+    <!-- Ajoute les autres salons ici -->
+  </section>
 
-  <div class="card">
-    <h2>Messages</h2>
-    <div id="messages"></div>
-  </div>
+  <section id="chat-area">
+    <p><em>Zone de discussion (simulation pour l'instant – plus tard WebSocket ou backend)</em></p>
+    <p style="color:#44ff88;">[19:55] SMD_Sniper42 : Y a quelqu'un qui a un schéma d'alim ATX qui clignote ?</p>
+  </section>
+
+  <footer>Atelier Électronique – Tunis & le monde entier</footer>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
-
-// -------------------- CONFIG --------------------
-const firebaseConfig = {
-  apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
-  authDomain: "atelier-electronique-mednine.firebaseapp.com",
-  databaseURL: "https://atelier-electronique-mednine-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "atelier-electronique-mednine",
-  storageBucket: "atelier-electronique-mednine.firebasestorage.app",
-  messagingSenderId: "547430908384",
-  appId: "1:547430908384:web:4caa4cf3869491bd14eb85"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-// -------------------- ELEMENTS --------------------
-const btn = document.getElementById("enter-btn");
-const errorEl = document.getElementById("error");
-const messagesEl = document.getElementById("messages");
-const nickEl = document.getElementById("nick");
-const niveauEl = document.getElementById("niveau");
-
-// -------------------- LOGIN ANONYMOUS --------------------
-let currentUser = null;
-
-async function loginAnonymous() {
-  if(!auth.currentUser){
-    const cred = await signInAnonymously(auth);
-    currentUser = cred.user;
-  } else {
-    currentUser = auth.currentUser;
-  }
-}
-
-// -------------------- SEND MESSAGE --------------------
-btn.onclick = async () => {
-  errorEl.textContent = "";
-  const nick = nickEl.value.trim();
-  const niveau = niveauEl.value;
-
-  if(!nick) return errorEl.textContent = "Pseudo obligatoire";
-  if(!niveau) return errorEl.textContent = "Choisir niveau";
-
-  try {
-    await loginAnonymous();
-
-    if(!currentUser.displayName){
-      await updateProfile(currentUser, {displayName: nick});
-    }
-
-    const msgRef = push(ref(db,"messages"));
-    await set(msgRef, {
-      text: `(${niveau}) ${nick} a écrit un message ⚡`,
-      uid: currentUser.uid,
-      name: nick,
-      time: Date.now()
-    });
-
-    nickEl.value="";
-    niveauEl.value="";
-
-  } catch(err){
-    console.error(err);
-    errorEl.textContent = "Erreur envoi message : "+err.message;
-  }
-};
-
-// -------------------- READ MESSAGES --------------------
-const messagesRef = ref(db,"messages");
-onValue(messagesRef, snap => {
-  messagesEl.innerHTML="";
-  snap.forEach(child => {
-    const msg = child.val();
-    const el = document.createElement("div");
-    el.className="message";
-    el.innerHTML=`<strong>${msg.name}:</strong> ${msg.text}`;
-    messagesEl.appendChild(el);
-  });
-});
+<script>
+  // Récupérer les params de l'URL
+  const params = new URLSearchParams(window.location.search);
+  const nick = params.get("nick") || "Anonyme";
+  const niveau = params.get("niveau") || "?";
+  document.getElementById("user-info").innerHTML =
+    `Connecté en tant que <strong>${nick}</strong> (${niveau})`;
 </script>
 </body>
 </html>
