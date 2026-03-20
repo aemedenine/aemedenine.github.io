@@ -165,16 +165,7 @@ h1{
   transition:.2s;
   height:40px; /* يولي نفس الارتفاع */
 }
-  .input-area{
-  display:flex;
-  gap:6px;
-  align-items:center;
-}
-
-#message-input{
-  flex:3.5; /* textarea أكبر */
-}
-
+ 
 .chat-btn:hover{
   transform:translateY(-2px) scale(1.03);
   box-shadow:0 5px 20px rgba(0,255,224,0.4);
@@ -184,16 +175,6 @@ h1{
   background:linear-gradient(45deg,#00ffe0,#00c3ff);
   color:black;
   font-weight:bold;
-}
-
-emoji-picker{
-  display:none;
-  position:fixed;
-  bottom:80px;
-  right:20px;
-  width:280px;
-  height:320px;
-  z-index:999;
 }
 
 .image-btn{
@@ -238,7 +219,6 @@ footer{
   }
 }
   </style>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </head>
 <body>
 <div id="container">
@@ -261,12 +241,10 @@ footer{
     </div>
     <div class="input-area">
       <textarea id="message-input" placeholder="Message... (emojis + images)"></textarea>
-      <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis">😊</button>
       <button id="image-btn" class="chat-btn image-btn" title="Image">📎</button>
       <input type="file" id="image-upload" accept="image/*" style="display:none;">
-      <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
+     <button id="send-btn" class="chat-btn">⚡</button>
     </div>
-    <emoji-picker id="emoji-picker"></emoji-picker>
   </section>
 
   <footer>Atelier Électronique Médenine © 2026</footer>
@@ -297,12 +275,9 @@ footer{
   const messagesEl = document.getElementById("messages");
   const inputEl = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
-  const emojiBtn = document.getElementById("emoji-btn");
   const imageBtn = document.getElementById("image-btn");
   const imageInput = document.getElementById("image-upload");
   const errorEl = document.getElementById("error");
-  const emojiPicker = document.getElementById("emoji-picker");
-
   let currentUser = null;
 
   const params = new URLSearchParams(window.location.search);
@@ -340,18 +315,6 @@ footer{
       errorEl.textContent = "Déconnecté – recharge la page";
     }
   });
-
- emojiBtn.onclick = (e) => {
-  e.stopPropagation();
-  emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
-};
-
-document.addEventListener("click", () => {
-  emojiPicker.style.display = "none";
-});
-  emojiPicker.addEventListener("click", (e) => {
-  e.stopPropagation();
-});
 
   imageBtn.onclick = () => imageInput.click();
 
