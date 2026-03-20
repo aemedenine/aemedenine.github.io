@@ -22,8 +22,8 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  font-size: 13px; /* أصغر نص على الكل */
-  line-height: 1.3;
+  font-size: 14px; /* نص أكبر شوي على الكل */
+  line-height: 1.4;
   background-image: 
     radial-gradient(circle at 15% 50%, rgba(0,255,224,0.07) 0%, transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(255,60,106,0.05) 0%, transparent 35%);
@@ -32,70 +32,70 @@ body {
 #container { max-width: 1000px; margin: 0 auto; padding: 10px; }
 
 header { text-align: center; padding: 20px 0 10px; }
-h1 { font-size: 1.5rem; color: var(--primary); text-shadow: 0 0 15px var(--glow); margin-bottom: 0.2em; }
-#user-info { font-size: 0.8rem; font-weight: bold; }
+h1 { font-size: 1.7rem; color: var(--primary); text-shadow: 0 0 15px var(--glow); margin-bottom: 0.3em; }
+#user-info { font-size: 0.85rem; font-weight: bold; }
 
-.salons { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 15px 0; }
+.salons { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 20px 0; }
 .salon-card {
   background: var(--card);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(0,255,224,0.1);
   border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  padding: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
 }
-.salon-card h3 { font-size: 1rem; margin-bottom: 4px; }
-.salon-card p { font-size: 0.75rem; margin-bottom: 4px; }
-.salon-card small { font-size: 0.7rem; }
+.salon-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.salon-card p { font-size: 0.85rem; margin-bottom: 6px; }
+.salon-card small { font-size: 0.75rem; }
 
 #chat-section {
   background: rgba(15,15,35,0.65);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(0,255,224,0.1);
   border-radius: 10px;
-  padding: 10px;
-  margin: 15px 0;
+  padding: 12px;
+  margin: 20px 0;
 }
-#chat-section h2 { font-size: 1.1rem; margin-bottom: 10px; }
+#chat-section h2 { font-size: 1.2rem; margin-bottom: 12px; }
 
-#messages { max-height: 45vh; min-height: 150px; overflow-y: auto; margin-bottom: 10px; padding-right: 4px; font-size: 0.85rem; }
+#messages { max-height: 50vh; min-height: 180px; overflow-y: auto; margin-bottom: 12px; padding-right: 6px; font-size: 0.88rem; }
 
 .message {
-  margin: 4px 0;
-  padding: 6px 10px;
+  margin: 5px 0;
+  padding: 8px 12px;
   border-radius: 6px;
-  background: rgba(0,255,224,0.05);
+  background: rgba(0,255,224,0.07);
   border-left: 3px solid var(--primary);
-  font-size: 0.82rem;
-  line-height: 1.25;
+  font-size: 0.85rem;
+  line-height: 1.3;
 }
-.message strong { font-size: 0.85rem; }
-.message img { max-width: 160px; max-height: 180px; border-radius: 6px; margin-top: 4px; }
-.emoji { font-size: 1.1em; }
+.message strong { font-size: 0.88rem; }
+.message img { max-width: 180px; max-height: 200px; border-radius: 6px; margin-top: 6px; }
+.emoji { font-size: 1.2em; }
 
 .input-area {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   align-items: center;
 }
 
 #message-input {
-  flex: 3;           /* textarea تاخذ 3/4 */
-  padding: 6px 8px;
+  flex: 3;           
+  padding: 8px 10px;
   border-radius: 6px;
-  border: 1px solid rgba(0,255,224,0.15);
+  border: 1px solid rgba(0,255,224,0.2);
   background: rgba(10,10,25,0.75);
   color: white;
-  font-size: 0.82rem;
-  min-height: 60px;
-  max-height: 120px;
+  font-size: 0.85rem;
+  min-height: 70px;
+  max-height: 140px;
   resize: vertical;
 }
 
 .chat-btn {
-  flex: 1;           /* كل زر 1/4 */
-  padding: 4px 6px;
-  font-size: 0.78rem;
+  flex: 1;           
+  padding: 6px 8px;
+  font-size: 0.8rem;
   min-width: auto;
   border-radius: 6px;
   cursor: pointer;
@@ -103,29 +103,29 @@ h1 { font-size: 1.5rem; color: var(--primary); text-shadow: 0 0 15px var(--glow)
   text-align: center;
 }
 
-.chat-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,255,224,0.25); }
+.chat-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,255,224,0.25); }
 
 #send-btn { background: linear-gradient(45deg, #00ffe0, #00c3ff); color: black; }
 .emoji-btn { background: linear-gradient(45deg, #ffdd57, #ff9500); }
 .image-btn { background: linear-gradient(45deg, #ff3c6a, #ff9500); }
 
-#error { font-size: 0.75rem; margin: 4px 0; min-height: 1em; color: #ff6b6b; }
+#error { font-size: 0.78rem; margin: 4px 0; min-height: 1em; color: #ff6b6b; }
 
-footer { padding: 20px 10px; font-size: 0.7rem; text-align: center; }
+footer { padding: 20px 10px; font-size: 0.75rem; text-align: center; }
 
-emoji-picker { bottom: 60px; right: 10px; width: 260px; height: 300px; display: none; }
+emoji-picker { bottom: 70px; right: 10px; width: 280px; height: 320px; display: none; }
 
-/* ================= MOBILE + PC SMALL STYLE ================= */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 1000px) {
-  body { font-size: 12px; }
-  h1 { font-size: 1.4rem; }
-  #chat-section h2 { font-size: 1rem; }
-  #messages { font-size: 0.8rem; max-height: 45vh; }
-  .message { font-size: 0.78rem; padding: 5px 8px; border-radius: 5px; }
-  .message strong { font-size: 0.8rem; }
-  .message img { max-width: 150px; max-height: 160px; }
-  #message-input { font-size: 0.78rem; min-height: 50px; }
-  .chat-btn { font-size: 0.75rem; padding: 4px 6px; }
+  body { font-size: 13px; }
+  h1 { font-size: 1.5rem; }
+  #chat-section h2 { font-size: 1.1rem; }
+  #messages { font-size: 0.82rem; max-height: 45vh; }
+  .message { font-size: 0.8rem; padding: 6px 10px; border-radius: 5px; }
+  .message strong { font-size: 0.82rem; }
+  .message img { max-width: 160px; max-height: 180px; }
+  #message-input { font-size: 0.82rem; min-height: 60px; }
+  .chat-btn { font-size: 0.78rem; padding: 5px 6px; }
   #send-btn, .emoji-btn, .image-btn { flex: 1; }
   .input-area { gap: 4px; }
 }
