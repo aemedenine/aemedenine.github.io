@@ -1,252 +1,196 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Atelier – Discussion en direct ⚡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>اتيليي – شات مباشر ⚡</title>
   <style>
     :root {
-      --bg: #070710;
-      --card: rgba(20,20,40,0.65);
-      --primary: #00ffe0;
-      --accent: #ff3c6a;
-      --text: #e6faff;
-      --gray: #8aa0b3;
-      --glow: rgba(0,255,224,0.5);
+      --bg: #05050f;
+      --card: rgba(18,18,38,0.7);
+      --primary: #00ffcc;
+      --accent: #ff3366;
+      --text: #f0faff;
+      --gray: #88a0b5;
+      --glow: rgba(0,255,204,0.45);
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
-
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      background-image:
-        radial-gradient(circle at 15% 50%, rgba(0,255,224,0.08) 0%, transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(255,60,106,0.06) 0%, transparent 35%);
+      overscroll-behavior: none;
+      touch-action: manipulation;
     }
-
     #container {
-      max-width: 1200px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 12px;
     }
-
     header {
       text-align: center;
-      padding: 50px 0 30px;
+      padding: 28px 0 16px;
     }
-
     h1 {
-      font-size: 3rem;
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
       color: var(--primary);
-      text-shadow: 0 0 30px var(--glow), 0 0 60px rgba(0,255,224,0.2);
-      margin-bottom: 0.4em;
-      animation: glow 2.5s infinite alternate;
+      text-shadow: 0 0 20px var(--glow);
+      margin-bottom: 0.5em;
+      animation: pulse 3s infinite alternate;
     }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #00ffe0; }
-      to   { text-shadow: 0 0 30px #00ffe0, 0 0 60px rgba(0,255,224,0.3); }
+    @keyframes pulse {
+      from { opacity: 0.92; }
+      to   { opacity: 1; }
     }
-
     #user-info {
+      font-size: 1.1rem;
       color: var(--primary);
-      font-weight: bold;
-      font-size: 1.2rem;
-      text-shadow: 0 0 12px var(--glow);
+      text-shadow: 0 0 10px var(--glow);
     }
-
-    .salons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin: 40px 0;
-    }
-
-    .salon-card {
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,255,224,0.12);
-      border-radius: 16px;
-      padding: 24px;
-      transition: all 0.25s ease;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-    }
-
-    .salon-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(0,255,224,0.35);
-      box-shadow: 0 16px 48px rgba(0,255,224,0.15);
-    }
-
-    .salon-card h3 {
-      color: var(--primary);
-      margin-bottom: 12px;
-      font-size: 1.45rem;
-      text-shadow: 0 0 10px rgba(0,255,224,0.4);
-    }
-
-    .salon-card p  { color: #c0e0ff; margin-bottom: 10px; line-height: 1.45; }
-    .salon-card small { color: var(--gray); font-size: 0.9rem; }
-
-    /* ── CHAT ZONE ── */
     #chat-section {
-      background: rgba(15,15,35,0.7);
+      background: var(--card);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,255,224,0.1);
+      border: 1px solid rgba(0,255,204,0.15);
       border-radius: 16px;
-      padding: 24px;
-      margin: 40px 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      padding: 16px;
+      margin: 16px 0 80px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
-
-    #chat-section h2 {
-      color: var(--primary);
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px var(--glow);
-    }
-
     #messages {
-      max-height: 420px;
+      max-height: 55vh;
       overflow-y: auto;
-      margin-bottom: 20px;
-      padding-right: 8px;
+      padding-right: 6px;
+      margin-bottom: 16px;
+      scroll-behavior: smooth;
     }
-
     .message {
-      margin: 10px 0;
+      margin: 12px 0;
       padding: 12px 16px;
-      border-radius: 10px;
-      background: rgba(0,255,224,0.08);
-      border-left: 4px solid var(--primary);
-      line-height: 1.5;
+      border-radius: 14px;
+      background: rgba(0,255,204,0.07);
+      border-right: 4px solid var(--primary); /* rtl */
+      line-height: 1.45;
+      font-size: 1.05rem;
     }
-
     .message strong {
       color: var(--primary);
-      text-shadow: 0 0 8px var(--glow);
     }
-
-    #message-input {
-      width: 100%;
-      padding: 14px;
+    .message img {
+      max-width: 100%;
       border-radius: 10px;
-      border: 1px solid rgba(0,255,224,0.2);
-      background: rgba(10,10,25,0.7);
+      margin: 8px 0 4px;
+      box-shadow: 0 4px 16px #0008;
+      display: block;
+    }
+    .input-zone {
+      position: fixed;
+      bottom: 0;
+      left: 0; right: 0;
+      background: rgba(10,10,25,0.92);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(0,255,204,0.18);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+    }
+    #message-input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(0,255,204,0.25);
+      background: rgba(20,20,40,0.7);
       color: white;
       font-size: 1.05rem;
-      margin-bottom: 12px;
-    }
-
-    #message-input:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 12px rgba(0,255,224,0.4);
     }
-
-    #send-btn {
-      padding: 14px 32px;
+    #message-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,255,204,0.3);
+    }
+    .action-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
       border: none;
-      border-radius: 10px;
-      background: linear-gradient(45deg, #00ffe0, #00c3ff);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,255,204,0.15);
+      color: var(--primary);
+      transition: all 0.2s;
+    }
+    .action-btn:hover, .action-btn:active {
+      background: var(--primary);
+      color: #000;
+      transform: scale(1.08);
+    }
+    #send-btn {
+      background: linear-gradient(45deg, #00ffcc, #00aaff);
       color: black;
       font-weight: bold;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.25s;
+      font-size: 1rem;
+      padding: 0 24px;
+      border-radius: 50px;
+      width: auto;
+      height: 48px;
     }
-
-    #send-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0,255,224,0.5);
+    #send-btn:disabled {
+      opacity: 0.4;
+      pointer-events: none;
     }
-
     #error {
       color: var(--accent);
       text-align: center;
-      margin: 10px 0;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 60px 20px 40px;
-      color: var(--gray);
+      margin: 8px 0;
       font-size: 0.95rem;
-      border-top: 1px solid rgba(0,255,224,0.08);
     }
-
-    #user-info strong {
-      color: var(--primary);
-      text-shadow: 0 0 15px var(--glow);
+    @media (max-width: 500px) {
+      .input-zone { padding: 10px 12px; gap: 10px; }
+      #message-input { font-size: 1rem; padding: 10px 14px; }
+      .action-btn { width: 44px; height: 44px; font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
+
 <div id="container">
   <header>
-    <h1>Atelier Électronique – En direct ⚡</h1>
-    <div id="user-info">Chargement...</div>
+    <h1>اتيليي الكترونيك – شات مباشر ⚡</h1>
+    <div id="user-info">جاي نحمل...</div>
   </header>
 
-  <section class="salons">
-    <div class="salon-card">
-      <h3>#atelier-general</h3>
-      <p>Bienvenue, intros, entraide général</p>
-      <small>~35 connectés</small>
-    </div>
-    <div class="salon-card">
-      <h3>#reparation-pannes</h3>
-      <p>Photos de cartes mortes, diagnostic</p>
-      <small>~120 connectés</small>
-    </div>
-    <div class="salon-card">
-      <h3>#projets-diy</h3>
-      <p>Montre tes montages</p>
-      <small>~85 connectés</small>
-    </div>
-    <!-- Ajoute d'autres salons si tu veux -->
+  <section id="chat-section">
+    <div id="error"></div>
+    <div id="messages"></div>
   </section>
+</div>
 
-<!-- VRAI CHAT ICI (remplace l'ancien #chat-section) -->
-<section id="chat-section">
-  <h2>Zone de discussion ⚡</h2>
-  <div id="error"></div>
-  <div id="messages"></div>
+<div class="input-zone">
+  <input type="text" id="message-input" placeholder="صورة + كلمتين / إيموجي فقط ..." />
 
-  <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px;">
-    <!-- Input message -->
-    <input type="text" id="message-input" placeholder="Écris ton message ici... (ex: Besoin schéma alim ATX svp)" style="flex: 1;">
+  <button id="emoji-btn" class="action-btn" title="إيموجي">😄</button>
 
-    <!-- Bouton emoji -->
-    <button id="emoji-btn" title="Ajouter un emoji" style="background:none; border:none; cursor:pointer; font-size:1.6rem; padding:8px; opacity:0.8;">
-      😊
-    </button>
+  <label for="image-upload" class="action-btn" title="صورة">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <circle cx="8.5" cy="8.5" r="1.5"/>
+      <path d="M21 15L16 10l-5 5-3-3-5 5"/>
+    </svg>
+  </label>
+  <input type="file" id="image-upload" accept="image/*" style="display:none;">
 
-    <!-- Bouton upload image -->
-    <label for="image-upload" title="Joindre une image" style="cursor:pointer; display:flex; align-items:center; padding:8px; opacity:0.8;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="#00ffe0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M17 8L12 3L7 8" stroke="#00ffe0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 3V15" stroke="#00ffe0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </label>
-    <input type="file" id="image-upload" accept="image/*" style="display:none;">
-
-    <!-- Bouton envoyer -->
-    <button id="send-btn">ENVOYER ⚡</button>
-  </div>
-</section>
-  <footer>Atelier Électronique – Tunis & le monde entier © 2026</footer>
+  <button id="send-btn" disabled>ارسل ⚡</button>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getAuth, signInAnonymously, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtbEWdm7CAC25ROslGlVeLOvfxdi2exVo",
@@ -262,144 +206,113 @@
   const auth = getAuth(app);
   const db = getDatabase(app);
 
-  // ── ELEMENTS ──
   const userInfo = document.getElementById("user-info");
   const messagesEl = document.getElementById("messages");
   const inputEl = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
   const errorEl = document.getElementById("error");
+  const emojiBtn = document.getElementById("emoji-btn");
+  const imageInput = document.getElementById("image-upload");
 
   let currentUser = null;
 
-  // Récup params URL (depuis index.html)
   const params = new URLSearchParams(window.location.search);
-  const urlNick = params.get("nick") || "Anonyme";
-  const urlNiveau = params.get("niveau") || "?";
+  const nick = params.get("nick") || "زائر";
+  const niveau = params.get("niveau") || "";
 
-  // Affichage user connecté
-  userInfo.innerHTML = `Connecté en tant que <strong>${urlNick}</strong> (${urlNiveau})`;
+  userInfo.innerHTML = `متصل بإسم <strong>${nick}</strong> ${niveau ? `(${niveau})` : ""}`;
 
-  // Login auto (anonymous)
-  async function ensureLoggedIn() {
+  async function login() {
     if (!auth.currentUser) {
       const cred = await signInAnonymously(auth);
       currentUser = cred.user;
-      if (urlNick !== "Anonyme") {
-        await updateProfile(currentUser, { displayName: urlNick });
-      }
+      if (nick !== "زائر") await updateProfile(currentUser, { displayName: nick });
     } else {
       currentUser = auth.currentUser;
     }
   }
 
-  // Envoi message
+  function canSend() {
+    const hasImage = !!imageInput.files?.[0];
+    const hasText  = inputEl.value.trim().length > 0;
+    sendBtn.disabled = !hasImage;
+    sendBtn.textContent = hasImage ? "ارسل الصورة ⚡" : "ارسل ⚡";
+  }
+
+  inputEl.addEventListener("input", canSend);
+  imageInput.addEventListener("change", canSend);
+
   sendBtn.onclick = async () => {
-    const text = inputEl.value.trim();
-    if (!text) return errorEl.textContent = "Écris quelque chose voyons !";
+    const file = imageInput.files?.[0];
+    if (!file) {
+      errorEl.textContent = "لازم صورة يا خويا !";
+      return;
+    }
 
-    errorEl.textContent = "";
-    try {
-      await ensureLoggedIn();
+    errorEl.textContent = "جاي نحمل الصورة...";
+    sendBtn.disabled = true;
 
-      const msgRef = push(ref(db, "messages"));
-      await set(msgRef, {
-        text: text,
-        name: currentUser.displayName || urlNick,
-        niveau: urlNiveau,
-        uid: currentUser.uid,
-        time: Date.now()
-      });
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        await login();
+        const msgRef = push(ref(db, "messages"));
+        await set(msgRef, {
+          type: "image",
+          image: reader.result,
+          text: inputEl.value.trim() || null,
+          name: currentUser.displayName || nick,
+          niveau,
+          uid: currentUser.uid,
+          time: Date.now()
+        });
 
-      inputEl.value = "";
-    } catch (err) {
-      console.error(err);
-      errorEl.textContent = "Erreur : " + err.message;
+        inputEl.value = "";
+        imageInput.value = "";
+        errorEl.textContent = "";
+        canSend();
+      } catch (err) {
+        errorEl.textContent = "فماكش: " + err.message;
+        console.error(err);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  emojiBtn.onclick = () => {
+    const emoji = prompt("حط إيموجي هنا", "🔥💡🛠️");
+    if (emoji && emoji.trim()) {
+      inputEl.value += emoji + " ";
+      inputEl.focus();
+      canSend();
     }
   };
 
-  // Affichage messages en temps réel
-  const messagesRef = ref(db, "messages");
-  onValue(messagesRef, (snap) => {
+  // Affichage messages
+  onValue(ref(db, "messages"), snap => {
     messagesEl.innerHTML = "";
     const msgs = [];
-    snap.forEach(child => {
-      const msg = child.val();
-      msgs.push(msg);
+    snap.forEach(c => msgs.push(c.val()));
+    msgs.sort((a,b) => a.time - b.time);
+
+    msgs.forEach(msg => {
+      const div = document.createElement("div");
+      div.className = "message";
+      let html = `<strong>${msg.name}${msg.niveau ? ` (${msg.niveau})` : ""} :</strong> `;
+
+      if (msg.type === "image" && msg.image) {
+        html += `<img src="${msg.image}" alt="صورة">`;
+        if (msg.text) html += `<br><span style="opacity:0.9">${msg.text}</span>`;
+      } else {
+        html += msg.text || "";
+      }
+
+      div.innerHTML = html;
+      messagesEl.appendChild(div);
     });
 
-    // Tri par temps (plus ancien en haut)
-msgs.forEach(msg => {
-  const el = document.createElement("div");
-  el.className = "message";
-
-  let content = `<strong>${niveauTag}${msg.name} :</strong> `;
-
-  if (msg.type === "image" && msg.image) {
-    content += `<br><img src="${msg.image}" alt="Image envoyée" style="max-width:100%; border-radius:10px; margin-top:8px; box-shadow:0 4px 12px rgba(0,0,0,0.5);">`;
-    if (msg.text) content += `<br>${msg.text}`;
-  } else {
-    content += msg.text;
-  }
-
-  el.innerHTML = content;
-  messagesEl.appendChild(el);
-});
-    // Scroll auto bas
     messagesEl.scrollTop = messagesEl.scrollHeight;
   });
-  // ── NOUVEAUX ELEMENTS ──
-const emojiBtn   = document.getElementById("emoji-btn");
-const imageInput = document.getElementById("image-upload");
-
-// ── EMOJI (simple prompt pour l'instant – picker natif ou custom plus tard) ──
-emojiBtn.onclick = () => {
-  const emoji = prompt("Colle un emoji ici 😄 (ou choisis-en un)", "🔥");
-  if (emoji && emoji.trim()) {
-    inputEl.value += emoji + " ";
-    inputEl.focus();
-  }
-};
-
-// ── UPLOAD IMAGE (preview + envoi comme message pour l'instant) ──
-imageInput.onchange = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  if (!file.type.startsWith('image/')) {
-    errorEl.textContent = "Seulement images svp !";
-    return;
-  }
-
-  // Preview simple (optionnel : afficher dans chat plus tard)
-  const reader = new FileReader();
-  reader.onload = async () => {
-    const base64 = reader.result; // data:image/jpeg;base64,...
-
-    errorEl.textContent = "Envoi image...";
-    try {
-      await ensureLoggedIn();
-
-      const msgRef = push(ref(db, "messages"));
-      await set(msgRef, {
-        type: "image",
-        image: base64,               // stocke base64 (limite ~1MB ok pour test)
-        text: inputEl.value.trim(),  // texte optionnel + image
-        name: currentUser.displayName || urlNick,
-        niveau: urlNiveau,
-        uid: currentUser.uid,
-        time: Date.now()
-      });
-
-      inputEl.value = "";
-      errorEl.textContent = "";
-    } catch (err) {
-      console.error(err);
-      errorEl.textContent = "Erreur upload : " + err.message;
-    }
-  };
-  reader.readAsDataURL(file);
-  e.target.value = ""; // reset input file
-};
 </script>
 </body>
 </html>
