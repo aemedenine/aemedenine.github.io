@@ -190,14 +190,20 @@
     </div>
 
     <div class="input-area">
-      <textarea id="message-input" placeholder="Message... (emojis + images)"></textarea>
-      <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis">😊</button>
-      <button id="image-btn" class="chat-btn image-btn" title="Image">📎</button>
-      <input type="file" id="image-upload" accept="image/*" style="display:none;">
-      <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
-    </div>
+  <textarea 
+    id="message-input" 
+    placeholder="Écris ton message... (Enter pour envoyer)" 
+    rows="2"></textarea>
 
-    <emoji-picker id="emoji-picker"></emoji-picker>
+  <div style="display:flex; gap:8px; width:100%; justify-content:space-between;">
+    <button id="emoji-btn" class="chat-btn emoji-btn" title="Emojis 😊" aria-label="Ouvrir emojis">😊</button>
+    <button id="image-btn" class="chat-btn image-btn" title="Ajouter une image 📎" aria-label="Uploader image">📎</button>
+    <button id="send-btn" class="chat-btn">ENVOYER ⚡</button>
+  </div>
+
+  <input type="file" id="image-upload" accept="image/*" style="display:none;">
+  <emoji-picker id="emoji-picker"></emoji-picker>
+</div>
   </section>
 
   <footer>Atelier Électronique Médenine © 2026</footer>
