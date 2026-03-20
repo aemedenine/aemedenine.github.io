@@ -128,13 +128,17 @@ emoji-picker { bottom: 65px; right: 12px; width: 280px; height: 340px; display: 
     border-radius: 6px;
   }
   .chat-btn {
-    padding: 6px 10px;
-    font-size: 0.84rem;
-    min-width: 40px;
+    padding: 4px 8px;      /* أصغر الزر العام */
+    font-size: 0.78rem;    /* تصغير الكتابة */
+    min-width: 32px;       /* عرض أصغر */
     border-radius: 6px;
   }
-  #send-btn { padding: 6px 12px; }
-  .emoji-btn, .image-btn { padding: 6px 10px; font-size: 0.84rem; }
+  #send-btn {
+    padding: 4px 8px;      /* أصغر Envoyer */
+    font-size: 0.78rem;
+    min-width: 32px;
+  }
+  .emoji-btn, .image-btn { padding: 4px 8px; font-size: 0.78rem; }
 }
 </style>
   <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
