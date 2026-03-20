@@ -5,136 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Atelier – Discussion en direct ⚡</title>
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-    body {
-      background: linear-gradient(135deg, #020617, #0f172a, #020617);
-      color: #e2e8f0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    header {
-      padding: 16px;
-      text-align: center;
-      font-size: 22px;
-      background: #020617;
-      border-bottom: 1px solid #38bdf8;
-    }
-    .login {
-      text-align: center;
-      margin: 80px auto;
-    }
-    .login button {
-      padding: 14px 40px;
-      border: none;
-      border-radius: 50px;
-      background: #38bdf8;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .message {
-      display: flex;
-      gap: 10px;
-      max-width: 80%;
-      background: #1e293b;
-      padding: 10px 14px;
-      border-radius: 15px;
-      word-break: break-word;
-    }
-    .me {
-      margin-left: auto;
-      background: #38bdf8;
-      color: #020617;
-    }
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-    .avatar-letter {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #64748b;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .text b {
-      color: #38bdf8;
-      font-size: 13px;
-    }
-    .me .text b {
-      color: #020617;
-    }
-    .chat-input {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      background: #020617;
-      gap: 8px;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 12px 16px;
-      border: none;
-      border-radius: 999px;
-      background: #1e293b;
-      color: white;
-      font-size: 15px;
-    }
-    .emoji-btn, .photo-btn {
-      font-size: 24px;
-      cursor: pointer;
-      padding: 8px;
-    }
-    .chat-input button {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 999px;
-      background: #38bdf8;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .message img {
-      max-width: 220px;
-      border-radius: 10px;
-      margin-top: 6px;
-      display: block;
-    }
-    #preview-container {
-      margin: 8px 0;
-      max-width: 220px;
-    }
-    #preview-img {
-      max-width: 100%;
-      border-radius: 10px;
-      border: 2px solid #38bdf8;
-    }
-    #emoji-picker {
-      position: absolute;
-      bottom: 70px;
-      right: 20px;
-      z-index: 100;
-      display: none;
-    }
+   :root {
+  --bg: #070710;
+  --card: rgba(20,20,40,0.65);
+  --primary: #00ffe0;
+  --accent: #ff3c6a;
+  --text: #e6faff;
+  --gray: #8aa0b3;
+  --glow: rgba(0,255,224,0.5);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px; /* نص أكبر شوي على الكل */
+  line-height: 1.4;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(0,255,224,0.07) 0%, transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(255,60,106,0.05) 0%, transparent 35%);
+}
+
+#container { max-width: 1000px; margin: 0 auto; padding: 10px; }
+
+header { text-align: center; padding: 20px 0 10px; }
+h1 { font-size: 1.7rem; color: var(--primary); text-shadow: 0 0 15px var(--glow); margin-bottom: 0.3em; }
+#user-info { font-size: 0.85rem; font-weight: bold; }
+
+.salons { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 20px 0; }
+.salon-card {
+  background: var(--card);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0,255,224,0.1);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+}
+.salon-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.salon-card p { font-size: 0.85rem; margin-bottom: 6px; }
+.salon-card small { font-size: 0.75rem; }
+
+#chat-section {
+  background: rgba(15,15,35,0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0,255,224,0.1);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 20px 0;
+}
+#chat-section h2 { font-size: 1.2rem; margin-bottom: 12px; }
+
+#messages { max-height: 50vh; min-height: 180px; overflow-y: auto; margin-bottom: 12px; padding-right: 6px; font-size: 0.88rem; }
+
+.message {
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(0,255,224,0.07);
+  border-left: 3px solid var(--primary);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+.message strong { font-size: 0.88rem; }
+.message img { max-width: 180px; max-height: 200px; border-radius: 6px; margin-top: 6px; }
+.emoji { font-size: 1.2em; }
+
+.input-area {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+#message-input {
+  flex: 3;           
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,255,224,0.2);
+  background: rgba(10,10,25,0.75);
+  color: white;
+  font-size: 0.85rem;
+  min-height: 70px;
+  max-height: 140px;
+  resize: vertical;
+}
+
+.chat-btn {
+  flex: 1;           
+  padding: 6px 8px;
+  font-size: 0.8rem;
+  min-width: auto;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.chat-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,255,224,0.25); }
+
+#send-btn { background: linear-gradient(45deg, #00ffe0, #00c3ff); color: black; }
+.emoji-btn { background: linear-gradient(45deg, #ffdd57, #ff9500); }
+.image-btn { background: linear-gradient(45deg, #ff3c6a, #ff9500); }
+
+#error { font-size: 0.78rem; margin: 4px 0; min-height: 1em; color: #ff6b6b; }
+
+footer { padding: 20px 10px; font-size: 0.75rem; text-align: center; }
+
+emoji-picker { bottom: 70px; right: 10px; width: 280px; height: 320px; display: none; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1000px) {
+  body { font-size: 13px; }
+  h1 { font-size: 1.5rem; }
+  #chat-section h2 { font-size: 1.1rem; }
+  #messages { font-size: 0.82rem; max-height: 45vh; }
+  .message { font-size: 0.8rem; padding: 6px 10px; border-radius: 5px; }
+  .message strong { font-size: 0.82rem; }
+  .message img { max-width: 160px; max-height: 180px; }
+  #message-input { font-size: 0.82rem; min-height: 60px; }
+  .chat-btn { font-size: 0.78rem; padding: 5px 6px; }
+  #send-btn, .emoji-btn, .image-btn { flex: 1; }
+  .input-area { gap: 4px; }
+}
   </style>
   <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </head>
