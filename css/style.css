@@ -115,6 +115,34 @@ body{
   font-weight: 700;
   color: #ffffff;
 }
+/* ================= LIVE CLOCK 2026 ================= */
+.live-clock {
+  font-size: 15px;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56,189,248,0.12);
+  padding: 8px 16px;
+  border-radius: 30px;
+  white-space: nowrap;
+  min-width: 240px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(56,189,248,0.2);
+  transition: all 0.3s;
+}
+
+.live-clock:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(56,189,248,0.4);
+}
+
+/* mobile fix */
+@media (max-width: 768px) {
+  .live-clock {
+    font-size: 13px;
+    padding: 6px 12px;
+    min-width: 200px;
+  }
+}
 /* ===============================
    LOGIN BUTTON
 =================================*/
