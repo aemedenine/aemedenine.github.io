@@ -81,7 +81,7 @@
       box-shadow: 0 10px 30px rgba(56,189,248,0.5);
     }
 
-    /* Modal styles (inchangés) */
+    /* Modal (inchangé) */
     .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2000; }
     .modal.active { display: flex; }
     .modal-content { background: rgba(30,41,59,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(56,189,248,0.3); border-radius: 16px; padding: 35px; max-width: 520px; width: 92%; text-align: center; }
@@ -103,7 +103,7 @@
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ================= HEADER NADHEM ================= -->
 <header class="header">
   <div class="logo">
     <div class="logo-img">
@@ -119,19 +119,19 @@
     <span></span>
   </div>
 
-  <!-- Desktop Nav (visible sur grand écran) -->
-  <nav class="nav">
+  <!-- Desktop Nav (toujours visible sur grand écran) -->
+  <nav class="nav desktop-nav">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="radio-codes.html" class="active">Code Radio</a>
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
 
-    <!-- User avatar + login (desktop) -->
-    <div id="userBoxDesktop" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
-      <img id="userAvatarDesktop" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
+    <!-- User avatar + login (desktop seulement) -->
+    <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
+      <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
-    <button class="login-btn" id="loginBtnDesktop" style="margin-left: 15px;">
+    <button class="login-btn" id="loginBtn" style="margin-left: 15px;">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
       Login
     </button>
@@ -145,7 +145,7 @@
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
 
-    <!-- User avatar + login (mobile menu) -->
+    <!-- User avatar + login (mobile menu seulement) -->
     <div id="userBoxMobile" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin: 15px 0;">
       <img id="userAvatarMobile" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
@@ -263,7 +263,7 @@
 
 <!-- ================= SCRIPT CODE RADIO ================= -->
 <script>
-// Hamburger menu toggle
+// Hamburger toggle (mobile only)
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 hamburger?.addEventListener('click', () => {
@@ -271,7 +271,7 @@ hamburger?.addEventListener('click', () => {
   mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
 });
 
-// Close mobile menu when clicking a link
+// Close mobile menu on link click
 document.querySelectorAll('.mobile-menu a, .mobile-menu .login-btn')?.forEach(el => {
   el.addEventListener('click', () => {
     hamburger.classList.remove('active');
