@@ -1,115 +1,257 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calcul Puissance | Atelier Électronique Médenine</title>
-<link rel="icon" href="images/favicon.png">
-<style>
-/* =============================== RESET =============================== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:#0f172a;color:white;line-height:1.6;}
-header{display:flex;justify-content:space-between;align-items:center;padding:15px 8%;background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);position:sticky;top:0;z-index:1000;}
-.logo{display:flex;align-items:center;gap:15px;}
-.logo-img{width:60px;height:60px;border-radius:50%;border:3px solid #38bdf8;padding:5px;background:rgba(255,255,255,0.05);box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:0.3s;}
-.logo-img:hover{transform:scale(1.1);box-shadow:0 8px 25px rgba(0,0,0,0.5);}
-.logo h1{font-size:24px;font-weight:700;color:#fff;letter-spacing:1px;}
-.nav{display:flex;align-items:center;gap:25px;}
-.nav a{color:white;text-decoration:none;font-weight:500;transition:0.3s;}
-.nav a:hover{color:#38bdf8;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcul Puissance | Atelier Électronique Médenine</title>
+  <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css">  <!-- ton CSS commun -->
 
-/* =============================== CALC BOX =============================== */
-.calc-power{padding:80px 8%;text-align:center;}
-.calc-power h2{font-size:36px;color:#38bdf8;margin-bottom:40px;}
-.power-box{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(8px);
-border-radius:20px;
-padding:30px;
-max-width:500px;
-margin: 0 auto 40px;
-position:relative;
-overflow:hidden;
-transition: transform 0.4s, box-shadow 0.4s;
-}
-.power-box::before{
-content:'';
-position:absolute;
-top:0;left:-75%;width:50%;height:100%;
-background:linear-gradient(120deg, rgba(255,255,255,0.15), rgba(255,255,255,0), rgba(255,255,255,0.15));
-transform:skewX(-20deg);
-transition:0.5s;
-}
-.power-box:hover::before{left:125%;}
-.power-box:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 15px 35px rgba(56,189,248,0.7),0 0 20px rgba(56,189,248,0.5) inset,0 0 25px rgba(56,189,248,0.3);}
-.power-box label{display:block;text-align:left;margin:15px 0 5px;font-weight:500;color:#cbd5f5;}
-.power-box input{width:100%;padding:12px;border-radius:10px;border:none;background:rgba(255,255,255,0.05);color:white;font-size:16px;margin-bottom:10px;}
-.power-box button{padding:12px;border:none;border-radius:50px;background:#38bdf8;color:black;font-weight:600;cursor:pointer;transition:0.3s;position:relative;z-index:1;}
-.power-box button::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,#38bdf8,#0ea5e9,#06b6d4,#38bdf8);filter:blur(10px);opacity:0;transition:0.3s;border-radius:50px;z-index:-1;}
-.power-box button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(56,189,248,0.5);}
-.power-box button:hover::after{opacity:0.7;}
-.result{margin-top:20px;font-size:20px;color:#38bdf8;font-weight:600;}
-</style>
+  <style>
+    /* Style spécifique page puissance – adapté au style global glassy/futuristic */
+    .calc-power {
+      padding: 120px 8% 100px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .calc-power h2 {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 60px;
+      color: #38bdf8;
+    }
+    .power-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 35px;
+    }
+    .power-box {
+      background: rgba(30,41,59,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56,189,248,0.18);
+      border-radius: 16px;
+      padding: 35px 30px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .power-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(56,189,248,0.4);
+      border-color: #38bdf8;
+    }
+    .power-box h3 {
+      color: #38bdf8;
+      font-size: 24px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .power-box label {
+      display: block;
+      text-align: left;
+      margin: 15px 0 8px;
+      font-weight: 500;
+      color: #cbd5f5;
+    }
+    .power-box input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 17px;
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: white;
+      transition: border-color 0.3s;
+    }
+    .power-box input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+    }
+    .power-box button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+      background-size: 200% 100%;
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.35s;
+      animation: gradientFlow 5s linear infinite;
+    }
+    .power-box button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(56,189,248,0.5);
+    }
+    .result {
+      margin-top: 25px;
+      font-size: 21px;
+      font-weight: 600;
+      color: #a5b4fc;
+      text-align: center;
+      min-height: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .calc-power { padding: 90px 6% 70px; }
+      .calc-power h2 { font-size: 32px; }
+      .power-grid { gap: 25px; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-<div class="logo">
-<img src="images/logo.png" alt="Logo" class="logo-img">
-<h1>Atelier Électronique Médenine</h1>
-</div>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="contact.html">Contact</a>
-</nav>
+<!-- ================= HEADER (exactement kif index.html) ================= -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-img">
+      <img src="images/logo.png" alt="Logo">
+    </div>
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+  
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+    
+    <!-- User avatar (clicable → profile) -->
+    <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer;">
+      <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
+    </div>
+    
+    <button class="login-btn">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
+      Login
+    </button>
+  </nav>
 </header>
 
+<!-- Profile Modal -->
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:420px; width:90%; text-align:center;">
+    <img id="profileAvatar" src="" width="90" height="90" style="border-radius:50%; margin-bottom:16px; border:3px solid #38bdf8;">
+    <h2 id="profileName"></h2>
+    <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
+    <p>Visites: <span id="profileVisits">0</span></p>
+    <button id="logoutBtn" style="margin:20px 0 10px; background:#ef4444; color:white; border:none; padding:12px 28px; border-radius:30px; cursor:pointer; font-weight:600;">
+      Logout
+    </button>
+    <button id="closeProfile" style="background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
+  </div>
+</div>
+
+<!-- Login Popup -->
+<div id="login-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); flex-direction:column; justify-content:center; align-items:center; z-index:9999;">
+  <button id="close-login" style="position:absolute; top:20px; right:30px; background:none; color:#38bdf8; font-size:28px; border:none; cursor:pointer;">×</button>
+  <button class="login-submit" style="background:#38bdf8; color:#000; padding:14px 32px; border:none; border-radius:50px; font-weight:700; font-size:18px; display:flex; align-items:center; gap:12px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" style="width:24px;height:24px;">
+    Se connecter avec Google
+  </button>
+</div>
+
+<!-- Online Users Mini Box -->
+<div id="onlineBox">
+  <div class="online-header">Online:</div>
+  <div class="online-users-mini" id="onlineMini"></div>
+</div>
+
+<!-- ================= CALCUL PUISSANCE ================= -->
 <section class="calc-power">
-<h2>Calcul Puissance Électrique</h2>
+  <h2>Calcul Puissance Électrique</h2>
+  
+  <div class="power-grid">
 
-<!-- ================= Puissance DC ================= -->
-<div class="power-box">
-<h3>Courant Continu (DC)</h3>
-<label>Tension (U en Volts):</label>
-<input type="number" id="voltageDC" placeholder="Ex: 12">
-<label>Intensité (I en Ampères):</label>
-<input type="number" id="currentDC" placeholder="Ex: 2">
-<button onclick="calcDC()">Calculer Puissance</button>
-<div class="result" id="resultDC">Puissance: —</div>
-</div>
+    <!-- Puissance DC -->
+    <div class="power-box">
+      <h3>Courant Continu (DC)</h3>
+      <label>Tension (U en Volts):</label>
+      <input type="number" id="voltageDC" placeholder="Ex: 12" step="any">
+      <label>Intensité (I en Ampères):</label>
+      <input type="number" id="currentDC" placeholder="Ex: 2" step="any">
+      <button onclick="calcDC()">Calculer Puissance</button>
+      <div class="result" id="resultDC">Puissance : —</div>
+    </div>
 
-<!-- ================= Puissance AC ================= -->
-<div class="power-box">
-<h3>Courant Alternatif (AC)</h3>
-<label>Tension (U en Volts):</label>
-<input type="number" id="voltageAC" placeholder="Ex: 230">
-<label>Intensité (I en Ampères):</label>
-<input type="number" id="currentAC" placeholder="Ex: 5">
-<label>Facteur de puissance (cos φ):</label>
-<input type="number" step="0.01" id="cosPhi" placeholder="Ex: 0.85">
-<button onclick="calcAC()">Calculer Puissance</button>
-<div class="result" id="resultAC">Puissance: —</div>
-</div>
+    <!-- Puissance AC -->
+    <div class="power-box">
+      <h3>Courant Alternatif (AC) – Puissance Active</h3>
+      <label>Tension (U en Volts):</label>
+      <input type="number" id="voltageAC" placeholder="Ex: 230" step="any">
+      <label>Intensité (I en Ampères):</label>
+      <input type="number" id="currentAC" placeholder="Ex: 5" step="any">
+      <label>Facteur de puissance (cos φ) :</label>
+      <input type="number" step="0.01" id="cosPhi" placeholder="Ex: 0.85" min="0" max="1">
+      <button onclick="calcAC()">Calculer Puissance</button>
+      <div class="result" id="resultAC">Puissance active : —</div>
+    </div>
 
+  </div>
 </section>
 
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-content">
+    <p class="copyright">© 2026 Atelier Électronique Médenine</p>
+    <div class="social-icons">
+      <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+      </a>
+      <a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+      </a>
+      <a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flottant -->
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
+
+<!-- ================= FIREBASE SCRIPTS ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- ================= SCRIPT JS COMMUN ================= -->
+<script src="js/script.js"></script>
+
+<!-- ================= CALCUL PUISSANCE JS ================= -->
 <script>
-function calcDC(){
-let U = parseFloat(document.getElementById("voltageDC").value);
-let I = parseFloat(document.getElementById("currentDC").value);
-if(isNaN(U) || isNaN(I)){document.getElementById("resultDC").innerText="Entrez des valeurs valides"; return;}
-let P = U * I;
-document.getElementById("resultDC").innerText="Puissance: "+P.toFixed(2)+" W";
+function calcDC() {
+  const U = parseFloat(document.getElementById("voltageDC").value);
+  const I = parseFloat(document.getElementById("currentDC").value);
+  
+  if (isNaN(U) || isNaN(I) || U <= 0 || I <= 0) {
+    document.getElementById("resultDC").innerText = "Entrez des valeurs positives valides";
+    return;
+  }
+  
+  const P = U * I;
+  document.getElementById("resultDC").innerText = `Puissance : ${P.toFixed(2)} W`;
 }
 
-function calcAC(){
-let U = parseFloat(document.getElementById("voltageAC").value);
-let I = parseFloat(document.getElementById("currentAC").value);
-let cosPhi = parseFloat(document.getElementById("cosPhi").value);
-if(isNaN(U) || isNaN(I) || isNaN(cosPhi)){document.getElementById("resultAC").innerText="Entrez des valeurs valides"; return;}
-let P = U * I * cosPhi;
-document.getElementById("resultAC").innerText="Puissance: "+P.toFixed(2)+" W";
+function calcAC() {
+  const U = parseFloat(document.getElementById("voltageAC").value);
+  const I = parseFloat(document.getElementById("currentAC").value);
+  const cosPhi = parseFloat(document.getElementById("cosPhi").value);
+  
+  if (isNaN(U) || isNaN(I) || isNaN(cosPhi) || U <= 0 || I <= 0 || cosPhi < 0 || cosPhi > 1) {
+    document.getElementById("resultAC").innerText = "Entrez des valeurs valides (cos φ entre 0 et 1)";
+    return;
+  }
+  
+  const P = U * I * cosPhi;
+  document.getElementById("resultAC").innerText = `Puissance active : ${P.toFixed(2)} W`;
 }
 </script>
 
