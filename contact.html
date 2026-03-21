@@ -94,7 +94,63 @@ transition:0.4s;
 .contact-img:hover{
 transform:scale(1.02);
 }
+/* ================= LOGO 2026 FIXED ================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
+.logo-img {
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+/* الصورة */
+.logo-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 🔵 الدائرة تدور (فوق logo) */
+.logo-img::after {
+  content: "";
+  position: absolute;
+  inset: -3px; /* حجم الدائرة */
+  border-radius: 50%;
+  background: conic-gradient(
+    #38bdf8,
+   #0ee9e1,
+    #38bdf8
+  );
+  animation: spinBorder 3s linear infinite;
+  z-index: 3;
+
+  /* نخليها ring موش مملية */
+  -webkit-mask: radial-gradient(circle, transparent 65%, black 66%);
+  mask: radial-gradient(circle, transparent 65%, black 66%);
+}
+
+/* hover */
+.logo-img:hover {
+  transform: scale(1.08);
+}
+
+/* animation */
+@keyframes spinBorder {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
 /* GPS BUTTON */
 
 .gps-btn{
