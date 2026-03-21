@@ -5,416 +5,377 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ | Atelier Électronique Médenine</title>
   <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css"> <!-- ton CSS commun -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
+
   <style>
-    /* ================= RESET & BASE ================= */
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif; }
-    body { background:#0f172a; color:white; line-height:1.6; }
-
-    /* ================= HEADER ================= */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 5%;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid #38bdf8;
-      padding: 4px;
-    }
-    .logo h1 {
-      font-size: 18px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    /* Hamburger (mobile only) */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      z-index: 1100;
-    }
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: white;
-      border-radius: 3px;
-      transition: 0.4s;
-    }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-
-    /* Nav links - BLANC fixe */
-    .nav {
-      display: none;
-      align-items: center;
-      gap: 25px;
-    }
-    .nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-    .nav a:hover, .nav a.active {
-      color: white;
-      text-decoration: underline;
-      transform: scale(1.03);
-    }
-
-    /* Mobile menu */
-    .mobile-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background: rgba(15,23,42,0.98);
-      backdrop-filter: blur(10px);
-      flex-direction: column;
-      align-items: center;
-      padding: 25px 0;
-      gap: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    }
-    .mobile-menu a {
-      color: white;
-      text-decoration: none;
-      font-size: 17px;
-      padding: 12px 30px;
-      width: 85%;
-      text-align: center;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-    .mobile-menu a:hover, .mobile-menu a.active {
-      background: rgba(56,189,248,0.15);
-    }
-
-    /* ================= PAGE CONTENT ================= */
+    /* ================= FAQ PAGE (adapté au thème global) ================= */
     .page-title {
       text-align: center;
-      font-size: 28px;
+      font-size: 38px;
       font-weight: 700;
-      margin: 100px 5% 40px;
+      margin: 120px 5% 40px;
       color: #38bdf8;
     }
-
     .lang-switch {
       display: flex;
-      gap: 12px;
+      gap: 15px;
       justify-content: center;
       margin: 0 5% 50px;
       flex-wrap: wrap;
     }
     .lang-switch button {
-      padding: 8px 16px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       cursor: pointer;
-      font-weight: 600;
-      background: #38bdf8;
+      font-weight: 700;
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+      background-size: 200% 100%;
       color: #000;
-      transition: 0.3s;
+      transition: all 0.35s;
+      animation: gradientFlow 5s linear infinite;
+      box-shadow: 0 4px 15px rgba(56,189,248,0.3);
     }
     .lang-switch button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(56,189,248,0.4);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(56,189,248,0.5);
     }
-
     .faq {
-      padding: 0 5% 80px;
-      max-width: 900px;
+      padding: 0 6% 100px;
+      max-width: 1000px;
       margin: auto;
       display: grid;
       gap: 20px;
     }
     .faq-item {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(8px);
+      background: rgba(30,41,59,0.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56,189,248,0.2);
       border-radius: 16px;
       overflow: hidden;
-      transition: 0.4s;
+      transition: all 0.4s ease;
     }
     .faq-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 10px 25px rgba(56,189,248,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(56,189,248,0.35);
+      border-color: #38bdf8;
     }
     .faq-question {
-      padding: 20px;
+      padding: 22px 25px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
       color: #38bdf8;
-      font-size: 18px;
+      font-size: 19px;
+      background: rgba(15,23,42,0.4);
     }
     .faq-question i {
-      font-size: 24px;
-      min-width: 30px;
+      font-size: 26px;
+      min-width: 35px;
+      text-align: center;
     }
     .faq-answer {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s ease, padding 0.5s ease;
-      padding: 0 20px;
+      padding: 0 25px;
       color: #cbd5e1;
-      font-size: 15px;
+      font-size: 16px;
+      line-height: 1.7;
     }
     .faq-item.active .faq-answer {
-      max-height: 600px;
-      padding: 0 20px 20px 20px;
+      max-height: 800px; /* assez grand pour tous les textes */
+      padding: 0 25px 25px 25px;
     }
 
-    /* Footer */
-    footer {
-      background: #020617;
-      color: #94a3b8;
-      padding: 20px;
-      text-align: center;
-      font-size: 13px;
-      margin-top: 50px;
-    }
-
-    /* ================= DESKTOP ================= */
-    @media (min-width: 768px) {
-      .header { padding: 15px 8%; }
-      .logo-img { width: 60px; height: 60px; }
-      .logo h1 { font-size: 22px; }
-      .hamburger { display: none; }
-      .nav { display: flex; gap: 30px; }
-      .page-title { font-size: 36px; margin-top: 140px; }
-      .faq { padding: 0 8% 100px; }
-      .faq-question { font-size: 20px; padding: 24px; }
+    @media (max-width: 768px) {
+      .page-title { font-size: 32px; margin-top: 100px; }
+      .faq { padding: 0 5% 80px; }
+      .faq-question { font-size: 17px; padding: 18px 20px; }
+      .faq-answer { font-size: 15px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="header">
-    <div class="logo">
-      <img src="images/logo.png" alt="Logo" class="logo-img">
-      <h1>Atelier Électronique Médenine</h1>
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-img">
+      <img src="images/logo.png" alt="Logo">
     </div>
-
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <nav class="nav">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="radio-codes.html">Code Radio</a>
-      <a href="contact.html">Contact</a>
-      <a href="faq.html" class="active">FAQ</a>
-    </nav>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="radio-codes.html">Code Radio</a>
-      <a href="contact.html">Contact</a>
-      <a href="faq.html" class="active">FAQ</a>
-    </div>
-  </header>
-
-  <!-- ================= CONTENT ================= -->
-  <h2 class="page-title" id="faqTitle">FAQ</h2>
-
-  <div class="lang-switch">
-    <button onclick="setLang('ar')">🇹🇳 عربي</button>
-    <button onclick="setLang('fr')">🇫🇷 Français</button>
-    <button onclick="setLang('en')">🇬🇧 English</button>
+    <h1>Atelier Électronique Médenine</h1>
   </div>
 
-  <section class="faq">
-    <div class="faq-item">
-      <div class="faq-question" id="q1"><i class="fas fa-tools"></i> Quels services proposez-vous ?</div>
-      <div class="faq-answer" id="a1">
-        Nous sommes spécialisés dans la réparation de cartes électroniques de tout type :<br>
-        • Postes à souder<br>
-        • Cartes de lave-linge<br>
-        • Cartes de climatiseurs<br>
-        • Cartes industrielles et d'usines<br>
-        • Cartes de balances électroniques<br>
-        <strong>Nous ne réparons pas :</strong> radios, téléviseurs, téléphones.
-      </div>
+  <!-- Hamburger (mobile) -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html" class="active">FAQ</a>
+
+    <!-- User avatar -->
+    <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
+      <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question" id="q2"><i class="fas fa-map-marker-alt"></i> Où êtes-vous situés exactement ?</div>
-      <div class="faq-answer" id="a2">
-        Médenine – Rue Libye, après le croisement Kousha Chamekh, première montée à droite.<br>
-        Si vous vous perdez, appelez-nous !
-      </div>
+    <button class="login-btn" style="margin-left: 15px;">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
+      Login
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html" class="active">FAQ</a>
+  </div>
+</header>
+
+<!-- Profile Modal -->
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:420px; width:90%; text-align:center;">
+    <img id="profileAvatar" src="" width="90" height="90" style="border-radius:50%; margin-bottom:16px; border:3px solid #38bdf8;">
+    <h2 id="profileName"></h2>
+    <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
+    <p>Visites: <span id="profileVisits">0</span></p>
+    <button id="logoutBtn" style="margin:20px 0 10px; background:#ef4444; color:white; border:none; padding:12px 28px; border-radius:30px; cursor:pointer; font-weight:600;">
+      Logout
+    </button>
+    <button id="closeProfile" style="background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
+  </div>
+</div>
+
+<!-- Login Popup -->
+<div id="login-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); flex-direction:column; justify-content:center; align-items:center; z-index:9999;">
+  <button id="close-login" style="position:absolute; top:20px; right:30px; background:none; color:#38bdf8; font-size:28px; border:none; cursor:pointer;">×</button>
+  <button class="login-submit" style="background:#38bdf8; color:#000; padding:14px 32px; border:none; border-radius:50px; font-weight:700; font-size:18px; display:flex; align-items:center; gap:12px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" style="width:24px;height:24px;">
+    Se connecter avec Google
+  </button>
+</div>
+
+<!-- Online Users Mini Box -->
+<div id="onlineBox">
+  <div class="online-header">Online:</div>
+  <div class="online-users-mini" id="onlineMini"></div>
+</div>
+
+<!-- ================= FAQ CONTENT ================= -->
+<h2 class="page-title" id="faqTitle">FAQ</h2>
+
+<div class="lang-switch">
+  <button onclick="setLang('ar')">🇹🇳 عربي</button>
+  <button onclick="setLang('fr')">🇫🇷 Français</button>
+  <button onclick="setLang('en')">🇬🇧 English</button>
+</div>
+
+<section class="faq">
+  <div class="faq-item">
+    <div class="faq-question" id="q1"><i class="fas fa-tools"></i> Quels services proposez-vous ?</div>
+    <div class="faq-answer" id="a1">
+      Nous sommes spécialisés dans la réparation de cartes électroniques de tout type :<br>
+      • Postes à souder<br>
+      • Cartes de lave-linge<br>
+      • Cartes de climatiseurs<br>
+      • Cartes industrielles et d'usines<br>
+      • Cartes de balances électroniques<br>
+      <strong>Nous ne réparons pas :</strong> radios, téléviseurs, téléphones.
     </div>
+  </div>
 
-    <div class="faq-item">
-      <div class="faq-question" id="q3"><i class="fas fa-phone"></i> Puis-je appeler avant de venir ?</div>
-      <div class="faq-answer" id="a3">
-        Oui, c'est même recommandé ! Appelez ou envoyez un WhatsApp au <strong>98 192 103</strong>.
-      </div>
+  <div class="faq-item">
+    <div class="faq-question" id="q2"><i class="fas fa-map-marker-alt"></i> Où êtes-vous situés exactement ?</div>
+    <div class="faq-answer" id="a2">
+      Médenine – Rue Libye, après le croisement Kousha Chamekh, première montée à droite.<br>
+      Si vous vous perdez, appelez-nous !
     </div>
+  </div>
 
-    <div class="faq-item">
-      <div class="faq-question" id="q4"><i class="fas fa-clock"></i> Combien de temps prend une réparation ?</div>
-      <div class="faq-answer" id="a4">
-        Cela dépend de la panne :<br>
-        • Réparation simple : 1 à 3 jours<br>
-        • Problèmes complexes : 5 à 7 jours
-      </div>
+  <div class="faq-item">
+    <div class="faq-question" id="q3"><i class="fas fa-phone"></i> Puis-je appeler avant de venir ?</div>
+    <div class="faq-answer" id="a3">
+      Oui, c'est même recommandé ! Appelez ou envoyez un WhatsApp au <strong>98 192 103</strong>.
     </div>
+  </div>
 
-    <div class="faq-item">
-      <div class="faq-question" id="q5"><i class="fas fa-shield-alt"></i> Quelle est la garantie ?</div>
-      <div class="faq-answer" id="a5">
-        Toutes nos réparations ont une garantie de 1 à 3 mois selon la pièce et le travail.<br>
-        Si le même défaut revient, nous le réparons gratuitement.
-      </div>
+  <div class="faq-item">
+    <div class="faq-question" id="q4"><i class="fas fa-clock"></i> Combien de temps prend une réparation ?</div>
+    <div class="faq-answer" id="a4">
+      Cela dépend de la panne :<br>
+      • Réparation simple : 1 à 3 jours<br>
+      • Problèmes complexes : 5 à 7 jours
     </div>
+  </div>
 
-    <div class="faq-item">
-      <div class="faq-question" id="q6"><i class="fas fa-tags"></i> Les prix sont-ils raisonnables ?</div>
-      <div class="faq-answer" id="a6">
-        Nous essayons d'être parmi les plus compétitifs de la région.<br>
-        Le diagnostic est souvent gratuit, et le prix est confirmé avant toute intervention.
-      </div>
+  <div class="faq-item">
+    <div class="faq-question" id="q5"><i class="fas fa-shield-alt"></i> Quelle est la garantie ?</div>
+    <div class="faq-answer" id="a5">
+      Toutes nos réparations ont une garantie de 1 à 3 mois selon la pièce et le travail.<br>
+      Si le même défaut revient, nous le réparons gratuitement.
     </div>
-  </section>
+  </div>
 
-  <footer>
-    <p>© 2026 Atelier Électronique Médenine</p>
-  </footer>
+  <div class="faq-item">
+    <div class="faq-question" id="q6"><i class="fas fa-tags"></i> Les prix sont-ils raisonnables ?</div>
+    <div class="faq-answer" id="a6">
+      Nous essayons d'être parmi les plus compétitifs de la région.<br>
+      Le diagnostic est souvent gratuit, et le prix est confirmé avant toute intervention.
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-content">
+    <p class="copyright">© 2026 Atelier Électronique Médenine</p>
+    <div class="social-icons">
+      <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+      </a>
+      <a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+      </a>
+      <a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
+  </div>
+</footer>
 
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
+
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- ================= SCRIPT JS COMMUN ================= -->
+<script src="js/script.js"></script>
+
+<!-- ================= SCRIPT FAQ (multilingue + toggle) ================= -->
+<script>
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger?.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+});
+
+document.querySelectorAll('.mobile-menu a')?.forEach(el => {
+  el.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileMenu.style.display = 'none';
+  });
+});
+
+// FAQ toggle
+document.querySelectorAll(".faq-question").forEach(q => {
+  q.addEventListener("click", () => {
+    const item = q.parentElement;
+    document.querySelectorAll('.faq-item').forEach(i => {
+      if (i !== item) i.classList.remove("active");
     });
+    item.classList.toggle("active");
+  });
+});
 
-    document.querySelectorAll('.mobile-menu a').forEach(el => {
-      el.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileMenu.style.display = 'none';
-      });
-    });
+// Translations
+const translations = {
+  fr: {
+    faq_title: "FAQ",
+    q1: "Quels services proposez-vous ?",
+    a1: "Nous sommes spécialisés dans la réparation de cartes électroniques de tout type :<br>• Postes à souder<br>• Cartes de lave-linge<br>• Cartes de climatiseurs<br>• Cartes industrielles et d'usines<br>• Cartes de balances électroniques<br><strong>Nous ne réparons pas :</strong> radios, téléviseurs, téléphones.",
+    q2: "Où êtes-vous situés exactement ?",
+    a2: "Médenine – Rue Libye, après le croisement Kousha Chamekh, première montée à droite.<br>Si vous vous perdez, appelez-nous !",
+    q3: "Puis-je appeler avant de venir ?",
+    a3: "Oui, c'est même recommandé ! Appelez ou envoyez un WhatsApp au <strong>98 192 103</strong>.",
+    q4: "Combien de temps prend une réparation ?",
+    a4: "Cela dépend de la panne :<br>• Réparation simple : 1 à 3 jours<br>• Problèmes complexes : 5 à 7 jours",
+    q5: "Quelle est la garantie ?",
+    a5: "Toutes nos réparations ont une garantie de 1 à 3 mois selon la pièce et le travail.<br>Si le même défaut revient, nous le réparons gratuitement.",
+    q6: "Les prix sont-ils raisonnables ?",
+    a6: "Nous essayons d'être parmi les plus compétitifs de la région.<br>Le diagnostic est souvent gratuit, et le prix est confirmé avant toute intervention."
+  },
+  en: {
+    faq_title: "FAQ",
+    q1: "What services do you offer?",
+    a1: "We specialize in repairing all types of electronic boards:<br>• Welding machines<br>• Washing machine boards<br>• Air conditioner boards<br>• Industrial and factory boards<br>• Electronic scale boards<br><strong>We do not repair:</strong> radios, TVs, phones.",
+    q2: "Where are you located exactly?",
+    a2: "Médenine – Libya Street, after Kousha Chamekh intersection, first right turn.<br>If you get lost, call us!",
+    q3: "Can I call before coming?",
+    a3: "Yes, it's even recommended! Call or WhatsApp us at <strong>98 192 103</strong>.",
+    q4: "How long does a repair take?",
+    a4: "It depends on the fault:<br>• Simple repair: 1-3 days<br>• Complex issues: 5-7 days",
+    q5: "What is the warranty?",
+    a5: "All our repairs come with a 1 to 3 month warranty depending on the part and work.<br>If the same fault returns, we fix it for free.",
+    q6: "Are the prices reasonable?",
+    a6: "We try to be among the most competitive in the region.<br>Diagnosis is often free, price confirmed before any work."
+  },
+  ar: {
+    faq_title: "الأسئلة الشائعة",
+    q1: "شنوّا الخدمات اللي عندكم يا خويا؟",
+    a1: "متخصصين في تصليح الكروت الإلكترونية بكل أنواعها:<br>• ماكينات لحام<br>• كروت الغسالات<br>• كروت الكليما<br>• كروت المصانع والمعامل<br>• كروت الموازين الإلكترونية<br><strong>ما نخدموش في</strong>: الراديو، التلفزيونات، التلفونات.",
+    q2: "وينكم بالضبط؟",
+    a2: "مدنين – نهج ليبيا، بعد كوشة شامخ، في أول طلعة على يمينك.<br>لو ضيّعت الطريق، اتصل!",
+    q3: "نقدر نتصل قبل ما نجي؟",
+    a3: "أكيد يا خويا! أحسن حاجة تتصل قبل (واتساب أو مكالمة) على <strong>98 192 103</strong>.",
+    q4: "كم ياخذ الوقت باش نصلح الكارت؟",
+    a4: "يعتمد على العطل:<br>• تصليح بسيط: 1-3 أيام<br>• مشاكل كبيرة: 5-7 أيام",
+    q5: "الضمان كيفاه؟",
+    a5: "كل تصليح عندنا ضمان من شهر حتى 3 أشهر حسب القطعة والعمل. لو رجع نفس العيب نصلحوه مجانًا.",
+    q6: "الأسعار معقولة ولا غالية؟",
+    a6: "نحاولو نكونو من الأرخص في الجهة. التشخيص غالبًا ببلاش، والسعر حسب القطعة."
+  }
+};
 
-    // FAQ toggle
-    document.querySelectorAll(".faq-question").forEach(q => {
-      q.addEventListener("click", () => {
-        const item = q.parentElement;
-        // Fermer tous les autres
-        document.querySelectorAll('.faq-item').forEach(i => {
-          if (i !== item) i.classList.remove("active");
-        });
-        // Toggle celui cliqué
-        item.classList.toggle("active");
-      });
-    });
+function setLang(lang) {
+  document.getElementById('faqTitle').textContent = translations[lang].faq_title;
 
-    // Translations (3 langues)
-    const translations = {
-      fr: {
-        faq_title: "FAQ",
-        q1: "Quels services proposez-vous ?",
-        a1: "Nous sommes spécialisés dans la réparation de cartes électroniques de tout type :\n• Postes à souder\n• Cartes de lave-linge\n• Cartes de climatiseurs\n• Cartes industrielles et d'usines\n• Cartes de balances électroniques\n<strong>Nous ne réparons pas :</strong> radios, téléviseurs, téléphones.",
-        q2: "Où êtes-vous situés exactement ?",
-        a2: "Médenine – Rue Libye, après le croisement Kousha Chamekh, première montée à droite.\nSi vous vous perdez, appelez-nous !",
-        q3: "Puis-je appeler avant de venir ?",
-        a3: "Oui, c'est même recommandé ! Appelez ou envoyez un WhatsApp au <strong>98 192 103</strong>.",
-        q4: "Combien de temps prend une réparation ?",
-        a4: "Cela dépend de la panne :\n• Réparation simple : 1 à 3 jours\n• Problèmes complexes : 5 à 7 jours",
-        q5: "Quelle est la garantie ?",
-        a5: "Toutes nos réparations ont une garantie de 1 à 3 mois selon la pièce et le travail.\nSi le même défaut revient, nous le réparons gratuitement.",
-        q6: "Les prix sont-ils raisonnables ?",
-        a6: "Nous essayons d'être parmi les plus compétitifs de la région.\nLe diagnostic est souvent gratuit, et le prix est confirmé avant toute intervention."
-      },
-      en: {
-        faq_title: "FAQ",
-        q1: "What services do you offer?",
-        a1: "We specialize in repairing all types of electronic boards:\n• Welding machines\n• Washing machine boards\n• Air conditioner boards\n• Industrial and factory boards\n• Electronic scale boards\n<strong>We do not repair:</strong> radios, TVs, phones.",
-        q2: "Where are you located exactly?",
-        a2: "Médenine – Libya Street, after Kousha Chamekh intersection, first right turn.\nIf you get lost, call us!",
-        q3: "Can I call before coming?",
-        a3: "Yes, it's even recommended! Call or WhatsApp us at <strong>98 192 103</strong>.",
-        q4: "How long does a repair take?",
-        a4: "It depends on the fault:\n• Simple repair: 1-3 days\n• Complex issues: 5-7 days",
-        q5: "What is the warranty?",
-        a5: "All our repairs come with a 1 to 3 month warranty depending on the part and work.\nIf the same fault returns, we fix it for free.",
-        q6: "Are the prices reasonable?",
-        a6: "We try to be among the most competitive in the region.\nDiagnosis is often free, price confirmed before any work."
-      },
-      ar: {
-        faq_title: "الأسئلة الشائعة",
-        q1: "شنوّا الخدمات اللي عندكم يا خويا؟",
-        a1: "متخصصين في تصليح الكروت الإلكترونية بكل أنواعها:\n• ماكينات لحام (postes de soudure)\n• كروت الغسالات (lave-linge)\n• كروت الكليما (climatiseurs)\n• كروت المصانع والمعامل\n• كروت الموازين الإلكترونية (mizan)\n<strong>ما نخدموش في</strong>: الراديو، التلفزيونات، التلفونات.",
-        q2: "وينكم بالضبط؟",
-        a2: "مدنين – نهج ليبيا، بعد كوشة شامخ، في أول طلعة على يمينك. لو ضيّعت الطريق، اتصل!",
-        q3: "نقدر نتصل قبل ما نجي؟",
-        a3: "أكيد يا خويا! أحسن حاجة تتصل قبل (واتساب أو مكالمة) على <strong>98.192.103</strong>.",
-        q4: "كم ياخذ الوقت باش نصلح الكارت؟",
-        a4: "يعتمد على العطل:\n• تصليح بسيط: 1-3 أيام\n• مشاكل كبيرة: 5-7 أيام",
-        q5: "الضمان كيفاه؟",
-        a5: "كل تصليح عندنا ضمان من شهر حتى 3 أشهر حسب القطعة والعمل. لو رجع نفس العيب نصلحوه مجانًا.",
-        q6: "الأسعار معقولة ولا غالية؟",
-        a6: "نحاولو نكونو من الأرخص في الجهة. التشخيص غالبًا ببلاش، والسعر حسب القطعة."
-      }
-    };
+  document.getElementById('q1').innerHTML = `<i class="fas fa-tools"></i> ${translations[lang].q1}`;
+  document.getElementById('a1').innerHTML = translations[lang].a1.replace(/\n/g, '<br>');
 
-    function setLang(lang) {
-      document.getElementById('faqTitle').textContent = translations[lang].faq_title;
-      
-      document.getElementById('q1').innerHTML = `<i class="fas fa-tools"></i> ${translations[lang].q1}`;
-      document.getElementById('a1').innerHTML = translations[lang].a1.replace(/\n/g, '<br>');
-      
-      document.getElementById('q2').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${translations[lang].q2}`;
-      document.getElementById('a2').innerHTML = translations[lang].a2.replace(/\n/g, '<br>');
-      
-      document.getElementById('q3').innerHTML = `<i class="fas fa-phone"></i> ${translations[lang].q3}`;
-      document.getElementById('a3').innerHTML = translations[lang].a3.replace(/\n/g, '<br>');
-      
-      document.getElementById('q4').innerHTML = `<i class="fas fa-clock"></i> ${translations[lang].q4}`;
-      document.getElementById('a4').innerHTML = translations[lang].a4.replace(/\n/g, '<br>');
-      
-      document.getElementById('q5').innerHTML = `<i class="fas fa-shield-alt"></i> ${translations[lang].q5}`;
-      document.getElementById('a5').innerHTML = translations[lang].a5.replace(/\n/g, '<br>');
-      
-      document.getElementById('q6').innerHTML = `<i class="fas fa-tags"></i> ${translations[lang].q6}`;
-      document.getElementById('a6').innerHTML = translations[lang].a6.replace(/\n/g, '<br>');
+  document.getElementById('q2').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${translations[lang].q2}`;
+  document.getElementById('a2').innerHTML = translations[lang].a2.replace(/\n/g, '<br>');
 
-      // Change page direction & lang
-      document.documentElement.lang = lang;
-      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-    }
+  document.getElementById('q3').innerHTML = `<i class="fas fa-phone"></i> ${translations[lang].q3}`;
+  document.getElementById('a3').innerHTML = translations[lang].a3.replace(/\n/g, '<br>');
 
-    // Default language: Français (change to 'ar' if you want Arabic default)
-    setLang('fr');
-  </script>
+  document.getElementById('q4').innerHTML = `<i class="fas fa-clock"></i> ${translations[lang].q4}`;
+  document.getElementById('a4').innerHTML = translations[lang].a4.replace(/\n/g, '<br>');
+
+  document.getElementById('q5').innerHTML = `<i class="fas fa-shield-alt"></i> ${translations[lang].q5}`;
+  document.getElementById('a5').innerHTML = translations[lang].a5.replace(/\n/g, '<br>');
+
+  document.getElementById('q6').innerHTML = `<i class="fas fa-tags"></i> ${translations[lang].q6}`;
+  document.getElementById('a6').innerHTML = translations[lang].a6.replace(/\n/g, '<br>');
+
+  // Change page direction & lang
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+}
+
+// Default: Français
+setLang('fr');
+</script>
+
 </body>
 </html>
