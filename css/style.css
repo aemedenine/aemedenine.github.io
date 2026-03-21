@@ -87,8 +87,8 @@ body{
   inset: -3px; /* حجم الدائرة */
   border-radius: 50%;
   background: conic-gradient(
-    #38bdf8,
-   #0ee9e1,
+    #f8385500,
+   #38bdf8,
     #38bdf8
   );
   animation: spinBorder 3s linear infinite;
