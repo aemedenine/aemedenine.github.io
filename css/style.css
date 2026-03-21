@@ -127,20 +127,38 @@ body{
   min-width: 240px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(56,189,248,0.2);
-  transition: all 0.3s;
+  transition: all 0.4s ease;
+  opacity: 0;                /* مخفية في البداية */
+  visibility: hidden;        /* مش موجودة حتى في المساحة */
+  pointer-events: none;      /* ما تتفاعلش مع الماوس وهي مخفية */
+  transform: translateY(10px); /* شوية تحت عشان الظهور يكون smooth */
 }
 
-.live-clock:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 20px rgba(56,189,248,0.4);
+.live-clock.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
-/* mobile fix */
+/* hover على الـ header كامل يخليها تطلع (أحسن من hover على الساعة نفسها) */
+.header:hover .live-clock {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* mobile: دايما ظاهرة (ما عندوش hover) */
 @media (max-width: 768px) {
   .live-clock {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    margin: 10px 0;
     font-size: 13px;
-    padding: 6px 12px;
-    min-width: 200px;
+    min-width: 220px;
   }
 }
 /* ===============================
