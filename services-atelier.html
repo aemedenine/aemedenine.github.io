@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>خدمات الورشة | Atelier Électronique Médenine</title>
+  <title>Services Atelier | Atelier Électronique Médenine</title>
   <link rel="icon" href="images/favicon.png">
-  <link rel="stylesheet" href="css/style.css"> <!-- ton CSS commun -->
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   <style>
-    /* ================= SERVICES ATELIER ================= */
     .page-title {
       text-align: center;
       font-size: 38px;
@@ -41,6 +39,11 @@
       transform: translateY(-3px) scale(1.05);
       box-shadow: 0 10px 25px rgba(56,189,248,0.5);
     }
+    .lang-switch button.active {
+      opacity: 1 !important;
+      transform: translateY(-3px) scale(1.05);
+    }
+
     .service-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -59,6 +62,11 @@
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
+      min-height: 280px;           /* ← هذا يخلي الكروت كلها بنفس الطول */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .service-card:hover {
       transform: translateY(-10px);
@@ -75,24 +83,23 @@
       font-size: 22px;
       color: #38bdf8;
       margin-bottom: 15px;
+      min-height: 58px;
     }
     .service-card p {
       font-size: 16px;
       color: #cbd5e1;
       line-height: 1.6;
     }
-
     @media (max-width: 768px) {
       .page-title { font-size: 32px; margin-top: 100px; }
       .service-cards { gap: 25px; padding: 0 5% 80px; }
-      .service-card { padding: 30px 20px; }
-      .service-card h3 { font-size: 20px; }
+      .service-card { padding: 30px 20px; min-height: 260px; }
+      .service-card h3 { font-size: 20px; min-height: 50px; }
       .service-card i { font-size: 36px; }
     }
   </style>
 </head>
 <body>
-
 <!-- ================= HEADER ================= -->
 <header class="header">
   <div class="logo">
@@ -101,60 +108,25 @@
     </div>
     <h1>Atelier Électronique Médenine</h1>
   </div>
-
-  <!-- Hamburger (mobile) -->
   <div class="hamburger" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
-
   <nav class="nav">
     <a href="index.html">Accueil</a>
     <a href="services.html" class="active">Services</a>
     <a href="radio-codes.html">Code Radio</a>
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
-
-    <!-- User avatar -->
     <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
       <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
   </nav>
 </header>
 
-<!-- Profile Modal -->
-<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center;justify-content:center;z-index:1000;">
-  <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:420px; width:90%; text-align:center;">
-    <img id="profileAvatar" src="" width="90" height="90" style="border-radius:50%; margin-bottom:16px; border:3px solid #38bdf8;">
-    <h2 id="profileName"></h2>
-    <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
-    <p>Visites: <span id="profileVisits">0</span></p>
-    <button id="logoutBtn" style="margin:20px 0 10px; background:#ef4444; color:white; border:none; padding:12px 28px; border-radius:30px; cursor:pointer; font-weight:600;">
-      Logout
-    </button>
-    <button id="closeProfile" style="background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
-  </div>
-</div>
-
-<!-- Login Popup -->
-<div id="login-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); flex-direction:column; justify-content:center; align-items:center; z-index:9999;">
-  <button id="close-login" style="position:absolute; top:20px; right:30px; background:none; color:#38bdf8; font-size:28px; border:none; cursor:pointer;">×</button>
-  <button class="login-submit" style="background:#38bdf8; color:#000; padding:14px 32px; border:none; border-radius:50px; font-weight:700; font-size:18px; display:flex; align-items:center; gap:12px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" style="width:24px;height:24px;">
-    Se connecter avec Google
-  </button>
-</div>
-
-<!-- Online Users Mini Box -->
-<div id="onlineBox">
-  <div class="online-header">Online:</div>
-  <div class="online-users-mini" id="onlineMini"></div>
-</div>
-
-<!-- ================= SERVICES CONTENT ================= -->
-<h2 class="page-title" data-i18n="services_title">خدمات الورشة</h2>
-
+<!-- ================= SERVICES ================= -->
+<h2 class="page-title" data-i18n="services_title">Services Atelier</h2>
 <div class="lang-switch">
   <button onclick="setLang('ar')">🇹🇳 عربي</button>
   <button onclick="setLang('fr')">🇫🇷 Français</button>
@@ -164,38 +136,33 @@
 <section class="service-cards">
   <div class="service-card" data-i18n="service_1">
     <i class="fas fa-bullhorn"></i>
-    <h3>📢 ورشة إلكترونيك الرحماني</h3>
-    <p>تفتح أبوابها لجميع الولايات.</p>
+    <h3>📢 L'atelier Électronique Rahmani</h3>
+    <p>Ouvre ses portes pour toutes les régions.</p>
   </div>
-
   <div class="service-card" data-i18n="service_2">
     <i class="fas fa-wrench"></i>
-    <h3>🔧 خدمات تصليح عالية الجودة</h3>
-    <p>نقدم خدمات تصليح الأجهزة الإلكترونية بأسعار منافسة.</p>
+    <h3>🔧 Services de réparation de haute qualité</h3>
+    <p>À des prix compétitifs.</p>
   </div>
-
   <div class="service-card" data-i18n="service_3">
     <i class="fas fa-laptop"></i>
-    <h3>💻 تصليح أجهزة</h3>
-    <p>تصليح الكمبيوتر، الأجهزة المنزلية، وكروت إلكترونية بخبرة عالية.</p>
+    <h3>💻 Réparation d'appareils</h3>
+    <p>Ordinateurs, appareils ménagers, cartes électroniques...</p>
   </div>
-
   <div class="service-card" data-i18n="service_4">
     <i class="fas fa-phone"></i>
-    <h3>📱 تواصل عبر واتساب</h3>
-    <p>لأي استفسار أو طلب خدمة.</p>
+    <h3>📱 Contact WhatsApp</h3>
+    <p>Pour toute demande ou question.</p>
   </div>
-
   <div class="service-card" data-i18n="service_5">
     <i class="fas fa-tools"></i>
-    <h3>🛠️ قطع غيار أصلية</h3>
-    <p>بيع واستبدال قطع الغيار الأصلية ذات الجودة العالية.</p>
+    <h3>🛠️ Pièces détachées originales</h3>
+    <p>Vente et remplacement de qualité.</p>
   </div>
-
   <div class="service-card" data-i18n="service_6">
     <i class="fas fa-truck"></i>
-    <h3>🚚 توصيل واستلام</h3>
-    <p>خدمة التوصيل والاستلام عبر البريد متوفرة لكل أنحاء تونس.</p>
+    <h3>🚚 Livraison & Ramassage</h3>
+    <p>Partout en Tunisie via poste.</p>
   </div>
 </section>
 
@@ -228,7 +195,7 @@
 <!-- ================= SCRIPT JS COMMUN ================= -->
 <script src="js/script.js"></script>
 
-<!-- ================= SCRIPT SERVICES (multilingue) ================= -->
+<!-- ================= SCRIPT SERVICES ================= -->
 <script>
   const translations = {
     fr: {
@@ -267,28 +234,35 @@
         el.innerHTML = translations[lang][key];
       }
     });
+
     document.documentElement.lang = lang;
     document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+    const titles = {
+      ar: "خدمات الورشة | Atelier Électronique Médenine",
+      fr: "Services Atelier | Atelier Électronique Médenine",
+      en: "Workshop Services | Atelier Électronique Médenine"
+    };
+    document.title = titles[lang] || titles.fr;
+
+    localStorage.setItem('preferredLang', lang);
+
+    // زر اللغة النشط
+    document.querySelectorAll('.lang-switch button').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${lang}'`));
+    });
   }
 
-  // Hamburger menu
+  // الفرنسية هي الأولى + حفظ اللغة
+  const savedLang = localStorage.getItem('preferredLang') || 'fr';
+  setLang(savedLang);
+
+  // Hamburger
   const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
   hamburger?.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+    // أضف هنا كود الـ mobile menu إذا كان موجود في script.js
   });
-
-  document.querySelectorAll('.mobile-menu a')?.forEach(el => {
-    el.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileMenu.style.display = 'none';
-    });
-  });
-
-  // Langue par défaut : arabe (RTL)
-  setLang('ar');
 </script>
-
 </body>
 </html>
