@@ -103,20 +103,9 @@
       width: 92%;
       text-align: center;
     }
-    .modal-content h2 {
-      color: #38bdf8;
-      margin-bottom: 20px;
-      font-size: 26px;
-    }
-    .modal-content p {
-      font-size: 17px;
-      color: #cbd5f5;
-      margin: 12px 0;
-    }
-    .modal-content strong {
-      color: white;
-      font-size: 20px;
-    }
+    .modal-content h2 { color: #38bdf8; margin-bottom: 20px; font-size: 26px; }
+    .modal-content p { font-size: 17px; color: #cbd5f5; margin: 12px 0; }
+    .modal-content strong { color: white; font-size: 20px; }
     .modal-actions {
       margin-top: 30px;
       display: flex;
@@ -154,13 +143,14 @@
     <h1>Atelier Électronique Médenine</h1>
   </div>
 
-  <!-- Hamburger (mobile) -->
+  <!-- Hamburger (mobile only) -->
   <div class="hamburger" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
+  <!-- Desktop Nav -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -168,7 +158,7 @@
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
 
-    <!-- User avatar -->
+    <!-- User avatar (desktop) -->
     <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
       <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
@@ -186,6 +176,16 @@
     <a href="radio-codes.html" class="active">Code Radio</a>
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
+
+    <!-- User avatar (mobile) -->
+    <div id="userBoxMobile" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin: 15px 0;">
+      <img id="userAvatarMobile" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
+    </div>
+
+    <button class="login-btn" style="margin: 15px 0;">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
+      Login
+    </button>
   </div>
 </header>
 
@@ -296,7 +296,7 @@
 
 <!-- ================= SCRIPT CODE RADIO ================= -->
 <script>
-// Hamburger
+// Hamburger menu
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 hamburger?.addEventListener('click', () => {
