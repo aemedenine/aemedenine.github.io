@@ -346,3 +346,20 @@ document.querySelectorAll("a[href^='#']").forEach(link=>{
     target?.scrollIntoView({ behavior:"smooth" });
   });
 });
+// ================= SIMPLE VISITS COUNTER (just icon + number) =================
+const visitsRef = db.ref("stats/totalVisits");
+
+// زيادة الزيارة مرة واحدة فقط لكل جلسة
+if (!sessionStorage.getItem("visitCounted")) {
+    visitsRef.transaction(current => (current || 0) + 1);
+    sessionStorage.setItem("visitCounted", "true");
+}
+
+// عرض الرقم في الوقت الفعلي
+visitsRef.on("value", snapshot => {
+    const count = snapshot.val() || 0;
+    const el = document.getElementById("total-visits");
+    if (el) {
+        el.textContent = count.toLocaleString('fr-TN');  // 1 234 بدل 1234
+    }
+});
