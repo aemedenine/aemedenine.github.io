@@ -58,38 +58,33 @@ body{
   margin-left: 15px; /* إضافة مسافة بين الصورة و "Contact" */
 }
 
-/* ================= LOGO 2026 (UPDATED SPIN BORDER) ================= */
+/* ================= LOGO 2026 FIXED ================= */
 .logo {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* container متاع الصورة */
 .logo-img {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
   position: relative;
-  overflow: hidden;
-  z-index: 1;
 }
 
-/* الصورة نفسها */
+/* الصورة */
 .logo-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   border-radius: 50%;
-  position: relative;
-  z-index: 2;
+  object-fit: cover;
+  display: block;
 }
 
-/* 🔵 الدائرة الزرقا تدور */
-.logo-img::before {
+/* 🔵 الدائرة تدور (فوق logo) */
+.logo-img::after {
   content: "";
   position: absolute;
-  inset: -4px;
+  inset: -3px; /* حجم الدائرة */
   border-radius: 50%;
   background: conic-gradient(
     #38bdf8,
@@ -97,17 +92,11 @@ body{
     #38bdf8
   );
   animation: spinBorder 3s linear infinite;
-  z-index: 0;
-}
+  z-index: 3;
 
-/* طبقة داخلية باش logo يبان clean */
-.logo-img::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  background: #0f172a;
-  border-radius: 50%;
-  z-index: 1;
+  /* نخليها ring موش مملية */
+  -webkit-mask: radial-gradient(circle, transparent 65%, black 66%);
+  mask: radial-gradient(circle, transparent 65%, black 66%);
 }
 
 /* hover */
@@ -121,12 +110,10 @@ body{
   to { transform: rotate(360deg); }
 }
 
-/* title */
 .logo h1 {
   font-size: 24px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 1px;
 }
 /* ===============================
    LOGIN BUTTON
