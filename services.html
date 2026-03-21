@@ -5,366 +5,309 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services | Atelier Électronique Médenine</title>
   <link rel="icon" href="images/favicon.png">
-  
+  <link rel="stylesheet" href="css/style.css"> <!-- ton CSS commun -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
-    /* ================= RESET & BASE ================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-    body {
-      background: #0f172a;
-      color: white;
-      line-height: 1.6;
-    }
-
-    /* ================= HEADER ================= */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 5%;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid #38bdf8;
-      padding: 4px;
-      background: rgba(255,255,255,0.05);
-    }
-    .logo h1 {
-      font-size: 18px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    /* Hamburger */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      z-index: 1100;
-    }
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: white;
-      border-radius: 3px;
-      transition: 0.4s;
-    }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-
-    /* Navigation links - BLANC permanent sur desktop */
-    .nav {
-      display: none;
-      align-items: center;
-      gap: 28px;
-    }
-    .nav a {
-      color: white;               /* blanc fixe */
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 15px;
-      transition: all 0.3s;
-    }
-    .nav a:hover {
-      color: white;               /* reste blanc */
-      text-decoration: underline; /* juste underline au hover */
-      transform: scale(1.05);
-    }
-
-    .login-btn {
-      padding: 8px 18px;
-      border: none;
-      border-radius: 30px;
-      background: #38bdf8;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-    .login-btn:hover {
-      background: #2da8e0;
-      transform: scale(1.05);
-    }
-
-    /* Mobile menu */
-    .mobile-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background: rgba(15,23,42,0.98);
-      backdrop-filter: blur(10px);
-      flex-direction: column;
-      align-items: center;
-      padding: 25px 0;
-      gap: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-    }
-    .mobile-menu a,
-    .mobile-menu .login-btn {
-      color: white;
-      text-decoration: none;
-      font-size: 17px;
-      padding: 12px 30px;
-      width: 85%;
-      text-align: center;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-    .mobile-menu a:hover {
-      background: rgba(56,189,248,0.15);
-    }
-
-    /* ================= MAIN CONTENT ================= */
+    /* ================= SERVICES PAGE ================= */
     .services-container {
-      padding: 100px 5% 60px;
-      max-width: 1200px;
+      padding: 120px 6% 100px;
+      max-width: 1300px;
       margin: auto;
       text-align: center;
     }
     .services-container h2 {
-      font-size: 28px;
-      margin-bottom: 50px;
+      font-size: 38px;
       color: #38bdf8;
+      margin-bottom: 60px;
     }
-
     .cards {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
     }
     .card {
-      background: rgba(255,255,255,0.05);
-      padding: 22px;
+      background: rgba(30,41,59,0.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56,189,248,0.2);
       border-radius: 16px;
+      padding: 35px 25px;
       cursor: pointer;
       transition: all 0.4s ease;
+      text-align: center;
     }
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(56,189,248,0.3);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 45px rgba(56,189,248,0.4);
+      border-color: #38bdf8;
     }
     .card h3 {
-      font-size: 20px;
+      font-size: 22px;
       color: #38bdf8;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .card p {
-      font-size: 14px;
-      color: #cbd5f5;
+      font-size: 16px;
+      color: #cbd5e1;
     }
-
     /* Service Detail */
     .service-detail {
       display: none;
-      margin-top: 35px;
-      background: rgba(255,255,255,0.05);
-      padding: 22px;
+      margin: 50px auto 0;
+      max-width: 900px;
+      background: rgba(30,41,59,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56,189,248,0.25);
       border-radius: 16px;
+      padding: 35px;
+      text-align: center;
     }
     .service-detail.active {
       display: block;
     }
     .service-detail h3 {
-      font-size: 24px;
+      font-size: 28px;
       color: #38bdf8;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
     }
     .service-detail img,
     .service-detail video {
       width: 100%;
+      max-width: 700px;
       border-radius: 12px;
-      margin: 12px 0;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     }
     .close-detail {
       display: inline-block;
-      margin-bottom: 18px;
-      padding: 10px 20px;
+      margin-bottom: 25px;
+      padding: 12px 28px;
       background: #38bdf8;
       color: #000;
       border: none;
-      border-radius: 30px;
-      font-weight: 600;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
       cursor: pointer;
+      transition: all 0.3s;
+    }
+    .close-detail:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(56,189,248,0.4);
     }
 
-    /* ================= FOOTER ================= */
-    footer {
-      background: #020617;
-      color: #94a3b8;
-      padding: 20px;
-      text-align: center;
-      font-size: 13px;
-      margin-top: 50px;
-    }
-
-    /* ================= DESKTOP ================= */
-    @media (min-width: 768px) {
-      .header {
-        padding: 15px 8%;
-      }
-      .logo-img { width: 60px; height: 60px; }
-      .logo h1 { font-size: 22px; }
-      .hamburger { display: none; }
-      .nav { display: flex; gap: 30px; }
-      .mobile-menu { display: none !important; }
-      .services-container { padding: 140px 8% 80px; }
-      .services-container h2 { font-size: 36px; margin-bottom: 60px; }
-      .cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-      .card { padding: 28px; }
-      .card h3 { font-size: 22px; }
+    @media (max-width: 768px) {
+      .services-container { padding: 100px 5% 80px; }
+      .services-container h2 { font-size: 32px; }
+      .cards { gap: 25px; }
+      .card { padding: 30px 20px; }
+      .service-detail { padding: 25px; }
+      .service-detail h3 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="header">
-    <div class="logo">
-      <img src="images/logo.png" alt="Logo" class="logo-img">
-      <h1>Atelier Électronique Médenine</h1>
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-img">
+      <img src="images/logo.png" alt="Logo">
+    </div>
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+
+  <!-- Hamburger (mobile) -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Accueil</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+
+    <!-- User avatar -->
+    <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
+      <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
 
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="login-btn" style="margin-left: 15px;">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
+      Login
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Accueil</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+  </div>
+</header>
+
+<!-- Profile Modal -->
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:420px; width:90%; text-align:center;">
+    <img id="profileAvatar" src="" width="90" height="90" style="border-radius:50%; margin-bottom:16px; border:3px solid #38bdf8;">
+    <h2 id="profileName"></h2>
+    <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
+    <p>Visites: <span id="profileVisits">0</span></p>
+    <button id="logoutBtn" style="margin:20px 0 10px; background:#ef4444; color:white; border:none; padding:12px 28px; border-radius:30px; cursor:pointer; font-weight:600;">
+      Logout
+    </button>
+    <button id="closeProfile" style="background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
+  </div>
+</div>
+
+<!-- Login Popup -->
+<div id="login-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); flex-direction:column; justify-content:center; align-items:center; z-index:9999;">
+  <button id="close-login" style="position:absolute; top:20px; right:30px; background:none; color:#38bdf8; font-size:28px; border:none; cursor:pointer;">×</button>
+  <button class="login-submit" style="background:#38bdf8; color:#000; padding:14px 32px; border:none; border-radius:50px; font-weight:700; font-size:18px; display:flex; align-items:center; gap:12px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" style="width:24px;height:24px;">
+    Se connecter avec Google
+  </button>
+</div>
+
+<!-- Online Users Mini Box -->
+<div id="onlineBox">
+  <div class="online-header">Online:</div>
+  <div class="online-users-mini" id="onlineMini"></div>
+</div>
+
+<!-- ================= SERVICES CONTENT ================= -->
+<section class="services-container">
+  <h2>Nos Services</h2>
+
+  <div class="cards">
+    <div class="card" data-service="repair">
+      <h3>Réparation</h3>
+      <p>Réparation électronique professionnelle.</p>
     </div>
-
-    <nav class="nav">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="radio-codes.html">Code Radio</a>
-      <a href="contact.html">Contact</a>
-      <button class="login-btn">Login</button>
-    </nav>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="radio-codes.html">Code Radio</a>
-      <a href="contact.html">Contact</a>
-      <button class="login-btn">Login</button>
+    <div class="card" data-service="radio">
+      <h3>Radio Codes</h3>
+      <p>Déblocage rapide des radios voiture.</p>
     </div>
-  </header>
-
-  <!-- ================= SERVICES ================= -->
-  <section class="services-container">
-    <h2>Nos Services</h2>
-    
-    <div class="cards">
-      <div class="card" data-service="repair">
-        <h3>Réparation</h3>
-        <p>Réparation électronique professionnelle.</p>
-      </div>
-      <div class="card" data-service="radio">
-        <h3>Radio Codes</h3>
-        <p>Déblocage rapide des radios voiture.</p>
-      </div>
-      <div class="card" data-service="support">
-        <h3>Support</h3>
-        <p>Assistance technique et conseils.</p>
-      </div>
+    <div class="card" data-service="support">
+      <h3>Support</h3>
+      <p>Assistance technique et conseils.</p>
     </div>
+  </div>
 
-    <div id="repair" class="service-detail">
-      <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
-      <h3>Réparation Électronique</h3>
-      <p>Quelques photos et vidéos de l'atelier :</p>
-      <img src="images/atelier-repair1.jpeg" alt="Réparation 1">
-      <img src="images/atelier-repair2.jpeg" alt="Réparation 2">
-      <video controls><source src="videos/atelier-repair1.mp4" type="video/mp4"></video>
+  <!-- Détails des services -->
+  <div id="repair" class="service-detail">
+    <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
+    <h3>Réparation Électronique</h3>
+    <p>Quelques photos et vidéos de l'atelier :</p>
+    <img src="images/atelier-repair1.jpeg" alt="Réparation 1">
+    <img src="images/atelier-repair2.jpeg" alt="Réparation 2">
+    <video controls><source src="videos/atelier-repair1.mp4" type="video/mp4"></video>
+  </div>
+
+  <div id="radio" class="service-detail">
+    <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
+    <h3>Déblocage Radio</h3>
+    <p>Exemples de déblocage radios :</p>
+    <img src="images/atelier-radio1.jpeg" alt="Radio 1">
+    <img src="images/atelier-radio2.jpeg" alt="Radio 2">
+    <video controls><source src="videos/atelier-radio1.mp4" type="video/mp4"></video>
+  </div>
+
+  <div id="support" class="service-detail">
+    <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
+    <h3>Support Technique</h3>
+    <p>Assistance et conseils en direct :</p>
+    <img src="images/atelier-support1.jpeg" alt="Support 1">
+    <img src="images/atelier-support2.jpeg" alt="Support 2">
+    <video controls><source src="videos/atelier-support1.mp4" type="video/mp4"></video>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-content">
+    <p class="copyright">© 2026 Atelier Électronique Médenine</p>
+    <div class="social-icons">
+      <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+      </a>
+      <a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+      </a>
+      <a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
     </div>
+  </div>
+</footer>
 
-    <div id="radio" class="service-detail">
-      <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
-      <h3>Déblocage Radio</h3>
-      <p>Exemples de déblocage radios :</p>
-      <img src="images/atelier-radio1.jpeg" alt="Radio 1">
-      <img src="images/atelier-radio2.jpeg" alt="Radio 2">
-      <video controls><source src="videos/atelier-radio1.mp4" type="video/mp4"></video>
-    </div>
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
-    <div id="support" class="service-detail">
-      <button class="close-detail" onclick="closeDetail()">✖ Fermer</button>
-      <h3>Support Technique</h3>
-      <p>Assistance et conseils en direct :</p>
-      <img src="images/atelier-support1.jpeg" alt="Support 1">
-      <img src="images/atelier-support2.jpeg" alt="Support 2">
-      <video controls><source src="videos/atelier-support1.mp4" type="video/mp4"></video>
-    </div>
-  </section>
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-  <footer>
-    <p>© 2026 Atelier Électronique Médenine</p>
-  </footer>
+<!-- ================= SCRIPT JS COMMUN ================= -->
+<script src="js/script.js"></script>
 
-  <script>
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+<!-- ================= SCRIPT SERVICES ================= -->
+<script>
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger?.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+});
 
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-    });
+document.querySelectorAll('.mobile-menu a')?.forEach(el => {
+  el.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileMenu.style.display = 'none';
+  });
+});
 
-    // Close mobile menu on link click
-    document.querySelectorAll('.mobile-menu a, .mobile-menu .login-btn').forEach(el => {
-      el.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileMenu.style.display = 'none';
-      });
-    });
-
-    // Cards & details
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
-        const id = card.dataset.service;
-        document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
-        const detail = document.getElementById(id);
-        if (detail) {
-          detail.classList.add('active');
-          detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    function closeDetail() {
-      document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
+// Cards & details
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+    const id = card.dataset.service;
+    document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
+    const detail = document.getElementById(id);
+    if (detail) {
+      detail.classList.add('active');
+      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  });
+});
 
-    // Hash support
-    window.addEventListener('DOMContentLoaded', () => {
-      const hash = location.hash.slice(1);
-      if (hash) {
-        const el = document.getElementById(hash);
-        if (el) {
-          el.classList.add('active');
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-    });
-  </script>
+function closeDetail() {
+  document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('active'));
+}
+
+// Hash support (pour lien direct #repair par ex)
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash.slice(1);
+  if (hash) {
+    const el = document.getElementById(hash);
+    if (el) {
+      el.classList.add('active');
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+});
+</script>
+
 </body>
 </html>
