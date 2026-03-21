@@ -1,130 +1,265 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code trouvé | Atelier Électronique Médenine</title>
+  <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css"> <!-- ton CSS commun -->
 
-<title>Code trouvé | Atelier Électronique Médenine</title>
+  <style>
+    /* ================= PAGE CODE TROUVÉ ================= */
+    .check-container {
+      max-width: 700px;
+      margin: auto;
+      padding: 140px 6% 100px;
+      text-align: center;
+    }
+    .check-container h2 {
+      font-size: 38px;
+      color: #38bdf8;
+      margin-bottom: 40px;
+    }
+    .result-box {
+      background: rgba(30,41,59,0.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56,189,248,0.2);
+      border-radius: 16px;
+      padding: 35px 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: all 0.4s;
+    }
+    .result-box:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(56,189,248,0.35);
+    }
+    .result-box p {
+      margin: 18px 0;
+      font-size: 18px;
+      color: #cbd5f5;
+    }
+    .result-box strong {
+      color: #38bdf8;
+      font-size: 20px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    #serial {
+      color: white;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+    #email-form {
+      background: rgba(30,41,59,0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 35px 30px;
+      border: 1px solid rgba(56,189,248,0.18);
+    }
+    #email-form label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 17px;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+    #email-form input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 17px;
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: white;
+      margin-bottom: 15px;
+      transition: border-color 0.3s;
+    }
+    #email-form input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+    }
+    #email-form p {
+      font-size: 15px;
+      color: #94a3b8;
+      margin: 15px 0 25px;
+    }
+    #email-form button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+      background-size: 200% 100%;
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.35s;
+      animation: gradientFlow 5s linear infinite;
+    }
+    #email-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(56,189,248,0.5);
+    }
+    .secure {
+      margin-top: 40px;
+      color: #94a3b8;
+      font-size: 15px;
+    }
+    .secure strong {
+      color: #38bdf8;
+    }
 
-<link rel="stylesheet" href="css/style.css">
-
-<style>
-
-.check-container{
-max-width:600px;
-margin:auto;
-padding:140px 20px;
-text-align:center;
-}
-
-.result-box{
-background:rgba(255,255,255,0.05);
-padding:30px;
-border-radius:20px;
-margin-bottom:30px;
-}
-
-.result-box p{
-margin:15px 0;
-font-size:18px;
-}
-
-input{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:none;
-margin-top:10px;
-}
-
-button{
-margin-top:20px;
-padding:12px 30px;
-border:none;
-border-radius:40px;
-background:#38bdf8;
-font-weight:600;
-cursor:pointer;
-}
-
-.secure{
-margin-top:30px;
-color:#94a3b8;
-}
-
-</style>
-
+    @media (max-width: 768px) {
+      .check-container { padding: 100px 5% 80px; }
+      .check-container h2 { font-size: 32px; }
+      .result-box { padding: 25px 20px; }
+      #email-form { padding: 25px 20px; }
+    }
+  </style>
 </head>
-
 <body>
 
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-img">
+      <img src="images/logo.png" alt="Logo">
+    </div>
+    <h1>Atelier Électronique Médenine</h1>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="radio-codes.html">Code Radio</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+
+    <!-- User avatar -->
+    <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
+      <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
+    </div>
+
+    <button class="login-btn" style="margin-left: 15px;">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
+      Login
+    </button>
+  </nav>
+</header>
+
+<!-- Profile Modal -->
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center;justify-content:center;z-index:1000;">
+  <div style="background:#1e293b; padding:24px; border-radius:16px; max-width:420px; width:90%; text-align:center;">
+    <img id="profileAvatar" src="" width="90" height="90" style="border-radius:50%; margin-bottom:16px; border:3px solid #38bdf8;">
+    <h2 id="profileName"></h2>
+    <p id="profileRank" style="color:#fbbf24; margin-bottom:8px;"></p>
+    <p>Visites: <span id="profileVisits">0</span></p>
+    <button id="logoutBtn" style="margin:20px 0 10px; background:#ef4444; color:white; border:none; padding:12px 28px; border-radius:30px; cursor:pointer; font-weight:600;">
+      Logout
+    </button>
+    <button id="closeProfile" style="background:#38bdf8; color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer;">Fermer</button>
+  </div>
+</div>
+
+<!-- Login Popup -->
+<div id="login-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); flex-direction:column; justify-content:center; align-items:center; z-index:9999;">
+  <button id="close-login" style="position:absolute; top:20px; right:30px; background:none; color:#38bdf8; font-size:28px; border:none; cursor:pointer;">×</button>
+  <button class="login-submit" style="background:#38bdf8; color:#000; padding:14px 32px; border:none; border-radius:50px; font-weight:700; font-size:18px; display:flex; align-items:center; gap:12px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" style="width:24px;height:24px;">
+    Se connecter avec Google
+  </button>
+</div>
+
+<!-- Online Users Mini Box -->
+<div id="onlineBox">
+  <div class="online-header">Online:</div>
+  <div class="online-users-mini" id="onlineMini"></div>
+</div>
+
+<!-- ================= CODE TROUVÉ CONTENT ================= -->
 <div class="check-container">
+  <h2>Votre code a été trouvé</h2>
 
-<h2>Votre code a été trouvé</h2>
+  <div class="result-box">
+    <p><strong>Numéro de série</strong><br>
+      <span id="serial"></span></p>
+    <p><strong>Véhicule</strong><br>
+      Renault</p>
+    <p><strong>Type de code</strong><br>
+      4 chiffres</p>
+  </div>
 
-<div class="result-box">
+  <form id="email-form">
+    <label>Adresse e-mail</label>
+    <input type="email" id="email" placeholder="you@example.com" required>
+    <p>Votre code sera livré ici</p>
+    <button type="submit">Continuer</button>
+  </form>
 
-<p><strong>Numéro de série</strong><br>
-<span id="serial"></span></p>
-
-<p><strong>Véhicule</strong><br>
-Renault</p>
-
-<p><strong>Type de code</strong><br>
-4 chiffres</p>
-
+  <p class="secure">
+    🔒 Sécurisé et chiffré<br>
+    ⭐ Plus de 100 000 clients
+  </p>
 </div>
 
-<form id="email-form">
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-content">
+    <p class="copyright">© 2026 Atelier Électronique Médenine</p>
+    <div class="social-icons">
+      <a href="https://wa.me/21698192103" target="_blank" class="social-circle whatsapp" title="WhatsApp">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+      </a>
+      <a href="https://www.facebook.com/AEMednine" target="_blank" class="social-circle facebook" title="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="https://x.com/AElectroniqueM" target="_blank" class="social-circle x" title="X">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+      </a>
+      <a href="https://www.instagram.com/aemedenine/" target="_blank" class="social-circle instagram" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
+  </div>
+</footer>
 
-<label>Adresse e-mail</label>
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/21698192103" class="whatsapp-btn" target="_blank">💬</a>
 
-<input type="email" id="email" placeholder="you@example.com" required>
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<p>Votre code sera livré ici</p>
+<!-- ================= SCRIPT JS COMMUN ================= -->
+<script src="js/script.js"></script>
 
-<button type="submit">Continuer</button>
-
-</form>
-
-<p class="secure">
-🔒 Sécurisé et chiffré  
-<br>
-⭐ Plus de 100 000 clients
-</p>
-
-</div>
-
+<!-- ================= SCRIPT PAGE CODE TROUVÉ ================= -->
 <script>
+  // Récupération du précode depuis l'URL
+  const params = new URLSearchParams(window.location.search);
+  const precode = params.get("precode") || "—";
+  document.getElementById("serial").textContent = precode;
 
-const params = new URLSearchParams(window.location.search)
+  // Envoi via WhatsApp
+  document.getElementById("email-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    
+    if (!email || !email.includes("@")) {
+      alert("Veuillez entrer une adresse e-mail valide");
+      return;
+    }
 
-const precode = params.get("precode")
-
-document.getElementById("serial").textContent = precode
-
-document.getElementById("email-form").addEventListener("submit",function(e){
-
-e.preventDefault()
-
-let email = document.getElementById("email").value
-
-let message = `Demande Code Radio
-
-Précode: ${precode}
-Email: ${email}
-
-Prix: 10DT`
-
-let url = `https://wa.me/21698192103?text=${encodeURIComponent(message)}`
-
-window.location.href = url
-
-})
-
+    const message = `Demande Code Radio\nPrécode: ${precode}\nEmail: ${email}\nPrix: 10DT`;
+    const url = `https://wa.me/21698192103?text=${encodeURIComponent(message)}`;
+    window.location.href = url;
+  });
 </script>
 
 </body>
-
 </html>
