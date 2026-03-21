@@ -81,46 +81,15 @@
       box-shadow: 0 10px 30px rgba(56,189,248,0.5);
     }
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
+    /* Modal styles (inchangés) */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2000; }
     .modal.active { display: flex; }
-    .modal-content {
-      background: rgba(30,41,59,0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(56,189,248,0.3);
-      border-radius: 16px;
-      padding: 35px;
-      max-width: 520px;
-      width: 92%;
-      text-align: center;
-    }
+    .modal-content { background: rgba(30,41,59,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(56,189,248,0.3); border-radius: 16px; padding: 35px; max-width: 520px; width: 92%; text-align: center; }
     .modal-content h2 { color: #38bdf8; margin-bottom: 20px; font-size: 26px; }
     .modal-content p { font-size: 17px; color: #cbd5f5; margin: 12px 0; }
     .modal-content strong { color: white; font-size: 20px; }
-    .modal-actions {
-      margin-top: 30px;
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .modal-btn {
-      padding: 12px 28px;
-      border-radius: 50px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      transition: all 0.3s;
-    }
+    .modal-actions { margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+    .modal-btn { padding: 12px 28px; border-radius: 50px; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; }
     .close-btn { background: #4b5563; color: white; }
     .copy-btn { background: #38bdf8; color: #000; }
 
@@ -143,14 +112,14 @@
     <h1>Atelier Électronique Médenine</h1>
   </div>
 
-  <!-- Hamburger (mobile only) -->
+  <!-- Hamburger (visible seulement sur mobile) -->
   <div class="hamburger" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- Desktop Nav -->
+  <!-- Desktop Nav (visible sur grand écran) -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -158,18 +127,17 @@
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
 
-    <!-- User avatar (desktop) -->
-    <div id="userBox" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
-      <img id="userAvatar" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
+    <!-- User avatar + login (desktop) -->
+    <div id="userBoxDesktop" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin-left: 20px;">
+      <img id="userAvatarDesktop" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
-
-    <button class="login-btn" style="margin-left: 15px;">
+    <button class="login-btn" id="loginBtnDesktop" style="margin-left: 15px;">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
       Login
     </button>
   </nav>
 
-  <!-- Mobile menu -->
+  <!-- Mobile menu (s'ouvre via hamburger) -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -177,12 +145,11 @@
     <a href="contact.html">Contact</a>
     <a href="faq.html">FAQ</a>
 
-    <!-- User avatar (mobile) -->
+    <!-- User avatar + login (mobile menu) -->
     <div id="userBoxMobile" style="display: none; align-items: center; gap: 12px; cursor: pointer; margin: 15px 0;">
       <img id="userAvatarMobile" src="" alt="Avatar" style="width:40px; height:40px; border-radius:50%; border:2px solid #38bdf8;">
     </div>
-
-    <button class="login-btn" style="margin: 15px 0;">
+    <button class="login-btn" id="loginBtnMobile" style="margin: 15px 0;">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google" class="social-logo" style="width:18px;height:18px;">
       Login
     </button>
@@ -296,7 +263,7 @@
 
 <!-- ================= SCRIPT CODE RADIO ================= -->
 <script>
-// Hamburger menu
+// Hamburger menu toggle
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 hamburger?.addEventListener('click', () => {
@@ -304,14 +271,15 @@ hamburger?.addEventListener('click', () => {
   mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
 });
 
-document.querySelectorAll('.mobile-menu a')?.forEach(el => {
+// Close mobile menu when clicking a link
+document.querySelectorAll('.mobile-menu a, .mobile-menu .login-btn')?.forEach(el => {
   el.addEventListener('click', () => {
     hamburger.classList.remove('active');
     mobileMenu.style.display = 'none';
   });
 });
 
-// Code logic
+// Code logic (inchangé)
 let savedBrand = "", savedPrecode = "";
 function generateCode() {
   let brand = document.getElementById("car-brand").value.trim();
