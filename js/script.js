@@ -296,6 +296,31 @@ setInterval(()=>changeHeroPhoto(2),5000);
 setTimeout(()=>setInterval(()=>changeHeroPhoto(1),5000),1500);
 setTimeout(()=>setInterval(()=>changeHeroPhoto(2),5000),3000);
 
+
+// ================= LIVE CLOCK =================
+function updateLiveClock() {
+  const now = new Date();
+  
+  const daysFr = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+  const dayName = daysFr[now.getDay()];
+  
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+  const clockHTML = `${dayName} ${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  
+  const clockEl = document.getElementById('live-clock');
+  if (clockEl) clockEl.innerHTML = clockHTML;
+}
+
+// تحديث كل ثانية + تشغيل فوري
+setInterval(updateLiveClock, 1000);
+updateLiveClock();   // أول مرة
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("show"); });
