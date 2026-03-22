@@ -1761,3 +1761,49 @@ body {
   padding: 12px 28px; background: #25d366; color: white; 
   border-radius: 50px; text-decoration: none; font-weight: 600; 
 }
+/* ================= HERO FOTO PRINCIPALE (la photo mta3 l'atelier li n7eb n7otha) ================= */
+.hero-atelier-photo {
+    margin: 30px auto 50px;
+    max-width: 900px;
+    width: 90%;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 3px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.6),
+        inset 0 0 20px rgba(56, 189, 248, 0.2);
+    transition: all 0.5s ease;
+}
+
+.hero-atelier-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.hero-atelier-photo:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        0 25px 60px rgba(56, 189, 248, 0.5),
+        inset 0 0 30px rgba(56, 189, 248, 0.3);
+    border-color: #38bdf8;
+}
+
+.hero-atelier-photo:hover img {
+    transform: scale(1.08);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .hero-atelier-photo {
+        margin: 20px auto 40px;
+        border-radius: 16px;
+        border-width: 2px;
+    }
+    
+    .hero-atelier-photo img {
+        height: auto;
+    }
+}
