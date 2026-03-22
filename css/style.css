@@ -1765,52 +1765,44 @@ body {
 /* ================= FOTO PROPRIÉTAIRE FI FOOTER (petite, ronde, meziana) ================= */
 .footer-photo-wrapper {
   text-align: center;
-  margin: 30px auto 40px;
-  max-width: 180px;
+  margin: 15px auto 25px;   /* masafa sghira */
 }
 
 .footer-owner-photo {
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #38bdf8;
-  box-shadow: 
-    0 10px 30px rgba(56, 189, 248, 0.5),
-    inset 0 0 15px rgba(255, 255, 255, 0.15);
-  transition: all 0.4s ease;
+  border: 3px solid #38bdf8;
+  box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
+  transition: all 0.3s ease;
 }
 
 .footer-owner-photo:hover {
-  transform: scale(1.12) rotate(5deg);
-  box-shadow: 
-    0 15px 40px rgba(56, 189, 248, 0.7),
-    inset 0 0 20px rgba(255, 255, 255, 0.25);
+  transform: scale(1.15);
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.6);
   border-color: #60a5fa;
 }
 
-/* Légende sous la photo */
-.footer-photo-caption {
-  margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #38bdf8;
-  text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+/* CLASS SGHIRA BARCHA (80px) */
+.footer-owner-photo.small {
+  width: 80px;
+  height: 80px;
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
 }
 
-/* Responsive - mobile */
+.footer-owner-photo.small:hover {
+  transform: scale(1.2);
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.55);
+}
+
+/* Mobile - encore plus petite */
 @media (max-width: 768px) {
-  .footer-photo-wrapper {
-    margin: 20px auto 30px;
-  }
-  
-  .footer-owner-photo {
-    width: 120px;
-    height: 120px;
-    border-width: 3px;
-  }
-  
-  .footer-photo-caption {
-    font-size: 16px;
+  .footer-owner-photo,
+  .footer-owner-photo.small {
+    width: 70px;
+    height: 70px;
+    border-width: 2px;
   }
 }
