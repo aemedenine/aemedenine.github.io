@@ -418,3 +418,45 @@ players.forEach((video, i) => {
   // start أول مرة
   playVideo();
 });
+// ================= BEFORE AFTER PRO SLIDER =================
+
+const sliders = document.querySelectorAll(".ba-pro-box");
+
+sliders.forEach(box => {
+  const after = box.querySelector(".ba-after");
+  const slider = box.querySelector(".ba-slider");
+
+  let isDown = false;
+
+  function move(x) {
+    const rect = box.getBoundingClientRect();
+    let pos = x - rect.left;
+
+    if (pos < 0) pos = 0;
+    if (pos > rect.width) pos = rect.width;
+
+    const percent = (pos / rect.width) * 100;
+
+    after.style.width = percent + "%";
+    slider.style.left = percent + "%";
+  }
+
+  // mouse
+  box.addEventListener("mousedown", () => isDown = true);
+  window.addEventListener("mouseup", () => isDown = false);
+
+  window.addEventListener("mousemove", e => {
+    if (!isDown) return;
+    move(e.clientX);
+  });
+
+  // touch (mobile 🔥)
+  box.addEventListener("touchstart", () => isDown = true);
+
+  window.addEventListener("touchend", () => isDown = false);
+
+  window.addEventListener("touchmove", e => {
+    if (!isDown) return;
+    move(e.touches[0].clientX);
+  });
+});
