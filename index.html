@@ -124,6 +124,27 @@
     <div id="rating-message" class="rating-message"></div>
 </section>
 
+<!-- ================= CODES ERREURS LAVE-LINGE & CLIM ================= -->
+<section class="error-codes">
+  <h2>🔍 Codes Erreurs - Lave-linge & Climatiseur</h2>
+  
+  <select id="appareil">
+    <option value="">Choisir l'appareil</option>
+    <option value="Lave-linge">Lave-linge</option>
+    <option value="Climatiseur">Climatiseur</option>
+  </select>
+  
+  <select id="marque">
+    <option value="">Choisir marque (après l'appareil)</option>
+  </select>
+  
+  <input type="text" id="codeErreur" placeholder="Tape le code erreur (ex: 5E, E1, CH04, F18...)">
+  <button onclick="decodeError()">🚀 Décoder le code</button>
+  
+  <div id="errorResult"></div>
+</section>
+
+    
 <!-- ================= SERVICES ================= -->
 <section class="services">
     <h2>Nos Services</h2>
