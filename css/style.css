@@ -1396,3 +1396,15 @@ overflow-x:hidden;
   font-size: 14px;
   box-shadow: 0 0 15px #38bdf8;
 }
+.label{
+  position:absolute;
+  top:10px;
+  padding:5px 10px;
+  background:#0008;
+  color:white;
+  border-radius:10px;
+  font-size:12px;
+}
+
+.before-label{ left:10px; }
+.after-label{ right:10px; }
