@@ -1465,13 +1465,11 @@ body {
 .diagnostic {
   padding: 100px 8%;
   text-align: center;
-  background: rgba(255, 255, 255, 0.03);
+ 
   backdrop-filter: blur(16px);
   border-radius: 24px;
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(56, 189, 248, 0.15) inset;
+
+ 
   margin: 40px 5%;
   position: relative;
   overflow: hidden;
@@ -1692,11 +1690,11 @@ body {
 .error-codes {
   padding: 100px 8%;
   text-align: center;
-  background: rgba(255,255,255,0.03);
+ 
   backdrop-filter: blur(16px);
   border-radius: 24px;
-  border: 1px solid rgba(56,189,248,0.25);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(56,189,248,0.15) inset;
+ 
+
   margin: 40px 5%;
 }
 
