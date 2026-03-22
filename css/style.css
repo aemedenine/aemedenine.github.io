@@ -1762,39 +1762,56 @@ body {
   border-radius: 50px; text-decoration: none; font-weight: 600; 
 }
 
-/* ================= FOTO PROPRIÉTAIRE FI FOOTER (petite, ronde, meziana) ================= */
-/* FOTO PROPRIÉTAIRE FI FOOTER - TAILLE KIMA FOTO E RAJEL */
-.footer-photo-wrapper {
-  text-align: center;
-  margin: 20px auto 30px;   /* masafa kif fi capture */
-  max-width: 140px;
+/* ================= FOTO PROPRIÉTAIRE FI FOOTER (LEFT + SMALL 2026) ================= */
+
+/* container لازم يكون relative */
+.aem-footer-container {
+  position: relative;
 }
 
+/* wrapper على اليسار */
+.footer-photo-wrapper {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 60px;
+  z-index: 5;
+}
+
+/* الصورة */
 .footer-owner-photo {
-  width: 50px;              /* taille kif foto e rajel ~110px */
-  height: 50px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #38bdf8;
+  border: 2px solid #38bdf8;
   box-shadow: 
-    0 8px 20px rgba(56, 189, 248, 0.45),   /* glow cyan kif fi capture */
-    inset 0 0 10px rgba(255, 255, 255, 0.1);
-  transition: all 0.35s ease;
+    0 6px 15px rgba(56, 189, 248, 0.45),
+    inset 0 0 8px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
 }
 
+/* hover effect */
 .footer-owner-photo:hover {
-  transform: scale(1.18);    /* zoom kif fi capture */
+  transform: scale(1.15);
   box-shadow: 
-    0 12px 30px rgba(56, 189, 248, 0.65),
-    inset 0 0 15px rgba(255, 255, 255, 0.15);
+    0 10px 25px rgba(56, 189, 248, 0.7),
+    inset 0 0 12px rgba(255, 255, 255, 0.15);
   border-color: #60a5fa;
 }
 
-/* Mobile - taille un peu plus petite kif fi capture */
+/* 📱 MOBILE FIX */
 @media (max-width: 768px) {
+  .footer-photo-wrapper {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin: 15px auto;
+  }
+
   .footer-owner-photo {
-    width: 95px;
-    height: 95px;
-    border-width: 2px;
+    width: 70px;
+    height: 70px;
   }
 }
