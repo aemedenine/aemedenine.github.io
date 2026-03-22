@@ -1771,8 +1771,8 @@ body {
 }
 
 .footer-owner-photo {
-  width: 110px;              /* taille kif foto e rajel ~110px */
-  height: 110px;
+  width: 50px;              /* taille kif foto e rajel ~110px */
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #38bdf8;
