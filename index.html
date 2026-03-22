@@ -243,27 +243,34 @@
   </div>
 </section>
  <!-- ================= diagnostic ================= -->
-    <section class="diagnostic">
-  <h2>Diagnostic rapide</h2>
-
+   <section class="diagnostic">
+  <h2>🔧 Diagnostic Rapide - Atelier Électronique</h2>
   <select id="device">
     <option value="">Choisir appareil</option>
-    <option>TV</option>
-    <option>Radio</option>
-    <option>Carte électronique</option>
+    <option value="Lave-linge">Lave-linge</option>
+    <option value="Climatiseur">Climatiseur</option>
+    <option value="Stabilisateur">Stabilisateur</option>
+    <option value="Onduleur">Onduleur</option>
+    <option value="Convertisseur">Convertisseur</option>
+    <option value="Scooter électrique">Scooter électrique</option>
+    <option value="Réfrigérateur">Réfrigérateur</option>
+    <option value="Poste de soudure">Poste de soudure</option>
+    <option value="Carte électronique">Carte électronique</option>
   </select>
-
+  
   <select id="problem">
-    <option value="">Choisir problème</option>
-    <option>Ne s’allume pas</option>
-    <option>Pas de son</option>
-    <option>Image noire</option>
+    <option value="">Choisir problème (optionnel)</option>
+    <option value="Ne s’allume pas / Pas de démarrage">Ne s’allume pas / Pas de démarrage</option>
+    <option value="Pas de froid / Ne refroidit pas">Pas de froid / Ne refroidit pas</option>
+    <option value="Bruit anormal">Bruit anormal</option>
+    <option value="Fuite d'eau ou gaz">Fuite d'eau ou gaz</option>
+    <option value="Ne vidange / Ne charge pas">Ne vidange / Ne charge pas</option>
+    <option value="Pas de puissance / Coupures">Pas de puissance / Coupures</option>
+    <option value="Erreur code ou voyant">Erreur code ou voyant</option>
   </select>
-
-  <textarea id="desc" placeholder="Décris le problème..."></textarea>
-
-  <button onclick="runDiag()">Analyser</button>
-
+  
+  <textarea id="desc" placeholder="Décris le problème en détail (ex: ne démarre pas + bruit bizarre + erreur E08 + fuite d'eau...)"></textarea>
+  <button onclick="runDiag()">🚀 Analyser (IA intelligente)</button>
   <div id="result"></div>
 </section>
 <!-- ================= NEW AEM-STYLE SECTION (fo9 el footer) ================= -->
