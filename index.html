@@ -242,6 +242,30 @@
 
   </div>
 </section>
+ <!-- ================= diagnostic ================= -->
+    <section class="diagnostic">
+  <h2>Diagnostic rapide</h2>
+
+  <select id="device">
+    <option value="">Choisir appareil</option>
+    <option>TV</option>
+    <option>Radio</option>
+    <option>Carte électronique</option>
+  </select>
+
+  <select id="problem">
+    <option value="">Choisir problème</option>
+    <option>Ne s’allume pas</option>
+    <option>Pas de son</option>
+    <option>Image noire</option>
+  </select>
+
+  <textarea id="desc" placeholder="Décris le problème..."></textarea>
+
+  <button onclick="runDiag()">Analyser</button>
+
+  <div id="result"></div>
+</section>
 <!-- ================= NEW AEM-STYLE SECTION (fo9 el footer) ================= -->
 <section class="aem-footer-section">
   <div class="aem-footer-container">
