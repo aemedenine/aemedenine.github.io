@@ -1772,8 +1772,8 @@ body {
 /* نحطوها فوق الكولونات مباشرة */
 .footer-photo-wrapper {
   position: absolute;
-  left: 10px;
-  top: 100px; /* 🔥 هذا تتحكم فيه باش تجي فوق Notre mission */
+  left: 95px;
+  top: 90px; /* 🔥 هذا تتحكم فيه باش تجي فوق Notre mission */
   max-width: 60px;
   z-index: 5;
 }
