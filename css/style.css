@@ -1772,7 +1772,7 @@ body {
 /* نحطوها فوق الكولونات مباشرة */
 .footer-photo-wrapper {
   position: absolute;
-  left: 20px;
+  left: 40px;
   top: 120px; /* 🔥 هذا تتحكم فيه باش تجي فوق Notre mission */
   max-width: 60px;
   z-index: 5;
