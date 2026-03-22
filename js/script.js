@@ -363,9 +363,8 @@ visitsRef.on("value", snapshot => {
         el.textContent = count.toLocaleString('fr-TN');  // 1 234 بدل 1234
     }
 });
-// ================= VIDEOS AUTO SWITCH =================
+// ================= VIDEOS AUTO SWITCH (STABLE VERSION) =================
 
-// كل box فيه 2 فيديو
 const videosList = [
   ["videos/video1.mp4", "videos/video2.mp4"],
   ["videos/video3.mp4", "videos/video4.mp4"],
@@ -375,17 +374,47 @@ const videosList = [
 const players = document.querySelectorAll(".video-player");
 
 players.forEach((video, i) => {
+
+  // حماية لو ما فماش videos
+  if (!videosList[i]) return;
+
   let current = 0;
 
+  // إعدادات مهمة خاصة بالموبايل
+  video.muted = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  video.loop = false;
+  video.preload = "auto";
+
   function playVideo() {
+    if (!videosList[i][current]) return;
+
     video.src = videosList[i][current];
-    video.play();
+    video.load();
+
+    const playPromise = video.play();
+
+    // حل مشاكل autoplay (browser block)
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.log("Autoplay blocked");
+      });
+    }
   }
 
+  // كي يكمل الفيديو → التالي
   video.addEventListener("ended", () => {
     current = (current + 1) % videosList[i].length;
     playVideo();
   });
 
+  // لو صار error → يتعدى للتالي
+  video.addEventListener("error", () => {
+    current = (current + 1) % videosList[i].length;
+    playVideo();
+  });
+
+  // start أول مرة
   playVideo();
 });
