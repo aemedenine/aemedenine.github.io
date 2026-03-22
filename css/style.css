@@ -1773,7 +1773,7 @@ body {
 .footer-photo-wrapper {
   position: absolute;
   left: 10px;
-  top: 140px; /* 🔥 هذا تتحكم فيه باش تجي فوق Notre mission */
+  top: 100px; /* 🔥 هذا تتحكم فيه باش تجي فوق Notre mission */
   max-width: 60px;
   z-index: 5;
 }
