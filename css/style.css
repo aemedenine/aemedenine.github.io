@@ -1460,3 +1460,25 @@ overflow-x:hidden;
 body {
   overflow-x: hidden;
 }
+/* ================= diagnostic ================= */
+.diagnostic{
+  padding:80px 8%;
+  text-align:center;
+}
+
+.diagnostic select,
+.diagnostic textarea{
+  display:block;
+  margin:10px auto;
+  padding:10px;
+  width:250px;
+  border-radius:10px;
+}
+
+.diagnostic button{
+  padding:10px 20px;
+  background:#38bdf8;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
