@@ -460,3 +460,29 @@ sliders.forEach(box => {
     move(e.touches[0].clientX);
   });
 });
+
+// ================= diagnostic =================
+
+function runDiag(){
+  const device = document.getElementById("device").value;
+  const problem = document.getElementById("problem").value;
+  const result = document.getElementById("result");
+
+  if(!device || !problem){
+    result.innerHTML = "⚠️ Choisis les options";
+    return;
+  }
+
+  let response = "";
+
+  if(problem.includes("Ne s’allume pas")){
+    response = "🔧 Probable problème alimentation. Prix estimé: 30-80 DT";
+  } else if(problem.includes("Pas de son")){
+    response = "🔊 Problème audio ou IC. Prix estimé: 20-60 DT";
+  } else {
+    response = "🛠 Diagnostic nécessaire à l’atelier";
+  }
+
+  result.innerHTML = response + `<br><br>
+  <a href="https://wa.me/21698192103" target="_blank">📲 Envoyer WhatsApp</a>`;
+}
