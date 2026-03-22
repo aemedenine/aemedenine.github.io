@@ -1763,46 +1763,38 @@ body {
 }
 
 /* ================= FOTO PROPRIÉTAIRE FI FOOTER (petite, ronde, meziana) ================= */
+/* FOTO PROPRIÉTAIRE FI FOOTER - TAILLE KIMA FOTO E RAJEL */
 .footer-photo-wrapper {
   text-align: center;
-  margin: 15px auto 25px;   /* masafa sghira */
+  margin: 20px auto 30px;   /* masafa kif fi capture */
+  max-width: 140px;
 }
 
 .footer-owner-photo {
-  width: 100px;
-  height: 100px;
+  width: 110px;              /* taille kif foto e rajel ~110px */
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #38bdf8;
-  box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 20px rgba(56, 189, 248, 0.45),   /* glow cyan kif fi capture */
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.35s ease;
 }
 
 .footer-owner-photo:hover {
-  transform: scale(1.15);
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.6);
+  transform: scale(1.18);    /* zoom kif fi capture */
+  box-shadow: 
+    0 12px 30px rgba(56, 189, 248, 0.65),
+    inset 0 0 15px rgba(255, 255, 255, 0.15);
   border-color: #60a5fa;
 }
 
-/* CLASS SGHIRA BARCHA (80px) */
-.footer-owner-photo.small {
-  width: 80px;
-  height: 80px;
-  border-width: 2px;
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
-}
-
-.footer-owner-photo.small:hover {
-  transform: scale(1.2);
-  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.55);
-}
-
-/* Mobile - encore plus petite */
+/* Mobile - taille un peu plus petite kif fi capture */
 @media (max-width: 768px) {
-  .footer-owner-photo,
-  .footer-owner-photo.small {
-    width: 70px;
-    height: 70px;
+  .footer-owner-photo {
+    width: 95px;
+    height: 95px;
     border-width: 2px;
   }
 }
