@@ -363,3 +363,29 @@ visitsRef.on("value", snapshot => {
         el.textContent = count.toLocaleString('fr-TN');  // 1 234 بدل 1234
     }
 });
+// ================= VIDEOS AUTO SWITCH =================
+
+// كل box فيه 2 فيديو
+const videosList = [
+  ["videos/video1.mp4", "videos/video2.mp4"],
+  ["videos/video3.mp4", "videos/video4.mp4"],
+  ["videos/video5.mp4", "videos/video6.mp4"]
+];
+
+const players = document.querySelectorAll(".video-player");
+
+players.forEach((video, i) => {
+  let current = 0;
+
+  function playVideo() {
+    video.src = videosList[i][current];
+    video.play();
+  }
+
+  video.addEventListener("ended", () => {
+    current = (current + 1) % videosList[i].length;
+    playVideo();
+  });
+
+  playVideo();
+});
