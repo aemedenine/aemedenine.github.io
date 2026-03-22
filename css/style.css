@@ -1780,8 +1780,8 @@ body {
 
 /* الصورة */
 .footer-owner-photo {
-  width: 55px;
-  height: 55px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #38bdf8;
