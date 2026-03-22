@@ -1688,3 +1688,78 @@ body {
     padding: 18px;
   }
 }
+/* ================= CODES ERREURS SECTION - STYLE 2026 (même glassmorphic que diagnostic) ================= */
+.error-codes {
+  padding: 100px 8%;
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  border: 1px solid rgba(56,189,248,0.25);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(56,189,248,0.15) inset;
+  margin: 40px 5%;
+}
+
+.error-codes h2 {
+  font-size: 36px;
+  color: #38bdf8;
+  margin-bottom: 40px;
+}
+
+.error-codes select,
+.error-codes input {
+  display: block;
+  margin: 16px auto;
+  padding: 14px 18px;
+  width: 320px;
+  max-width: 90%;
+  border-radius: 16px;
+  border: 2px solid #38bdf8;
+  background: rgba(15,23,42,0.85);
+  color: white;
+  font-size: 16px;
+  backdrop-filter: blur(8px);
+}
+
+.error-codes input {
+  height: 52px;
+}
+
+.error-codes button {
+  padding: 16px 38px;
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8, #0ea5e9);
+  color: #000;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px rgba(14,165,233,0.6);
+}
+
+.error-codes button:hover {
+  transform: translateY(-6px) scale(1.06);
+}
+
+#errorResult {
+  margin-top: 30px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(30,41,59,0.7);
+  padding: 25px;
+  border-radius: 20px;
+  border-left: 6px solid #38bdf8;
+  text-align: left;
+  color: #e2e8f0;
+}
+
+#errorResult h3 { color: #38bdf8; margin-bottom: 15px; }
+#errorResult p { margin: 12px 0; }
+#errorResult .price { color: #fbbf24; font-weight: bold; }
+#errorResult a { 
+  display: inline-block; margin-top: 15px; 
+  padding: 12px 28px; background: #25d366; color: white; 
+  border-radius: 50px; text-decoration: none; font-weight: 600; 
+}
