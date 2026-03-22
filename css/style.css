@@ -1762,19 +1762,19 @@ body {
   border-radius: 50px; text-decoration: none; font-weight: 600; 
 }
 
-/* ================= FOTO PROPRIÉTAIRE FI FOOTER (LEFT + SMALL 2026) ================= */
+/* ================= FOTO PROPRIÉTAIRE FI FOOTER (LEFT + CLEAN FIX 2026) ================= */
 
-/* container لازم يكون relative */
+/* container */
 .aem-footer-container {
   position: relative;
+  padding-left: 90px; /* مهم باش نعملو espace للفوتو */
 }
 
 /* wrapper على اليسار */
 .footer-photo-wrapper {
   position: absolute;
   left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 30px; /* بدل 50% */
   max-width: 60px;
   z-index: 5;
 }
@@ -1792,7 +1792,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* hover effect */
+/* hover */
 .footer-owner-photo:hover {
   transform: scale(1.15);
   box-shadow: 
@@ -1801,17 +1801,20 @@ body {
   border-color: #60a5fa;
 }
 
-/* 📱 MOBILE FIX */
+/* 📱 MOBILE */
 @media (max-width: 768px) {
+  .aem-footer-container {
+    padding-left: 0;
+  }
+
   .footer-photo-wrapper {
     position: static;
-    transform: none;
     text-align: center;
     margin: 15px auto;
   }
 
   .footer-owner-photo {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
   }
 }
