@@ -1,21 +1,25 @@
 {
-  "name": "Atelier Electronique Médenine",
-  "short_name": "Atelier",
-  "start_url": "/index.html",
+  "name": "Atelier Électronique Médenine",
+  "short_name": "AÉM",
+  "description": "تصليح إلكترونيك وأجهزة منزلية في ميدينين - تشخيص ذكي وخدمات احترافية",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#070710",
   "theme_color": "#00f0ff",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
+  "lang": "fr",
   "icons": [
     {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
