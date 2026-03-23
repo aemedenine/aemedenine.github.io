@@ -100,6 +100,7 @@ function updateOnlineUsers(user) {
     name: user.displayName || "Anonyme",
     lastActive: firebase.database.ServerValue.TIMESTAMP
   });
+  // ← هذي الحل النهائي لتفادي warning obsolete unload
   userOnlineRef.onDisconnect().remove();
 }
 
