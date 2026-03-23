@@ -1,7 +1,7 @@
 {
   "name": "Atelier Électronique Médenine",
   "short_name": "AÉM",
-  "description": "تصليح إلكترونيك وأجهزة منزلية في ميدينين - تشخيص ذكي وخدمات احترافية",
+  "description": "تصليح أجهزة إلكترونية في مدنين - تشخيص ذكي وخدمات احترافية",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070710",
