@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atelier Électronique Médenine</title>
     <link rel="icon" href="images/favicon.webp">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- STYLE PRINCIPAL -->
+<link rel="preload" href="css/style.css" as="style" onload="this.rel='stylesheet'">
+
+<!-- FONT AWESOME -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
+
+<!-- fallback إذا JS معطل -->
+<noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</noscript>
     <meta name="google-site-verification" content="HGAr20olnaQ7iv02dOQoPGTSVXfuLHq3uXd5Qd4M4aw" />
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00f0ff">
