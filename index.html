@@ -143,23 +143,29 @@
 <section class="error-codes">
   <h2>🔍 Codes Erreurs - Lave-linge & Climatiseur</h2>
   
-  <select id="appareil">
-    <option value="">Choisir l'appareil</option>
+  <!-- Appareil -->
+  <label for="appareil">Choisir l'appareil :</label>
+  <select id="appareil" name="appareil">
+    <option value="">-- Sélectionner --</option>
     <option value="Lave-linge">Lave-linge</option>
     <option value="Climatiseur">Climatiseur</option>
   </select>
   
-  <select id="marque">
-    <option value="">Choisir marque (après l'appareil)</option>
+  <!-- Marque -->
+  <label for="marque">Choisir la marque :</label>
+  <select id="marque" name="marque">
+    <option value="">-- Sélectionner --</option>
   </select>
   
-  <input type="text" id="codeErreur" placeholder="Tape le code erreur (ex: 5E, E1, CH04, F18...)">
-  <button onclick="decodeError()">🚀 Décoder le code</button>
+  <!-- Code erreur -->
+  <label for="codeErreur">Code erreur :</label>
+  <input type="text" id="codeErreur" name="codeErreur" placeholder="ex: 5E, E1, CH04, F18...">
+
+  <!-- Button -->
+  <button type="button" onclick="decodeError()">🚀 Décoder le code</button>
   
   <div id="errorResult"></div>
 </section>
-
-    
 <!-- ================= SERVICES ================= -->
 <section class="services">
     <h2>Nos Services</h2>
