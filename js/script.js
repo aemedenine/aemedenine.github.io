@@ -268,9 +268,9 @@ onlineRef.on("value", snap => {
 
 // ================= HERO 3 PHOTOS SLIDESHOW =================
 const heroPhotos = [
-  ["images/hero-left-1.png","images/hero-left-2.jpg","images/hero-left-3.jpg","images/hero-left-4.jpg","images/hero-left-5.jpg","images/hero-left-6.jpg"],
-  ["images/hero-right-1.png","images/hero-right-2.jpg","images/hero-right-3.jpg","images/hero-right-4.jpg","images/hero-right-5.jpg","images/hero-right-6.jpg"],
-  ["images/hero-left-11.jpg","images/hero-left-12.jpg","images/hero-left-13.jpg","images/hero-left-14.jpg","images/hero-left-15.jpg","images/hero-left-16.jpg"]
+  ["images/hero-left-1.webp","images/hero-left-2.webp","images/hero-left-3.webp","images/hero-left-4.webp","images/hero-left-5.webp","images/hero-left-6.webp"],
+  ["images/hero-right-1.webp","images/hero-right-2.webp","images/hero-right-3.webp","images/hero-right-4.webp","images/hero-right-5.webp","images/hero-right-6.webp"],
+  ["images/hero-left-11.webp","images/hero-left-12.webp","images/hero-left-13.webp","images/hero-left-14.webp","images/hero-left-15.webp","images/hero-left-16.webp"]
 ];
 
 const heroImgElements = [
