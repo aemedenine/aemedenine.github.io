@@ -658,4 +658,16 @@ if ('serviceWorker' in navigator) {
     .catch(err => console.log("SW error:", err));
 }
 
+// ================= Fade Out =================
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash-screen"); // لو عندك div مع id="splash-screen"
+  if (splash) {
+    splash.style.transition = "opacity 0.5s ease"; // مدة الاختفاء
+    splash.style.opacity = 0; // يبدأ fade out
+    setTimeout(() => {
+      splash.style.display = "none"; // بعد fade out، نخفي العنصر
+    }, 500); // نفس المدة اللي في transition
+  }
+});
+
 
