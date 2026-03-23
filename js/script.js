@@ -321,6 +321,7 @@ function updateLiveClock() {
 // تحديث كل ثانية + تشغيل فوري
 setInterval(updateLiveClock, 1000);
 updateLiveClock();   // أول مرة
+
 // ================= ANIMATIONS & SMOOTH SCROLL =================
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("show"); });
@@ -346,25 +347,22 @@ document.querySelectorAll("a[href^='#']").forEach(link=>{
     target?.scrollIntoView({ behavior:"smooth" });
   });
 });
-// ================= SIMPLE VISITS COUNTER (just icon + number) =================
-const visitsRef = db.ref("stats/totalVisits");
 
-// زيادة الزيارة مرة واحدة فقط لكل جلسة
+// ================= SIMPLE VISITS COUNTER =================
+const visitsRef = db.ref("stats/totalVisits");
 if (!sessionStorage.getItem("visitCounted")) {
     visitsRef.transaction(current => (current || 0) + 1);
     sessionStorage.setItem("visitCounted", "true");
 }
-
-// عرض الرقم في الوقت الفعلي
 visitsRef.on("value", snapshot => {
     const count = snapshot.val() || 0;
     const el = document.getElementById("total-visits");
     if (el) {
-        el.textContent = count.toLocaleString('fr-TN');  // 1 234 بدل 1234
+        el.textContent = count.toLocaleString('fr-TN');
     }
 });
-// ================= VIDEOS AUTO SWITCH (STABLE VERSION) =================
 
+// ================= VIDEOS AUTO SWITCH =================
 const videosList = [
   ["videos/video1.mp4", "videos/video2.mp4"],
   ["videos/video3.mp4", "videos/video4.mp4"],
@@ -375,12 +373,10 @@ const players = document.querySelectorAll(".video-player");
 
 players.forEach((video, i) => {
 
-  // حماية لو ما فماش videos
   if (!videosList[i]) return;
 
   let current = 0;
 
-  // إعدادات مهمة خاصة بالموبايل
   video.muted = true;
   video.playsInline = true;
   video.autoplay = true;
@@ -394,32 +390,25 @@ players.forEach((video, i) => {
     video.load();
 
     const playPromise = video.play();
-
-    // حل مشاكل autoplay (browser block)
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        console.log("Autoplay blocked");
-      });
+      playPromise.catch(() => { console.log("Autoplay blocked"); });
     }
   }
 
-  // كي يكمل الفيديو → التالي
   video.addEventListener("ended", () => {
     current = (current + 1) % videosList[i].length;
     playVideo();
   });
 
-  // لو صار error → يتعدى للتالي
   video.addEventListener("error", () => {
     current = (current + 1) % videosList[i].length;
     playVideo();
   });
 
-  // start أول مرة
   playVideo();
 });
-// ================= BEFORE AFTER PRO SLIDER =================
 
+// ================= BEFORE AFTER PRO SLIDER =================
 const sliders = document.querySelectorAll(".ba-pro-box");
 
 sliders.forEach(box => {
@@ -441,7 +430,6 @@ sliders.forEach(box => {
     slider.style.left = percent + "%";
   }
 
-  // mouse
   box.addEventListener("mousedown", () => isDown = true);
   window.addEventListener("mouseup", () => isDown = false);
 
@@ -450,9 +438,7 @@ sliders.forEach(box => {
     move(e.clientX);
   });
 
-  // touch (mobile 🔥)
   box.addEventListener("touchstart", () => isDown = true);
-
   window.addEventListener("touchend", () => isDown = false);
 
   window.addEventListener("touchmove", e => {
@@ -460,6 +446,7 @@ sliders.forEach(box => {
     move(e.touches[0].clientX);
   });
 });
+
 
 // ================= diagnostic =================
 
