@@ -97,18 +97,40 @@
 
     <!-- Les 3 photos qui changent automatiquement -->
     <div class="hero-photos-container">
-        <div class="hero-photo photo-left">
-            <img id="heroImg1" src="images/hero-left-1.webp" alt="Atelier photo 1">
-        </div>
-        
-        <div class="hero-photo photo-center">
-            <img id="heroImg2" src="images/hero-right-1.webp" alt="Atelier photo 2">
-        </div>
-        
-        <div class="hero-photo photo-right">
-            <img id="heroImg3" src="images/hero-left-11.webp" alt="Atelier photo 3">
-        </div>
-    </div>
+  <!-- Photo 1 (LCP) -->
+  <div class="hero-photo photo-left">
+    <img id="heroImg1" 
+         src="images/hero-left-1.webp" 
+         srcset="images/hero-left-1-400.webp 400w, images/hero-left-1-800.webp 800w"
+         sizes="(max-width: 768px) 260px, 210px"
+         width="400" height="400" 
+         loading="eager" 
+         fetchpriority="high"
+         alt="Atelier photo 1">
+  </div>
+
+  <!-- Photo 2 -->
+  <div class="hero-photo photo-center">
+    <img id="heroImg2" 
+         src="images/hero-right-1.webp" 
+         srcset="images/hero-right-1-400.webp 400w, images/hero-right-1-800.webp 800w"
+         sizes="(max-width: 768px) 280px, 240px"
+         width="400" height="400" 
+         loading="lazy" 
+         alt="Atelier photo 2">
+  </div>
+
+  <!-- Photo 3 -->
+  <div class="hero-photo photo-right">
+    <img id="heroImg3" 
+         src="images/hero-left-11.webp" 
+         srcset="images/hero-left-11-400.webp 400w, images/hero-left-11-800.webp 800w"
+         sizes="(max-width: 768px) 260px, 210px"
+         width="400" height="400" 
+         loading="lazy" 
+         alt="Atelier photo 3">
+  </div>
+</div>
 
     <p>Réparation électronique • Codes Radio • Solutions techniques</p>
    <div class="hero-buttons">
